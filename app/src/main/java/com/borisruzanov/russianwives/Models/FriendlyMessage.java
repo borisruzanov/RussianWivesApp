@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives;
+package com.borisruzanov.russianwives.Models;
 
 public class FriendlyMessage {
 

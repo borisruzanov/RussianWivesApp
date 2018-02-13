@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives;
+package com.borisruzanov.russianwives.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.borisruzanov.russianwives.Models.FriendlyMessage;
+import com.borisruzanov.russianwives.R;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
