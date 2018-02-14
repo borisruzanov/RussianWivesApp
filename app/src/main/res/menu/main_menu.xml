@@ -13,4 +13,8 @@
         android:id="@+id/menu_settings"
         android:title="Settings"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_main_all_users_btn"
+        android:title="All Users"
+        app:showAsAction="never"/>
 </menu>

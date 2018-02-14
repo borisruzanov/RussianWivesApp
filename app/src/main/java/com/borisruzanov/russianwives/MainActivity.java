@@ -156,6 +156,9 @@ public class MainActivity extends BaseActivity {
             case R.id.menu_settings:
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(settingsIntent);
+            case R.id.menu_main_all_users_btn:
+                Intent usersIntent = new Intent(MainActivity.this, UsersActivity.class);
+                startActivity(usersIntent);
             default:
                 return super.onOptionsItemSelected(item);
         }
