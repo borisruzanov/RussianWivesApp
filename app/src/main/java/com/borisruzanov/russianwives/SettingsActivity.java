@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,7 +30,14 @@ import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -53,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+        Log.v("---Inside Settings---", "<==============");
 
         mDisplayImage = (CircleImageView) findViewById(R.id.settings_profile_image);
         mName = (TextView) findViewById(R.id.settings_display_name);
@@ -73,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(current_uid);
 
         //Listening data from Firebase
-        mUserDatabase.addValueEventListener(new ValueEventListener() {
+        mUserDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -84,7 +93,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                 mName.setText(name);
                 mStatus.setText(status);
-                Picasso.with(SettingsActivity.this).load(image).into(mDisplayImage);
+
+                if (!image.equals("default")) {
+                    Picasso.with(SettingsActivity.this).load(image).placeholder(R.drawable.avatar).into(mDisplayImage);
+
+                }
             }
 
             @Override
@@ -106,7 +119,8 @@ public class SettingsActivity extends AppCompatActivity {
             Uri imageUri = data.getData();
             // start cropping activity for pre-acquired image saved on the device
             CropImage.activity(imageUri)
-                    .setAspectRatio(1,1)
+                    .setAspectRatio(1, 1)
+                    .setMinCropResultSize(500, 500)
                     .start(this);
             Log.v("====>", "URI = " + imageUri.toString());
         }
@@ -123,9 +137,32 @@ public class SettingsActivity extends AppCompatActivity {
                 mProgressDialog.show();
                 Uri resultUri = result.getUri();
 
+                File thumbFilepath = new File(resultUri.getPath());
+
                 String currentUserId = mCurrentUser.getUid();
+
+                //Compress the image
+
+                Bitmap thumbBitmap = null;
+                try {
+                    thumbBitmap = new Compressor(this)
+                            .setMaxHeight(200)
+                            .setMaxWidth(200)
+                            .setQuality(75)
+                            .compressToBitmap(thumbFilepath);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                final byte[] thumbByte = baos.toByteArray();
+
+
                 //Set path for image
-                StorageReference filePath = mImageStorage.child("profile_images").child(currentUserId + ".jpeg");
+                StorageReference filePath = mImageStorage.child("profile_images").child(currentUserId + ".jpg");
+                final StorageReference thumbFilePath = mImageStorage.child("profile_images").child("thumbs").child(currentUserId + ".jpg");
+
                 //TODO починить чтобы сохранялось не в разных папках и один файл обновлялся
                 //Put image in reference
                 filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -133,25 +170,39 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         //TODO обработать ошибку если загрузка файла займет много времени
                         //TODO почему то сохраняет в разные папки и не ставит фикс квадрат
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
 
                             //Getting URL from Image whoch was uploaded in storage
-                            String downloadedUrl = task.getResult().getDownloadUrl().toString();
-                            mUserDatabase.child("image").setValue(downloadedUrl).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            final String downloadedUrl = task.getResult().getDownloadUrl().toString();
+                            UploadTask uploadTask = thumbFilePath.putBytes(thumbByte);
+                            uploadTask.addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
+                                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> thumb_task) {
 
-                                        mProgressDialog.dismiss();
-                                    } else {
-                                        //TODO Handle error загрузка образа
+                                    String thumbDownloadUrl = thumb_task.getResult().getDownloadUrl().toString();
+                                    if (thumb_task.isSuccessful()){
+                                        Map updateHashMap = new HashMap();
+                                        updateHashMap.put("image", downloadedUrl);
+                                        updateHashMap.put("thumb_image", thumbDownloadUrl);
+
+                                        mUserDatabase.updateChildren(updateHashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+
+                                                    mProgressDialog.dismiss();
+                                                } else {
+                                                    //TODO Handle error загрузка образа
+                                                    mProgressDialog.dismiss();
+                                                    Log.v("====>", "Error in thumbnail");
+                                                }
+                                            }
+                                        });
                                     }
                                 }
                             });
-
-
-
-                        }else {
+                        } else {
+                            Log.v(" ====> ", "Error in uploading");
                             mProgressDialog.dismiss();
                         }
 
@@ -181,12 +232,13 @@ public class SettingsActivity extends AppCompatActivity {
                 mProgressDialog.setTitle("Saving changes.");
                 mProgressDialog.setMessage("Please wait while we are saving changes.");
                 mProgressDialog.show();
-                String newStatus = mNewStatus.getText().toString();
+                final String newStatus = mNewStatus.getText().toString();
                 mUserDatabase.child("status").setValue(newStatus).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             mProgressDialog.dismiss();
+                            mStatus.setText(newStatus);
                         } else {
                             Toast.makeText(getApplicationContext(), "There was a mistake while saving changes", Toast.LENGTH_LONG).show();
                         }

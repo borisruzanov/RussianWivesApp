@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.borisruzanov.russianwives.ProfileActivity">
+
+
+    <ImageView
+        android:id="@+id/profile_image_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@android:color/white"
+        android:src="@drawable/default_avatar" />
+
+<TextView
+    android:id="@+id/profile_tv_name"
+    android:layout_below="@+id/profile_image_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:text="Display Name"
+    android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/profile_tv_status"
+        android:layout_below="@+id/profile_tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="17dp"
+        android:gravity="center_horizontal"
+        android:text="Your status is here..."
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/profile_tv_total_friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/profile_tv_status"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="86dp"
+        android:gravity="center_horizontal"
+        android:text="Your status is here..."
+        android:textSize="12sp" />
+
+<Button
+    android:id="@+id/profile_btn_friend_request"
+    android:layout_below="@+id/profile_tv_total_friends"
+    style="@style/FirebaseUI.Button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="15dp"
+    android:text="Send Friend Request" />
+
+    <Button
+        android:id="@+id/profile_btn_decline_request"
+        android:layout_below="@+id/profile_btn_friend_request"
+        style="@style/FirebaseUI.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:text="Decline Request" />
+
+
+
+
+
+</RelativeLayout>

@@ -79,7 +79,8 @@ public class MainActivity extends BaseActivity {
                     mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.child("Status").getValue(String.class)!=null)
+
+                            if(dataSnapshot.child("status").getValue(String.class).equals("Your status is here..."))
                             {
                                 //the image is still the default one
                                 HashMap<String, String> userMap = new HashMap<>();
@@ -89,9 +90,12 @@ public class MainActivity extends BaseActivity {
                                 mDatabaseReference.setValue(userMap);
                                 userMap.put("status", "Your status is here...");
                                 mDatabaseReference.setValue(userMap);
-                            }else{
+                            }
+                            else{
                                 //the image is no longer the default
                             }
+
+
                         }
 
                         @Override
@@ -154,9 +158,12 @@ public class MainActivity extends BaseActivity {
                 startActivity(chatActivityIntent);
                 return true;
             case R.id.menu_settings:
+                Log.v("===>", "in menu settings button");
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(settingsIntent);
             case R.id.menu_main_all_users_btn:
+                Log.v("===>", "in menu all users button");
+
                 Intent usersIntent = new Intent(MainActivity.this, UsersActivity.class);
                 startActivity(usersIntent);
             default:

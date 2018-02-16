@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -71,7 +72,18 @@ public class UsersActivity extends AppCompatActivity {
                 Log.v("=====> ", " " + s);
                 holder.setName(model.getName());
                 holder.setStatus(model.getStatus());
-                holder.setImage(model.getImage());
+                holder.setImage(model.getThumb_image());
+
+                final String userIdInList = getRef(position).getKey();
+                //On Item of the list click listener
+                holder.view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent profileIntent = new Intent(UsersActivity.this, ProfileActivity.class);
+                        profileIntent.putExtra("user_id", userIdInList);
+                        startActivity(profileIntent);
+                    }
+                });
             }
 
             @Override
@@ -119,14 +131,14 @@ public class UsersActivity extends AppCompatActivity {
             txtstatus.setText(status);
         }
 
-        public void setImage(final String image) {
+        public void setImage(final String thumb_image) {
 
-            final CircleImageView img = (CircleImageView) view.findViewById(R.id.user_single_img);
+            final CircleImageView userImage = (CircleImageView) view.findViewById(R.id.user_single_img);
             ;
 
-            Picasso.with(UsersActivity.this).load(image).into(img);
+            Picasso.with(UsersActivity.this).load(thumb_image).placeholder(R.drawable.avatar).into(userImage);
 
-            Picasso.with(UsersActivity.this).load(image).networkPolicy(NetworkPolicy.OFFLINE).into(img, new Callback() {
+            Picasso.with(UsersActivity.this).load(thumb_image).networkPolicy(NetworkPolicy.OFFLINE).into(userImage, new Callback() {
                 @Override
                 public void onSuccess() {
                     // Offline Download
@@ -134,7 +146,7 @@ public class UsersActivity extends AppCompatActivity {
 
                 @Override
                 public void onError() {
-                    Picasso.with(c).load(image).into(img);
+                    Picasso.with(c).load(thumb_image).into(userImage);
                 }
             });
 
