@@ -35,6 +35,8 @@ public class UsersActivity extends AppCompatActivity {
     //Firebase
     private DatabaseReference mUsersDatabase;
     public FirebaseRecyclerAdapter firebaseRecyclerAdapter;
+    private DatabaseReference mUserRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +99,8 @@ public class UsersActivity extends AppCompatActivity {
         };
 
         mUserList.setAdapter(firebaseRecyclerAdapter);
+        mUserRef.child("online").setValue(true);
+
     }
 
     @Override
@@ -156,5 +160,12 @@ public class UsersActivity extends AppCompatActivity {
             return view;
 
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mUserRef.child("online").setValue(false);
+
     }
 }

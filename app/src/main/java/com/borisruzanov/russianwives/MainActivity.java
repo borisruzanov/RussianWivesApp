@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -43,11 +44,14 @@ public class MainActivity extends BaseActivity {
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthstateListener;
     private DatabaseReference mDatabaseReference;
+    private DatabaseReference mUserDatabase;
+    private DatabaseReference mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         //Toolbar
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -61,7 +65,9 @@ public class MainActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
 
 
+        //Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
         //TODO AuthstateListener - вынести отдельно
@@ -124,6 +130,14 @@ public class MainActivity extends BaseActivity {
 //                        }
 //                    });
 //                    onSignedInInitialized(user.getDisplayName());
+
+                    //Saving Token Id
+                    String deviceToken = FirebaseInstanceId.getInstance().getToken();
+                    Log.v("=====>>>", "UID" + uid + deviceToken);
+                    mUserDatabase.child(uid).child("device_token").setValue(deviceToken);
+
+                    //Changing online status of the user
+                    mUserRef.child("online").setValue(true);
                 } else {
                     startActivityForResult(
                             AuthUI.getInstance()
@@ -187,5 +201,9 @@ public class MainActivity extends BaseActivity {
         mFirebaseAuth.addAuthStateListener(mAuthstateListener);
     }
 
-
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mUserRef.child("online").setValue(false);
+    }
 }

@@ -10,6 +10,8 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         resConfigs "auto"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -31,6 +33,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
+    //General
+//    compile 'com.facebook.android:facebook-android-sdk:4.10.0'
+    compile 'com.android.support:multidex:1.0.0'
+
     //Firebase
     compile 'com.google.firebase:firebase-core:11.8.0'
     compile 'com.google.firebase:firebase-database:11.8.0'
@@ -48,6 +54,9 @@ dependencies {
     compile 'com.theartofdev.edmodo:android-image-cropper:2.6.+'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'id.zelory:compressor:2.1.0'
+
+    //Network
+    compile 'com.squareup.okhttp:okhttp:2.7.5'
 
 }
 
