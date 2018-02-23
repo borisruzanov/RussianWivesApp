@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives;
+package com.borisruzanov.russianwives.mvp.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.borisruzanov.russianwives.Adapters.SectionPagerAdapter;
+import com.borisruzanov.russianwives.Adapters.SectionsPagerAdapter;
 import com.borisruzanov.russianwives.Base.BaseActivity;
+import com.borisruzanov.russianwives.ChatUdacityActivity;
+import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.SettingsActivity;
+import com.borisruzanov.russianwives.UsersActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,6 +24,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 
@@ -36,7 +41,7 @@ public class MainActivity extends BaseActivity {
 
     //Tabs
     private ViewPager mViewPager;
-    private SectionPagerAdapter mSectionPagerAdapter;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
     private TabLayout mTabLayout;
 
 
@@ -46,6 +51,7 @@ public class MainActivity extends BaseActivity {
     private DatabaseReference mDatabaseReference;
     private DatabaseReference mUserDatabase;
     private DatabaseReference mUserRef;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +64,20 @@ public class MainActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         //Tabs
-        mViewPager = (ViewPager) findViewById(R.id.main_tab_pager);
-        mSectionPagerAdapter = new SectionPagerAdapter(getSupportFragmentManager());
-        mViewPager.setAdapter(mSectionPagerAdapter);
+        mViewPager = (ViewPager) findViewById(R.id.main_tabPager);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
         mTabLayout = (TabLayout) findViewById(R.id.main_tabs);
         mTabLayout.setupWithViewPager(mViewPager);
+        mAuth = FirebaseAuth.getInstance();
 
 
         //Firebase
         mFirebaseAuth = FirebaseAuth.getInstance();
         mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        if (mAuth.getCurrentUser() != null) {
+            mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+        }
 
 
         //TODO AuthstateListener - вынести отдельно
@@ -80,14 +90,12 @@ public class MainActivity extends BaseActivity {
                     Log.v(TAG, "user is not null");
                     //Create new user
                     String uid = user.getUid();
-                   final String userName = user.getDisplayName();
+                    final String userName = user.getDisplayName();
                     mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
                     mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            if(dataSnapshot.child("status").getValue(String.class).equals("Your status is here..."))
-                            {
                                 //the image is still the default one
                                 HashMap<String, String> userMap = new HashMap<>();
                                 userMap.put("name", userName);
@@ -96,10 +104,7 @@ public class MainActivity extends BaseActivity {
                                 mDatabaseReference.setValue(userMap);
                                 userMap.put("status", "Your status is here...");
                                 mDatabaseReference.setValue(userMap);
-                            }
-                            else{
-                                //the image is no longer the default
-                            }
+
 
 
                         }
@@ -110,34 +115,13 @@ public class MainActivity extends BaseActivity {
                         }
                     });
 
-
-//                    mDatabaseReference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(DataSnapshot dataSnapshot) {
-//                            String status = mDatabaseReference.child("Status").toString();
-//                            if (status == null) {
-//                                HashMap<String, String> userMap = new HashMap<>();
-//                                userMap.put("status", "Your status is here...");
-//                                mDatabaseReference.setValue(userMap);
-//                            }
-//
-//                        }
-//
-//
-//                        @Override
-//                        public void onCancelled(DatabaseError databaseError) {
-//
-//                        }
-//                    });
-//                    onSignedInInitialized(user.getDisplayName());
-
                     //Saving Token Id
                     String deviceToken = FirebaseInstanceId.getInstance().getToken();
                     Log.v("=====>>>", "UID" + uid + deviceToken);
                     mUserDatabase.child(uid).child("device_token").setValue(deviceToken);
 
                     //Changing online status of the user
-                    mUserRef.child("online").setValue(true);
+//                    mUserRef.child("online").setValue(true);
                 } else {
                     startActivityForResult(
                             AuthUI.getInstance()
@@ -151,6 +135,10 @@ public class MainActivity extends BaseActivity {
                 }
             }
         };
+
+
+
+
 
     }
 
@@ -168,7 +156,7 @@ public class MainActivity extends BaseActivity {
                 AuthUI.getInstance().signOut(this);
                 return true;
             case R.id.menu_chat:
-                Intent chatActivityIntent = new Intent(MainActivity.this, ChatActivity.class);
+                Intent chatActivityIntent = new Intent(MainActivity.this, ChatUdacityActivity.class);
                 startActivity(chatActivityIntent);
                 return true;
             case R.id.menu_settings:
@@ -204,6 +192,19 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        mUserRef.child("online").setValue(false);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            mUserRef.child("online").setValue(ServerValue.TIMESTAMP);
+
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            mUserRef.child("online").setValue("true");
+        }
     }
 }

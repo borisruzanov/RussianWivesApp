@@ -1,50 +1,120 @@
 package com.borisruzanov.russianwives.Adapters;
 
-import android.app.Activity;
-import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borisruzanov.russianwives.Models.FriendlyMessage;
+import com.borisruzanov.russianwives.Models.Messages;
 import com.borisruzanov.russianwives.R;
-import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
-    public MessageAdapter(Context context, int resource, List<FriendlyMessage> objects) {
-        super(context, resource, objects);
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
+
+
+    private List<Messages> mMessageList;
+    private DatabaseReference mUserDatabase;
+
+    public MessageAdapter(List<Messages> mMessageList) {
+
+        this.mMessageList = mMessageList;
+
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = ((Activity) getContext()).getLayoutInflater().inflate(R.layout.item_message, parent, false);
-        }
+    public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
-        TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
-        TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.message_single_layout ,parent, false);
 
-        FriendlyMessage message = getItem(position);
+        return new MessageViewHolder(v);
 
-        boolean isPhoto = message.getPhotoUrl() != null;
-        if (isPhoto) {
-            messageTextView.setVisibility(View.GONE);
-            photoImageView.setVisibility(View.VISIBLE);
-            Glide.with(photoImageView.getContext())
-                    .load(message.getPhotoUrl())
-                    .into(photoImageView);
-        } else {
-            messageTextView.setVisibility(View.VISIBLE);
-            photoImageView.setVisibility(View.GONE);
-            messageTextView.setText(message.getText());
-        }
-        authorTextView.setText(message.getName());
-
-        return convertView;
     }
+
+    public class MessageViewHolder extends RecyclerView.ViewHolder {
+
+        public TextView messageText;
+        public CircleImageView profileImage;
+        public TextView displayName;
+        public ImageView messageImage;
+
+        public MessageViewHolder(View view) {
+            super(view);
+
+            messageText = (TextView) view.findViewById(R.id.message_text_layout);
+            profileImage = (CircleImageView) view.findViewById(R.id.message_profile_layout);
+            displayName = (TextView) view.findViewById(R.id.name_text_layout);
+            messageImage = (ImageView) view.findViewById(R.id.message_image_layout);
+
+        }
+    }
+
+    @Override
+    public void onBindViewHolder(final MessageViewHolder viewHolder, int i) {
+
+        Messages c = mMessageList.get(i);
+
+        String from_user = c.getFrom();
+        String message_type = c.getType();
+
+
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(from_user);
+
+        mUserDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String name = dataSnapshot.child("name").getValue().toString();
+                String image = dataSnapshot.child("thumb_image").getValue().toString();
+
+                viewHolder.displayName.setText(name);
+
+                Picasso.with(viewHolder.profileImage.getContext()).load(image)
+                        .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        if(message_type.equals("text")) {
+
+            viewHolder.messageText.setText(c.getMessage());
+            viewHolder.messageImage.setVisibility(View.INVISIBLE);
+
+
+        } else {
+
+            viewHolder.messageText.setVisibility(View.INVISIBLE);
+            Picasso.with(viewHolder.profileImage.getContext()).load(c.getMessage())
+                    .placeholder(R.drawable.default_avatar).into(viewHolder.messageImage);
+
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mMessageList.size();
+    }
+
+
+
+
+
+
 }

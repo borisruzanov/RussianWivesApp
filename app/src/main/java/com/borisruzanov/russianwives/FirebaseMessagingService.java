@@ -16,7 +16,9 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         String notification_title = remoteMessage.getNotification().getTitle();
         String notification_message = remoteMessage.getNotification().getBody();
+
         String click_action = remoteMessage.getNotification().getClickAction();
+
         String from_user_id = remoteMessage.getData().get("from_user_id");
 
         NotificationCompat.Builder mBuilder =
@@ -24,6 +26,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle(notification_title)
                         .setContentText(notification_message);
+
 
         Intent resultIntent = new Intent(click_action);
         resultIntent.putExtra("user_id", from_user_id);
@@ -39,12 +42,16 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 
         mBuilder.setContentIntent(resultPendingIntent);
 
-        // Sets an ID for the notification / We make unique ID
+
+
+
         int mNotificationId = (int) System.currentTimeMillis();
-        // Gets an instance of the NotificationManager service
+
         NotificationManager mNotifyMgr =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        // Builds the notification and issues it.
+
         mNotifyMgr.notify(mNotificationId, mBuilder.build());
+
+
     }
 }

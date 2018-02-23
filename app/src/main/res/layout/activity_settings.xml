@@ -1,101 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="com.borisruzanov.russianwives.SettingsActivity"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    xmlns:android1="http://schemas.android.com/apk/res/android"
+    android1:layout_height="match_parent"
+    android1:layout_width="match_parent"
     android:background="@color/colorPrimaryDark"
-    tools:context="com.borisruzanov.russianwives.SettingsActivity">
+    tools:context="com.borisruzanov.russianwives.SettingsActivity"
+    tools:ignore="NamespaceTypo">
 
-    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/settings_profile_image"
-        android:layout_width="170dp"
-        android:layout_height="170dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/settings_image"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="45dp"
-        android:background="@android:color/white"
+        android:layout_marginTop="30dp"
         android:src="@drawable/default_avatar"
-        app:civ_border_color="#FF000000"
-        app:civ_border_width="2dp" />
+        android1:layout_height="170dp"
+        android1:layout_width="170dp" />
 
     <TextView
-        android:layout_below="@+id/settings_profile_image"
-        android:id="@+id/settings_display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android1:id="@+id/settings_name"
+        android:layout_below="@+id/settings_image"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="30dp"
         android:text="Display Name"
         android:textColor="@android:color/white"
-        android:textSize="30sp" />
+        android:textSize="24sp"
+        android1:layout_height="wrap_content"
+        android1:layout_width="wrap_content" />
 
-    <FrameLayout
-        android:layout_below="@+id/settings_display_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/settings_wrap_status"
-        android:layout_centerHorizontal="true"
-        >
-        <TextView
-            android:id="@+id/settings_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="17dp"
-            android:gravity="center_horizontal"
-            android:text="Your status is here..."
-            android:textColor="@android:color/white"
-            android:textSize="18sp" />
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-
-            <EditText
-                android:id="@+id/status_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="17dp"
-                android:ems="10"
-                android:hint="New status"
-                android:inputType="textPersonName"
-                android:visibility="gone"/>
-
-            <Button
-                android:id="@+id/settings_btn_status_save"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_toLeftOf = "@id/status_input"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="13dp"
-                android:gravity="center_horizontal"
-                android:text="Change Status"
-                android:textColor="@android:color/white" />
-        </LinearLayout>
-
-
-
-
-    </FrameLayout>
     <Button
-        android:layout_below="@+id/settings_wrap_status"
-        android:id="@+id/settings_btn_set_image"
-        style="@style/FirebaseUI.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorAccent"
+        android:id="@+id/settings_status_btn"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="71dp"
-        android:text="Change Image" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_width="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="CHANGE STATUS"
+        android:textColor="@android:color/white" />
 
+    <Button
+        android:backgroundTint="@android:color/white"
+        android:id="@+id/settings_image_btn"
+        android:layout_above="@+id/settings_status_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_width="wrap_content"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="CHANGE IMAGE"
+        android:textColor="@color/colorPrimary" />
 
-
-
-
-
+    <TextView
+        android:id="@+id/settings_status"
+        android:layout_below="@+id/settings_name"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:text="@string/default_status"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>
