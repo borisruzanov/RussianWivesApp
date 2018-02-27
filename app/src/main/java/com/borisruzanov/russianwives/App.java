@@ -12,55 +12,61 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
-public class App extends Application{
+    public class App extends Application{
 
-    private DatabaseReference mUserDatabase;
-    private FirebaseAuth mAuth;
+        private DatabaseReference mUserDatabase;
+        private FirebaseAuth mAuth;
+//
+//        public DatabaseReference usersCattegory;
+//        public FirebaseUser user;
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+        @Override
+        public void onCreate() {
+            super.onCreate();
+            mAuth = FirebaseAuth.getInstance();
 
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 
-        /* Picasso */
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+//            usersCattegory = FirebaseDatabase.getInstance().getReference().child("Users");
+//            user = mAuth.getCurrentUser();
 
-        Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
-        Picasso built = builder.build();
-        built.setIndicatorsEnabled(true);
-        built.setLoggingEnabled(true);
-        Picasso.setSingletonInstance(built);
+            /* Picasso */
 
-        mAuth = FirebaseAuth.getInstance();
+            Picasso.Builder builder = new Picasso.Builder(this);
+            builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
+            Picasso built = builder.build();
+            built.setIndicatorsEnabled(true);
+            built.setLoggingEnabled(true);
+            Picasso.setSingletonInstance(built);
 
-        if(mAuth.getCurrentUser() != null) {
 
-            mUserDatabase = FirebaseDatabase.getInstance()
-                    .getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+            if(mAuth.getCurrentUser() != null) {
 
-            mUserDatabase.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
+                mUserDatabase = FirebaseDatabase.getInstance()
+                        .getReference().child("Users").child(mAuth.getCurrentUser().getUid());
 
-                    if (dataSnapshot != null) {
+                mUserDatabase.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+                        if (dataSnapshot != null) {
+
+                            mUserDatabase.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP);
+
+                        }
 
                     }
 
-                }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
 
-                }
-            });
+            }
+
 
         }
 
 
     }
-
-
-}

@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borisruzanov.russianwives.Models.FriendlyMessage;
+import com.borisruzanov.russianwives.models.FriendlyMessage;
 import com.borisruzanov.russianwives.R;
 import com.bumptech.glide.Glide;
 

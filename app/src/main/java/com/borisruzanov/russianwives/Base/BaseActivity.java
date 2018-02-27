@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives.Base;
+package com.borisruzanov.russianwives.base;
 
 import android.support.v7.app.AppCompatActivity;
 

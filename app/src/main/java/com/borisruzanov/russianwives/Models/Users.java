@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives.Models;
+package com.borisruzanov.russianwives.models;
 
 public class Users {
 

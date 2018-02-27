@@ -20,7 +20,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.borisruzanov.russianwives.Adapters.MessageAdapter;
-import com.borisruzanov.russianwives.Models.Messages;
+import com.borisruzanov.russianwives.models.Messages;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

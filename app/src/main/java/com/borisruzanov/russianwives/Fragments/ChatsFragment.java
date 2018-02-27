@@ -1,9 +1,8 @@
-package com.borisruzanov.russianwives.Fragments;
+package com.borisruzanov.russianwives.fragments;
 
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.view.ViewGroup;
 import com.borisruzanov.russianwives.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class ChatsFragment extends Fragment {
 
@@ -41,23 +39,23 @@ public class ChatsFragment extends Fragment {
         mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
 
         mConvList = (RecyclerView) mMainView.findViewById(R.id.conv_list);
-        mAuth = FirebaseAuth.getInstance();
-
-        mCurrent_user_id = mAuth.getCurrentUser().getUid();
-
-        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
-
-        mConvDatabase.keepSynced(true);
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
-        mUsersDatabase.keepSynced(true);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setReverseLayout(true);
-        linearLayoutManager.setStackFromEnd(true);
-
-        mConvList.setHasFixedSize(true);
-        mConvList.setLayoutManager(linearLayoutManager);
+//        mAuth = FirebaseAuth.getInstance();
+//
+//        mCurrent_user_id = mAuth.getCurrentUser().getUid();
+//
+//        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
+//
+//        mConvDatabase.keepSynced(true);
+//        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+//        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
+//        mUsersDatabase.keepSynced(true);
+//
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+//        linearLayoutManager.setReverseLayout(true);
+//        linearLayoutManager.setStackFromEnd(true);
+//
+//        mConvList.setHasFixedSize(true);
+//        mConvList.setLayoutManager(linearLayoutManager);
 
 
         // Inflate the layout for this fragment

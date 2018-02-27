@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borisruzanov.russianwives.Models.Messages;
+import com.borisruzanov.russianwives.models.Messages;
 import com.borisruzanov.russianwives.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

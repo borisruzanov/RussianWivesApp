@@ -4,9 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.borisruzanov.russianwives.Fragments.ChatsFragment;
-import com.borisruzanov.russianwives.Fragments.FriendsFragment;
-import com.borisruzanov.russianwives.Fragments.RequestsFragment;
+import com.borisruzanov.russianwives.fragments.ChatsFragment;
+import com.borisruzanov.russianwives.fragments.FriendsFragment;
+import com.borisruzanov.russianwives.fragments.RequestsFragment;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter{
 

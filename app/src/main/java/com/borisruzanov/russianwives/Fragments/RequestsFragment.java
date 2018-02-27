@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives.Fragments;
+package com.borisruzanov.russianwives.fragments;
 
 
 import android.os.Bundle;
