@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ededed"
-    tools:context="com.borisruzanov.russianwives.ChatActivity">
+    tools:context="com.borisruzanov.russianwives.zHOLD.ChatActivity">
 
     <include
         android:id="@+id/chat_app_bar"

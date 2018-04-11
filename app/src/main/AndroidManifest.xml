@@ -6,29 +6,29 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".App"
+        android:name=".zHOLD.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_application_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_application_id" />
 
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
 
-        <service android:name=".FirebaseMessagingService">
+        <service android:name=".zHOLD.FirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-
-        <activity android:name=".mvp.view.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,12 +39,12 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".base.BaseActivity" />
-        <activity android:name=".ChatUdacityActivity" />
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".zTEST.ChatUdacityActivity" />
+        <activity android:name=".ui.SettingsActivity" />
         <activity
-            android:name=".UsersActivity"
-            android:parentActivityName=".mvp.view.MainActivity" />
-        <activity android:name=".ProfileActivity">
+            android:name=".zHOLD.AllUsersActivity"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity android:name=".zHOLD.ProfileActivity">
             <intent-filter>
                 <action android:name="com.borisruzanov.russianwives_TARGET_NOTIFICATION" />
 
@@ -52,9 +52,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChatActivity"
-            android:parentActivityName=".mvp.view.MainActivity"></activity>
-        <activity android:name=".StatusActivity"></activity>
+            android:name=".zHOLD.ChatActivity"
+            android:parentActivityName=".ui.MainActivity" />
+        <activity android:name=".zHOLD.StatusActivity" />
+        <activity
+            android:name=".zTEST.SettingsProfileBasics"
+            android:parentActivityName=".ui.SettingsActivity" />
+        <activity
+            android:name=".ui.MyProfile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".zTEST.UserInfoViewPager" />
+        <activity
+            android:name=".ui.slider.SliderActivity"
+            android:parentActivityName="com.borisruzanov.russianwives.ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.borisruzanov.russianwives.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -1,67 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="com.borisruzanov.russianwives.SettingsActivity"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android1="http://schemas.android.com/apk/res/android"
-    android1:layout_height="match_parent"
-    android1:layout_width="match_parent"
-    android:background="@color/colorPrimaryDark"
-    tools:context="com.borisruzanov.russianwives.SettingsActivity"
-    tools:ignore="NamespaceTypo">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.borisruzanov.russianwives.ui.SettingsActivity">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/settings_image"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/default_avatar"
-        android1:layout_height="170dp"
-        android1:layout_width="170dp" />
-
-    <TextView
-        android1:id="@+id/settings_name"
-        android:layout_below="@+id/settings_image"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Display Name"
-        android:textColor="@android:color/white"
-        android:textSize="24sp"
-        android1:layout_height="wrap_content"
-        android1:layout_width="wrap_content" />
-
-    <Button
-        android:backgroundTint="@color/colorAccent"
-        android:id="@+id/settings_status_btn"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
-        android:layout_width="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:text="CHANGE STATUS"
-        android:textColor="@android:color/white" />
+        android:background="@color/colorPrimary">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/settings_image"
+            android:layout_width="192dp"
+            android:layout_height="201dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/default_avatar"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="2dp"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/settings_tv_display_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/settings_tv_status"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_toEndOf="@+id/settings_image"
+            android:text="Display Name"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            app:layout_constraintStart_toEndOf="@+id/settings_image"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/settings_tv_status"
+            android:layout_width="147dp"
+            android:layout_height="23dp"
+            android:layout_alignBottom="@+id/settings_image"
+            android:layout_alignStart="@+id/settings_tv_display_name"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/default_status"
+            android:textColor="@android:color/white"
+            app:layout_constraintStart_toEndOf="@+id/settings_image"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv_display_name" />
+
+        <TextView
+            android:id="@+id/settings_tv_visitors_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/settings_tv_likes_count"
+            android:layout_alignBottom="@+id/settings_tv_likes_count"
+            android:layout_alignEnd="@+id/settings_image"
+            android:layout_marginEnd="8dp"
+            android:text="10 visitors"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/settings_tv_likes_count"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/settings_tv_likes_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/settings_tv_status"
+            android:layout_below="@+id/settings_image"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="15 likes"
+            android:textColor="@color/cardview_light_background"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toStartOf="@+id/settings_tv_visitors_count"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/settings_image"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv_status" />
+
+        <Button
+            android:id="@+id/settings_btn_get_more_likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/colorAccent"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="GET MORE LIKES"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/settings_image"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv_visitors_count" />
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <Button
-        android:backgroundTint="@android:color/white"
         android:id="@+id/settings_image_btn"
-        android:layout_above="@+id/settings_status_btn"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@android:color/white"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:text="CHANGE IMAGE"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        tools:layout_editor_absoluteX="231dp"
+        tools:layout_editor_absoluteY="203dp"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/settings_status"
-        android:layout_below="@+id/settings_name"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:id="@+id/settings_tv_about"
         android:layout_width="wrap_content"
-        android:text="@string/default_status"
-        android:textColor="@android:color/white" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/constraintLayout"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Info about you"
+        android:textColor="?android:attr/colorForeground"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
-</RelativeLayout>
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="254dp">
+
+        <TextView
+            android:id="@+id/settings_tv_about2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Basics"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="18dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="TODO"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/arrow_right" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="18dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="TODO"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3"
+            app:srcCompat="@drawable/arrow_right" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="18dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="TODO"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView2"
+            app:srcCompat="@drawable/arrow_right" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="18dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:contentDescription="TODO"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:srcCompat="@drawable/arrow_right" />
+
+        <TextView
+            android:id="@+id/settings_tv_about4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Background"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv_about3" />
+
+        <TextView
+            android:id="@+id/settings_tv_about3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Appearance"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv_about2" />
+
+        <TextView
+            android:id="@+id/settings_tv_about5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Life Style"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/settings_tv_about4" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/settings_tv_also_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/constraintLayout"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="You may also like"
+        android:textColor="?android:attr/colorForeground"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/settings_recycler_also_like"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settings_tv_also_like" />
+
+</android.support.constraint.ConstraintLayout>

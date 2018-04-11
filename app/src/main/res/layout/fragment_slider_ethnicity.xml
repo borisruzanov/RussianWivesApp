@@ -1,0 +1,117 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.borisruzanov.russianwives.ui.slider.SliderEthnicityFragment">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/fragment_slider_ethnicity_appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/fragment_slider_ethnicity_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <TextView
+        android:id="@+id/fragment_slider_ethnicity_tv_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_slider_ethnicity_appbar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginVertical="36dp"
+        android:text="@string/which_ethnicity_best_describe_you"
+        android:textColor="@color/darkGrey"
+        android:textSize="24sp" />
+
+    <RadioGroup
+        android:id="@+id/fragment_slider_ethnicity_radiogroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fragment_slider_ethnicity_tv_question"
+        android:layout_marginHorizontal="16dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/fragment_slider_ethnicity_radiobtn_asian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/asian"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/fragment_slider_ethnicity_radiobtn_black"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/black_african_descent"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/fragment_slider_ethnicity_radiobtn_indian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/east_indian"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/fragment_slider_ethnicity_radiobtn_latino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/latino_hispanic"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/fragment_slider_ethnicity_radiobtn_native"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/native_american"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/fragment_slider_ethnicity_radiobtn_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/white_caucasian"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/other"
+            android:textSize="20sp" />
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/fragment_slider_ethnicity_btn_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_slider_ethnicity_radiogroup"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/colorAccent"
+        android:text="@string/save"
+        android:textColor="@android:color/white" />
+
+
+
+
+</RelativeLayout>

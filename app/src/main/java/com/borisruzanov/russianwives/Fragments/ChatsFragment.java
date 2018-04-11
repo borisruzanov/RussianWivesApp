@@ -36,9 +36,9 @@ public class ChatsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mMainView = inflater.inflate(R.layout.fragment_chats, container, false);
+        mMainView = inflater.inflate(R.layout.fragment_main_tab_chats, container, false);
 
-        mConvList = (RecyclerView) mMainView.findViewById(R.id.conv_list);
+//        mConvList = (RecyclerView) mMainView.findViewById(R.id.conv_list);
 //        mAuth = FirebaseAuth.getInstance();
 //
 //        mCurrent_user_id = mAuth.getCurrentUser().getUid();

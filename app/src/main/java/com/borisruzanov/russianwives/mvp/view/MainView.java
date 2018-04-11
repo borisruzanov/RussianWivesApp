@@ -1,0 +1,8 @@
+package com.borisruzanov.russianwives.mvp.view;
+
+import com.arellomobile.mvp.MvpView;
+
+public interface MainView extends MvpView{
+    void callAuthWindow();
+    void checkingForUserInformation();
+}
