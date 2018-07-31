@@ -4,33 +4,32 @@
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/user_single_img"
+        android:id="@+id/user_img"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginBottom="15dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/default_avatar"
-        />
+        android:src="@drawable/default_avatar" />
 
     <TextView
-        android:id="@+id/user_single_name"
+        android:id="@+id/user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/user_single_img"
+        android:layout_alignTop="@+id/user_img"
         android:layout_marginStart="21dp"
-        android:layout_toEndOf="@+id/user_single_img"
+        android:layout_toEndOf="@+id/user_img"
         android:text="Name Lastname"
         android:textColor="@android:color/black"
         android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/user_single_status"
+        android:id="@+id/user_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/user_single_img"
-        android:layout_alignStart="@+id/user_single_name"
+        android:layout_alignBottom="@+id/user_img"
+        android:layout_alignStart="@+id/user_name"
         android:layout_marginBottom="11dp"
         android:text="User Default Status" />
 

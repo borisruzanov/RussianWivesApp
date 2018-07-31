@@ -20,24 +20,6 @@ public class MainPagerAdapter extends FragmentPagerAdapter{
 
     @Override
     public Fragment getItem(int position) {
-
-//        switch(position) {
-//            case 0:
-//                SearchFragment requestsFragment = new SearchFragment();
-//                return requestsFragment;
-//
-//            case 1:
-//                ChatsFragment chatsFragment = new ChatsFragment();
-//                return  chatsFragment;
-//
-//            case 2:
-//                FriendsFragment friendsFragment = new FriendsFragment();
-//                return friendsFragment;
-//
-//            default:
-//                return  null;
-//        }
-
         return fragmentList.get(position);
 
     }

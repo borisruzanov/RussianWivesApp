@@ -1,6 +1,11 @@
 package com.borisruzanov.russianwives.utils;
 
+import android.support.annotation.NonNull;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 public class FirebaseRequestManager {
 
@@ -24,6 +29,12 @@ public class FirebaseRequestManager {
         userMap.put("want_children_or_not", "default");
         userMap.put("hobby", "default");
         return userMap;
+    }
+
+    public static List<String> createFieldsList(){
+        return Arrays.asList(Consts.BODY_TYPE, Consts.DRINK_STATUS, Consts.ETHNICITY,Consts.GENDER,
+                Consts.HOBBY, Consts.FAITH, Consts.HOW_TALL, Consts.IMAGE, Consts.LANGUAGES, Consts.DRINK_STATUS,
+                Consts.SMOKING_STATUS, Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT, Consts.NUMBER_OF_KIDS);
     }
 
 }

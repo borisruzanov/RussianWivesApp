@@ -1,10 +1,11 @@
 package com.borisruzanov.russianwives.mvp.model.interactor;
 
 import com.borisruzanov.russianwives.mvp.model.repository.IFirebaseRepository;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainInteractor implements IMainInteractor{
 
-    IFirebaseRepository iFirebaseRepository;
+    private IFirebaseRepository iFirebaseRepository;
 
     public MainInteractor(IFirebaseRepository iFirebaseRepository) {
         this.iFirebaseRepository = iFirebaseRepository;

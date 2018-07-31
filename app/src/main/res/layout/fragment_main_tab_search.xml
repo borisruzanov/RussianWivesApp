@@ -1,15 +1,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.fragments.SearchFragment">
+    android:background="@android:color/white">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
-        android:id="@+id/fragment_search_tv_test"
-        android:layout_width="wrap_content"
+        android:id="@+id/search_empty_text"
+        android:visibility="gone"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FRAGMENT SEARCh TEST TEXT"
-        android:textSize="40sp"/>
-
+        android:text="@string/emptyText"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

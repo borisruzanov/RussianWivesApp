@@ -17,16 +17,24 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.MainPagerAdapter;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.fragments.ChatsFragment;
-import com.borisruzanov.russianwives.fragments.FriendsFragment;
-import com.borisruzanov.russianwives.fragments.SearchFragment;
+import com.borisruzanov.russianwives.ui.fragments.ChatsFragment;
+import com.borisruzanov.russianwives.ui.fragments.FriendsFragment;
+import com.borisruzanov.russianwives.ui.fragments.SearchFragment;
 import com.borisruzanov.russianwives.mvp.model.interactor.MainInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.MainPresenter;
 import com.borisruzanov.russianwives.mvp.view.MainView;
 import com.borisruzanov.russianwives.ui.slider.SliderActivity;
+import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.zTEST.UserInfoViewPager;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Arrays;
 
@@ -46,7 +54,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
     AlertDialog alertDialog;
     AlertDialog.Builder builder;
-//
+    //
 //    //Tabs
 //    private ViewPager mViewPager;
 //    private MainPagerAdapter mSectionsPagerAdapter;
@@ -77,7 +85,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
 
         mainPresenter.checkForUserExist();
-        mainPresenter.userNeedToAddInfo();
+        //mainPresenter.userNeedToAddInfo();
 
 //
         //iMainPresenter = new MainPresenter(new MainInteractor());
@@ -113,18 +121,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
                 return true;
-            case R.id.menu_user:
+//            case R.id.menu_user:
 //                Intent userActivityIntent = new Intent(MainActivity.this, AllUsersActivity.class);
 //                startActivity(userActivityIntent);
 //                return true;
             case R.id.menu_my_profile:
-                Log.v("===>", "in menu settings button");
+                Log.d("tag", "onOptionsItemSelected - menu_my_profile");
                 Intent settingsIntent = new Intent(MainActivity.this, MyProfile.class);
                 startActivity(settingsIntent);
-            case R.id.menu_main_all_users_btn:
-                Log.v("===>", "in menu all users button");
-                Intent userInfoViewPagerIntent = new Intent(MainActivity.this, UserInfoViewPager.class);
-                startActivity(userInfoViewPagerIntent);
+//            case R.id.menu_main_all_users_btn:
+//                Log.d("tag", "onOptionsItemSelected - menu_main_all_users_btn");
+//                Intent userInfoViewPagerIntent = new Intent(MainActivity.this, UserInfoViewPager.class);
+//                startActivity(userInfoViewPagerIntent);
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -142,6 +150,31 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                                 new AuthUI.IdpConfig.GoogleBuilder().build()))
                         .build(),
                 RC_SIGN_IN);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == RC_SIGN_IN){
+            //for checking errors
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+            if(resultCode == RESULT_OK){
+                //add user to the firestore
+                //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                 //if(user != null) {
+                   /* FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
+                            .set(FirebaseRequestManager.createNewUser(user.getDisplayName(),
+                                    FirebaseInstanceId.getInstance().getToken()));*/
+                   //new FirebaseRepository().saveUser();
+                    mainPresenter.saveUser();
+               // } else Log.d("Auth", "User id is still null");
+            }
+            else {
+                //Sign in failed
+                if(response == null){}
+                //something went wrong
+            }
+        }
     }
 
     @Override

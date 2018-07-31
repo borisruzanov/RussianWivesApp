@@ -2,7 +2,13 @@ package com.borisruzanov.russianwives.mvp.model.repository;
 
 import android.net.Uri;
 
+import com.borisruzanov.russianwives.utils.IsDataLoadingCallback;
+import com.borisruzanov.russianwives.utils.UsersListCallback;
+import com.google.firebase.auth.FirebaseUser;
+
 public interface IFirebaseRepository {
+    FirebaseUser getUser();
+
     boolean checkingForFirstNeededInformationOfUser();
 
     boolean checkForUserExist();
@@ -26,6 +32,12 @@ public interface IFirebaseRepository {
     void updateHaveKidsUserInfo(String info);
 
     void updateWantKidsUserInfo(String info);
+
+    void getUsers(String nodeId, UsersListCallback usersListCallback, IsDataLoadingCallback isDataLoadingCallback);
+
+    boolean isDataLoading();
+
+    void setDataLoading(boolean isDataLoading);
 
     void insertImageInStorage(Uri resultUri);
 }

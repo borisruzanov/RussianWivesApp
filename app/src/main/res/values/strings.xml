@@ -99,4 +99,7 @@
     <string name="not_sure">Not sure</string>
     <string name="probably_not">Probably not</string>
     <string name="no_but_its_ok_if_partner_has_kids">No, but its ok if partner has kids</string>
+    <string name="next_text">Next</string>
+    <string name="emptyText">Nothing to show</string>
+    <string name="basic_info">Basic info</string>
 </resources>

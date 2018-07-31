@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".zHOLD.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -40,7 +39,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".base.BaseActivity" />
         <activity android:name=".zTEST.ChatUdacityActivity" />
-        <activity android:name=".ui.SettingsActivity" />
+        <activity android:name=".ui.ProfileSettingsActivity" />
         <activity
             android:name=".zHOLD.AllUsersActivity"
             android:parentActivityName=".ui.MainActivity" />
@@ -57,18 +56,19 @@
         <activity android:name=".zHOLD.StatusActivity" />
         <activity
             android:name=".zTEST.SettingsProfileBasics"
-            android:parentActivityName=".ui.SettingsActivity" />
+            android:parentActivityName=".ui.ProfileSettingsActivity" />
         <activity
             android:name=".ui.MyProfile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".zTEST.UserInfoViewPager" />
         <activity
             android:name=".ui.slider.SliderActivity"
-            android:parentActivityName="com.borisruzanov.russianwives.ui.MainActivity">
+            android:parentActivityName=".ui.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.borisruzanov.russianwives.ui.MainActivity" />
         </activity>
+        <activity android:name=".ui.EditUserInfo"></activity>
     </application>
 
 </manifest>

@@ -46,7 +46,7 @@ public class AllUsersActivity extends AppCompatActivity {
 //    protected void onStart() {
 //        super.onStart();
 //
-//        FirebaseRecyclerAdapter<Users, UsersViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Users, UsersViewHolder>(
+//        FirebaseRecyclerAdapter<Users, UserViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Users, UserViewHolder>(
 //
 //                Users.class,
 //                R.layout.users_single_layout,
