@@ -17,44 +17,6 @@ public class SliderFragmentsPresenter extends MvpPresenter<MvpView> {
         this.sliderImageFragment = sliderImageFragment;
     }
 
-    public void updateBodyTypeUserInfo(String info) {
-        interactor.updateBodyTypeUserInfo(info);
-    }
 
-    public void updateEthnicityUserInfo(String info) {
-        interactor.updateEthnicityTypeUserInfo(info);
-    }
-
-    public void updateHobbyUserInfo(String info) {
-        interactor.updateHobbyUserInfo(info);
-    }
-
-    public void updateFaithUserInfo(String info) {
-        interactor.updateFaithUserInfo(info);
-    }
-
-    public void updateDrinkingUserInfo(String info) {
-        interactor.updateDrinkingUserInfo(info);
-    }
-
-    public void updateSmokingUserInfo(String info) {
-        interactor.updateSmokingUserInfo(info);
-    }
-
-    public void updateRelationshipUserInfo(String info) {
-        interactor.updateRelationshipUserInfo(info);
-    }
-
-    public void updateHaveKidsUserInfo(String info) {
-        interactor.updateHaveKidsUserInfo(info);
-    }
-
-    public void updateWantKidsUserInfo(String info) {
-        interactor.updateWantKidsUserInfo(info);
-    }
-
-    public void insertImageInStorage(Uri resultUri){
-        interactor.insertImageInStorage(resultUri);
-    }
 
 }

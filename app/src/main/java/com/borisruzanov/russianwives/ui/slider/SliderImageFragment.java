@@ -5,22 +5,33 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.mvp.model.interactor.SliderInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SliderFragmentsPresenter;
+import com.borisruzanov.russianwives.utils.Consts;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
 
 public class SliderImageFragment extends Fragment {
 
     Button btnChangeImage;
+    Button btnClose;
+    Button btnNext;
+
     SliderFragmentsPresenter sliderFragmentsPresenter;
     private static final  int GALLERY_PICK = 1;
     public SliderImageFragment() {
@@ -35,7 +46,15 @@ public class SliderImageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
         btnChangeImage = (Button) view.findViewById(R.id.fragment_slider_image_btn_save);
+        btnClose = (Button) view.findViewById(R.id.fragment_slider_image_btn_close);
+        btnNext = (Button) view.findViewById(R.id.fragment_slider_image_btn_next);
+        if (getActivity().getIntent().getExtras().getString("field_id").equals("image")){
+            btnClose.setVisibility(View.GONE);
+            btnNext.setVisibility(View.GONE);
+        }else {
+            Log.d("tag", "Inside ELSE " + getActivity().getIntent().getExtras().getString("field_id"));
 
+        }
         btnChangeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,24 +71,37 @@ public class SliderImageFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Uri imageUri = data.getData();
+
         if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
 
-            Uri imageUri = data.getData();
+
+            Log.d(Contract.TAG, "Image URI " + imageUri);
 
             CropImage.activity(imageUri)
                     .setAspectRatio(1, 1)
                     .setMinCropWindowSize(500, 500)
-                    .start(getActivity());
+                    .start(getContext(), this);
         }
 
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            Log.d(Contract.TAG,"requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
+                Log.d(Contract.TAG,"resultCode == RESULT_OK");
+
                 Uri resultUri = result.getUri();
-                sliderFragmentsPresenter.insertImageInStorage(resultUri);
+                Log.d(Contract.TAG,"resultUri is " + resultUri.toString());
+//                sliderFragmentsPresenter.insertImageInStorage(resultUri);
+
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                Log.d(Contract.TAG,"resultCode == CropImage.ERROR");
+
             }
+            Log.d(Contract.TAG,"requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in ELSE");
+
         }
     }
 }

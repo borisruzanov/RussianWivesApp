@@ -5,7 +5,7 @@ import android.util.Log;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.models.SearchModel;
-import com.borisruzanov.russianwives.models.Users;
+import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.view.SearchView;
 import com.borisruzanov.russianwives.utils.UsersListCallback;
@@ -33,10 +33,10 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
                 new SearchModel("hobby", "adventures"));
         searchInteractor.searchByListParams(searchModels, new UsersListCallback() {
             @Override
-            public void getUsers(List<Users> usersList) {
-                if(usersList.isEmpty()) Log.d("Search", "Search list is empty");
+            public void getUsers(List<User> userList) {
+                if(userList.isEmpty()) Log.d("Search", "Search list is empty");
 
-                for (Users model: usersList) {
+                for (User model: userList) {
                     Log.d("Search", model.getName());
                 }
             }
@@ -46,8 +46,8 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
     public void getUsers(){
         searchInteractor.getUsers(new UsersListCallback() {
             @Override
-            public void getUsers(List<Users> usersList) {
-                if(!usersList.isEmpty()) getViewState().showUsers(usersList);
+            public void getUsers(List<User> userList) {
+                if(!userList.isEmpty()) getViewState().showUsers(userList);
                 else getViewState().showEmpty(true);
             }
         });

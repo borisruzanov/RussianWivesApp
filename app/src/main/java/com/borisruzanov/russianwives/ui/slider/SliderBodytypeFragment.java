@@ -116,7 +116,7 @@ public class SliderBodytypeFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sliderFragmentsPresenter.updateBodyTypeUserInfo(result);
+                //sliderFragmentsPresenter.updateBodyTypeUserInfo(result);
             }
         });
 

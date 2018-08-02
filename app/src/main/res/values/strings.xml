@@ -102,4 +102,6 @@
     <string name="next_text">Next</string>
     <string name="emptyText">Nothing to show</string>
     <string name="basic_info">Basic info</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="your_name_is_here">Your name is here...</string>
 </resources>

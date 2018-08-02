@@ -42,7 +42,7 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
             @Override
             public void onClick(View view) {
                 result = answer.getText().toString();
-                sliderFragmentsPresenter.updateHobbyUserInfo(result);
+                //sliderFragmentsPresenter.updateHobbyUserInfo(result);
             }
         });
 

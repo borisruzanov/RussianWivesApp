@@ -1,7 +1,7 @@
 package com.borisruzanov.russianwives.mvp.view;
 
 import com.arellomobile.mvp.MvpView;
-import com.borisruzanov.russianwives.models.Users;
+import com.borisruzanov.russianwives.models.User;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface SearchView extends MvpView {
 
     void showLoading(boolean isLoading);
     void showEmpty(boolean show);
-    void showUsers(List<Users> usersList);
+    void showUsers(List<User> userList);
     void showError();
     /*void showLoading();
     void stopLoading();*/

@@ -112,7 +112,7 @@ public class SliderEthnicityFragment extends Fragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sliderFragmentsPresenter.updateEthnicityUserInfo(result);
+                //sliderFragmentsPresenter.updateEthnicityUserInfo(result);
             }
         });
 

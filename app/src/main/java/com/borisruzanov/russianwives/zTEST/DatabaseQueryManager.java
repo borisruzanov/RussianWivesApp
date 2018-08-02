@@ -5,5 +5,5 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class DatabaseQueryManager  {
 
-    public static final DatabaseReference usersCattegory = FirebaseDatabase.getInstance().getReference().child("Users");
+    public static final DatabaseReference usersCattegory = FirebaseDatabase.getInstance().getReference().child("User");
 }

@@ -69,7 +69,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         String message_type = c.getType();
 
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(from_user);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(from_user);
 
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override

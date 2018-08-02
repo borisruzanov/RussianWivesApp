@@ -38,6 +38,9 @@ MERGED from [com.github.bumptech.glide:glide:4.6.1] C:\Users\Public\.gradle\cach
 MERGED from [de.hdodenhof:circleimageview:2.2.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\circleimageview-2.2.0.aar\25f1b9a2d877c2cbd390e0291172d9f0\AndroidManifest.xml:2:1-11:12
 MERGED from [id.zelory:compressor:2.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\compressor-2.1.0.aar\f3e69207c091e43d93aaaf707ebc40af\AndroidManifest.xml:2:1-12:12
 MERGED from [com.android.support:cardview-v7:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.0.aar\9719e91b42974e651f6f604b8decb0bc\AndroidManifest.xml:17:1-22:12
+MERGED from [com.github.FrangSierra:RxFirebase:1.5.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\RxFirebase-1.5.0.aar\69e2dc2bab4edcee0ca3ed7bb46bad77\AndroidManifest.xml:2:1-11:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.2.aar\3f36d4afd8c71f52ed2b4c82e54ad23c\AndroidManifest.xml:15:1-21:12
+MERGED from [com.jakewharton:butterknife:8.8.1] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\e4a6fae62d0f271736f9d53b28d614e8\AndroidManifest.xml:2:1-7:12
 MERGED from [com.android.support:recyclerview-v7:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.0.aar\30cc2422193f2c37dccc6883a9cdc427\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:transition:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\transition-27.1.0.aar\983b7181749c269e8c96a0c68483e3ce\AndroidManifest.xml:17:1-22:12
 MERGED from [com.android.support:support-media-compat:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\support-media-compat-27.1.0.aar\6fb40f37e7dfd76878dd4e35f70a6b70\AndroidManifest.xml:17:1-22:12
@@ -399,6 +402,12 @@ MERGED from [id.zelory:compressor:2.1.0] C:\Users\Public\.gradle\caches\transfor
 MERGED from [id.zelory:compressor:2.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\compressor-2.1.0.aar\f3e69207c091e43d93aaaf707ebc40af\AndroidManifest.xml:8:5-10:41
 MERGED from [com.android.support:cardview-v7:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.0.aar\9719e91b42974e651f6f604b8decb0bc\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:cardview-v7:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\cardview-v7-27.1.0.aar\9719e91b42974e651f6f604b8decb0bc\AndroidManifest.xml:20:5-44
+MERGED from [com.github.FrangSierra:RxFirebase:1.5.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\RxFirebase-1.5.0.aar\69e2dc2bab4edcee0ca3ed7bb46bad77\AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.FrangSierra:RxFirebase:1.5.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\RxFirebase-1.5.0.aar\69e2dc2bab4edcee0ca3ed7bb46bad77\AndroidManifest.xml:7:5-9:41
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.2.aar\3f36d4afd8c71f52ed2b4c82e54ad23c\AndroidManifest.xml:19:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.0.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\rxandroid-2.0.2.aar\3f36d4afd8c71f52ed2b4c82e54ad23c\AndroidManifest.xml:19:5-43
+MERGED from [com.jakewharton:butterknife:8.8.1] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\e4a6fae62d0f271736f9d53b28d614e8\AndroidManifest.xml:5:5-43
+MERGED from [com.jakewharton:butterknife:8.8.1] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\butterknife-8.8.1.aar\e4a6fae62d0f271736f9d53b28d614e8\AndroidManifest.xml:5:5-43
 MERGED from [com.android.support:recyclerview-v7:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.0.aar\30cc2422193f2c37dccc6883a9cdc427\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:recyclerview-v7:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\recyclerview-v7-27.1.0.aar\30cc2422193f2c37dccc6883a9cdc427\AndroidManifest.xml:20:5-44
 MERGED from [com.android.support:transition:27.1.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\transition-27.1.0.aar\983b7181749c269e8c96a0c68483e3ce\AndroidManifest.xml:20:5-44

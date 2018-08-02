@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.Users;
+import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.ui.global.ViewType;
 import com.borisruzanov.russianwives.ui.global.ViewTypeDelegateAdapter;
 
@@ -46,25 +46,25 @@ public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, this.items.get(position));
     }
 
-  /*  public void setData(List<Users> usersList) {
+  /*  public void setData(List<User> userList) {
         int initPosition = items.size() - 1;
         items.remove(initPosition);
         notifyItemRemoved(initPosition);
-        items.addAll(usersList);
+        items.addAll(userList);
         items.add(loadingItem);
         notifyItemRangeChanged(initPosition, items.size() + 1 *//* plus loading item *//*);
     }*/
 
-    public void clearAndAddNews(List<Users> usersList) {
+    public void clearAndAddNews(List<User> userList) {
         items.clear();
         notifyItemRangeRemoved(0, getLastPosition());
 
-        items.addAll(usersList);
+        items.addAll(userList);
         items.add(loadingItem);
         notifyItemRangeInserted(0, items.size());
     }
 
-    public void setData(List<Users> users){
+    public void setData(List<User> users){
         boolean progress = isProgress();
 
         items.clear();
@@ -85,7 +85,7 @@ public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private boolean isProgress(){
-        return !items.isEmpty() && !items.get(getLastPosition()).equals(Users.class);
+        return !items.isEmpty() && !items.get(getLastPosition()).equals(User.class);
     }
 
     private int getLastPosition(){ return items.size() -1; }
@@ -94,14 +94,14 @@ public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return getUsers().get(getUsers().size() - 1).getUid();
     }
 
-    public List<Users> getUsers() {
-        List<Users> usersList = new ArrayList<>();
+    public List<User> getUsers() {
+        List<User> userList = new ArrayList<>();
         for (ViewType viewType: items){
             if(viewType.getViewType() == Contract.USERS){
-                usersList.add((Users)viewType);
+                userList.add((User)viewType);
             }
         }
-        return usersList;
+        return userList;
     }
 
     @Override

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.Users;
+import com.borisruzanov.russianwives.models.User;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -22,11 +22,11 @@ import java.util.List;
 
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder>{
 
-    private List<Users> usersList = new ArrayList<>();
+    private List<User> userList = new ArrayList<>();
 
-    public void setData(List<Users> newUsers) {
-        int initialSize = usersList.size();
-        usersList.addAll(newUsers);
+    public void setData(List<User> newUsers) {
+        int initialSize = userList.size();
+        userList.addAll(newUsers);
         notifyItemRangeInserted(initialSize, newUsers.size());
     }
 
@@ -39,17 +39,17 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
 
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        Users user = usersList.get(position);
+        User user = userList.get(position);
         holder.bind(user);
     }
 
     @Override
     public int getItemCount() {
-        return usersList.size();
+        return userList.size();
     }
 
     public String getLastItemId(){
-        return usersList.get(usersList.size() - 1).getUid();
+        return userList.get(userList.size() - 1).getUid();
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
@@ -65,10 +65,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             status = itemView.findViewById(R.id.user_status);
         }
 
-        void bind(Users users){
-            Glide.with(context).load(users.getImage()).thumbnail(0.5f).into(imageView);
-            name.setText(users.getName());
-            status.setText(users.getStatus());
+        void bind(User user){
+            Glide.with(context).load(user.getImage()).thumbnail(0.5f).into(imageView);
+            name.setText(user.getName());
+            status.setText(user.getStatus());
         }
     }
 

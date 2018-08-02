@@ -1,28 +1,24 @@
 package com.borisruzanov.russianwives.mvp.model.interactor;
 
-import com.borisruzanov.russianwives.mvp.model.repository.IFirebaseRepository;
-import com.google.firebase.auth.FirebaseUser;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 
-public class MainInteractor implements IMainInteractor{
+public class MainInteractor {
 
-    private IFirebaseRepository iFirebaseRepository;
+    private FirebaseRepository firebaseRepository;
 
-    public MainInteractor(IFirebaseRepository iFirebaseRepository) {
-        this.iFirebaseRepository = iFirebaseRepository;
+    public MainInteractor(FirebaseRepository firebaseRepository) {
+        this.firebaseRepository = firebaseRepository;
     }
 
-    @Override
     public boolean checkForUserExist() {
-        return iFirebaseRepository.checkForUserExist();
+        return firebaseRepository.checkForUserExist();
     }
 
-    @Override
     public void saveUser() {
-        iFirebaseRepository.saveUser();
+        firebaseRepository.saveUser();
     }
 
-    @Override
     public boolean checkForUserInfo() {
-       return iFirebaseRepository.checkingForFirstNeededInformationOfUser();
+       return firebaseRepository.checkingForFirstNeededInformationOfUser();
     }
 }

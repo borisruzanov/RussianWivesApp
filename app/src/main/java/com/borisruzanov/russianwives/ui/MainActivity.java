@@ -162,7 +162,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 //add user to the firestore
                 //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                  //if(user != null) {
-                   /* FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
+                   /* FirebaseFirestore.getInstance().collection("User").document(user.getUid())
                             .set(FirebaseRequestManager.createNewUser(user.getDisplayName(),
                                     FirebaseInstanceId.getInstance().getToken()));*/
                    //new FirebaseRepository().saveUser();

@@ -44,8 +44,8 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 	}
 
 	@Override
-	public  void showUsers( java.util.List<com.borisruzanov.russianwives.models.Users> usersList) {
-		ShowUsersCommand showUsersCommand = new ShowUsersCommand(usersList);
+	public  void showUsers( java.util.List<com.borisruzanov.russianwives.models.User> userList) {
+		ShowUsersCommand showUsersCommand = new ShowUsersCommand(userList);
 		mViewCommands.beforeApply(showUsersCommand);
 
 		if (mViews == null || mViews.isEmpty()) {
@@ -53,7 +53,7 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		}
 
 		for(com.borisruzanov.russianwives.mvp.view.SearchView view : mViews) {
-			view.showUsers(usersList);
+			view.showUsers(userList);
 		}
 
 		mViewCommands.afterApply(showUsersCommand);
@@ -105,16 +105,16 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 	}
 
 	public class ShowUsersCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
-		public final java.util.List<com.borisruzanov.russianwives.models.Users> usersList;
+		public final java.util.List<com.borisruzanov.russianwives.models.User> userList;
 
-		ShowUsersCommand( java.util.List<com.borisruzanov.russianwives.models.Users> usersList) {
+		ShowUsersCommand( java.util.List<com.borisruzanov.russianwives.models.User> userList) {
 			super("showUsers", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
-			this.usersList = usersList;
+			this.userList = userList;
 		}
 
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
-			mvpView.showUsers(usersList);
+			mvpView.showUsers(userList);
 		}
 	}
 

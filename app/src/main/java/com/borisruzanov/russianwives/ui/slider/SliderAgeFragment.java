@@ -1,0 +1,56 @@
+package com.borisruzanov.russianwives.ui.slider;
+
+
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.borisruzanov.russianwives.R;
+
+
+public class SliderAgeFragment extends MvpAppCompatFragment {
+
+    //    SliderFragmentsPresenter sliderFragmentsPresenter;
+    EditText answer;
+    Button btnSave;
+//    String result;
+
+    public SliderAgeFragment() {
+        // Required empty public constructor
+    }
+
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_slider_age, container, false);
+//        sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
+
+
+        btnSave = (Button) view.findViewById(R.id.fragment_slider_age_btn_save);
+        answer = (EditText) view.findViewById(R.id.fragment_slider_age_et_answer);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
+}

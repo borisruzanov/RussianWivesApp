@@ -33,7 +33,7 @@ public class AuthStateListenerUtil {
             mUserDatabaseReference = FirebaseDatabase
                     .getInstance()
                     .getReference()
-                    .child("Users")
+                    .child("User")
                     .child(uid);
             mUserDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

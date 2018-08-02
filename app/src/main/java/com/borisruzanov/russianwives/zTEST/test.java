@@ -58,7 +58,7 @@ public class test extends AppCompatActivity{
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(user_id);
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");

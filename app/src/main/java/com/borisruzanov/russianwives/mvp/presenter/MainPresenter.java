@@ -4,33 +4,31 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.borisruzanov.russianwives.mvp.model.interactor.IMainInteractor;
+import com.borisruzanov.russianwives.mvp.model.interactor.MainInteractor;
 import com.borisruzanov.russianwives.mvp.view.MainView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
 
-    private IMainInteractor iMainInteractor;
+    private MainInteractor mainInteractor;
 
-    public MainPresenter(IMainInteractor iMainInteractor) {
-        this.iMainInteractor = iMainInteractor;
+    public MainPresenter(MainInteractor mainInteractor) {
+        this.mainInteractor = mainInteractor;
     }
 
     public void checkForUserExist() {
-        if(!iMainInteractor.checkForUserExist()){
+        if(!mainInteractor.checkForUserExist()){
             Log.d("Auth", "Call google auth ui");
             getViewState().callAuthWindow();
         }
     }
 
     public void saveUser(){
-        iMainInteractor.saveUser();
+        mainInteractor.saveUser();
     }
 
     public void userNeedToAddInfo(){
-        if (iMainInteractor.checkForUserInfo()){
+        if (mainInteractor.checkForUserInfo()){
             getViewState().checkingForUserInformation();
         }
     }

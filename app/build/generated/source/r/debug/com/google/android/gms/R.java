@@ -59,18 +59,18 @@ public final class R {
         public static final int center = 0x7f080035;
         public static final int dark = 0x7f080063;
         public static final int email = 0x7f08006f;
-        public static final int icon_only = 0x7f0800df;
-        public static final int light = 0x7f0800ea;
-        public static final int none = 0x7f08011b;
-        public static final int normal = 0x7f08011c;
-        public static final int progressBar = 0x7f080152;
-        public static final int radio = 0x7f080158;
-        public static final int standard = 0x7f08018d;
-        public static final int text = 0x7f080198;
-        public static final int text2 = 0x7f080199;
-        public static final int toolbar = 0x7f0801a5;
-        public static final int wide = 0x7f0801c5;
-        public static final int wrap_content = 0x7f0801c8;
+        public static final int icon_only = 0x7f0800e5;
+        public static final int light = 0x7f0800f4;
+        public static final int none = 0x7f080125;
+        public static final int normal = 0x7f080126;
+        public static final int progressBar = 0x7f080146;
+        public static final int radio = 0x7f08014c;
+        public static final int standard = 0x7f080182;
+        public static final int text = 0x7f08018d;
+        public static final int text2 = 0x7f08018e;
+        public static final int toolbar = 0x7f08019a;
+        public static final int wide = 0x7f0801ba;
+        public static final int wrap_content = 0x7f0801bd;
     }
     public static final class integer {
         public static final int google_play_services_version = 0x7f090008;
@@ -94,7 +94,7 @@ public final class R {
         public static final int common_open_on_phone = 0x7f0e0059;
         public static final int common_signin_button_text = 0x7f0e005a;
         public static final int common_signin_button_text_long = 0x7f0e005b;
-        public static final int fcm_fallback_notification_channel_label = 0x7f0e0076;
+        public static final int fcm_fallback_notification_channel_label = 0x7f0e0077;
     }
     public static final class styleable {
         public static final int[] LoadingImageView = { 0x7f030058, 0x7f0300f4, 0x7f0300f5 };

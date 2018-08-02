@@ -27,7 +27,7 @@ import com.squareup.picasso.Picasso;
 
 
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-//            usersCattegory = FirebaseDatabase.getInstance().getReference().child("Users");
+//            usersCattegory = FirebaseDatabase.getInstance().getReference().child("User");
 //            user = mAuth.getCurrentUser();
 
             /* Picasso */
@@ -43,7 +43,7 @@ import com.squareup.picasso.Picasso;
             if(mAuth.getCurrentUser() != null) {
 
                 mUserDatabase = FirebaseDatabase.getInstance()
-                        .getReference().child("Users").child(mAuth.getCurrentUser().getUid());
+                        .getReference().child("User").child(mAuth.getCurrentUser().getUid());
 
                 mUserDatabase.addValueEventListener(new ValueEventListener() {
                     @Override

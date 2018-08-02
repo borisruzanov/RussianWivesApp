@@ -16,7 +16,7 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.Users;
+import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
@@ -113,12 +113,12 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     }
 
     @Override
-    public void showUsers(final List<Users> usersList) {
+    public void showUsers(final List<User> userList) {
         Log.d("Pagination", "In showUsers()");
         recyclerView.post(new Runnable() {
             @Override
             public void run() {
-                adapter.setData(usersList);
+                adapter.setData(userList);
             }
         });
        // Log.d("Pagination", String.valueOf(recyclerView.getAdapter().getItemCount()));

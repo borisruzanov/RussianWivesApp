@@ -28,10 +28,10 @@ public class AllUsersActivity extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.users_appBar);
         setSupportActionBar(mToolbar);
 
-        getSupportActionBar().setTitle("All Users");
+        getSupportActionBar().setTitle("All User");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("User");
 
         mLayoutManager = new LinearLayoutManager(this);
 
@@ -46,16 +46,16 @@ public class AllUsersActivity extends AppCompatActivity {
 //    protected void onStart() {
 //        super.onStart();
 //
-//        FirebaseRecyclerAdapter<Users, UserViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Users, UserViewHolder>(
+//        FirebaseRecyclerAdapter<User, UserViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<User, UserViewHolder>(
 //
-//                Users.class,
+//                User.class,
 //                R.layout.users_single_layout,
 //                UsersViewHolder.class,
 //                mUsersDatabase
 //
 //        ) {
 //            @Override
-//            protected void populateViewHolder(UsersViewHolder usersViewHolder, Users users, int position) {
+//            protected void populateViewHolder(UsersViewHolder usersViewHolder, User users, int position) {
 //
 //                usersViewHolder.setDisplayName(users.getName());
 //                usersViewHolder.setUserStatus(users.getStatus());
