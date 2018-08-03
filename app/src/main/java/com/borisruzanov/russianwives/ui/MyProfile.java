@@ -120,6 +120,7 @@ public class MyProfile extends AppCompatActivity {
                     userDescriptionList.addAll(UserProfileItemsList.initData(user));
                     setList(userDescriptionList);
                 }).subscribe();
+        Log.d(Contract.TAG, "The list is empty");
 
     }
 

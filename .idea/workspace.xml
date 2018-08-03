@@ -83,8 +83,8 @@
       <file leaf-file-name="MyProfile.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/ui/MyProfile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="687">
-              <caret line="119" column="33" lean-forward="false" selection-start-line="119" selection-start-column="33" selection-end-line="119" selection-end-column="33" />
+            <state relative-caret-position="1023">
+              <caret line="126" column="28" lean-forward="true" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -2281,8 +2281,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/User.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/UserProfileItemsList.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/Adapters/UserDescriptionListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/ui/MyProfile.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/FirebaseRepository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/ui/MyProfile.java" />
       </list>
     </option>
   </component>
@@ -3063,8 +3063,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/ui/MyProfile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="687">
-          <caret line="119" column="33" lean-forward="false" selection-start-line="119" selection-start-column="33" selection-end-line="119" selection-end-column="33" />
+        <state relative-caret-position="1023">
+          <caret line="126" column="28" lean-forward="true" selection-start-line="126" selection-start-column="28" selection-end-line="126" selection-end-column="28" />
           <folding />
         </state>
       </provider>
