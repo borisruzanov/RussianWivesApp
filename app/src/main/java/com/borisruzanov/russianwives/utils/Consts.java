@@ -5,7 +5,7 @@ package com.borisruzanov.russianwives.utils;
  */
 
 public final class Consts {
-    public static final String COLLECTION_PATH = "User";
+    public static final String COLLECTION_PATH = "Users";
     public static final String NAME = "name";
     public static final String BODY_TYPE = "body_type";
     public static final String ETHNICITY = "ethnicity";

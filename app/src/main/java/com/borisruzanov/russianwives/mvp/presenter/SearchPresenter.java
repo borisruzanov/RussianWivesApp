@@ -29,28 +29,28 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
     @Override
     protected void onFirstViewAttach() {
         super.onFirstViewAttach();
-        List<SearchModel> searchModels = Arrays.asList(new SearchModel("name", "John"),
-                new SearchModel("hobby", "adventures"));
-        searchInteractor.searchByListParams(searchModels, new UsersListCallback() {
-            @Override
-            public void getUsers(List<User> userList) {
-                if(userList.isEmpty()) Log.d("Search", "Search list is empty");
-
-                for (User model: userList) {
-                    Log.d("Search", model.getName());
-                }
-            }
-        });
+//        List<SearchModel> searchModels = Arrays.asList(new SearchModel("name", "John"),
+//                new SearchModel("hobby", "adventures"));
+//        searchInteractor.searchByListParams(searchModels, new UsersListCallback() {
+//            @Override
+//            public void getUsers(List<User> userList) {
+//                if(userList.isEmpty()) Log.d("Search", "Search list is empty");
+//
+//                for (User model: userList) {
+//                    Log.d("Search", model.getName());
+//                }
+//            }
+//        });
     }
 
     public void getUsers(){
-        searchInteractor.getUsers(new UsersListCallback() {
-            @Override
-            public void getUsers(List<User> userList) {
-                if(!userList.isEmpty()) getViewState().showUsers(userList);
-                else getViewState().showEmpty(true);
-            }
-        });
+//        searchInteractor.getUsers(new UsersListCallback() {
+//            @Override
+//            public void getUsers(List<User> userList) {
+//                if(!userList.isEmpty()) getViewState().showUsers(userList);
+//                else getViewState().showEmpty(true);
+//            }
+//        });
     }
 
 }

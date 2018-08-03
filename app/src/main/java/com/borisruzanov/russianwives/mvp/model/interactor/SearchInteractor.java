@@ -21,12 +21,12 @@ public class SearchInteractor {
         this.firebaseRepository = firebaseRepository;
     }
 
-    public void searchByListParams(List<SearchModel> searchModels, UsersListCallback usersListCallback){
-        firebaseRepository.searchByListParams(searchModels, usersListCallback);
-    }
-
-    public void getUsers(UsersListCallback usersListCallback){
-        firebaseRepository.getUsersData(usersListCallback);
-    }
+//    public void searchByListParams(List<SearchModel> searchModels, UsersListCallback usersListCallback){
+//        firebaseRepository.searchByListParams(searchModels, usersListCallback);
+//    }
+//
+//    public void getUsers(UsersListCallback usersListCallback){
+//        firebaseRepository.getUsersData(usersListCallback);
+//    }
 
 }

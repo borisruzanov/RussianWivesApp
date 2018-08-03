@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,9 @@ import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.borisruzanov.russianwives.utils.UserCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +58,7 @@ public class MyProfile extends AppCompatActivity {
     TextView age;
     TextView country;
 //    TextView bodyType;
-
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +74,7 @@ public class MyProfile extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         userDescriptionListAdapter = new UserDescriptionListAdapter(setOnItemClickCallback());
         recyclerView.setAdapter(userDescriptionListAdapter);
+        imageView = (ImageView) findViewById(R.id.my_profile_image);
 
 
 
@@ -114,12 +118,53 @@ public class MyProfile extends AppCompatActivity {
         country = (TextView) findViewById(R.id.my_profile_tv_country);
 //        bodyType = (TextView) findViewById(R.id.my_profile_tv_your_body_type);
 
-        new FirebaseRepository().getCurrentUserData()
-                .doOnNext(user -> {
-                    Toast.makeText(getApplicationContext(), "Work, work. work!", Toast.LENGTH_SHORT).show();
+        new FirebaseRepository().getFieldFromCurrentUser("image", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if(!value.equals("default")){
+                    Glide
+                            .with(MyProfile.this)
+                            .load(value)
+                            .into(imageView);
+                }
+
+            }
+        });
+
+        new FirebaseRepository().getFieldFromCurrentUser("name", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                name.setText(value);
+            }
+        });
+
+        new FirebaseRepository().getFieldFromCurrentUser("country", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                country.setText(value);
+            }
+        });
+
+        new FirebaseRepository().getFieldFromCurrentUser("age", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                age.setText(value);
+            }
+        });
+
+
+        new FirebaseRepository().getAllInfoCurrentUser(new UserCallback() {
+            @Override
+            public void getUser(User user) {
+                Log.d(Contract.TAG, "It's working and username is " + user.getName());
+                Toast.makeText(getApplicationContext(), "Work, work. work!", Toast.LENGTH_SHORT).show();
                     userDescriptionList.addAll(UserProfileItemsList.initData(user));
                     setList(userDescriptionList);
-                }).subscribe();
+            }
+        });
+
+
+
         Log.d(Contract.TAG, "The list is empty");
 
     }

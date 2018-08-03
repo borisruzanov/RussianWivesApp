@@ -26,6 +26,8 @@ android {
 
 dependencies {
     implementation 'com.google.firebase:firebase-firestore:11.8.0'
+    implementation 'com.google.firebase:firebase-storage:11.8.0'
+    implementation 'com.google.firebase:firebase-auth:11.8.0'
     ext {
         firebase = '11.8.0'
         firebaseUI = '3.2.2'

@@ -12,6 +12,7 @@ import android.widget.EditText;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +46,12 @@ public class SliderNameFragment extends MvpAppCompatFragment {
                 if(!answer.getText().toString().trim().isEmpty()){
                     Map<String, Object> map = new HashMap<>();
                     map.put("name", answer.getText().toString());
+                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                        @Override
+                        public void onUpdate() {
 
-                    new FirebaseRepository().updateDataOfCurrentUser(map).subscribe();
+                        }
+                    });
                 }
                 // else
             }

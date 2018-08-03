@@ -12,7 +12,9 @@ public class FirebaseRequestManager {
     public static HashMap<String, String> createNewUser(String displayName, String deviceToken){
         HashMap<String, String> userMap = new HashMap<>();
         userMap.put("name", displayName);
-        userMap.put("status", "Default status");
+        userMap.put("age", "default");
+        userMap.put("country", "default");
+        userMap.put("status", "default");
         userMap.put("image", "default");
         userMap.put("thumb_image", "default");
         userMap.put("device_token", deviceToken);

@@ -13,6 +13,11 @@ import android.widget.EditText;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SliderAgeFragment extends MvpAppCompatFragment {
@@ -41,7 +46,16 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(!answer.getText().toString().trim().isEmpty()){
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("age", answer.getText().toString());
+                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                        @Override
+                        public void onUpdate() {
 
+                        }
+                    });
+                }
             }
         });
 
