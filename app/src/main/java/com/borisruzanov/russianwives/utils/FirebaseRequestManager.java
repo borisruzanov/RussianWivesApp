@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FirebaseRequestManager {
 
-    public static HashMap<String, String> createNewUser(String displayName, String deviceToken){
+    public static HashMap<String, String> createNewUser(String displayName, String deviceToken, String uid){
         HashMap<String, String> userMap = new HashMap<>();
         userMap.put("name", displayName);
         userMap.put("age", "default");
@@ -30,6 +30,7 @@ public class FirebaseRequestManager {
         userMap.put("number_of_kids", "default");
         userMap.put("want_children_or_not", "default");
         userMap.put("hobby", "default");
+        userMap.put("uid", uid);
         return userMap;
     }
 

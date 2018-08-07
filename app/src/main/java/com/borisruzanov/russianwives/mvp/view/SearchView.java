@@ -15,6 +15,7 @@ public interface SearchView extends MvpView {
     void showEmpty(boolean show);
     void showUsers(List<User> userList);
     void showError();
+    void openFriend(String uid);
     /*void showLoading();
     void stopLoading();*/
 }

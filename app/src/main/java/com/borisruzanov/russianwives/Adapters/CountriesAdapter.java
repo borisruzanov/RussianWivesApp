@@ -43,7 +43,7 @@ public class CountriesAdapter extends BaseAdapter {
 
         View view = convertView;
         if (view == null) {
-            view = layoutInflater.inflate(R.layout.country_item, viewGroup, false);
+            view = layoutInflater.inflate(R.layout.item_country, viewGroup, false);
         }
 
         Country country = getCountry(position);

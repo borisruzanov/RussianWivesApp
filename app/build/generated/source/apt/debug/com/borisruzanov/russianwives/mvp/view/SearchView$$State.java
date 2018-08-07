@@ -75,6 +75,22 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		mViewCommands.afterApply(showErrorCommand);
 	}
 
+	@Override
+	public  void openFriend( java.lang.String uid) {
+		OpenFriendCommand openFriendCommand = new OpenFriendCommand(uid);
+		mViewCommands.beforeApply(openFriendCommand);
+
+		if (mViews == null || mViews.isEmpty()) {
+			return;
+		}
+
+		for(com.borisruzanov.russianwives.mvp.view.SearchView view : mViews) {
+			view.openFriend(uid);
+		}
+
+		mViewCommands.afterApply(openFriendCommand);
+	}
+
 
 	public class ShowLoadingCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
 		public final boolean isLoading;
@@ -126,6 +142,20 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
 			mvpView.showError();
+		}
+	}
+
+	public class OpenFriendCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
+		public final java.lang.String uid;
+
+		OpenFriendCommand( java.lang.String uid) {
+			super("openFriend", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
+			this.uid = uid;
+		}
+
+		@Override
+		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
+			mvpView.openFriend(uid);
 		}
 	}
 }

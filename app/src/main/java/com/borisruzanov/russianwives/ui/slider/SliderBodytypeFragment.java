@@ -10,25 +10,21 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.interactor.SliderInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SliderFragmentsPresenter;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
 
-public class SliderBodytypeFragment extends Fragment {
+import java.util.HashMap;
+import java.util.Map;
 
-    SliderFragmentsPresenter sliderFragmentsPresenter;
+public class SliderBodytypeFragment extends MvpAppCompatFragment {
+
     Button btnSave;
-    Button btnClose;
-    Button btnNext;
     RadioGroup radioGroup;
-    RadioButton slender;
-    RadioButton aboutAverage;
-    RadioButton athletic;
-    RadioButton heavyset;
-    RadioButton fewExtra;
-    RadioButton stocky;
-    String result;
+    RadioButton radioButton;
 
 
     public SliderBodytypeFragment() {
@@ -41,85 +37,26 @@ public class SliderBodytypeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_bodytype, container, false);
-        sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
-
-
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_bodytype_btn_save);
-        btnClose = (Button) view.findViewById(R.id.fragment_slider_bodytype_btn_close);
-        btnNext = (Button) view.findViewById(R.id.fragment_slider_bodytype_btn_next);
-
-
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_bodytype_radiogroup);
-        slender = (RadioButton) view.findViewById(R.id.fragment_slider_bodytype_linear_slender);
-        aboutAverage = (RadioButton) view.findViewById(R.id.fragment_slider_bodytype_linear_average);
-        athletic = (RadioButton) view.findViewById(R.id.fragment_slider_bodytype_linear_athletic);
-        heavyset = (RadioButton) view.findViewById(R.id.fragment_slider_bodytype_linear_heavyset);
-        fewExtra = (RadioButton) view.findViewById(R.id.fragment_slider_bodytype_linear_fewextra);
-        stocky = (RadioButton) view.findViewById(R.id.fragment_slider_bodytype_linear_stocky);
-
-        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                switch (id) {
-                    case R.id.fragment_slider_bodytype_linear_slender:
-                        aboutAverage.setChecked(false);
-                        athletic.setChecked(false);
-                        heavyset.setChecked(false);
-                        fewExtra.setChecked(false);
-                        stocky.setChecked(false);
-                        result = (String) slender.getText();
-                        break;
-                    case R.id.fragment_slider_bodytype_linear_average:
-                        slender.setChecked(false);
-                        athletic.setChecked(false);
-                        heavyset.setChecked(false);
-                        fewExtra.setChecked(false);
-                        stocky.setChecked(false);
-                        result = (String) aboutAverage.getText();
-                        break;
-                    case R.id.fragment_slider_bodytype_linear_athletic:
-                        aboutAverage.setChecked(false);
-                        slender.setChecked(false);
-                        heavyset.setChecked(false);
-                        fewExtra.setChecked(false);
-                        stocky.setChecked(false);
-                        result = (String) athletic.getText();
-                        break;
-                    case R.id.fragment_slider_bodytype_linear_heavyset:
-                        aboutAverage.setChecked(false);
-                        athletic.setChecked(false);
-                        slender.setChecked(false);
-                        fewExtra.setChecked(false);
-                        stocky.setChecked(false);
-                        result = (String) heavyset.getText();
-                        break;
-                    case R.id.fragment_slider_bodytype_linear_fewextra:
-                        aboutAverage.setChecked(false);
-                        athletic.setChecked(false);
-                        heavyset.setChecked(false);
-                        slender.setChecked(false);
-                        stocky.setChecked(false);
-                        result = (String) fewExtra.getText();
-                        break;
-                    case R.id.fragment_slider_bodytype_linear_stocky:
-                        aboutAverage.setChecked(false);
-                        athletic.setChecked(false);
-                        heavyset.setChecked(false);
-                        fewExtra.setChecked(false);
-                        slender.setChecked(false);
-                        result = (String) stocky.getText();
-                        break;
-                }
-            }
-        });
+        btnSave = (Button) view.findViewById(R.id.fragment_slider_bodytype_btn_save);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //sliderFragmentsPresenter.updateBodyTypeUserInfo(result);
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) view.findViewById(selectedId);
+                if(radioButton.getText() != null){
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("body_type", radioButton.getText());
+                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                        @Override
+                        public void onUpdate() {
+
+                        }
+                    });
+                }
             }
         });
-
         return view;
     }
 

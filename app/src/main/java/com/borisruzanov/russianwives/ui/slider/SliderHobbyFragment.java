@@ -14,6 +14,10 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.interactor.SliderInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SliderFragmentsPresenter;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SliderHobbyFragment extends MvpAppCompatFragment{
 
@@ -42,6 +46,17 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
             @Override
             public void onClick(View view) {
                 result = answer.getText().toString();
+
+                if(!result.isEmpty()){
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("hobby", answer.getText().toString());
+                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                        @Override
+                        public void onUpdate() {
+
+                        }
+                    });
+                }
                 //sliderFragmentsPresenter.updateHobbyUserInfo(result);
             }
         });

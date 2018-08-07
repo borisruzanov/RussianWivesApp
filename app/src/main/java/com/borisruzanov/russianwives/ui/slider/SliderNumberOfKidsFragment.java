@@ -6,14 +6,24 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SliderNumberOfKidsFragment extends Fragment {
-
+    Button btnSave;
+    RadioGroup radioGroup;
+    RadioButton radioButton;
 
     public SliderNumberOfKidsFragment() {
         // Required empty public constructor
@@ -24,7 +34,27 @@ public class SliderNumberOfKidsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_slider_number_of_kids, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_slider_number_of_kids, container, false);
+        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_number_of_kids_radiogroup);
+        btnSave = (Button) view.findViewById(R.id.fragment_slider_numberofkids_btn_save);
+
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) view.findViewById(selectedId);
+                if(radioButton.getText() != null){
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("number_of_kids", radioButton.getText());
+                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                        @Override
+                        public void onUpdate() {
+
+                        }
+                    });
+                }
+            }
+        });
+        return view;    }
 
 }

@@ -44,7 +44,7 @@ public class SliderActivity extends MvpAppCompatActivity {
         }else if (getIntent().getExtras().getString("field_id").equals("Country")){
             fragmentList.add(new SliderCountriesFragment());
         }else if (getIntent().getExtras().getString("field_id").equals("Gender")){
-//            fragmentList.add(new SliderGenderFragment());
+            fragmentList.add(new SliderGenderFragment());
         }else if (getIntent().getExtras().getString("field_id").equals("Relationship Status")){
             fragmentList.add(new SliderRalationshipsStatusFragment());
         }else if (getIntent().getExtras().getString("field_id").equals("Body Type")){

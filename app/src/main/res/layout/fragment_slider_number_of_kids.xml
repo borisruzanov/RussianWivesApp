@@ -24,6 +24,14 @@
         android:layout_marginHorizontal="16dp"
         android:gravity="center"
         android:orientation="vertical">
+        <RadioGroup
+            android:id="@+id/fragment_slider_number_of_kids_radiogroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fragment_slider_bodytype_tv_question"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
         <RadioButton
             android:layout_width="match_parent"
@@ -52,11 +60,12 @@
             android:layout_marginTop="8dp"
             android:text="@string/yes_they_live_at_home"
             android:textSize="20sp" />
+        </RadioGroup>
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/fragment_slider_numberofkids_btn_edit"
+        android:id="@+id/fragment_slider_numberofkids_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_slider_numberofkids_linear_tvs"
@@ -71,7 +80,7 @@
         android:id="@+id/fragment_slider_numberofkids_linear_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_slider_numberofkids_btn_edit"
+        android:layout_below="@id/fragment_slider_numberofkids_btn_save"
         android:gravity="center"
         android:orientation="horizontal">
 

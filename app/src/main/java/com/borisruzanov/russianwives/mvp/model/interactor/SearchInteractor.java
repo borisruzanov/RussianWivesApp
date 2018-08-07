@@ -9,10 +9,6 @@ import com.google.firebase.firestore.Query;
 
 import java.util.List;
 
-/**
- * Created by Михаил on 05.05.2018.
- */
-
 public class SearchInteractor {
 
     private FirebaseRepository firebaseRepository;
@@ -25,8 +21,8 @@ public class SearchInteractor {
 //        firebaseRepository.searchByListParams(searchModels, usersListCallback);
 //    }
 //
-//    public void getUsers(UsersListCallback usersListCallback){
-//        firebaseRepository.getUsersData(usersListCallback);
-//    }
+    public void getUsers(UsersListCallback usersListCallback){
+        firebaseRepository.getUsersData(usersListCallback);
+    }
 
 }

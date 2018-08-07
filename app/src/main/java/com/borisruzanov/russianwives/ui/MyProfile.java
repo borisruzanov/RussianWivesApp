@@ -57,7 +57,6 @@ public class MyProfile extends AppCompatActivity {
     TextView name;
     TextView age;
     TextView country;
-//    TextView bodyType;
     ImageView imageView;
 
     @Override
@@ -170,22 +169,13 @@ public class MyProfile extends AppCompatActivity {
     }
 
     public void setList(List<UserDescriptionModel> userDescriptionList) {
-
-//        userDescriptionList = new ArrayList<>();
-
         if (userDescriptionList.isEmpty()) {
             Log.d(Contract.TAG, "The list is empty");
         }else {
             Log.d(Contract.TAG, "The list is NOT empty");
         }
-
-        //Add all data to created list
-//        userDescriptionList.addAll(userDescriptionList);
-
-
         //Setting data to the adapter
         userDescriptionListAdapter.setData(userDescriptionList);
-
     }
 
     @Override
@@ -203,33 +193,6 @@ public class MyProfile extends AppCompatActivity {
         OnItemClickListener.OnItemClickCallback onItemClickCallback = new OnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View view, int position) {
-//                Log.d(TAG_WORK_CHECKING, "In callback");
-//                RecipeModel itemClicked = listRecipes.get(position);
-//                Bundle bundle = new Bundle();
-//                bundle.putInt("position", position);
-//                bundle.putString("image", itemClicked.getImage());
-//                bundle.putString("name", itemClicked.getName());
-//                bundle.putParcelableArrayList("ingredients", new ArrayList<Parcelable>(itemClicked.getIngredients()));
-//                bundle.putParcelableArrayList("steps", new ArrayList<Parcelable>(itemClicked.getSteps()));
-//                bundle.putInt("swrvings", itemClicked.getServings());
-//
-//                if (getResources().getConfiguration().smallestScreenWidthDp >= 600) {
-//                    Log.d(TAG_WORK_CHECKING, "It is more than 600 dp");
-//                    Intent dataIntent = new Intent(getContext(), TabletActivity.class);
-//                    dataIntent.putExtras(bundle);
-//                    startActivity(dataIntent);
-//
-//                } else {
-//
-//                    DetailedFragment detailedFragment = new DetailedFragment();
-//                    detailedFragment.setArguments(bundle);
-//
-//                    FragmentManager manager = getActivity().getSupportFragmentManager();
-//                    FragmentTransaction transaction = manager.beginTransaction();
-//                    transaction.addToBackStack(null);
-//                    transaction.replace(R.id.main_frame_list, detailedFragment);
-//                    transaction.commit();
-//                }
             }
         };
         return onItemClickCallback;

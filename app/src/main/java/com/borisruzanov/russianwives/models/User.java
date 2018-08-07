@@ -5,6 +5,8 @@ import com.borisruzanov.russianwives.ui.global.ViewType;
 public class User implements ViewType {
 
     private String name;
+    private String age;
+    private String country;
     private String image;
     private String status;
     private String thumb_image;
@@ -20,6 +22,22 @@ public class User implements ViewType {
     private String hobby;
     private String drink_status;
 
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getDrink_status() {
         return drink_status;
     }
@@ -28,8 +46,10 @@ public class User implements ViewType {
         this.drink_status = drink_status;
     }
 
-    public User(String name, String drink_status, String image, String status, String thumb_image, String uid, String gender, String relationship_status, String body_type, String ethnicity, String faith, String smoking_status, String alcohol, String number_of_kids, String want_children_or_not, String hobby) {
+    public User(String name, String age, String country, String drink_status, String image, String status, String thumb_image, String uid, String gender, String relationship_status, String body_type, String ethnicity, String faith, String smoking_status, String alcohol, String number_of_kids, String want_children_or_not, String hobby) {
         this.name = name;
+        this.age = age;
+        this.country = country;
         this.drink_status = drink_status;
         this.image = image;
         this.status = status;

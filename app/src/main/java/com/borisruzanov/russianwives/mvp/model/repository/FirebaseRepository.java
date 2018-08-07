@@ -1,11 +1,7 @@
 package com.borisruzanov.russianwives.mvp.model.repository;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.SearchModel;
 import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
@@ -21,18 +17,11 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import durdinapps.rxfirebase2.RxFirestore;
-import io.reactivex.Completable;
-import io.reactivex.Observable;
 
 public class FirebaseRepository {
 
@@ -44,14 +33,14 @@ public class FirebaseRepository {
 
     // new db lib
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference reference = db.collection(Consts.COLLECTION_PATH);
+    private CollectionReference reference = db.collection(Consts.COLLECTION_USERS);
 
-    public void getFieldFromCurrentUser(String valueName, final ValueCallback callback){
-        getData(Consts.COLLECTION_PATH, getUid(), valueName, callback);
+    public void getFieldFromCurrentUser(String valueName, final ValueCallback callback) {
+        getData(Consts.COLLECTION_USERS, getUid(), valueName, callback);
     }
 
-    public void getAllInfoCurrentUser(final UserCallback callback){
-        getDocRef(Consts.COLLECTION_PATH, getUid()).get()
+    public void getAllInfoCurrentUser(final UserCallback callback) {
+        getDocRef(Consts.COLLECTION_USERS, getUid()).get()
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot.exists()) {
@@ -60,10 +49,82 @@ public class FirebaseRepository {
                 });
     }
 
-    public void updateFieldFromCurrentUser(Map<String, Object> map, UpdateCallback callback){
-        updateData(Consts.COLLECTION_PATH, getUid(), map, callback);
+    public void updateFieldFromCurrentUser(Map<String, Object> map, UpdateCallback callback) {
+        updateData(Consts.COLLECTION_USERS, getUid(), map, callback);
     }
 
+
+
+    /**
+     * //     * Get list of all users
+     * //     * @param usersListCallback
+     * //
+     */
+    public void getUsersData(final UsersListCallback usersListCallback) {
+        reference.get().addOnCompleteListener(task -> {
+            List<User> userList = new ArrayList<>();
+            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                userList.add(snapshot.toObject(User.class));
+            }
+            usersListCallback.getUsers(userList);
+        });
+    }
+
+    /**
+     * Get UID of Current user
+     *
+     * @return
+     */
+    public String getUid() {
+        return firebaseAuth.getCurrentUser().getUid();
+    }
+
+    /**
+     * Checking for user exist
+     *
+     * @return
+     */
+    public boolean checkForUserExist() {
+        return firebaseAuth.getCurrentUser() != null;
+    }
+//
+//    //TODO REFACTOR <-------------
+
+    /**
+     * Saving User to data base
+     */
+    public void saveUser() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        db.collection(Consts.COLLECTION_USERS).document(currentUser.getUid())
+                .set(FirebaseRequestManager.createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid()));
+    }
+
+    public void getDataFromNeededFriend(String userId, String valueName, final ValueCallback callback){
+        getData(Consts.COLLECTION_USERS, userId, valueName, callback);
+    }
+
+    public void getFriendsData(String collectionName, String docName, final UserCallback userCallback) {
+        getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            if (snapshot.exists()) {
+                userCallback.getUser(snapshot.toObject(User.class));
+            }
+
+        });
+    }
+
+    public void updateUserDataTierTwo(String collectionName, String docName, Map<String, Object> map, UpdateCallback callback) {
+        getDocRefTwo(collectionName, docName, getUid()).set(map)
+                .addOnCompleteListener(task -> callback.onUpdate());
+    }
+    //==========================================================================================
+    //==========================================================================================
+    //==========================================================================================
+    //=============================PRIVATE METHODS==============================================
+    //==========================================================================================
+    //==========================================================================================
+    //==========================================================================================
+    //==========================================================================================
     private void getData(String collectionName, String docName, final String valueName, final ValueCallback callback) {
         getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
@@ -74,27 +135,29 @@ public class FirebaseRepository {
         });
     }
 
-    private void updateData(String collectionName, String docName, Map<String, Object> map, UpdateCallback callback){
+    private void updateData(String collectionName, String docName, Map<String, Object> map, UpdateCallback callback) {
         getDocRef(collectionName, docName).update(map).addOnCompleteListener(task -> callback.onUpdate());
     }
 
+
+
     /**
      * Return document reference
+     *
      * @param collectionName
      * @param docName
      * @return
      */
-    private DocumentReference getDocRef(String collectionName, String docName){
+    private DocumentReference getDocRef(String collectionName, String docName) {
         return db.collection(collectionName).document(docName);
     }
 
-    /**
-     * Get UID of Current user
-     * @return
-     */
-    public String getUid() {
-        return firebaseAuth.getCurrentUser().getUid();
+    private DocumentReference getDocRefTwo(String collectionName, String docName, String collName,String doccName) {
+        return db.collection(collectionName).document(docName).collection(collName).document(doccName);
     }
+
+
+
 
 
     // ================================================================
@@ -106,7 +169,7 @@ public class FirebaseRepository {
 //     * @return
 //     */
 //    public Completable updateDataOfCurrentUser(final Map<String, Object> objectHashMap){
-//        return updateData(Consts.COLLECTION_PATH, getUid(), objectHashMap);
+//        return updateData(Consts.COLLECTION_USERS, getUid(), objectHashMap);
 //    }
 //
 //    /**
@@ -115,34 +178,19 @@ public class FirebaseRepository {
 //     * @return
 //     */
 //    public Observable<String> getDataFromUsers(final String valueName){
-//        return getData(Consts.COLLECTION_PATH, getUid(), valueName);
+//        return getData(Consts.COLLECTION_USERS, getUid(), valueName);
 //    }
 //
 //    public Observable<User> getCurrentUserData(){
-//        return RxFirestore.getDocument(getDocRef(Consts.COLLECTION_PATH, getUid()))
+//        return RxFirestore.getDocument(getDocRef(Consts.COLLECTION_USERS, getUid()))
 //                .filter(DocumentSnapshot::exists)
 //                .toObservable()
 //                .map(documentSnapshot -> documentSnapshot.toObject(User.class));
 //    }
 //
-    /**
-     * Checking for user exist
-     * @return
-     */
-    public boolean checkForUserExist() {
-        return firebaseAuth.getCurrentUser() != null;
-    }
-//
-//    //TODO REFACTOR <-------------
-    /**
-     * Saving User to data base
-     */
-    public void saveUser() {
-        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        db.collection(Consts.COLLECTION_PATH).document(currentUser.getUid())
-                .set(FirebaseRequestManager.createNewUser(currentUser.getDisplayName(), getDeviceToken()));
-    }
-//
+
+
+    //
 //    //TODO REFACTOR <-------------
 //    /**
 //     * Search mechanism
@@ -167,22 +215,7 @@ public class FirebaseRepository {
 //    }
 //
 //    //TODO REFACTOR <-------------
-//    /**
-//     * Get list of all users
-//     * @param usersListCallback
-//     */
-//    public void getUsersData(final UsersListCallback usersListCallback){
-//        reference.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                List<User> userList = new ArrayList<>();
-//                for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
-//                    userList.add(snapshot.toObject(User.class));
-//                }
-//                usersListCallback.getUsers(userList);
-//            }
-//        });
-//    }
+//
 //
 //    //TODO REFACTOR <-------------
     public boolean checkingForFirstNeededInformationOfUser() {
@@ -205,8 +238,10 @@ public class FirebaseRepository {
 
 //
 //
+
     /**
      * Get Device Token of Current user
+     *
      * @return
      */
     private String getDeviceToken() {

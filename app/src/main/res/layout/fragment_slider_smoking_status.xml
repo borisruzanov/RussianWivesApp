@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.borisruzanov.russianwives.ui.slider.SliderSmokingStatusFragment">
 
     <TextView
@@ -25,43 +25,54 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <RadioButton
+        <RadioGroup
+            android:id="@+id/fragment_slider_smokine_status_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/no_way"
-            android:textSize="20sp" />
+            android:layout_below="@id/fragment_slider_bodytype_tv_question"
+            android:layout_marginHorizontal="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/occasionally"
-            android:textSize="20sp" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/no_way"
+                android:textSize="20sp" />
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/daily"
-            android:textSize="20sp" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/occasionally"
+                android:textSize="20sp" />
 
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/cigar_aficionado"
-            android:textSize="20sp" />
-        <RadioButton
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/yes_but_trying_to_quit"
-            android:textSize="20sp" />
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/daily"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/cigar_aficionado"
+                android:textSize="20sp" />
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/yes_but_trying_to_quit"
+                android:textSize="20sp" />
+        </RadioGroup>
     </LinearLayout>
 
     <Button
-        android:id="@+id/fragment_slider_smokestatus_btn_edit"
+        android:id="@+id/fragment_slider_smokestatus_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_slider_smokestatus_linear_tvs"
@@ -76,7 +87,7 @@
         android:id="@+id/fragment_slider_smokestatus_linear_btns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_slider_smokestatus_btn_edit"
+        android:layout_below="@id/fragment_slider_smokestatus_btn_save"
         android:gravity="center"
         android:orientation="horizontal">
 

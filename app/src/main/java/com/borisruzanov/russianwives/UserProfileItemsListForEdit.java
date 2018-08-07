@@ -23,7 +23,7 @@ public class UserProfileItemsListForEdit {
                 new UserDescriptionModel("Faith", "Christian"),
                 new UserDescriptionModel("Smoke Status", "Never"),
                 new UserDescriptionModel("How Often Do You Drink Alcohol", "Never"),
-                new UserDescriptionModel("Number Of Kids You Have", "No"),
+                new UserDescriptionModel("Do You Have Kids", "No"),
                 new UserDescriptionModel("Do You Want Kids", "Yes"),
                 new UserDescriptionModel("Hobby", "Swimming")
         );

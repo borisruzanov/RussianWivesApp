@@ -480,6 +480,10 @@
         "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\chat_custom_bar.xml"
     },
     {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_friend.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\activity_friend.xml"
+    },
+    {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_edit_black_24dp.xml.flat",
         "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\drawable\\ic_edit_black_24dp.xml"
     },
@@ -594,10 +598,6 @@
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\anim_fui_slide_out_left.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-3.2.2.aar\\2acb426d5b70c0d97d5fd24240c6525c\\res\\anim\\fui_slide_out_left.xml"
-    },
-    {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_slider_ralationships_status.xml.flat",
-        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\fragment_slider_ralationships_status.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_switch_track.xml.flat",
@@ -832,12 +832,20 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.29.0.aar\\2cb4aa865d88cbb0b1782d9c05aeb61a\\res\\drawable-hdpi-v4\\com_facebook_tooltip_blue_background.9.png"
     },
     {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_slider_relationships_status.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\fragment_slider_relationships_status.xml"
+    },
+    {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_bar_up_container.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\layout\\abc_action_bar_up_container.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_messenger_button_send_round_shadow.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-messenger-4.29.0.aar\\dee6280f9617c82c58d0a6052387110f\\res\\drawable-xhdpi-v4\\messenger_button_send_round_shadow.png"
+    },
+    {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_favorite_black_24dp.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\drawable\\ic_favorite_black_24dp.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
@@ -1872,6 +1880,10 @@
         "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
     {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_fragment_slider_gender.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\fragment_slider_gender.xml"
+    },
+    {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-11.8.0.aar\\332379869502bdabf0517254818bf046\\res\\drawable-mdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
     },
@@ -2230,10 +2242,6 @@
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_popup_menu_header_item_layout.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\layout\\abc_popup_menu_header_item_layout.xml"
-    },
-    {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_country_item.xml.flat",
-        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\country_item.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_messenger_bubble_small_blue.png.flat",
@@ -2666,6 +2674,10 @@
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\c2321641dd6915382d9fd69cf0edeacf\\res\\layout-v21\\notification_action.xml"
+    },
+    {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_country.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\item_country.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_go_search_api_material.xml.flat",
