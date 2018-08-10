@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,24 +46,29 @@ import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
+    //MVP
+    //TODO Implement MVP
 
+    //UI
     RecyclerView recyclerView;
+    Toolbar toolbar;
 
+    //Utility
     List<UserDescriptionModel> userDescriptionEditList = new ArrayList<>();
     UserDescriptionEditListAdapter userDescriptionEditListAdapter;
 
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //UI
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.my_profile_edit_recycler);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         userDescriptionEditListAdapter = new UserDescriptionEditListAdapter(setOnItemClickCallback());
@@ -72,27 +79,16 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     }
 
     public void setEditList(List<UserDescriptionModel> userDescriptionList) {
-
-        if (userDescriptionList.isEmpty()) {
-            Log.d(Contract.TAG, "The list is empty");
-        }else {
-            Log.d(Contract.TAG, "The list is NOT empty");
-        }
-
         //Setting data to the adapter
         userDescriptionEditListAdapter.setData(userDescriptionList);
-
         //Refreshing UI of the recycler with new data
         userDescriptionEditListAdapter.notifyDataSetChanged();
-
     }
 
     private OnItemClickListener.OnItemClickCallback setOnItemClickCallback() {
         OnItemClickListener.OnItemClickCallback onItemClickCallback = new OnItemClickListener.OnItemClickCallback() {
             @Override
             public void onItemClicked(View view, int position) {
-                Log.d(Contract.TAG, "ProfileSettingsActivity - setOnItemClickCallback");
-
                 UserDescriptionModel itemClicked = userDescriptionEditList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("field_id", itemClicked.getTitle());
@@ -108,11 +104,9 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                Log.d("tag", "Back clicked");
                 onBackPressed();
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

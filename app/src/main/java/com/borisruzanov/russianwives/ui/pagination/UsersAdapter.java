@@ -18,12 +18,8 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Михаил on 06.05.2018.
- */
-
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHolder>{
-
+    //TODO REMOVE OR DELETE?
     private List<User> userList = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
 

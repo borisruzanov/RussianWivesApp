@@ -10,12 +10,8 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.ui.global.ViewType;
 import com.borisruzanov.russianwives.ui.global.ViewTypeDelegateAdapter;
 
-/**
- * Created by Михаил on 02.05.2018.
- */
-
 public class LoadingDelegateAdapter implements ViewTypeDelegateAdapter {
-
+    //TODO REMOVE OR DELETE?
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.loading_item, parent, false);

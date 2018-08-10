@@ -2,7 +2,7 @@ package com.borisruzanov.russianwives.mvp.model.repository;
 
 import android.net.Uri;
 
-import com.borisruzanov.russianwives.utils.IsDataLoadingCallback;
+import com.borisruzanov.russianwives.Refactor.garbage.IsDataLoadingCallback;
 import com.borisruzanov.russianwives.utils.UsersListCallback;
 import com.google.firebase.auth.FirebaseUser;
 

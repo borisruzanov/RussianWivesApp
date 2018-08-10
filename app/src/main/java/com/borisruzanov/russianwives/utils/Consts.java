@@ -1,8 +1,6 @@
 package com.borisruzanov.russianwives.utils;
 
-/**
- * Created by Михаил on 17.06.2018.
- */
+import android.util.Log;
 
 public final class Consts {
     public static final String COLLECTION_USERS = "Users";
@@ -22,5 +20,4 @@ public final class Consts {
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
 
     public static final String DEFAULT  = "default";
-
 }

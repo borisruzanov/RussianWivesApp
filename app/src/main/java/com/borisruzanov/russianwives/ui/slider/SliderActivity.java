@@ -11,12 +11,14 @@ import android.widget.Button;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.ui.slider.adapter.UserInfoPagerAdapter;
+import com.borisruzanov.russianwives.Adapters.UserInfoPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SliderActivity extends MvpAppCompatActivity {
+    //TODO Implement MVP
+    //TODO make final logic with appearing buttons
 
     ViewPager viewPager;
     UserInfoPagerAdapter adapter;

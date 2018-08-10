@@ -68,7 +68,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.borisruzanov.russianwives.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.EditUserInfo" />
         <activity android:name=".ui.FriendActivity"></activity>
     </application>
 

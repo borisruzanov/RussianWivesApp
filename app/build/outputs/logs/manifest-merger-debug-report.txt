@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
 MERGED from [com.google.firebase:firebase-firestore:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-firestore-11.8.0.aar\a48a971b2248b0c8942e4ba3b6ecbf62\AndroidManifest.xml:2:1-8:12
 MERGED from [com.google.firebase:firebase-storage:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-storage-11.8.0.aar\c1852be19f37083308b06c473b345538\AndroidManifest.xml:2:1-8:12
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:2:1-86:12
@@ -79,20 +79,20 @@ MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\Public\.g
 MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-11.8.0.aar\41067c9f380e1b19bedcd3fcddd40839\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\play-services-auth-api-phone-license-11.8.0.aar\8b04506ffcd4a6bb49f075a9abed6405\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.android.gms:play-services-auth-base-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-license-11.8.0.aar\4e629973acbc67282d6f2cdcba57eec2\AndroidManifest.xml:2:1-6:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
 	package
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:3:5-44
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-75:12
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-74:12
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:11-69
@@ -105,7 +105,7 @@ ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:6:5-81
 	android:name
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:6:22-78
 application
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:8:5-73:19
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:8:5-72:19
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:15:5-84:19
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:15:5-84:19
 MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-auth-11.8.0.aar\9b80789ed8d6ab2d0e3b8b1c00ad72eb\AndroidManifest.xml:22:5-30:19
@@ -326,14 +326,10 @@ ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:67:13-69:81
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:69:17-78
 	android:name
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:68:17-63
-activity#com.borisruzanov.russianwives.ui.EditUserInfo
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:71:9-53
-	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:71:19-50
 activity#com.borisruzanov.russianwives.ui.FriendActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:72:9-64
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:71:9-64
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:72:19-52
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:71:19-52
 uses-sdk
 INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml

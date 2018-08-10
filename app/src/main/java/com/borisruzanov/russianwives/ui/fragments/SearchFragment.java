@@ -33,10 +33,9 @@ import com.borisruzanov.russianwives.ui.pagination.UsersAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SearchFragment extends MvpAppCompatFragment implements com.borisruzanov.russianwives.mvp.view.SearchView {
+
+    //TODO Implement Chats fragment functionality
 
     @InjectPresenter
     SearchPresenter searchPresenter;
@@ -81,6 +80,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     }
 
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
+        Log.d(Contract.TAG, "In onCLICK");
         searchPresenter.openFriend(position);
        /* Intent friendActivityIntent = new Intent(getContext(), FriendActivity.class);
                 User itemClicked = userList.get(position);
@@ -145,8 +145,6 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     @Override
     public void openFriend(String uid) {
         Log.d(Contract.TAG, "-----> input UID " + uid);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("uid", uid);
         Intent dataIntent = new Intent(getContext(), FriendActivity.class);
         dataIntent.putExtra("uid", uid);
         startActivity(dataIntent);

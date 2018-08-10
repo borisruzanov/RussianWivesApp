@@ -2,16 +2,33 @@ package com.borisruzanov.russianwives.ui.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.borisruzanov.russianwives.Adapters.RequestsAdapter;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+
 public class FriendsFragment extends Fragment {
+
+    //TODO Refactor to Activities Fragment
+
+    RecyclerView recyclerRequests;
+    RequestsAdapter requestsAdapter;
+    List<User> requestsList = new ArrayList<>();
 
     private RecyclerView mFriendsList;
 
@@ -35,6 +52,33 @@ public class FriendsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
+
+        /**
+         * Requests List
+         */
+        recyclerRequests = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_requests) ;
+        recyclerRequests.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+//        ArrayList<User> listUsers = (ArrayList<User>) getArguments().getSerializable("ingredients");
+//        requestsList.addAll(listUsers);
+
+
+        new FirebaseRepository().getUserDataTierTwo("FriendsLogic", "hereUserUid",
+                "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, userList -> {
+                    for (String uid : stringList) Log.d(Contract.TAG, "Uid " + uid);
+                    for (User user : userList) {
+                        Log.d(Contract.TAG, "User name " + user.getName());
+                        List<User> listIngredients = userList;
+
+                        requestsList.addAll(listIngredients);
+                        requestsAdapter = new RequestsAdapter(requestsList);
+                        recyclerRequests.setAdapter(requestsAdapter);
+                    }
+                }));
+        for (User user : requestsList) {
+            Log.d(Contract.TAG, "requestsList User name " + user.getName());
+        }
+
 //
 //        mFriendsList = (RecyclerView) mMainView.findViewById(R.id.friends_list);
 //        mAuth = FirebaseAuth.getInstance();

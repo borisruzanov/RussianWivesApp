@@ -4,7 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
+import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
+import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.borisruzanov.russianwives.utils.UsersListCallback;
@@ -17,6 +18,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
@@ -113,13 +116,49 @@ public class FirebaseRepository {
         });
     }
 
-    public void updateUserDataTierTwo(String collectionName, String docName, Map<String, Object> map, UpdateCallback callback) {
-        getDocRefTwo(collectionName, docName, getUid()).set(map)
+    public void updateUserDataTierTwo(String firstCollection, String firstDocument,String secondCollection,
+                                      String secondDocument, Map<String, Object> map, UpdateCallback callback) {
+        getDocRefTwo(firstCollection, firstDocument,secondCollection, secondDocument).set(map)
                 .addOnCompleteListener(task -> callback.onUpdate());
     }
+
+
+    public void getUserDataTierTwo(String firstCollection, String firstDocument,String secondCollection,
+                                   StringsCallback stringsCallback){
+        db.collection(firstCollection).document(firstDocument).collection(secondCollection).get()
+                .addOnCompleteListener(task -> {
+                    List<String> stringList = new ArrayList<>();
+                    List<DocumentSnapshot> snapshotList = task.getResult().getDocuments();
+                    for(DocumentSnapshot snapshot: snapshotList){
+                        stringList.add(snapshot.getId());
+                    }
+                    stringsCallback.getStrings(stringList);
+                });
+    }
+
+    public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback){
+        Query query = db.collection(Consts.COLLECTION_USERS);
+        for (String uid: uidList) {
+            query.whereEqualTo("uid", uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    List<User> userList = new ArrayList<>();
+                    for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
+                        userList.add(snapshot.toObject(User.class));
+                    }
+                    usersListCallback.getUsers(userList);
+                }
+            });
+        }
+
+
+    }
+    //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
+//      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(User.class)));
+
     //==========================================================================================
     //==========================================================================================
-    //==========================================================================================
+    //======================================w====================================================
     //=============================PRIVATE METHODS==============================================
     //==========================================================================================
     //==========================================================================================
@@ -196,22 +235,22 @@ public class FirebaseRepository {
 //     * Search mechanism
 //     * @param searchModels
 //     * @param usersListCallback
-//     */
+////     */
 //    public void searchByListParams(final List<SearchModel> searchModels, final UsersListCallback usersListCallback){
-//        Query query = reference.orderBy(Consts.NAME);
-//        for (SearchModel model: searchModels) {
-//            query.whereEqualTo(model.getField(), model.getValue());
-//        }
-//        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                List<User> userList = new ArrayList<>();
-//                for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
-//                    userList.add(snapshot.toObject(User.class));
-//                }
-//                usersListCallback.getUsers(userList);
-//            }
-//        });
+////        Query query = reference.orderBy(Consts.NAME);
+////        for (SearchModel model: searchModels) {
+////            query.whereEqualTo(model.getField(), model.getValue());
+////        }
+////        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+////            @Override
+////            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+////                List<User> userList = new ArrayList<>();
+////                for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
+////                    userList.add(snapshot.toObject(User.class));
+////                }
+////                usersListCallback.getUsers(userList);
+////            }
+////        });
 //    }
 //
 //    //TODO REFACTOR <-------------

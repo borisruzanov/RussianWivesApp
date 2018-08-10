@@ -1,13 +1,7 @@
 package com.borisruzanov.russianwives.mvp.model.interactor;
 
-import com.borisruzanov.russianwives.models.SearchModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
-import com.borisruzanov.russianwives.utils.IsDataLoadingCallback;
-import com.borisruzanov.russianwives.utils.ListLoadingHelper;
 import com.borisruzanov.russianwives.utils.UsersListCallback;
-import com.google.firebase.firestore.Query;
-
-import java.util.List;
 
 public class SearchInteractor {
 

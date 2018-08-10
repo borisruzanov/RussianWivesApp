@@ -2,10 +2,6 @@ package com.borisruzanov.russianwives.utils;
 
 import android.content.SharedPreferences;
 
-/**
- * Created by Михаил on 06.05.2018.
- */
-
 public class Prefs {
 
     private SharedPreferences prefs;

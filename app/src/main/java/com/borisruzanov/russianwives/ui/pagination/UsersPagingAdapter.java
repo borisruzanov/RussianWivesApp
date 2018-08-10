@@ -14,12 +14,8 @@ import com.borisruzanov.russianwives.ui.global.ViewTypeDelegateAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Михаил on 02.05.2018.
- */
-
 public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-
+    //TODO REMOVE OR DELETE?
     private SparseArrayCompat<ViewTypeDelegateAdapter> delegateAdapters = new SparseArrayCompat<>();
     private List<ViewType> items = new ArrayList<>();
     private ViewType loadingItem = new ViewType() {

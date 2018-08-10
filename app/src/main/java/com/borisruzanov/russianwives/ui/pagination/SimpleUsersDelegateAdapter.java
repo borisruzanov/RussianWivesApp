@@ -14,12 +14,8 @@ import com.borisruzanov.russianwives.ui.global.ViewType;
 import com.borisruzanov.russianwives.ui.global.ViewTypeDelegateAdapter;
 import com.bumptech.glide.Glide;
 
-/**
- * Created by Михаил on 02.05.2018.
- */
-
 public class SimpleUsersDelegateAdapter implements ViewTypeDelegateAdapter {
-
+    //TODO REMOVE OR DELETE?
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item, parent, false);
