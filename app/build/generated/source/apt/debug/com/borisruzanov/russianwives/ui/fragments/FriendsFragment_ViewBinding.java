@@ -12,22 +12,22 @@ import java.lang.IllegalStateException;
 import java.lang.Override;
 
 public class FriendsFragment_ViewBinding implements Unbinder {
-  private FriendsFragment target;
+  private ChatsFragment target;
 
   @UiThread
-  public FriendsFragment_ViewBinding(FriendsFragment target, View source) {
+  public FriendsFragment_ViewBinding(ChatsFragment target, View source) {
     this.target = target;
 
-    target.recyclerRequests = Utils.findRequiredViewAsType(source, R.id.friends_fragment_recycler_requests, "field 'recyclerRequests'", RecyclerView.class);
+    target.mConvList = Utils.findRequiredViewAsType(source, R.id.friends_fragment_recycler_chats, "field 'mConvList'", RecyclerView.class);
   }
 
   @Override
   @CallSuper
   public void unbind() {
-    FriendsFragment target = this.target;
+    ChatsFragment target = this.target;
     if (target == null) throw new IllegalStateException("Bindings already cleared.");
     this.target = null;
 
-    target.recyclerRequests = null;
+    target.mConvList = null;
   }
 }

@@ -96,20 +96,20 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\drawable-mdpi-v4\\abc_ic_star_black_16dp.png"
     },
     {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_com_facebook_button_send_icon_white.png.flat",
-        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-share-4.29.0.aar\\ca0b886eed9768235f08fea72894bb71\\res\\drawable-hdpi-v4\\com_facebook_button_send_icon_white.png"
-    },
-    {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_users.xml.flat",
-        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\activity_users.xml"
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_clear_material.xml.flat",
+        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\drawable\\abc_ic_clear_material.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_fui_idp_button_background_phone.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-3.2.2.aar\\2acb426d5b70c0d97d5fd24240c6525c\\res\\drawable-v21\\fui_idp_button_background_phone.xml"
     },
     {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_clear_material.xml.flat",
-        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\drawable\\abc_ic_clear_material.xml"
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_users.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\activity_users.xml"
+    },
+    {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_com_facebook_button_send_icon_white.png.flat",
+        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-share-4.29.0.aar\\ca0b886eed9768235f08fea72894bb71\\res\\drawable-hdpi-v4\\com_facebook_button_send_icon_white.png"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_tooltip_enter.xml.flat",
@@ -2684,12 +2684,12 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-3.2.2.aar\\2acb426d5b70c0d97d5fd24240c6525c\\res\\layout-land\\fui_auth_method_picker_layout.xml"
     },
     {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
-        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\c2321641dd6915382d9fd69cf0edeacf\\res\\layout-v21\\notification_action.xml"
-    },
-    {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_country.xml.flat",
         "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\layout\\item_country.xml"
+    },
+    {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout-v21_notification_action.xml.flat",
+        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\c2321641dd6915382d9fd69cf0edeacf\\res\\layout-v21\\notification_action.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_go_search_api_material.xml.flat",

@@ -76,8 +76,8 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 	}
 
 	@Override
-	public  void openFriend( java.lang.String uid) {
-		OpenFriendCommand openFriendCommand = new OpenFriendCommand(uid);
+	public  void openFriend( java.lang.String uid,  java.lang.String name,  java.lang.String image) {
+		OpenFriendCommand openFriendCommand = new OpenFriendCommand(uid, name, image);
 		mViewCommands.beforeApply(openFriendCommand);
 
 		if (mViews == null || mViews.isEmpty()) {
@@ -85,7 +85,7 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		}
 
 		for(com.borisruzanov.russianwives.mvp.view.SearchView view : mViews) {
-			view.openFriend(uid);
+			view.openFriend(uid, name, image);
 		}
 
 		mViewCommands.afterApply(openFriendCommand);
@@ -147,15 +147,19 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 
 	public class OpenFriendCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
 		public final java.lang.String uid;
+		public final java.lang.String name;
+		public final java.lang.String image;
 
-		OpenFriendCommand( java.lang.String uid) {
+		OpenFriendCommand( java.lang.String uid,  java.lang.String name,  java.lang.String image) {
 			super("openFriend", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
 			this.uid = uid;
+			this.name = name;
+			this.image = image;
 		}
 
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
-			mvpView.openFriend(uid);
+			mvpView.openFriend(uid, name, image);
 		}
 	}
 }

@@ -57,8 +57,8 @@ public final class R {
         public static final int auto = 0x7f080026;
         public static final int button = 0x7f08002e;
         public static final int center = 0x7f080035;
-        public static final int dark = 0x7f080063;
-        public static final int email = 0x7f08006f;
+        public static final int dark = 0x7f080064;
+        public static final int email = 0x7f080070;
         public static final int icon_only = 0x7f080102;
         public static final int light = 0x7f08011a;
         public static final int none = 0x7f08014c;

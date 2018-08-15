@@ -3,11 +3,7 @@ package com.borisruzanov.russianwives.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -27,10 +22,9 @@ import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
-import com.borisruzanov.russianwives.ui.FriendActivity;
 import com.borisruzanov.russianwives.ui.pagination.UsersAdapter;
+import com.borisruzanov.russianwives.ui.ChatActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFragment extends MvpAppCompatFragment implements com.borisruzanov.russianwives.mvp.view.SearchView {
@@ -143,11 +137,17 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     }
 
     @Override
-    public void openFriend(String uid) {
-        Log.d(Contract.TAG, "-----> input UID " + uid);
-        Intent dataIntent = new Intent(getContext(), FriendActivity.class);
-        dataIntent.putExtra("uid", uid);
-        startActivity(dataIntent);
+    public void openFriend(String uid, String name, String image) {
+        Log.d(Contract.TAG, "-----> input UID " + uid + " " + image + " " + name);
+//        Intent dataIntent = new Intent(getContext(), FriendActivity.class);
+//        dataIntent.putExtra("uid", uid);
+//        startActivity(dataIntent);
+
+        Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+        chatIntent.putExtra("uid", uid);
+        chatIntent.putExtra("name",name);
+        chatIntent.putExtra("photo_url", image);
+        startActivity(chatIntent);
     }
 
     @Override

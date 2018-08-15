@@ -16,8 +16,8 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.MainPagerAdapter;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.ui.fragments.ActivitiesFragment;
 import com.borisruzanov.russianwives.ui.fragments.ChatsFragment;
-import com.borisruzanov.russianwives.ui.fragments.FriendsFragment;
 import com.borisruzanov.russianwives.ui.fragments.SearchFragment;
 import com.borisruzanov.russianwives.mvp.model.interactor.MainInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
@@ -32,6 +32,8 @@ import java.util.Arrays;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView {
+
+    //TODO Everywhere check that user is authorized
 
     //MVP
     @InjectPresenter
@@ -63,8 +65,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        mainPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        mainPagerAdapter.addFragment(new FriendsFragment(), "Friends");
+        mainPagerAdapter.addFragment(new ActivitiesFragment(), "Chats");
+        mainPagerAdapter.addFragment(new ChatsFragment(), "Friends");
         mainPagerAdapter.addFragment(new SearchFragment(), "Search");
         viewPager.setAdapter(mainPagerAdapter);
 

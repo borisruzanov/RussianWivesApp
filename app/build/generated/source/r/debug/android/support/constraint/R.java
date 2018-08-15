@@ -71,7 +71,7 @@ public final class R {
         public static final int basic = 0x7f080028;
         public static final int bottom = 0x7f08002b;
         public static final int chains = 0x7f08003a;
-        public static final int end = 0x7f080072;
+        public static final int end = 0x7f080073;
         public static final int gone = 0x7f0800fa;
         public static final int invisible = 0x7f080107;
         public static final int left = 0x7f080119;

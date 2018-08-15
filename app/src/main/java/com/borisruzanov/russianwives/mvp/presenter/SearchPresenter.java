@@ -58,7 +58,7 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 
     public void openFriend(int position) {
         Log.d(Contract.TAG, "-----> position in presenter " + position);
-        getViewState().openFriend(users.get(position).getUid());
+        getViewState().openFriend(users.get(position).getUid(), users.get(position).getName(), users.get(position).getImage());
     }
 
 }

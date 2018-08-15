@@ -2,10 +2,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.FriendsFragment">
+    tools:context=".ui.fragments.ChatsFragment">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/friends_fragment_recycler_requests"
+        android:id="@+id/friends_fragment_recycler_chats"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"

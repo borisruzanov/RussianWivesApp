@@ -77,6 +77,7 @@ dependencies {
     implementation "com.firebaseui:firebase-ui-auth:$firebaseUI"
     implementation "com.google.firebase:firebase-messaging:$firebase"
     implementation "com.google.firebase:firebase-config:$firebase"
+    implementation "com.firebaseui:firebase-ui-database:$firebaseUI"
     //Rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
     implementation 'io.reactivex.rxjava2:rxjava:2.2.0'

@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".zHOLD.ChatActivity"
+            android:name=".ui.ChatActivity"
             android:parentActivityName=".ui.MainActivity" />
         <activity android:name=".zHOLD.StatusActivity" />
         <activity

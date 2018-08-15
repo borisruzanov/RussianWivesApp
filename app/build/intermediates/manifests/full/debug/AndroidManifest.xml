@@ -70,7 +70,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.borisruzanov.russianwives.zHOLD.ChatActivity"
+            android:name="com.borisruzanov.russianwives.ui.ChatActivity"
             android:parentActivityName="com.borisruzanov.russianwives.ui.MainActivity" />
         <activity android:name="com.borisruzanov.russianwives.zHOLD.StatusActivity" />
         <activity
