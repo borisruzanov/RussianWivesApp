@@ -4,6 +4,7 @@ package com.borisruzanov.russianwives.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -43,7 +44,6 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     TextView emptyText;
 
     View view;
-    LinearLayoutManager layoutManager;
     UsersAdapter adapter;
 
     public SearchFragment() {
@@ -63,11 +63,10 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         recyclerView = view.findViewById(R.id.search_recycler_view);
         emptyText = view.findViewById(R.id.search_empty_text);
 
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new UsersAdapter(onItemClickCallback);
+        adapter = new UsersAdapter(onItemClickCallback,getContext());
         recyclerView.setAdapter(adapter);
         searchPresenter.getUsers();
 

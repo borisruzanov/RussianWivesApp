@@ -18,7 +18,7 @@ public class SimpleUsersDelegateAdapter implements ViewTypeDelegateAdapter {
     //TODO REMOVE OR DELETE?
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
         return new UserViewHolder(v);
     }
 

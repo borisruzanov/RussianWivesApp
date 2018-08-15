@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.SearchModel;
 import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
@@ -59,7 +60,6 @@ public class FirebaseRepository {
     }
 
 
-
     /**
      * //     * Get list of all users
      * //     * @param usersListCallback
@@ -104,7 +104,7 @@ public class FirebaseRepository {
                 .set(FirebaseRequestManager.createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid()));
     }
 
-    public void getDataFromNeededFriend(String userId, String valueName, final ValueCallback callback){
+    public void getDataFromNeededFriend(String userId, String valueName, final ValueCallback callback) {
         getData(Consts.COLLECTION_USERS, userId, valueName, callback);
     }
 
@@ -118,99 +118,101 @@ public class FirebaseRepository {
         });
     }
 
-    public void updateUserDataTierTwo(String firstCollection, String firstDocument,String secondCollection,
+    public void updateUserDataTierTwo(String firstCollection, String firstDocument, String secondCollection,
                                       String secondDocument, Map<String, Object> map, UpdateCallback callback) {
-        getDocRefTwo(firstCollection, firstDocument,secondCollection, secondDocument).set(map)
+        getDocRefTwo(firstCollection, firstDocument, secondCollection, secondDocument).set(map)
                 .addOnCompleteListener(task -> callback.onUpdate());
     }
 
 
-    public void getUserDataTierTwo(String firstCollection, String firstDocument,String secondCollection,
-                                   StringsCallback stringsCallback){
+    public void getUserDataTierTwo(String firstCollection, String firstDocument, String secondCollection,
+                                   StringsCallback stringsCallback) {
         db.collection(firstCollection).document(firstDocument).collection(secondCollection).get()
                 .addOnCompleteListener(task -> {
                     List<String> stringList = new ArrayList<>();
                     List<DocumentSnapshot> snapshotList = task.getResult().getDocuments();
-                    for(DocumentSnapshot snapshot: snapshotList){
+                    for (DocumentSnapshot snapshot : snapshotList) {
                         stringList.add(snapshot.getId());
                     }
                     stringsCallback.getStrings(stringList);
                 });
     }
 
-    public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback){
-        Query query = db.collection(Consts.COLLECTION_USERS);
-        for (String uid: uidList) {
-            Log.d(Contract.TAG, "In Repo uid is " + uid);
-            query.whereEqualTo("uid", uid).get().addOnCompleteListener(task -> {
-                List<User> userList = new ArrayList<>();
-                for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
-                    userList.add(snapshot.toObject(User.class));
-                    Log.d(Contract.TAG, "In onComplete uid is =============> " + snapshot.getString("name"));
-                }
-                for(User user : userList){
-                    Log.d(Contract.TAG, "In callback name is =============> " + user.getName());
-                }
-            });
 
+    public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback) {
+        CollectionReference users = db.collection(Consts.COLLECTION_USERS);
+
+        Query query = users.whereEqualTo("uid", uidList);
+
+        //query.whereEqualTo("uid", uidList.get(0)).whereEqualTo("uid", uidList.get(1));
+
+        for (int j = 0; j < uidList.size(); j++) {
+            users.whereEqualTo("uid", uidList.get(j))
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        List<User> userList = new ArrayList<>();
+                        for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                            userList.add(snapshot.toObject(User.class));
+                            Log.d(Contract.TAG, "Добавляем объект юзер из снэпшота и его имя " + snapshot.getString("name"));
+                        }
+                        for (User user : userList) {
+                            Log.d(Contract.TAG, "Имя добавленного объекта юзера в листе " + user.getName());
+                        }
+                        usersListCallback.getUsers(userList);
+                    });
+
+        }
+    }
+
+
+        //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
+//      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(User.class)));
+
+        //==========================================================================================
+        //==========================================================================================
+        //======================================w====================================================
+        //=============================PRIVATE METHODS==============================================
+        //==========================================================================================
+        //==========================================================================================
+        //==========================================================================================
+        //==========================================================================================
+        private void getData (String collectionName, String docName,final String valueName,
+        final ValueCallback callback){
+            getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
+                DocumentSnapshot snapshot = task.getResult();
+                if (snapshot.exists()) {
+                    callback.getValue(snapshot.getString(valueName));
+                }
+
+            });
+        }
+
+        private void updateData (String collectionName, String
+        docName, Map < String, Object > map, UpdateCallback callback){
+            getDocRef(collectionName, docName).update(map).addOnCompleteListener(task -> callback.onUpdate());
         }
 
 
-    }
+        /**
+         * Return document reference
+         *
+         * @param collectionName
+         * @param docName
+         * @return
+         */
+        private DocumentReference getDocRef (String collectionName, String docName){
+            return db.collection(collectionName).document(docName);
+        }
 
-//    public List getReadyUsersList(){
-//
-//    }
-
-    //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
-//      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(User.class)));
-
-    //==========================================================================================
-    //==========================================================================================
-    //======================================w====================================================
-    //=============================PRIVATE METHODS==============================================
-    //==========================================================================================
-    //==========================================================================================
-    //==========================================================================================
-    //==========================================================================================
-    private void getData(String collectionName, String docName, final String valueName, final ValueCallback callback) {
-        getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
-            DocumentSnapshot snapshot = task.getResult();
-            if (snapshot.exists()) {
-                callback.getValue(snapshot.getString(valueName));
-            }
-
-        });
-    }
-
-    private void updateData(String collectionName, String docName, Map<String, Object> map, UpdateCallback callback) {
-        getDocRef(collectionName, docName).update(map).addOnCompleteListener(task -> callback.onUpdate());
-    }
+        private DocumentReference getDocRefTwo (String collectionName, String docName, String
+        collName, String doccName){
+            return db.collection(collectionName).document(docName).collection(collName).document(doccName);
+        }
 
 
-
-    /**
-     * Return document reference
-     *
-     * @param collectionName
-     * @param docName
-     * @return
-     */
-    private DocumentReference getDocRef(String collectionName, String docName) {
-        return db.collection(collectionName).document(docName);
-    }
-
-    private DocumentReference getDocRefTwo(String collectionName, String docName, String collName,String doccName) {
-        return db.collection(collectionName).document(docName).collection(collName).document(doccName);
-    }
-
-
-
-
-
-    // ================================================================
-    // <===============================Rx begin=======================>
-    // ================================================================
+        // ================================================================
+        // <===============================Rx begin=======================>
+        // ================================================================
 //    /**
 //     * Updating needed field of current user
 //     * @param objectHashMap
@@ -238,63 +240,65 @@ public class FirebaseRepository {
 //
 
 
-    //
+        //
 //    //TODO REFACTOR <-------------
 //    /**
 //     * Search mechanism
 //     * @param searchModels
 //     * @param usersListCallback
 ////     */
-//    public void searchByListParams(final List<SearchModel> searchModels, final UsersListCallback usersListCallback){
-////        Query query = reference.orderBy(Consts.NAME);
-////        for (SearchModel model: searchModels) {
-////            query.whereEqualTo(model.getField(), model.getValue());
-////        }
-////        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-////            @Override
-////            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-////                List<User> userList = new ArrayList<>();
-////                for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
-////                    userList.add(snapshot.toObject(User.class));
-////                }
-////                usersListCallback.getUsers(userList);
-////            }
-////        });
-//    }
-//
-//    //TODO REFACTOR <-------------
-//
-//
-//    //TODO REFACTOR <-------------
-    public boolean checkingForFirstNeededInformationOfUser() {
-        reference.document(getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-//                            needInfo = isChanged(createList(document));
-                            //return some data with callback
-                        }
+        public void searchByListParams ( final List<SearchModel> searchModels,
+        final UsersListCallback usersListCallback){
+            Query query = reference.orderBy(Consts.NAME);
+            for (SearchModel model : searchModels) {
+                query.whereEqualTo(model.getField(), model.getValue());
+            }
+            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    List<User> userList = new ArrayList<>();
+                    for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                        userList.add(snapshot.toObject(User.class));
                     }
-                });
+                    usersListCallback.getUsers(userList);
+                }
+            });
+        }
 
-        return needInfo;
-    }
+        //
+//    //TODO REFACTOR <-------------
+//
+//
+//    //TODO REFACTOR <-------------
+        public boolean checkingForFirstNeededInformationOfUser () {
+            reference.document(getUid()).get()
+                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+//                            needInfo = isChanged(createList(document));
+                                //return some data with callback
+                            }
+                        }
+                    });
+
+            return needInfo;
+        }
 //
 //
 
 //
 //
 
-    /**
-     * Get Device Token of Current user
-     *
-     * @return
-     */
-    private String getDeviceToken() {
-        return FirebaseInstanceId.getInstance().getToken();
-    }
+        /**
+         * Get Device Token of Current user
+         *
+         * @return
+         */
+        private String getDeviceToken () {
+            return FirebaseInstanceId.getInstance().getToken();
+        }
 //
 
 //
@@ -359,4 +363,4 @@ public class FirebaseRepository {
 //    }
 //
 
-}
+    }

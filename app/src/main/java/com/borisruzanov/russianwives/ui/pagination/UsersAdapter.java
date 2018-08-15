@@ -22,9 +22,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     //TODO REMOVE OR DELETE?
     private List<User> userList = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    Context context;
 
 
-    public UsersAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
+    public UsersAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback, Context context) {
+        this.context = context;
         this.onItemClickCallback = onItemClickCallback;
     }
 
@@ -37,7 +39,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
         return new UserViewHolder(v);
     }
 
@@ -59,7 +61,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     class UserViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout relativeLayout;
         ImageView imageView;
-        TextView name, status;
+        TextView name, age, country;
         Context context;
 
         UserViewHolder(View itemView) {
@@ -68,14 +70,22 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
             relativeLayout = itemView.findViewById(R.id.item_user_container);
             imageView = itemView.findViewById(R.id.user_img);
             name = itemView.findViewById(R.id.user_name);
-            status = itemView.findViewById(R.id.user_status);
+            age = itemView.findViewById(R.id.user_age);
+            country = itemView.findViewById(R.id.user_country);
         }
 
         void bind(User user, int position){
             relativeLayout.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
-            Glide.with(context).load(user.getImage()).thumbnail(0.5f).into(imageView);
+            if(user.getImage().equals("default")){
+                Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);
+
+            }else {
+                Glide.with(context).load(user.getImage()).thumbnail(0.5f).into(imageView);
+            }
             name.setText(user.getName());
-            status.setText(user.getStatus());
+            age.setText(user.getAge());
+            country.setText(user.getCountry());
+//            status.setText(user.getStatus());
         }
     }
 

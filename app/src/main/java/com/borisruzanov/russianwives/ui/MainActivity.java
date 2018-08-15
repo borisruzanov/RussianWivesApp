@@ -65,9 +65,9 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        mainPagerAdapter.addFragment(new ActivitiesFragment(), "Chats");
-        mainPagerAdapter.addFragment(new ChatsFragment(), "Friends");
         mainPagerAdapter.addFragment(new SearchFragment(), "Search");
+        mainPagerAdapter.addFragment(new ChatsFragment(), "Chats");
+        mainPagerAdapter.addFragment(new ActivitiesFragment(), "Activity");
         viewPager.setAdapter(mainPagerAdapter);
 
         tabLayout = (TabLayout) findViewById(R.id.main_tabs);

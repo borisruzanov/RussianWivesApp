@@ -891,9 +891,9 @@ public final class R {
         public static final int transition_transform = 0x7f0801cc;
         public static final int uniform = 0x7f0801cf;
         public static final int up = 0x7f0801d1;
-        public static final int view_offset_helper = 0x7f0801da;
-        public static final int visible = 0x7f0801de;
-        public static final int wrap_content = 0x7f0801e5;
+        public static final int view_offset_helper = 0x7f0801dc;
+        public static final int visible = 0x7f0801e0;
+        public static final int wrap_content = 0x7f0801e7;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur = 0x7f090000;
@@ -949,25 +949,25 @@ public final class R {
         public static final int design_navigation_menu = 0x7f0a003f;
         public static final int design_navigation_menu_item = 0x7f0a0040;
         public static final int design_text_input_password_icon = 0x7f0a0041;
-        public static final int notification_action = 0x7f0a0074;
-        public static final int notification_action_tombstone = 0x7f0a0075;
-        public static final int notification_media_action = 0x7f0a0076;
-        public static final int notification_media_cancel_action = 0x7f0a0077;
-        public static final int notification_template_big_media = 0x7f0a0078;
-        public static final int notification_template_big_media_custom = 0x7f0a0079;
-        public static final int notification_template_big_media_narrow = 0x7f0a007a;
-        public static final int notification_template_big_media_narrow_custom = 0x7f0a007b;
-        public static final int notification_template_custom_big = 0x7f0a007c;
-        public static final int notification_template_icon_group = 0x7f0a007d;
-        public static final int notification_template_lines_media = 0x7f0a007e;
-        public static final int notification_template_media = 0x7f0a007f;
-        public static final int notification_template_media_custom = 0x7f0a0080;
-        public static final int notification_template_part_chronometer = 0x7f0a0081;
-        public static final int notification_template_part_time = 0x7f0a0082;
-        public static final int select_dialog_item_material = 0x7f0a0083;
-        public static final int select_dialog_multichoice_material = 0x7f0a0084;
-        public static final int select_dialog_singlechoice_material = 0x7f0a0085;
-        public static final int support_simple_spinner_dropdown_item = 0x7f0a0086;
+        public static final int notification_action = 0x7f0a0075;
+        public static final int notification_action_tombstone = 0x7f0a0076;
+        public static final int notification_media_action = 0x7f0a0077;
+        public static final int notification_media_cancel_action = 0x7f0a0078;
+        public static final int notification_template_big_media = 0x7f0a0079;
+        public static final int notification_template_big_media_custom = 0x7f0a007a;
+        public static final int notification_template_big_media_narrow = 0x7f0a007b;
+        public static final int notification_template_big_media_narrow_custom = 0x7f0a007c;
+        public static final int notification_template_custom_big = 0x7f0a007d;
+        public static final int notification_template_icon_group = 0x7f0a007e;
+        public static final int notification_template_lines_media = 0x7f0a007f;
+        public static final int notification_template_media = 0x7f0a0080;
+        public static final int notification_template_media_custom = 0x7f0a0081;
+        public static final int notification_template_part_chronometer = 0x7f0a0082;
+        public static final int notification_template_part_time = 0x7f0a0083;
+        public static final int select_dialog_item_material = 0x7f0a0084;
+        public static final int select_dialog_multichoice_material = 0x7f0a0085;
+        public static final int select_dialog_singlechoice_material = 0x7f0a0086;
+        public static final int support_simple_spinner_dropdown_item = 0x7f0a0087;
     }
     public static final class string {
         public static final int abc_action_bar_home_description = 0x7f0e0001;

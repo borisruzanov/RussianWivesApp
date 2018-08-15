@@ -57,7 +57,7 @@ public class ChatsFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
-
+        Log.d(Contract.TAG, "INSIDEE CHATS");
         /**
          * Requests List
          */
@@ -69,7 +69,6 @@ public class ChatsFragment extends Fragment {
 
 
         //TODO REFACTOR Chats Fragment with repository
-        //Firebase
         mCurrent_user_id = new FirebaseRepository().getUid();
         mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
         mConvDatabase.addValueEventListener(new ValueEventListener() {
@@ -90,8 +89,11 @@ public class ChatsFragment extends Fragment {
 
                 new FirebaseRepository().getNeededUsers(uidList, userList -> {
                     for(User user: userList){
-                        Log.d(Contract.TAG, "ChatsFragment - User name is " + user.getName());
+                        Log.d(Contract.TAG, "Полученное имя из репозитория " + user.getName());
                     }
+
+                    if(userList.isEmpty()) Log.d(Contract.TAG, "LIST IS EMPTY!!!");
+
 
                     for (int i = 0; i < userList.size(); i++) {
                         String name = userList.get(i).getName();
@@ -100,9 +102,9 @@ public class ChatsFragment extends Fragment {
                         boolean seen = chatList.get(i).getSeen();
                         userChats.add(new UserChat(name, image, timeStamp, seen));
 
-                        Log.d(Contract.TAG, "ChatsFragment - UserChat model name is  " + userChats.get(i).getName());
-                        Log.d(Contract.TAG, "ChatsFragment - UserChat model seen is  " + userChats.get(i).getSeen());
-                        Log.d(Contract.TAG, "ChatsFragment - UserChat model timestamp is  " + userChats.get(i).getTimestamp());
+                        Log.d(Contract.TAG, "Отображаем имя в UI фрагмента  " + userChats.get(i).getName());
+                        Log.d(Contract.TAG, "Отображаем видимость в UI фрагмента  " + userChats.get(i).getSeen());
+                        Log.d(Contract.TAG, "Отображаем таймстэмп в UI фрагмента  " + userChats.get(i).getTimestamp());
 
                     }
                 });
@@ -114,14 +116,14 @@ public class ChatsFragment extends Fragment {
 
             }
         });
-
-        if (userChats.isEmpty()){
-            Log.d(Contract.TAG, "CHATSList is empty");
-        }else {
-            Log.d(Contract.TAG, "ChatsFragment - UserChat model name is  " + userChats.get(0).getName());
-            Log.d(Contract.TAG, "ChatsFragment - UserChat model seen is  " + userChats.get(0).getSeen());
-            Log.d(Contract.TAG, "ChatsFragment - UserChat model timestamp is  " + userChats.get(0).getTimestamp());
-        }
+//
+//        if (userChats.isEmpty()){
+//            Log.d(Contract.TAG, "CHATSList is empty");
+//        }else {
+//            Log.d(Contract.TAG, "ChatsFragment - UserChat model name is  " + userChats.get(0).getName());
+//            Log.d(Contract.TAG, "ChatsFragment - UserChat model seen is  " + userChats.get(0).getSeen());
+//            Log.d(Contract.TAG, "ChatsFragment - UserChat model timestamp is  " + userChats.get(0).getTimestamp());
+//        }
 
 
 //        mConvDatabase.keepSynced(true);
