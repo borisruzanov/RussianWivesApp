@@ -1,7 +1,9 @@
 package com.borisruzanov.russianwives.mvp.model.repository;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
+import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
@@ -139,20 +141,27 @@ public class FirebaseRepository {
     public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback){
         Query query = db.collection(Consts.COLLECTION_USERS);
         for (String uid: uidList) {
-            query.whereEqualTo("uid", uid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    List<User> userList = new ArrayList<>();
-                    for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
-                        userList.add(snapshot.toObject(User.class));
-                    }
-                    usersListCallback.getUsers(userList);
+            Log.d(Contract.TAG, "In Repo uid is " + uid);
+            query.whereEqualTo("uid", uid).get().addOnCompleteListener(task -> {
+                List<User> userList = new ArrayList<>();
+                for(DocumentSnapshot snapshot: task.getResult().getDocuments()){
+                    userList.add(snapshot.toObject(User.class));
+                    Log.d(Contract.TAG, "In onComplete uid is =============> " + snapshot.getString("name"));
+                }
+                for(User user : userList){
+                    Log.d(Contract.TAG, "In callback name is =============> " + user.getName());
                 }
             });
+
         }
 
 
     }
+
+//    public List getReadyUsersList(){
+//
+//    }
+
     //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
 //      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(User.class)));
 

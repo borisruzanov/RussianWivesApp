@@ -1272,7 +1272,7 @@ int id friend_activity_image 0x7f0800f4
 int id friend_activity_tv_age 0x7f0800f5
 int id friend_activity_tv_country 0x7f0800f6
 int id friend_activity_tv_name 0x7f0800f7
-int id friends_fragment_recycler_requests 0x7f0800f8
+int id friends_fragment_recycler_chats 0x7f0800f8
 int id ghost_view 0x7f0800f9
 int id gone 0x7f0800fa
 int id google_button 0x7f0800fb

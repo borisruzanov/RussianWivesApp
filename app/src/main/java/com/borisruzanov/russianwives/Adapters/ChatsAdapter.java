@@ -10,8 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -19,9 +26,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<User> requestsList;
+    List<Chat> requestsList;
+    private DatabaseReference mConvDatabase;
+    private String mCurrent_user_id = new FirebaseRepository().getUid();
 
-    public ChatsAdapter(List<User> requestsList) {
+
+
+    public ChatsAdapter(List<Chat> requestsList) {
         this.requestsList = requestsList;
     }
 
@@ -34,10 +45,24 @@ public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        mConvDatabase = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                 String value = dataSnapshot.child("name").getValue().toString();
+                String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
+                Log.d(Contract.TAG, "datasnapshot value is " + value);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 //        ((RequestsItemHolder) holder).image.setText(requestsList.get(position).getImage());
-        ((RequestsItemHolder) holder).name.setText(requestsList.get(position).getName());
-        ((RequestsItemHolder) holder).country.setText(requestsList.get(position).getCountry());
-        ((RequestsItemHolder) holder).age.setText(requestsList.get(position).getAge());
+//        ((RequestsItemHolder) holder).name.setText(requestsList.get(position).getName());
+//        ((RequestsItemHolder) holder).country.setText(requestsList.get(position).getCountry());
+//        ((RequestsItemHolder) holder).age.setText(requestsList.get(position).getAge());
         ((RequestsItemHolder) holder).btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -11,15 +11,19 @@ import android.view.ViewGroup;
 
 import com.borisruzanov.russianwives.Adapters.ChatsAdapter;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.utils.UsersListCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ public class ChatsFragment extends Fragment {
 
     RecyclerView mConvList;
     ChatsAdapter chatsAdapter;
-    List<User> chatsList = new ArrayList<>();
+    List<Chat> chatsList = new ArrayList<>();
 
     private View mMainView;
 
@@ -40,7 +44,7 @@ public class ChatsFragment extends Fragment {
     private DatabaseReference mMessageDatabase;
     private String mCurrent_user_id;
 
-
+    List<UserChat> userChats = new ArrayList<>();
 
 
     public ChatsFragment() {
@@ -57,7 +61,7 @@ public class ChatsFragment extends Fragment {
         /**
          * Requests List
          */
-        mConvList = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_chats) ;
+        mConvList = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_chats);
         mConvList.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 //        ArrayList<User> listUsers = (ArrayList<User>) getArguments().getSerializable("ingredients");
@@ -67,48 +71,71 @@ public class ChatsFragment extends Fragment {
         //TODO REFACTOR Chats Fragment with repository
         //Firebase
         mCurrent_user_id = new FirebaseRepository().getUid();
-        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id).addValueEventListener(new ValueEventListener() {
+        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
+        mConvDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (User user : userList) {
-                    Log.d(Contract.TAG, "User name " + user.getName());
-                    List<User> listIngredients = userList;
+                List<Chat> chatList = new ArrayList<>();
+                List<String> uidList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Log.d(Contract.TAG, "ChatsFragment - chat Request - Uid" + snapshot.getKey() + " ");
+                    //This is list of chats UID's
+                    uidList.add(snapshot.getKey());
+                    long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
+                    boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
+                    Log.d(Contract.TAG, "ChatsFragment - chat Request - Object - " + "timestamp is " + timeStamp + "message seen is " + seen);
+                    //This is list of Chats Objects
+                    chatList.add(new Chat(timeStamp, seen));
+                }
 
-                    chatsList.addAll(listIngredients);
-                    chatsAdapter = new ChatsAdapter(chatsList);
-                    mConvList.setAdapter(chatsAdapter);
-                }            }
+                new FirebaseRepository().getNeededUsers(uidList, userList -> {
+                    for(User user: userList){
+                        Log.d(Contract.TAG, "ChatsFragment - User name is " + user.getName());
+                    }
+
+                    for (int i = 0; i < userList.size(); i++) {
+                        String name = userList.get(i).getName();
+                        String image = userList.get(i).getImage();
+                        long timeStamp = chatList.get(i).getTimeStamp();
+                        boolean seen = chatList.get(i).getSeen();
+                        userChats.add(new UserChat(name, image, timeStamp, seen));
+
+                        Log.d(Contract.TAG, "ChatsFragment - UserChat model name is  " + userChats.get(i).getName());
+                        Log.d(Contract.TAG, "ChatsFragment - UserChat model seen is  " + userChats.get(i).getSeen());
+                        Log.d(Contract.TAG, "ChatsFragment - UserChat model timestamp is  " + userChats.get(i).getTimestamp());
+
+                    }
+                });
+
+            }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-        mConvDatabase.keepSynced(true);
-        Query conversationQuery = mConvDatabase.orderByChild("timestamp");
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
-        mUsersDatabase.keepSynced(true);
-        final String list_user_id = getRef(i).getKey();
-        Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
-
-
-        new FirebaseRepository().getUserDataTierTwo("FriendsLogic", "hereUserUid",
-                "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, userList -> {
-                    for (String uid : stringList) Log.d(Contract.TAG, "Uid " + uid);
-                    for (User user : userList) {
-                        Log.d(Contract.TAG, "User name " + user.getName());
-                        List<User> listIngredients = userList;
-
-                        chatsList.addAll(listIngredients);
-                        chatsAdapter = new ChatsAdapter(chatsList);
-                        mConvList.setAdapter(chatsAdapter);
-                    }
-                }));
-        for (User user : chatsList) {
-            Log.d(Contract.TAG, "chatsList User name " + user.getName());
+        if (userChats.isEmpty()){
+            Log.d(Contract.TAG, "CHATSList is empty");
+        }else {
+            Log.d(Contract.TAG, "ChatsFragment - UserChat model name is  " + userChats.get(0).getName());
+            Log.d(Contract.TAG, "ChatsFragment - UserChat model seen is  " + userChats.get(0).getSeen());
+            Log.d(Contract.TAG, "ChatsFragment - UserChat model timestamp is  " + userChats.get(0).getTimestamp());
         }
+
+
+//        mConvDatabase.keepSynced(true);
+//        Query conversationQuery = mConvDatabase.orderByChild("timestamp");
+//        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
+//        mMessageDatabase = FirebaseDatabase.getInstance().getReference().child("messages").child(mCurrent_user_id);
+//        mUsersDatabase.keepSynced(true);
+//        final String list_user_id = getRef(i).getKey();
+//        Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
+
+
+//        for (User user : chatsList) {
+//            Log.d(Contract.TAG, "chatsList User name " + user.getName());
+//        }
 
 //
 //        mFriendsList = (RecyclerView) mMainView.findViewById(R.id.friends_list);

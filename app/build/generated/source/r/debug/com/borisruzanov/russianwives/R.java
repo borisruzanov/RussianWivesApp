@@ -4566,7 +4566,7 @@ public final class R {
     public static final int friend_activity_tv_age=0x7f0800f5;
     public static final int friend_activity_tv_country=0x7f0800f6;
     public static final int friend_activity_tv_name=0x7f0800f7;
-    public static final int friends_fragment_recycler_chats =0x7f0800f8;
+    public static final int friends_fragment_recycler_chats=0x7f0800f8;
     public static final int ghost_view=0x7f0800f9;
     public static final int gone=0x7f0800fa;
     public static final int google_button=0x7f0800fb;
