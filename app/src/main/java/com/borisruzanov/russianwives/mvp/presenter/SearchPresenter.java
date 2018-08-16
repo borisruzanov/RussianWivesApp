@@ -56,6 +56,19 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
         });
     }
 
+    public void getFilteredList(){
+        Log.d("FilterDia", "In Presenter getFilteredList");
+        searchInteractor.getFilteredList(userList -> {
+            for (User user: userList) Log.d("FilterDia", "User name is " + user.getName());
+            if (!userList.isEmpty()) {
+                users.addAll(userList);
+                getViewState().showUsers(userList);
+            } else getViewState().showEmpty(true);
+
+        });
+    }
+
+
     public void openFriend(int position) {
         Log.d(Contract.TAG, "-----> position in presenter " + position);
         getViewState().openFriend(users.get(position).getUid(), users.get(position).getName(), users.get(position).getImage());

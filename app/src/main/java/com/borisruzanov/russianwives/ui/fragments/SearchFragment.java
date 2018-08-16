@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,7 +19,9 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.FilterRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
 import com.borisruzanov.russianwives.ui.pagination.UsersAdapter;
@@ -37,7 +38,8 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
 
     @ProvidePresenter
     public SearchPresenter providePresenter() {
-        return new SearchPresenter(new SearchInteractor(new FirebaseRepository()));
+        return new SearchPresenter(new SearchInteractor(new FirebaseRepository(),
+                new FilterRepository(new Prefs(getActivity()))));
     }
 
     RecyclerView recyclerView;
@@ -66,9 +68,9 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new UsersAdapter(onItemClickCallback,getContext());
+        adapter = new UsersAdapter(onItemClickCallback);
         recyclerView.setAdapter(adapter);
-        searchPresenter.getUsers();
+        searchPresenter.getFilteredList();
 
     }
 
@@ -153,6 +155,11 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     public void showUsers(final List<User> userList) {
         Log.d("Pagination", "In showUsers()");
         recyclerView.post(() -> adapter.setData(userList));
+    }
+
+    public void onUpdate(){
+        adapter.clearData();
+        searchPresenter.getFilteredList();
     }
 
     @Override

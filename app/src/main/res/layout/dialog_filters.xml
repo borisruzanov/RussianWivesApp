@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/filters_form"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        style="@style/AppTheme.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="@string/header_filters" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Gender -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/gender_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_gender"/>
+
+                <Spinner
+                    android:id="@+id/spinner_gender"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/gender_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/genders" />
+
+            </RelativeLayout>
+
+            <!-- Relationship statuses -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/relationship_status_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_relationship_status"/>
+
+                <Spinner
+                    android:id="@+id/spinner_relationship_statuses"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/relationship_status_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/relationships_statuses" />
+
+            </RelativeLayout>
+
+            <!-- Body types -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/body_type_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_bodytype"/>
+
+                <Spinner
+                    android:id="@+id/spinner_body_types"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/body_type_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/body_types" />
+
+            </RelativeLayout>
+
+            <!-- Ethnicity -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/ethnicity_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_ethnicity"/>
+
+                <Spinner
+                    android:id="@+id/spinner_ethnicities"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/ethnicity_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/ethnicities" />
+            </RelativeLayout>
+
+            <!-- Faith types -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/faith_type_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_faith"/>
+
+                <Spinner
+                    android:id="@+id/spinner_faith_types"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/faith_type_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/faith_types" />
+            </RelativeLayout>
+
+            <!-- Smoke statuses -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/smoke_status_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_smoke_status"/>
+
+                <Spinner
+                    android:id="@+id/spinner_smoke_statuses"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/smoke_status_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/smoke_statuses" />
+            </RelativeLayout>
+
+            <!-- Drink statuses -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/drink_status_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/what_is_your_drink_status"/>
+
+                <Spinner
+                    android:id="@+id/spinner_drink_statuses"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/drink_status_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/drink_statuses" />
+            </RelativeLayout>
+
+            <!-- Have kids statuses -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/have_kids_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/do_you_have_any_kids"/>
+
+                <Spinner
+                    android:id="@+id/spinner_have_kids_statuses"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/have_kids_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/have_kids_statuses" />
+            </RelativeLayout>
+
+            <!-- Want kids statuses -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/want_kids_text"
+                    style="@style/TextAppearance.AppCompat"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:text="@string/do_you_want_children"/>
+
+                <Spinner
+                    android:id="@+id/spinner_want_kids_statuses"
+                    style="@style/AppTheme.FilterSpinner"
+                    android:layout_below="@+id/want_kids_text"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/have_kids_statuses" />
+            </RelativeLayout>
+
+            <!-- Cancel and apply buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/button_cancel"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/cancel"
+                    android:textColor="@color/greySecondary"
+                    android:theme="@style/ThemeOverlay.FilterButton" />
+
+
+                <Button
+                    android:id="@+id/button_search"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/apply"
+                    android:theme="@style/ThemeOverlay.FilterButton" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

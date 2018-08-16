@@ -104,4 +104,103 @@
     <string name="basic_info">Basic info</string>
     <string name="enter_your_name">Enter Your Name</string>
     <string name="your_name_is_here">Your name is here...</string>
+
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="header_filters">Filter</string>
+    <string name="what_is_your_ethnicity">What is your ethnicity?</string>
+    <string name="what_is_your_smoke_status">What is your smoke status?</string>
+    <string name="what_is_your_drink_status">What is your drink status?</string>
+    <string name="what_is_your_gender">What is your gender?</string>
+
+    <!-- Genders -->
+    <string-array name="genders">
+        <item>default</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!-- Relationship statuses -->
+    <string-array name="relationships_statuses">
+        <item>default</item>
+        <item>Never married</item>
+        <item>Currently separated</item>
+        <item>Divorced</item>
+        <item>Widow/Widower</item>
+    </string-array>
+
+    <!-- Body types -->
+    <string-array name="body_types">
+        <item>default</item>
+        <item>Slender</item>
+        <item>About average</item>
+        <item>Athletic</item>
+        <item>Heavyset</item>
+        <item>A few extra pounds</item>
+        <item>Stocky</item>
+    </string-array>
+
+    <!-- Ethnicities -->
+    <string-array name="ethnicities">
+        <item>default</item>
+        <item>Asian</item>
+        <item>Black/African descent</item>
+        <item>East Indian</item>
+        <item>Latino/Hispanic</item>
+        <item>Native American</item>
+        <item>White Caucasian</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Faith types -->
+    <string-array name="faith_types">
+        <item>default</item>
+        <item>Christian</item>
+        <item>Black/African descent</item>
+        <item>Muslim</item>
+        <item>Atheist</item>
+        <item>Buddhist</item>
+        <item>Adventist</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Smoke statuses -->
+    <string-array name="smoke_statuses">
+        <item>default</item>
+        <item>No way</item>
+        <item>Ocassionally</item>
+        <item>Daily</item>
+        <item>Cigar aficionado</item>
+        <item>Yes, but trying to quit</item>
+    </string-array>
+
+    <!-- Drink statuses -->
+    <string-array name="drink_statuses">
+        <item>default</item>
+        <item>Never</item>
+        <item>Social drinker</item>
+        <item>Moderately</item>
+        <item>Regularly</item>
+    </string-array>
+
+    <!-- Have kids statuses -->
+    <string-array name="have_kids_statuses">
+        <item>default</item>
+        <item>No</item>
+        <item>Yes, they live at home</item>
+        <item>Yes, they sometimes live at home</item>
+        <item>Yes, they live away from home</item>
+    </string-array>
+
+    <!-- Want kids statuses -->
+    <string-array name="want_kids_statuses">
+        <item>default</item>
+        <item>Definitely</item>
+        <item>Someday</item>
+        <item>Not sure</item>
+        <item>Probably not</item>
+        <item>No, but its ok if partner has kids</item>
+        <item>No</item>
+    </string-array>
+
 </resources>

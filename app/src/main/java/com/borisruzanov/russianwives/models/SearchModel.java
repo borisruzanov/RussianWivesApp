@@ -2,27 +2,27 @@ package com.borisruzanov.russianwives.models;
 
 public class SearchModel {
 
-    private String field;
-    private Object value;
+    private String key;
+    private String value;
 
-    public SearchModel(String field, Object value) {
-        this.field = field;
+    public SearchModel(String key, String value) {
+        this.key = key;
         this.value = value;
     }
 
-    public String getField() {
-        return field;
+    public String getKey() {
+        return key;
     }
 
-    public void setField(String field) {
-        this.field = field;
+    public void setKey(String key) {
+        this.key = key;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(String value) {
         this.value = value;
     }
 }

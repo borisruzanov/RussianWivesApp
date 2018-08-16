@@ -14,7 +14,7 @@ public class Chat {
         return timeStamp;
     }
 
-    public void setTimeStamp(long timeStamp) {
+    public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
     }
 

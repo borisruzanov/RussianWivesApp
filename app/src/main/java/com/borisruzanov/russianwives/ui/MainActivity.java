@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -18,6 +19,7 @@ import com.borisruzanov.russianwives.Adapters.MainPagerAdapter;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.ui.fragments.ActivitiesFragment;
 import com.borisruzanov.russianwives.ui.fragments.ChatsFragment;
+import com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment;
 import com.borisruzanov.russianwives.ui.fragments.SearchFragment;
 import com.borisruzanov.russianwives.mvp.model.interactor.MainInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
@@ -31,7 +33,7 @@ import java.util.Arrays;
 
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
-public class MainActivity extends MvpAppCompatActivity implements MainView {
+public class MainActivity extends MvpAppCompatActivity implements MainView, FilterDialogFragment.FilterListener {
 
     //TODO Everywhere check that user is authorized
 
@@ -53,11 +55,18 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
     ViewPager viewPager;
     MainPagerAdapter mainPagerAdapter;
 
+    //Fragments
+    private DialogFragment dialogFragment;
+    private SearchFragment searchFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dialogFragment = new FilterDialogFragment();
+        searchFragment = new SearchFragment();
 
         //UI
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -65,7 +74,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
 
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        mainPagerAdapter.addFragment(new SearchFragment(), "Search");
+        mainPagerAdapter.addFragment(searchFragment, "Search");
         mainPagerAdapter.addFragment(new ChatsFragment(), "Chats");
         mainPagerAdapter.addFragment(new ActivitiesFragment(), "Activity");
         viewPager.setAdapter(mainPagerAdapter);
@@ -74,7 +83,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
         tabLayout.setupWithViewPager(viewPager);
 
         //MVP
-        mainPresenter.checkForUserExist();
+        //mainPresenter.checkForUserExist();
     }
 
     @Override
@@ -93,6 +102,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
             case R.id.menu_my_profile:
                 Intent settingsIntent = new Intent(MainActivity.this, MyProfile.class);
                 startActivity(settingsIntent);
+                return true;
+            case R.id.menu_filter:
+                if(viewPager.getCurrentItem() == 0){
+                    dialogFragment.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -125,6 +140,11 @@ public class MainActivity extends MvpAppCompatActivity implements MainView {
                 if(response == null){}
             }
         }
+    }
+
+    @Override
+    public void onUpdate() {
+        searchFragment.onUpdate();
     }
 
     //TODO Finish method for checking first needed information

@@ -10,20 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.borisruzanov.russianwives.Adapters.ChatsAdapter;
+import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
-import com.borisruzanov.russianwives.utils.UsersListCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,9 +30,9 @@ public class ChatsFragment extends Fragment {
 
     //TODO Refactor to Activities Fragment
 
-    RecyclerView mConvList;
+    RecyclerView recyclerChatsList;
     ChatsAdapter chatsAdapter;
-    List<Chat> chatsList = new ArrayList<>();
+    List<UserChat> chatsList = new ArrayList<>();
 
     private View mMainView;
 
@@ -58,15 +56,18 @@ public class ChatsFragment extends Fragment {
 
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
         Log.d(Contract.TAG, "INSIDEE CHATS");
-        /**
-         * Requests List
-         */
-        mConvList = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_chats);
-        mConvList.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+
 
 //        ArrayList<User> listUsers = (ArrayList<User>) getArguments().getSerializable("ingredients");
 //        chatsList.addAll(listUsers);
 
+
+        recyclerChatsList = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_chats);
+        recyclerChatsList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerChatsList.setHasFixedSize(true);
+        chatsAdapter = new ChatsAdapter(onItemClickCallback);
+        recyclerChatsList.setAdapter(chatsAdapter);
 
         //TODO REFACTOR Chats Fragment with repository
         mCurrent_user_id = new FirebaseRepository().getUid();
@@ -106,6 +107,8 @@ public class ChatsFragment extends Fragment {
                         Log.d(Contract.TAG, "Отображаем видимость в UI фрагмента  " + userChats.get(i).getSeen());
                         Log.d(Contract.TAG, "Отображаем таймстэмп в UI фрагмента  " + userChats.get(i).getTimestamp());
 
+                        chatsAdapter.setData(userChats);
+
                     }
                 });
 
@@ -116,6 +119,10 @@ public class ChatsFragment extends Fragment {
 
             }
         });
+        /**
+         * Chats List
+         */
+
 //
 //        if (userChats.isEmpty()){
 //            Log.d(Contract.TAG, "CHATSList is empty");
@@ -157,6 +164,38 @@ public class ChatsFragment extends Fragment {
         // Inflate the layout for this fragment
         return mMainView;
     }
+
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
+        Log.d(Contract.TAG, "In onCLICK");
+//        searchPresenter.openFriend(position);
+       /* Intent friendActivityIntent = new Intent(getContext(), FriendActivity.class);
+                User itemClicked = userList.get(position);
+                Bundle bundle = new Bundle();
+                bundle.putInt("position", position);
+                bundle.putString("image", itemClicked.getImage());
+                bundle.putString("name", itemClicked.getName());
+                bundle.putParcelableArrayList("ingredients", new ArrayList<Parcelable>(itemClicked.getIngredients()));
+                bundle.putParcelableArrayList("steps", new ArrayList<Parcelable>(itemClicked.getSteps()));
+                bundle.putInt("swrvings", itemClicked.getServings());
+
+                if (getResources().getConfiguration().smallestScreenWidthDp >= 600) {
+                    Log.d(TAG_WORK_CHECKING, "It is more than 600 dp");
+                    Intent dataIntent = new Intent(getContext(), TabletActivity.class);
+                    dataIntent.putExtras(bundle);
+                    startActivity(dataIntent);
+
+                } else {
+
+                    DetailedFragment detailedFragment = new DetailedFragment();
+                    detailedFragment.setArguments(bundle);
+
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.addToBackStack(null);
+                    transaction.replace(R.id.main_frame_list, detailedFragment);
+                    transaction.commit();
+                }        startActivity(friendActivityIntent);*/
+    };
 //
 //
 //    @Override

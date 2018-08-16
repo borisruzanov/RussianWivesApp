@@ -142,8 +142,6 @@ public class FirebaseRepository {
     public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback) {
         CollectionReference users = db.collection(Consts.COLLECTION_USERS);
 
-        Query query = users.whereEqualTo("uid", uidList);
-
         //query.whereEqualTo("uid", uidList.get(0)).whereEqualTo("uid", uidList.get(1));
 
         for (int j = 0; j < uidList.size(); j++) {
@@ -165,54 +163,54 @@ public class FirebaseRepository {
     }
 
 
-        //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
+    //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
 //      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(User.class)));
 
-        //==========================================================================================
-        //==========================================================================================
-        //======================================w====================================================
-        //=============================PRIVATE METHODS==============================================
-        //==========================================================================================
-        //==========================================================================================
-        //==========================================================================================
-        //==========================================================================================
-        private void getData (String collectionName, String docName,final String valueName,
-        final ValueCallback callback){
-            getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
-                DocumentSnapshot snapshot = task.getResult();
-                if (snapshot.exists()) {
-                    callback.getValue(snapshot.getString(valueName));
-                }
+    //==========================================================================================
+    //==========================================================================================
+    //======================================w====================================================
+    //=============================PRIVATE METHODS==============================================
+    //==========================================================================================
+    //==========================================================================================
+    //==========================================================================================
+    //==========================================================================================
+    private void getData(String collectionName, String docName, final String valueName,
+                         final ValueCallback callback) {
+        getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            if (snapshot.exists()) {
+                callback.getValue(snapshot.getString(valueName));
+            }
 
-            });
-        }
+        });
+    }
 
-        private void updateData (String collectionName, String
-        docName, Map < String, Object > map, UpdateCallback callback){
-            getDocRef(collectionName, docName).update(map).addOnCompleteListener(task -> callback.onUpdate());
-        }
-
-
-        /**
-         * Return document reference
-         *
-         * @param collectionName
-         * @param docName
-         * @return
-         */
-        private DocumentReference getDocRef (String collectionName, String docName){
-            return db.collection(collectionName).document(docName);
-        }
-
-        private DocumentReference getDocRefTwo (String collectionName, String docName, String
-        collName, String doccName){
-            return db.collection(collectionName).document(docName).collection(collName).document(doccName);
-        }
+    private void updateData(String collectionName, String
+            docName, Map<String, Object> map, UpdateCallback callback) {
+        getDocRef(collectionName, docName).update(map).addOnCompleteListener(task -> callback.onUpdate());
+    }
 
 
-        // ================================================================
-        // <===============================Rx begin=======================>
-        // ================================================================
+    /**
+     * Return document reference
+     *
+     * @param collectionName
+     * @param docName
+     * @return
+     */
+    private DocumentReference getDocRef(String collectionName, String docName) {
+        return db.collection(collectionName).document(docName);
+    }
+
+    private DocumentReference getDocRefTwo(String collectionName, String docName, String
+            collName, String doccName) {
+        return db.collection(collectionName).document(docName).collection(collName).document(doccName);
+    }
+
+
+    // ================================================================
+    // <===============================Rx begin=======================>
+    // ================================================================
 //    /**
 //     * Updating needed field of current user
 //     * @param objectHashMap
@@ -240,65 +238,69 @@ public class FirebaseRepository {
 //
 
 
-        //
+    //
 //    //TODO REFACTOR <-------------
 //    /**
 //     * Search mechanism
 //     * @param searchModels
 //     * @param usersListCallback
 ////     */
-        public void searchByListParams ( final List<SearchModel> searchModels,
-        final UsersListCallback usersListCallback){
-            Query query = reference.orderBy(Consts.NAME);
-            for (SearchModel model : searchModels) {
-                query.whereEqualTo(model.getField(), model.getValue());
-            }
-            query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    List<User> userList = new ArrayList<>();
-                    for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                        userList.add(snapshot.toObject(User.class));
-                    }
-                    usersListCallback.getUsers(userList);
-                }
-            });
-        }
+    public void searchByListParams(final List<SearchModel> searchModels, final UsersListCallback usersListCallback) {
+        Query query = reference;
 
-        //
+        for (SearchModel searchModel : searchModels) {
+            query = query.whereEqualTo(searchModel.getKey(), searchModel.getValue());
+        }
+        /*for (int i = 0; i < searchModels.size(); i++) {
+            query = query.whereEqualTo(searchModels.get(i).getKey(), searchModels.get(i).getValue());
+        }*/
+
+        query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
+
+    }
+
+    private void putCallbackData(final UsersListCallback usersListCallback, Task<QuerySnapshot> task) {
+        List<User> userList = new ArrayList<>();
+        for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+            userList.add(snapshot.toObject(User.class));
+        }
+        usersListCallback.getUsers(userList);
+    }
+
+    //
 //    //TODO REFACTOR <-------------
 //
 //
 //    //TODO REFACTOR <-------------
-        public boolean checkingForFirstNeededInformationOfUser () {
-            reference.document(getUid()).get()
-                    .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot document = task.getResult();
-                            if (document.exists()) {
+    public boolean checkingForFirstNeededInformationOfUser() {
+        reference.document(getUid()).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
 //                            needInfo = isChanged(createList(document));
-                                //return some data with callback
-                            }
+                            //return some data with callback
                         }
-                    });
+                    }
+                });
 
-            return needInfo;
-        }
-//
-//
-
+        return needInfo;
+    }
 //
 //
 
-        /**
-         * Get Device Token of Current user
-         *
-         * @return
-         */
-        private String getDeviceToken () {
-            return FirebaseInstanceId.getInstance().getToken();
-        }
+//
+//
+
+    /**
+     * Get Device Token of Current user
+     *
+     * @return
+     */
+    private String getDeviceToken() {
+        return FirebaseInstanceId.getInstance().getToken();
+    }
 //
 
 //
@@ -363,4 +365,4 @@ public class FirebaseRepository {
 //    }
 //
 
-    }
+}

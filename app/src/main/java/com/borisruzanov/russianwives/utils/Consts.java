@@ -2,6 +2,9 @@ package com.borisruzanov.russianwives.utils;
 
 import android.util.Log;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class Consts {
     public static final String COLLECTION_USERS = "Users";
     public static final String NAME = "name";
@@ -18,6 +21,11 @@ public final class Consts {
     public static final String RELATIONSHIP_STATUS  = "relationship_status";
     public static final String NUMBER_OF_KIDS  = "number_of_kids";
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
+    public static final String UID  = "uid";
+
+    public static List<String> keyList = Arrays.asList(Consts.GENDER, Consts.RELATIONSHIP_STATUS, Consts.BODY_TYPE,
+            Consts.ETHNICITY, Consts.FAITH, Consts.SMOKING_STATUS, Consts.DRINK_STATUS, Consts.NUMBER_OF_KIDS,
+            Consts.WANT_CHILDREN_OR_NOT);
 
     public static final String DEFAULT  = "default";
 }

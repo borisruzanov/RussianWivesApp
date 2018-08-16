@@ -25,8 +25,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
     Context context;
 
 
-    public UsersAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback, Context context) {
-        this.context = context;
+    public UsersAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
     }
 
@@ -36,9 +35,15 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         notifyItemRangeInserted(initialSize, newUsers.size());
     }
 
+    public void clearData(){
+        userList = new ArrayList<>();
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user, parent, false);
         return new UserViewHolder(v);
     }
@@ -62,7 +67,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.UserViewHold
         RelativeLayout relativeLayout;
         ImageView imageView;
         TextView name, age, country;
-        Context context;
+//        Context context;
 
         UserViewHolder(View itemView) {
             super(itemView);

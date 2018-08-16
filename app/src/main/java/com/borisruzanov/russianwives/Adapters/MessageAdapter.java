@@ -75,6 +75,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 //                String name = dataSnapshot.child("name").getValue().toString();
 //                String image = dataSnapshot.child("thumb_image").getValue().toString();
                 viewHolder.displayName.setText(from_user);
+                //TODO Need to be glide not picasso
                 Picasso.with(viewHolder.profileImage.getContext()).load("https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FuO1LtPBycdg0GmHdQ66dmAaDzxb2%2Fprofile_photo?alt=media&token=90ebef6a-1117-4fff-900e-3a509dcf3eb5")
                         .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
             }

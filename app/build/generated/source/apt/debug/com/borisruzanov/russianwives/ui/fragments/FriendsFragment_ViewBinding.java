@@ -18,7 +18,7 @@ public class FriendsFragment_ViewBinding implements Unbinder {
   public FriendsFragment_ViewBinding(ChatsFragment target, View source) {
     this.target = target;
 
-    target.mConvList = Utils.findRequiredViewAsType(source, R.id.friends_fragment_recycler_chats, "field 'mConvList'", RecyclerView.class);
+    target.recyclerChatsList = Utils.findRequiredViewAsType(source, R.id.friends_fragment_recycler_chats, "field 'recyclerChatsList'", RecyclerView.class);
   }
 
   @Override
@@ -28,6 +28,6 @@ public class FriendsFragment_ViewBinding implements Unbinder {
     if (target == null) throw new IllegalStateException("Bindings already cleared.");
     this.target = null;
 
-    target.mConvList = null;
+    target.recyclerChatsList = null;
   }
 }

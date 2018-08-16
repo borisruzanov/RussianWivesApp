@@ -19,6 +19,11 @@
         <!--app:showAsAction="never"/>-->
 
     <item
+        android:id="@+id/menu_filter"
+        android:title="@string/header_filters"
+        app:showAsAction="never" />
+
+    <item
         android:title=""
         android:id="@+id/menu_toolbar_profile"
         android:icon="@drawable/ic_account_circle_black_24dp"

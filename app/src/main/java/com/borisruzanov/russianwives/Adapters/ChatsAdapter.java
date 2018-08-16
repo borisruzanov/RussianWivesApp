@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.Adapters;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,100 +10,86 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.User;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.borisruzanov.russianwives.models.UserChat;
+import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
+public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapterViewHolder> {
 
-public class ChatsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<Chat> requestsList;
-    private DatabaseReference mConvDatabase;
-    private String mCurrent_user_id = new FirebaseRepository().getUid();
-
+    private List<UserChat> userChatList = new ArrayList<>();
+    private UserDescriptionListAdapter.ItemClickListener mClickListener;
+    OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    Context context;
 
 
-    public ChatsAdapter(List<Chat> requestsList) {
-        this.requestsList = requestsList;
+    public ChatsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback;
+    }
+
+    public void setData(List<UserChat> recipesList){
+        this.userChatList = recipesList;
+        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
-    public RequestsItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_request, parent, false);
-        return new RequestsItemHolder(view);
-    }
+    public ChatsAdapter.ChatsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_chat, parent, false);
+        return new ChatsAdapter.ChatsAdapterViewHolder(view);    }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        mConvDatabase = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                 String value = dataSnapshot.child("name").getValue().toString();
-                String userThumb = dataSnapshot.child("thumb_image").getValue().toString();
-                Log.d(Contract.TAG, "datasnapshot value is " + value);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-//        ((RequestsItemHolder) holder).image.setText(requestsList.get(position).getImage());
-//        ((RequestsItemHolder) holder).name.setText(requestsList.get(position).getName());
-//        ((RequestsItemHolder) holder).country.setText(requestsList.get(position).getCountry());
-//        ((RequestsItemHolder) holder).age.setText(requestsList.get(position).getAge());
-        ((RequestsItemHolder) holder).btnAccept.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(Contract.TAG, "Request OnClick Accept");
-            }
-        });
-        ((RequestsItemHolder) holder).btnDecline.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(Contract.TAG, "Request OnClick Decline");
-
-            }
-        });
-
+    public void onBindViewHolder(@NonNull ChatsAdapterViewHolder holder, int position) {
+        UserChat model = userChatList.get(position);
+        Log.d(Contract.TAG, "UserDescriptionListAdapter - onBindViewHolder");
+        holder.bind(model, position);
     }
 
     @Override
     public int getItemCount() {
-            return requestsList.size();
+        return userChatList.size();
+    }
+
+    public class ChatsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        TextView name;
+        TextView seen;
+        TextView time;
+        ImageView image;
+
+        public ChatsAdapterViewHolder(View itemView) {
+            super(itemView);
+            name = (TextView) itemView.findViewById(R.id.item_list_chat_name);
+            seen = (TextView) itemView.findViewById(R.id.item_list_chat_seen);
+            time = (TextView) itemView.findViewById(R.id.item_list_chat_time);
+            image = (ImageView) itemView.findViewById(R.id.item_list_chat_image);
         }
 
-        public static class RequestsItemHolder extends RecyclerView.ViewHolder {
-            @BindView(R.id.item_request_name)
-            TextView name;
-            @BindView(R.id.item_request_country)
-            TextView country;
-            @BindView(R.id.item_request_age)
-            TextView age;
-            @BindView(R.id.item_request_image)
-            ImageView image;
+        @Override
+        public void onClick(View v) {
+        }
 
-            @BindView(R.id.item_request_btn_accept)
-            ImageView btnAccept;
-            @BindView(R.id.item_request_btn_decline)
-            ImageView btnDecline;
-
-            public RequestsItemHolder(View itemView) {
-                super(itemView);
-                ButterKnife.bind(this, itemView);
+        void bind(UserChat model, int position){
+            name.setText(model.getName());
+            time.setText(String.valueOf(model.getTimestamp()));
+            seen.setText(String.valueOf(model.getSeen()));
+            if(model.getImage().equals("default")){
+                Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
+            }else {
+                Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
             }
-
+            time.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
         }
     }
+    public void setClickListener(UserDescriptionListAdapter.ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
+}
