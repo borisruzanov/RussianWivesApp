@@ -8,15 +8,15 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 public class FirebaseInjections {
 
-    public static String users = "User";
+    public static String users = "FsUser";
 
     public static FirebaseUser currentUserInstance = FirebaseAuth.getInstance().getCurrentUser();
     public static String currentUserUid = currentUserInstance.getUid();
     public static DatabaseReference currentUserUidReference = FirebaseDatabase.getInstance().getReference()
-            .child("User")
+            .child("FsUser")
             .child(currentUserUid);
     public static String currentUserUidString = FirebaseDatabase.getInstance().getReference()
-            .child("User")
+            .child("FsUser")
             .child(currentUserUid).toString();
     public static String currentUserToken = FirebaseInstanceId.getInstance().getToken();
 

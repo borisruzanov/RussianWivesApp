@@ -44,8 +44,8 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 	}
 
 	@Override
-	public  void showUsers( java.util.List<com.borisruzanov.russianwives.models.User> userList) {
-		ShowUsersCommand showUsersCommand = new ShowUsersCommand(userList);
+	public  void showUsers( java.util.List<com.borisruzanov.russianwives.models.FsUser> fsUserList) {
+		ShowUsersCommand showUsersCommand = new ShowUsersCommand(fsUserList);
 		mViewCommands.beforeApply(showUsersCommand);
 
 		if (mViews == null || mViews.isEmpty()) {
@@ -53,7 +53,7 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		}
 
 		for(com.borisruzanov.russianwives.mvp.view.SearchView view : mViews) {
-			view.showUsers(userList);
+			view.showUsers(fsUserList);
 		}
 
 		mViewCommands.afterApply(showUsersCommand);
@@ -91,6 +91,22 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		mViewCommands.afterApply(openFriendCommand);
 	}
 
+	@Override
+	public  void openChat( java.lang.String uid,  java.lang.String name,  java.lang.String image) {
+		OpenChatCommand openChatCommand = new OpenChatCommand(uid, name, image);
+		mViewCommands.beforeApply(openChatCommand);
+
+		if (mViews == null || mViews.isEmpty()) {
+			return;
+		}
+
+		for(com.borisruzanov.russianwives.mvp.view.SearchView view : mViews) {
+			view.openChat(uid, name, image);
+		}
+
+		mViewCommands.afterApply(openChatCommand);
+	}
+
 
 	public class ShowLoadingCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
 		public final boolean isLoading;
@@ -121,16 +137,16 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 	}
 
 	public class ShowUsersCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
-		public final java.util.List<com.borisruzanov.russianwives.models.User> userList;
+		public final java.util.List<com.borisruzanov.russianwives.models.FsUser> fsUserList;
 
-		ShowUsersCommand( java.util.List<com.borisruzanov.russianwives.models.User> userList) {
+		ShowUsersCommand( java.util.List<com.borisruzanov.russianwives.models.FsUser> fsUserList) {
 			super("showUsers", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
-			this.userList = userList;
+			this.fsUserList = fsUserList;
 		}
 
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
-			mvpView.showUsers(userList);
+			mvpView.showUsers(fsUserList);
 		}
 	}
 
@@ -160,6 +176,24 @@ public class SearchView$$State extends MvpViewState<com.borisruzanov.russianwive
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
 			mvpView.openFriend(uid, name, image);
+		}
+	}
+
+	public class OpenChatCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.SearchView> {
+		public final java.lang.String uid;
+		public final java.lang.String name;
+		public final java.lang.String image;
+
+		OpenChatCommand( java.lang.String uid,  java.lang.String name,  java.lang.String image) {
+			super("openChat", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
+			this.uid = uid;
+			this.name = name;
+			this.image = image;
+		}
+
+		@Override
+		public void apply(com.borisruzanov.russianwives.mvp.view.SearchView mvpView) {
+			mvpView.openChat(uid, name, image);
 		}
 	}
 }

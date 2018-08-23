@@ -1,29 +1,19 @@
 package com.borisruzanov.russianwives.mvp.presenter;
 
-import android.util.Log;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.SearchModel;
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.view.SearchView;
-import com.borisruzanov.russianwives.utils.UsersListCallback;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-/**
- * Created by Михаил on 03.05.2018.
- */
 
 @InjectViewState
 public class SearchPresenter extends MvpPresenter<SearchView> {
 
     private SearchInteractor searchInteractor;
-    private List<User> users = new ArrayList<>();
+    private List<FsUser> fsUsers = new ArrayList<>();
 
     public SearchPresenter(SearchInteractor searchInteractor) {
         this.searchInteractor = searchInteractor;
@@ -36,10 +26,10 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 //                new SearchModel("hobby", "adventures"));
 //        searchInteractor.searchByListParams(searchModels, new UsersListCallback() {
 //            @Override
-//            public void getUsers(List<User> users) {
-//                if(users.isEmpty()) Log.d("Search", "Search list is empty");
+//            public void getUsers(List<FsUser> fsUsers) {
+//                if(fsUsers.isEmpty()) Log.d("Search", "Search list is empty");
 //
-//                for (User model: users) {
+//                for (FsUser model: fsUsers) {
 //                    Log.d("Search", model.getName());
 //                }
 //            }
@@ -50,28 +40,27 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
     public void getUsers() {
         searchInteractor.getUsers(userList -> {
             if (!userList.isEmpty()) {
-                users.addAll(userList);
-                getViewState().showUsers(users);
+                fsUsers.addAll(userList);
+                getViewState().showUsers(fsUsers);
             } else getViewState().showEmpty(true);
         });
     }
 
     public void getFilteredList(){
-        Log.d("FilterDia", "In Presenter getFilteredList");
         searchInteractor.getFilteredList(userList -> {
-            for (User user: userList) Log.d("FilterDia", "User name is " + user.getName());
             if (!userList.isEmpty()) {
-                users.addAll(userList);
+                fsUsers.addAll(userList);
                 getViewState().showUsers(userList);
             } else getViewState().showEmpty(true);
-
         });
     }
 
 
     public void openFriend(int position) {
-        Log.d(Contract.TAG, "-----> position in presenter " + position);
-        getViewState().openFriend(users.get(position).getUid(), users.get(position).getName(), users.get(position).getImage());
+        getViewState().openFriend(fsUsers.get(position).getUid(), fsUsers.get(position).getName(), fsUsers.get(position).getImage());
+    }
+    public void openChat(int position) {
+        getViewState().openChat(fsUsers.get(position).getUid(), fsUsers.get(position).getName(), fsUsers.get(position).getImage());
     }
 
 }

@@ -1,9 +1,9 @@
 package com.borisruzanov.russianwives.utils;
 
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 
 public interface UserCallback {
 
-    void getUser(User user);
+    void getUser(FsUser fsUser);
 
 }

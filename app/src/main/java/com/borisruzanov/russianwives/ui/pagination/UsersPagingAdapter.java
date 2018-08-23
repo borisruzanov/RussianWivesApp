@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.ui.global.ViewType;
 import com.borisruzanov.russianwives.ui.global.ViewTypeDelegateAdapter;
 
@@ -42,29 +42,29 @@ public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         delegateAdapters.get(getItemViewType(position)).onBindViewHolder(holder, this.items.get(position));
     }
 
-  /*  public void setData(List<User> userList) {
+  /*  public void setData(List<FsUser> fsUserList) {
         int initPosition = items.size() - 1;
         items.remove(initPosition);
         notifyItemRemoved(initPosition);
-        items.addAll(userList);
+        items.addAll(fsUserList);
         items.add(loadingItem);
         notifyItemRangeChanged(initPosition, items.size() + 1 *//* plus loading item *//*);
     }*/
 
-    public void clearAndAddNews(List<User> userList) {
+    public void clearAndAddNews(List<FsUser> fsUserList) {
         items.clear();
         notifyItemRangeRemoved(0, getLastPosition());
 
-        items.addAll(userList);
+        items.addAll(fsUserList);
         items.add(loadingItem);
         notifyItemRangeInserted(0, items.size());
     }
 
-    public void setData(List<User> users){
+    public void setData(List<FsUser> fsUsers){
         boolean progress = isProgress();
 
         items.clear();
-        items.addAll(users);
+        items.addAll(fsUsers);
         if (progress) items.add(loadingItem);
 
         notifyDataSetChanged();
@@ -81,7 +81,7 @@ public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     private boolean isProgress(){
-        return !items.isEmpty() && !items.get(getLastPosition()).equals(User.class);
+        return !items.isEmpty() && !items.get(getLastPosition()).equals(FsUser.class);
     }
 
     private int getLastPosition(){ return items.size() -1; }
@@ -90,14 +90,14 @@ public class UsersPagingAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return getUsers().get(getUsers().size() - 1).getUid();
     }
 
-    public List<User> getUsers() {
-        List<User> userList = new ArrayList<>();
+    public List<FsUser> getUsers() {
+        List<FsUser> fsUserList = new ArrayList<>();
         for (ViewType viewType: items){
             if(viewType.getViewType() == Contract.USERS){
-                userList.add((User)viewType);
+                fsUserList.add((FsUser)viewType);
             }
         }
-        return userList;
+        return fsUserList;
     }
 
     @Override

@@ -18,14 +18,15 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FilterRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
-import com.borisruzanov.russianwives.ui.pagination.UsersAdapter;
 import com.borisruzanov.russianwives.ui.ChatActivity;
+import com.borisruzanov.russianwives.ui.FriendActivity;
+import com.borisruzanov.russianwives.ui.pagination.SearchAdapter;
 
 import java.util.List;
 
@@ -46,7 +47,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     TextView emptyText;
 
     View view;
-    UsersAdapter adapter;
+    SearchAdapter adapter;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -68,17 +69,27 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
         recyclerView.setHasFixedSize(true);
 
-        adapter = new UsersAdapter(onItemClickCallback);
+        adapter = new SearchAdapter(onItemClickCallback, onItemChatCallback, onItemLikeCallback);
         recyclerView.setAdapter(adapter);
         searchPresenter.getFilteredList();
 
     }
 
-    private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
-        Log.d(Contract.TAG, "In onCLICK");
+    private OnItemClickListener.OnItemClickCallback onItemChatCallback = (View view, int position) -> {
+        Log.d(Contract.TAG, "In onItemChatCallback");
+        searchPresenter.openChat(position);
+
+    };
+
+    private OnItemClickListener.OnItemClickCallback onItemLikeCallback = (View view, int position) -> {
+        Log.d(Contract.TAG, "In onItemLikeCallback");
+    };
+
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback = (View view, int position) -> {
+        Log.d(Contract.TAG, "In onItemClickCallback");
         searchPresenter.openFriend(position);
        /* Intent friendActivityIntent = new Intent(getContext(), FriendActivity.class);
-                User itemClicked = userList.get(position);
+                FsUser itemClicked = fsUserList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putInt("position", position);
                 bundle.putString("image", itemClicked.getImage());
@@ -139,11 +150,15 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
 
     @Override
     public void openFriend(String uid, String name, String image) {
-        Log.d(Contract.TAG, "-----> input UID " + uid + " " + image + " " + name);
-//        Intent dataIntent = new Intent(getContext(), FriendActivity.class);
-//        dataIntent.putExtra("uid", uid);
-//        startActivity(dataIntent);
+        Intent dataIntent = new Intent(getContext(), FriendActivity.class);
+        dataIntent.putExtra("uid", uid);
+        startActivity(dataIntent);
 
+//
+    }
+
+    @Override
+    public void openChat(String uid, String name, String image) {
         Intent chatIntent = new Intent(getContext(), ChatActivity.class);
         chatIntent.putExtra("uid", uid);
         chatIntent.putExtra("name",name);
@@ -152,9 +167,10 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     }
 
     @Override
-    public void showUsers(final List<User> userList) {
+    public void showUsers(final List<FsUser> fsUserList) {
         Log.d("Pagination", "In showUsers()");
-        recyclerView.post(() -> adapter.setData(userList));
+        showEmpty(false);
+        recyclerView.post(() -> adapter.setData(fsUserList));
     }
 
     public void onUpdate(){

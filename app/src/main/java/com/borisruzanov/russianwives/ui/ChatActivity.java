@@ -22,8 +22,7 @@ import android.widget.TextView;
 import com.borisruzanov.russianwives.Adapters.MessageAdapter;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.Messages;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.models.Message;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -69,7 +68,7 @@ public class ChatActivity extends AppCompatActivity {
     private String mCurrentUserId;
     //List
     private RecyclerView mMessagesList;
-    private final List<Messages> messagesList = new ArrayList<>();
+    private final List<Message> messageList = new ArrayList<>();
     private MessageAdapter mAdapter;
     private LinearLayoutManager mLinearLayout;
 
@@ -107,10 +106,10 @@ public class ChatActivity extends AppCompatActivity {
         mTitleView.setText(getIntent().getStringExtra("name"));
         mProfileImage = (CircleImageView) findViewById(R.id.custom_bar_image);
         Glide.with(this).load(getIntent().getStringExtra("photo_url")).into(mProfileImage);
-        //List of Messages
+        //List of Message
         mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
         mLinearLayout = new LinearLayoutManager(this);
-        mAdapter = new MessageAdapter(messagesList);
+        mAdapter = new MessageAdapter(messageList);
         mMessagesList.setHasFixedSize(true);
         mMessagesList.setLayoutManager(mLinearLayout);
         mMessagesList.setAdapter(mAdapter);
@@ -158,7 +157,7 @@ public class ChatActivity extends AppCompatActivity {
 
 //        mTitleView.setText(userName);
 //
-//        mRootRef.child("User").child(mChatUser).addValueEventListener(new ValueEventListener() {
+//        mRootRef.child("FsUser").child(mChatUser).addValueEventListener(new ValueEventListener() {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //
@@ -302,9 +301,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == GALLERY_PICK && resultCode == RESULT_OK){
             Uri imageUri = data.getData();
-            final String current_user_ref = "Messages/" + mCurrentUserId + "/" + mChatUser;
-            final String chat_user_ref = "Messages/" + mChatUser + "/" + mCurrentUserId;
-            DatabaseReference user_message_push = mRootRef.child("Messages")
+            final String current_user_ref = "Message/" + mCurrentUserId + "/" + mChatUser;
+            final String chat_user_ref = "Message/" + mChatUser + "/" + mCurrentUserId;
+            DatabaseReference user_message_push = mRootRef.child("Message")
                     .child(mCurrentUserId)
                     .child(mChatUser)
                     .push();
@@ -349,15 +348,15 @@ public class ChatActivity extends AppCompatActivity {
      */
     private void loadMoreMessages() {
 
-        DatabaseReference messageRef = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser);
+        DatabaseReference messageRef = mRootRef.child("Message").child(mCurrentUserId).child(mChatUser);
         Query messageQuery = messageRef.orderByKey().endAt(mLastKey).limitToLast(10);
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Messages message = dataSnapshot.getValue(Messages.class);
+                Message message = dataSnapshot.getValue(Message.class);
                 String messageKey = dataSnapshot.getKey();
                 if (!mPrevKey.equals(messageKey)) {
-                    messagesList.add(itemPos++, message);
+                    messageList.add(itemPos++, message);
                 } else {
                     mPrevKey = mLastKey;
                 }
@@ -393,21 +392,21 @@ public class ChatActivity extends AppCompatActivity {
      * Load messages only once
      */
     private void loadMessages() {
-        DatabaseReference messageRef = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser);
+        DatabaseReference messageRef = mRootRef.child("Message").child(mCurrentUserId).child(mChatUser);
         Query messageQuery = messageRef.limitToLast(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Messages message = dataSnapshot.getValue(Messages.class);
+                Message message = dataSnapshot.getValue(Message.class);
                 itemPos++;
                 if (itemPos == 1) {
                     String messageKey = dataSnapshot.getKey();
                     mLastKey = messageKey;
                     mPrevKey = messageKey;
                 }
-                messagesList.add(message);
+                messageList.add(message);
                 mAdapter.notifyDataSetChanged();
-                mMessagesList.scrollToPosition(messagesList.size() - 1);
+                mMessagesList.scrollToPosition(messageList.size() - 1);
                 mRefreshLayout.setRefreshing(false);
             }
 
@@ -437,10 +436,10 @@ public class ChatActivity extends AppCompatActivity {
 //
         if (!TextUtils.isEmpty(message)) {
 
-            String current_user_ref = "Messages/" + mCurrentUserId + "/" + mChatUser;
-            String chat_user_ref = "Messages/" + mChatUser + "/" + mCurrentUserId;
+            String current_user_ref = "Message/" + mCurrentUserId + "/" + mChatUser;
+            String chat_user_ref = "Message/" + mChatUser + "/" + mCurrentUserId;
 
-            DatabaseReference user_message_push = mRootRef.child("Messages")
+            DatabaseReference user_message_push = mRootRef.child("Message")
                     .child(mCurrentUserId).child(mChatUser).push();
 
             String push_id = user_message_push.getKey();

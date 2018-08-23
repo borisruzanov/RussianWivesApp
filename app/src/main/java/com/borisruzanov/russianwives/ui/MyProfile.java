@@ -2,46 +2,29 @@ package com.borisruzanov.russianwives.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.borisruzanov.russianwives.Adapters.UserDescriptionListAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.UserProfileItemsList;
-import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
-import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.UserCallback;
-import com.borisruzanov.russianwives.utils.ValueCallback;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
-import io.reactivex.Observer;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.observers.DefaultObserver;
 
 public class MyProfile extends AppCompatActivity {
 
@@ -70,8 +53,10 @@ public class MyProfile extends AppCompatActivity {
         //UI
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
+
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar_layout);
         collapsingToolbarLayout.setTitleEnabled(false);
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -109,7 +94,6 @@ public class MyProfile extends AppCompatActivity {
         new FirebaseRepository().getFieldFromCurrentUser("country", value -> country.setText(value));
 
         new FirebaseRepository().getFieldFromCurrentUser("age", value -> age.setText(value));
-
 
         new FirebaseRepository().getAllInfoCurrentUser(user -> {
                 userDescriptionList.addAll(UserProfileItemsList.initData(user));

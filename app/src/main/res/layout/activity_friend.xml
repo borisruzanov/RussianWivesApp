@@ -15,7 +15,6 @@
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:background="@android:color/holo_blue_bright"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
@@ -24,8 +23,8 @@
 
             <ImageView
                 android:id="@+id/friend_activity_image"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:contentDescription="Default Avatar"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
@@ -197,7 +196,7 @@
                         android:layout_gravity="left"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
-                        android:text="@string/you_may_also_like_them"
+                        android:text="ACTIVITY_FRIEND"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 

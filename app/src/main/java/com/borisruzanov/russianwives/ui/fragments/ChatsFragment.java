@@ -1,7 +1,7 @@
 package com.borisruzanov.russianwives.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,40 +9,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arellomobile.mvp.MvpAppCompatFragment;
+import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.borisruzanov.russianwives.Adapters.ChatsAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.User;
 import com.borisruzanov.russianwives.models.UserChat;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter;
+import com.borisruzanov.russianwives.mvp.view.ChatsView;
+import com.borisruzanov.russianwives.ui.ChatActivity;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ChatsFragment extends Fragment {
+public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
 
     //TODO Refactor to Activities Fragment
 
     RecyclerView recyclerChatsList;
     ChatsAdapter chatsAdapter;
-    List<UserChat> chatsList = new ArrayList<>();
 
     private View mMainView;
 
-    //Firebase
-    private DatabaseReference mConvDatabase;
-    private DatabaseReference mUsersDatabase;
-    private DatabaseReference mMessageDatabase;
-    private String mCurrent_user_id;
+    @InjectPresenter
+    ChatsPresenter chatsPresenter;
 
-    List<UserChat> userChats = new ArrayList<>();
+    private DatabaseReference mUserDatabase;
+    private FirebaseAuth mAuth;
 
 
     public ChatsFragment() {
@@ -58,67 +58,26 @@ public class ChatsFragment extends Fragment {
         Log.d(Contract.TAG, "INSIDEE CHATS");
 
 
-
-//        ArrayList<User> listUsers = (ArrayList<User>) getArguments().getSerializable("ingredients");
+//        ArrayList<FsUser> listUsers = (ArrayList<FsUser>) getArguments().getSerializable("ingredients");
 //        chatsList.addAll(listUsers);
+
+        mAuth = FirebaseAuth.getInstance();
+        mUserDatabase = FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(mAuth.getCurrentUser().getUid());
+
+        Log.d("onlineStatus uid", "mUserDatabase " + FirebaseDatabase.getInstance().getReference()
+                .child("Users").child(mAuth.getCurrentUser().getUid()));
 
 
         recyclerChatsList = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_chats);
         recyclerChatsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerChatsList.setHasFixedSize(true);
-        chatsAdapter = new ChatsAdapter(onItemClickCallback);
+        chatsAdapter = new ChatsAdapter(onItemClickCallback, mUserDatabase, mAuth);
         recyclerChatsList.setAdapter(chatsAdapter);
 
-        //TODO REFACTOR Chats Fragment with repository
-        mCurrent_user_id = new FirebaseRepository().getUid();
-        mConvDatabase = FirebaseDatabase.getInstance().getReference().child("Chat").child(mCurrent_user_id);
-        mConvDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Chat> chatList = new ArrayList<>();
-                List<String> uidList = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Log.d(Contract.TAG, "ChatsFragment - chat Request - Uid" + snapshot.getKey() + " ");
-                    //This is list of chats UID's
-                    uidList.add(snapshot.getKey());
-                    long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
-                    boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
-                    Log.d(Contract.TAG, "ChatsFragment - chat Request - Object - " + "timestamp is " + timeStamp + "message seen is " + seen);
-                    //This is list of Chats Objects
-                    chatList.add(new Chat(timeStamp, seen));
-                }
-
-                new FirebaseRepository().getNeededUsers(uidList, userList -> {
-                    for(User user: userList){
-                        Log.d(Contract.TAG, "Полученное имя из репозитория " + user.getName());
-                    }
-
-                    if(userList.isEmpty()) Log.d(Contract.TAG, "LIST IS EMPTY!!!");
+        chatsPresenter.getUserChatList();
 
 
-                    for (int i = 0; i < userList.size(); i++) {
-                        String name = userList.get(i).getName();
-                        String image = userList.get(i).getImage();
-                        long timeStamp = chatList.get(i).getTimeStamp();
-                        boolean seen = chatList.get(i).getSeen();
-                        userChats.add(new UserChat(name, image, timeStamp, seen));
-
-                        Log.d(Contract.TAG, "Отображаем имя в UI фрагмента  " + userChats.get(i).getName());
-                        Log.d(Contract.TAG, "Отображаем видимость в UI фрагмента  " + userChats.get(i).getSeen());
-                        Log.d(Contract.TAG, "Отображаем таймстэмп в UI фрагмента  " + userChats.get(i).getTimestamp());
-
-                        chatsAdapter.setData(userChats);
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
         /**
          * Chats List
          */
@@ -142,19 +101,19 @@ public class ChatsFragment extends Fragment {
 //        Query lastMessageQuery = mMessageDatabase.child(list_user_id).limitToLast(1);
 
 
-//        for (User user : chatsList) {
-//            Log.d(Contract.TAG, "chatsList User name " + user.getName());
+//        for (FsUser user : chatsList) {
+//            Log.d(Contract.TAG, "chatsList FsUser name " + user.getName());
 //        }
 
 //
 //        mFriendsList = (RecyclerView) mMainView.findViewById(R.id.friends_list);
 //        mAuth = FirebaseAuth.getInstance();
 //
-//        mCurrent_user_id = mAuth.getCurrentUser().getUid();
+//        mCurrent_user_id = mAuth.getCurrentUser().getOnline();
 //
 //        mFriendsDatabase = FirebaseDatabase.getInstance().getReference().child("Friends").child(mCurrent_user_id);
 //        mFriendsDatabase.keepSynced(true);
-//        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("User");
+//        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("FsUser");
 //        mUsersDatabase.keepSynced(true);
 //
 //
@@ -162,14 +121,58 @@ public class ChatsFragment extends Fragment {
 //        mFriendsList.setLayoutManager(new LinearLayoutManager(getContext()));
 
         // Inflate the layout for this fragment
+
+
+
+
+
+
         return mMainView;
     }
 
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
         Log.d(Contract.TAG, "In onCLICK");
+        chatsPresenter.openChat(position);
+
+
+
+//        mChatUser = userChats.get(position).getUserId();
+//
+//        Map chatAddMap = new HashMap();
+//        chatAddMap.put("activity", "visit");
+//        chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+//        chatAddMap.put("uid", mCurrent_user_id);
+//        DatabaseReference mDatabase = mRootRef.child("Activity").child(mChatUser).push();
+//        mDatabase.updateChildren(chatAddMap);
+
+//
+//        mRootRef.child("Activity").child(mChatUser).child(mCurrent_user_id).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                    Map chatUserMap = new HashMap();
+////                    chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser, chatAddMap);
+////                    chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId, chatAddMap);
+//
+////                    mRootRef.ad(chatAddMap, new DatabaseReference.CompletionListener() {
+////                        @Override
+////                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+////                            if (databaseError != null) {
+////                                Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage().toString());
+////                            }
+////                        }
+////                    });
+////                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
 //        searchPresenter.openFriend(position);
        /* Intent friendActivityIntent = new Intent(getContext(), FriendActivity.class);
-                User itemClicked = userList.get(position);
+                FsUser itemClicked = fsUserList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putInt("position", position);
                 bundle.putString("image", itemClicked.getImage());
@@ -196,6 +199,20 @@ public class ChatsFragment extends Fragment {
                     transaction.commit();
                 }        startActivity(friendActivityIntent);*/
     };
+
+    @Override
+    public void showUserChats(List<UserChat> userChats) {
+        recyclerChatsList.post(() -> chatsAdapter.setData(userChats));
+    }
+
+    @Override
+    public void openChat(String uid, String name, String image) {
+        Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+        chatIntent.putExtra("uid", uid);
+        chatIntent.putExtra("name",name);
+        chatIntent.putExtra("photo_url", image);
+        startActivity(chatIntent);
+    }
 //
 //
 //    @Override

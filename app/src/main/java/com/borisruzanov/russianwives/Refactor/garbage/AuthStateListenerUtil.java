@@ -33,14 +33,14 @@ public class AuthStateListenerUtil {
             mUserDatabaseReference = FirebaseDatabase
                     .getInstance()
                     .getReference()
-                    .child("User")
+                    .child("FsUser")
                     .child(uid);
             mUserDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
                     if (!dataSnapshot.child("name").exists()) {
-                        Log.v("MyTag", "User is null");
+                        Log.v("MyTag", "FsUser is null");
                         System.out.println(displayName);
                         mUserDatabaseReference.setValue(FirebaseRequestManager.createNewUser(displayName, deviceToken));
 

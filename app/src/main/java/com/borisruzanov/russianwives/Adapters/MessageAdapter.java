@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borisruzanov.russianwives.models.Messages;
+import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -25,12 +25,12 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder>{
 
 
-    private List<Messages> mMessageList;
+    private List<Message> mMessageList;
     private DatabaseReference mUserDatabase;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private String current_user_id = mAuth.getCurrentUser().getUid();
 
-    public MessageAdapter(List<Messages> mMessageList) {
+    public MessageAdapter(List<Message> mMessageList) {
         this.mMessageList = mMessageList;
     }
 
@@ -63,11 +63,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     public void onBindViewHolder(final MessageViewHolder viewHolder, int i) {
 
         //TODO Rename variables
-        Messages c = mMessageList.get(i);
+        Message c = mMessageList.get(i);
         String from_user = c.getFrom();
         String message_type = c.getType();
 
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(from_user);
+        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("FsUser").child(from_user);
         mUserDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

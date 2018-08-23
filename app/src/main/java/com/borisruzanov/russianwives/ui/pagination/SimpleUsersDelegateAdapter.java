@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.ui.global.ViewType;
 import com.borisruzanov.russianwives.ui.global.ViewTypeDelegateAdapter;
 import com.bumptech.glide.Glide;
@@ -24,7 +24,7 @@ public class SimpleUsersDelegateAdapter implements ViewTypeDelegateAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, ViewType item) {
-        ((UserViewHolder)holder).bind(((User)(item)));
+        ((UserViewHolder)holder).bind(((FsUser)(item)));
     }
 
     class UserViewHolder extends RecyclerView.ViewHolder {
@@ -40,10 +40,10 @@ public class SimpleUsersDelegateAdapter implements ViewTypeDelegateAdapter {
             status = itemView.findViewById(R.id.user_status);
         }
 
-        void bind(User user){
-            Glide.with(context).load(user.getImage()).thumbnail(0.5f).into(imageView);
-            name.setText(user.getName());
-            status.setText(user.getStatus());
+        void bind(FsUser fsUser){
+            Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);
+            name.setText(fsUser.getName());
+            status.setText(fsUser.getStatus());
         }
     }
 

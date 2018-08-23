@@ -1,18 +1,18 @@
 #Internal package file, do not edit.
-#Thu Aug 02 17:51:22 GMT-05:00 2018
+#Tue Aug 21 16:25:56 GMT-05:00 2018
 1.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
-2.path=crashlytics-build.properties
+2.path=classes.dex
 0.baseType=DIRECTORY
 3.baseType=DIRECTORY
-2.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\assets\\debug
-3.set=DEX
-2.set=ASSET
+2.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+3.set=ASSET
+2.set=DEX
 1.baseType=DIRECTORY
-3.path=classes.dex
+3.path=crashlytics-build.properties
 count=4
 1.set=DEX
 0.path=classes2.dex
-3.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+3.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\assets\\debug
 0.set=DEX
 0.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
 2.baseType=DIRECTORY

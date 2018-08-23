@@ -1,18 +1,16 @@
 package com.borisruzanov.russianwives.ui;
 
-import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.borisruzanov.russianwives.Adapters.UserDescriptionListAdapter;
@@ -20,24 +18,18 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.UserProfileItemsList;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
-import com.borisruzanov.russianwives.utils.UsersListCallback;
-import com.borisruzanov.russianwives.utils.ValueCallback;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import butterknife.BindView;
 
 public class FriendActivity extends MvpAppCompatActivity {
 
@@ -95,10 +87,10 @@ public class FriendActivity extends MvpAppCompatActivity {
                     }
                 });
 //                new FirebaseRepository().getUserDataTierTwo("FriendsLogic", "hereUserUid",
-//                        "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, userList -> {
+//                        "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, fsUserList -> {
 //                            for (String uid : stringList) Log.d(Contract.TAG, "Uid " + uid);
-//                            for (User user : userList) {
-//                                Log.d(Contract.TAG, "User name " + user.getName());
+//                            for (FsUser user : fsUserList) {
+//                                Log.d(Contract.TAG, "FsUser name " + user.getName());
 //                            }
 //                        }));
 
@@ -122,14 +114,14 @@ public class FriendActivity extends MvpAppCompatActivity {
 
         new FirebaseRepository().getFriendsData(Consts.COLLECTION_USERS, getIntent().getStringExtra("uid"), new UserCallback() {
             @Override
-            public void getUser(User user) {
-                name.setText(user.getName());
-                age.setText(user.getAge());
-                country.setText(user.getCountry());
-                if (!user.getImage().equals("default")) {
+            public void getUser(FsUser fsUser) {
+                name.setText(fsUser.getName());
+                age.setText(fsUser.getAge());
+                country.setText(fsUser.getCountry());
+                if (!fsUser.getImage().equals("default")) {
                     Glide
                             .with(FriendActivity.this)
-                            .load(user.getImage())
+                            .load(fsUser.getImage())
                             .into(imageView);
                 }
             }
@@ -137,11 +129,21 @@ public class FriendActivity extends MvpAppCompatActivity {
 
         new FirebaseRepository().getAllInfoCurrentUser(new UserCallback() {
             @Override
-            public void getUser(User user) {
-                userDescriptionList.addAll(UserProfileItemsList.initData(user));
+            public void getUser(FsUser fsUser) {
+                userDescriptionList.addAll(UserProfileItemsList.initData(fsUser));
                 setList(userDescriptionList);
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void setList(List<UserDescriptionModel> userDescriptionList) {
@@ -162,4 +164,6 @@ public class FriendActivity extends MvpAppCompatActivity {
         };
         return onItemClickCallback;
     }
+
+
 }

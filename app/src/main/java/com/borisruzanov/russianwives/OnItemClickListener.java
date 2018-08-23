@@ -16,6 +16,7 @@ public class OnItemClickListener implements View.OnClickListener {
         onItemClickCallback.onItemClicked(view, position);
     }
 
+
     public interface OnItemClickCallback {
         void onItemClicked(View view, int position);
     }

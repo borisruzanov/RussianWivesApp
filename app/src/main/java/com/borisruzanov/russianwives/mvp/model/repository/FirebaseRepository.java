@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.SearchModel;
-import com.borisruzanov.russianwives.models.User;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
 import com.borisruzanov.russianwives.utils.StringsCallback;
@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -32,6 +34,8 @@ import java.util.Map;
 public class FirebaseRepository {
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
+
 //    private StorageReference mImageStorage = FirebaseStorage.getInstance().getReference();
 //    private StorageReference filePath = mImageStorage.child("profile_images").child("profile_image.jpg");
 
@@ -50,7 +54,7 @@ public class FirebaseRepository {
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot.exists()) {
-                        callback.getUser(snapshot.toObject(User.class));
+                        callback.getUser(snapshot.toObject(FsUser.class));
                     }
                 });
     }
@@ -67,11 +71,11 @@ public class FirebaseRepository {
      */
     public void getUsersData(final UsersListCallback usersListCallback) {
         reference.get().addOnCompleteListener(task -> {
-            List<User> userList = new ArrayList<>();
+            List<FsUser> fsUserList = new ArrayList<>();
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                userList.add(snapshot.toObject(User.class));
+                fsUserList.add(snapshot.toObject(FsUser.class));
             }
-            usersListCallback.getUsers(userList);
+            usersListCallback.getUsers(fsUserList);
         });
     }
 
@@ -96,12 +100,13 @@ public class FirebaseRepository {
 //    //TODO REFACTOR <-------------
 
     /**
-     * Saving User to data base
+     * Saving FsUser to data base
      */
     public void saveUser() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         db.collection(Consts.COLLECTION_USERS).document(currentUser.getUid())
                 .set(FirebaseRequestManager.createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid()));
+        realtimeReference.child("Users").child(currentUser.getUid()).child("created").setValue("registered");
     }
 
     public void getDataFromNeededFriend(String userId, String valueName, final ValueCallback callback) {
@@ -112,7 +117,8 @@ public class FirebaseRepository {
         getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
             if (snapshot.exists()) {
-                userCallback.getUser(snapshot.toObject(User.class));
+                Log.d("check", "exist");
+                userCallback.getUser(snapshot.toObject(FsUser.class));
             }
 
         });
@@ -148,15 +154,15 @@ public class FirebaseRepository {
             users.whereEqualTo("uid", uidList.get(j))
                     .get()
                     .addOnCompleteListener(task -> {
-                        List<User> userList = new ArrayList<>();
+                        List<FsUser> fsUserList = new ArrayList<>();
                         for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                            userList.add(snapshot.toObject(User.class));
+                            fsUserList.add(snapshot.toObject(FsUser.class));
                             Log.d(Contract.TAG, "Добавляем объект юзер из снэпшота и его имя " + snapshot.getString("name"));
                         }
-                        for (User user : userList) {
-                            Log.d(Contract.TAG, "Имя добавленного объекта юзера в листе " + user.getName());
+                        for (FsUser fsUser : fsUserList) {
+                            Log.d(Contract.TAG, "Имя добавленного объекта юзера в листе " + fsUser.getName());
                         }
-                        usersListCallback.getUsers(userList);
+                        usersListCallback.getUsers(fsUserList);
                     });
 
         }
@@ -164,7 +170,7 @@ public class FirebaseRepository {
 
 
     //      Query query = db.collection(Consts.COLLECTION_USERS).whereEqualTo("uid", uidList);
-//      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(User.class)));
+//      query.get().addOnCompleteListener(task -> usersListCallback.getUsers(task.getResult().toObjects(FsUser.class)));
 
     //==========================================================================================
     //==========================================================================================
@@ -217,7 +223,7 @@ public class FirebaseRepository {
 //     * @return
 //     */
 //    public Completable updateDataOfCurrentUser(final Map<String, Object> objectHashMap){
-//        return updateData(Consts.COLLECTION_USERS, getUid(), objectHashMap);
+//        return updateData(Consts.COLLECTION_USERS, getOnline(), objectHashMap);
 //    }
 //
 //    /**
@@ -226,14 +232,14 @@ public class FirebaseRepository {
 //     * @return
 //     */
 //    public Observable<String> getDataFromUsers(final String valueName){
-//        return getData(Consts.COLLECTION_USERS, getUid(), valueName);
+//        return getData(Consts.COLLECTION_USERS, getOnline(), valueName);
 //    }
 //
-//    public Observable<User> getCurrentUserData(){
-//        return RxFirestore.getDocument(getDocRef(Consts.COLLECTION_USERS, getUid()))
+//    public Observable<FsUser> getCurrentUserData(){
+//        return RxFirestore.getDocument(getDocRef(Consts.COLLECTION_USERS, getOnline()))
 //                .filter(DocumentSnapshot::exists)
 //                .toObservable()
-//                .map(documentSnapshot -> documentSnapshot.toObject(User.class));
+//                .map(documentSnapshot -> documentSnapshot.toObject(FsUser.class));
 //    }
 //
 
@@ -260,11 +266,11 @@ public class FirebaseRepository {
     }
 
     private void putCallbackData(final UsersListCallback usersListCallback, Task<QuerySnapshot> task) {
-        List<User> userList = new ArrayList<>();
+        List<FsUser> fsUserList = new ArrayList<>();
         for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-            userList.add(snapshot.toObject(User.class));
+            fsUserList.add(snapshot.toObject(FsUser.class));
         }
-        usersListCallback.getUsers(userList);
+        usersListCallback.getUsers(fsUserList);
     }
 
     //

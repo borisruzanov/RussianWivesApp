@@ -58,7 +58,7 @@ public class test extends AppCompatActivity{
 
         mRootRef = FirebaseDatabase.getInstance().getReference();
 
-        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("User").child(user_id);
+        mUsersDatabase = FirebaseDatabase.getInstance().getReference().child("FsUser").child(user_id);
         mFriendReqDatabase = FirebaseDatabase.getInstance().getReference().child("Friend_req");
         mFriendDatabase = FirebaseDatabase.getInstance().getReference().child("Friends");
         mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
@@ -72,7 +72,7 @@ public class test extends AppCompatActivity{
 
 
         mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle("Loading User Data");
+        mProgressDialog.setTitle("Loading FsUser Data");
         mProgressDialog.setMessage("Please wait while we load the user data.");
         mProgressDialog.setCanceledOnTouchOutside(false);
         mProgressDialog.show();

@@ -22,6 +22,7 @@
     <uses-permission android:name="com.borisruzanov.russianwives.permission.C2D_MESSAGE" />
 
     <application
+        android:name="com.borisruzanov.russianwives.App"
         android:allowBackup="true"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
