@@ -24,9 +24,9 @@ public class FilterDialogPresenter extends MvpPresenter<FilterView> {
     }
 
     public void getSavedValues() {
-        List<Integer> resIdList = Arrays.asList(R.array.genders, R.array.relationships_statuses, R.array.body_types,
-                R.array.ethnicities, R.array.faith_types, R.array.smoke_statuses, R.array.drink_statuses,
-                R.array.have_kids_statuses, R.array.want_kids_statuses);
+        List<Integer> resIdList = Arrays.asList(R.array.genders, R.array.age_types, R.array.countries,
+                R.array.relationships_statuses, R.array.body_types, R.array.ethnicities, R.array.faith_types,
+                R.array.smoke_statuses, R.array.drink_statuses, R.array.have_kids_statuses, R.array.want_kids_statuses);
 
         getViewState().getSavedValues(interactor.getPrefsValues(), resIdList);
     }

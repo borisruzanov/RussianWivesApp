@@ -56,12 +56,15 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main_tab_search, container, false);
+        Log.d("LifecycleDebug", "SearchFragment is onCreateView");
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Log.d("LifecycleDebug", "SearchFragment is onActivityCreated");
 
         recyclerView = view.findViewById(R.id.search_recycler_view);
         emptyText = view.findViewById(R.id.search_empty_text);
@@ -153,6 +156,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         Intent dataIntent = new Intent(getContext(), FriendActivity.class);
         dataIntent.putExtra("uid", uid);
         startActivity(dataIntent);
+        new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
 
 //
     }
@@ -168,9 +172,16 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
 
     @Override
     public void showUsers(final List<FsUser> fsUserList) {
-        Log.d("Pagination", "In showUsers()");
-        showEmpty(false);
+//        showEmpty(false);
+        Log.d("LifecycleDebug", "SearchFragment is showUsers");
+        for (FsUser fsUser : fsUserList) {
+            Log.d("LifecycleDebug", "User name in fragment is " + fsUser.getName());
+        }
         recyclerView.post(() -> adapter.setData(fsUserList));
+        if (recyclerView.getVisibility() == View.VISIBLE) {
+            Log.d("LifecycleDebug", "RecyclerView visibility is visible");
+        }
+        else Log.d("LifecycleDebug", "RecyclerView visibility is visible");
     }
 
     public void onUpdate(){

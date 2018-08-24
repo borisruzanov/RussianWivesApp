@@ -15,9 +15,9 @@ import java.lang.Override;
 public class FilterDialogFragment_ViewBinding implements Unbinder {
   private FilterDialogFragment target;
 
-  private View view2131296309;
+  private View view2131296310;
 
-  private View view2131296305;
+  private View view2131296306;
 
   @UiThread
   public FilterDialogFragment_ViewBinding(final FilterDialogFragment target, View source) {
@@ -25,7 +25,7 @@ public class FilterDialogFragment_ViewBinding implements Unbinder {
 
     View view;
     view = Utils.findRequiredView(source, R.id.button_search, "method 'onSearchClicked'");
-    view2131296309 = view;
+    view2131296310 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -33,7 +33,7 @@ public class FilterDialogFragment_ViewBinding implements Unbinder {
       }
     });
     view = Utils.findRequiredView(source, R.id.button_cancel, "method 'onCancelClicked'");
-    view2131296305 = view;
+    view2131296306 = view;
     view.setOnClickListener(new DebouncingOnClickListener() {
       @Override
       public void doClick(View p0) {
@@ -42,6 +42,8 @@ public class FilterDialogFragment_ViewBinding implements Unbinder {
     });
     target.spinners = Utils.listOf(
         Utils.findRequiredViewAsType(source, R.id.spinner_gender, "field 'spinners'", Spinner.class), 
+        Utils.findRequiredViewAsType(source, R.id.spinner_age, "field 'spinners'", Spinner.class), 
+        Utils.findRequiredViewAsType(source, R.id.spinner_country, "field 'spinners'", Spinner.class), 
         Utils.findRequiredViewAsType(source, R.id.spinner_relationship_statuses, "field 'spinners'", Spinner.class), 
         Utils.findRequiredViewAsType(source, R.id.spinner_body_types, "field 'spinners'", Spinner.class), 
         Utils.findRequiredViewAsType(source, R.id.spinner_ethnicities, "field 'spinners'", Spinner.class), 
@@ -61,9 +63,9 @@ public class FilterDialogFragment_ViewBinding implements Unbinder {
 
     target.spinners = null;
 
-    view2131296309.setOnClickListener(null);
-    view2131296309 = null;
-    view2131296305.setOnClickListener(null);
-    view2131296305 = null;
+    view2131296310.setOnClickListener(null);
+    view2131296310 = null;
+    view2131296306.setOnClickListener(null);
+    view2131296306 = null;
   }
 }

@@ -21,7 +21,35 @@
             android:layout_height="wrap_content"
             android:src="@drawable/default_avatar" />
 
-        <RelativeLayout
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_img">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/search_btn_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/cards_heart_red" />
+
+                    <ImageView
+                        android:id="@+id/search_btn_chat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/message" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
             android:id="@+id/item_user_top_relative"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -59,30 +87,7 @@
 
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/item_user_top_relative"
-            android:gravity="bottom"
-            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/search_btn_like"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cards_heart_red"
-                android:layout_weight="1"
-                android:layout_margin="8dp"/>
-
-            <ImageView
-                android:id="@+id/search_btn_chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/message"
-                android:layout_weight="1"
-                android:layout_margin="8dp"/>
-        </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

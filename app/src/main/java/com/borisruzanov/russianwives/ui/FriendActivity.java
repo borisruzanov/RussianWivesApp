@@ -25,6 +25,9 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -134,6 +137,9 @@ public class FriendActivity extends MvpAppCompatActivity {
                 setList(userDescriptionList);
             }
         });
+
+        new FirebaseRepository().addUserToActivity(userUid, friendUid);
+
     }
 
     @Override

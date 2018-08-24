@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.ui.pagination;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.bumptech.glide.Glide;
+import com.firebase.ui.auth.data.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +51,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
 //    }
 
     public void setData(List<FsUser> newFsUsers) {
-        int initialSize = fsUserList.size();
+        Log.d("LifecycleDebug", "List in adapter list empty is "+ newFsUsers.isEmpty());
+        for (FsUser fsUser : fsUserList) {
+            Log.d("LifecycleDebug", "User name in adapter is "+ fsUser.getName());
+        }
         fsUserList.addAll(newFsUsers);
-        notifyItemRangeInserted(initialSize, newFsUsers.size());
+        notifyDataSetChanged();
+        /*int initialSize = fsUserList.size();
+        fsUserList.addAll(newFsUsers);
+        notifyItemRangeInserted(initialSize, newFsUsers.size());*/
     }
 
     public void clearData(){

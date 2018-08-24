@@ -40,6 +40,8 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
                 List<Chat> chatList = new ArrayList<>();
                 List<String> uidList = new ArrayList<>();
                 List<Message> messageList = new ArrayList<>();
+
+                //Inflate UID List
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Log.d(Contract.TAG, "ChatsFragment - chat Request - Uid" + snapshot.getKey() + " ");
                     //This is list of chats UID's
@@ -53,58 +55,47 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
 
 
                 for(String uid: uidList){
+                    Log.d("OnlineStatusDebug", "Uid is " + uid);
+                    //if(FirebaseDatabase.getInstance().getReference().child("Users").child(uid).equals(uid))
                     FirebaseDatabase.getInstance().getReference().child("Users").child(uid)
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if (Objects.requireNonNull(dataSnapshot.child("online").getValue()).toString() != null) {
-                                        String online = dataSnapshot.child("online").getValue().toString();
-                                        Log.d("OnlineStatusDebug", "In onDataChange " + online);
-                                        rtUsers.add(new RtUser(online));
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        if (dataSnapshot.child("online").getValue().toString() != null) {
+                                            String online = dataSnapshot.child("online").getValue().toString();
+                                            Log.d("OnlineStatusDebug", "In onDataChange " + online);
+                                            rtUsers.add(new RtUser(online));
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {}
-                            });
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {}
+                                });
 
-                    FirebaseDatabase.getInstance().getReference().child("Message").child(mCurrent_user_id)
-                            .child(uid)
-                            .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for(DataSnapshot snapshot: dataSnapshot.getChildren()){
-                                        long time = Long.valueOf(snapshot.child("time").getValue().toString());
-                                        String message = snapshot.child("message").getValue().toString();
+                        FirebaseDatabase.getInstance().getReference().child("Messages").child(mCurrent_user_id)
+                                .child(uid)
+                                .addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        String message = "message is empty";
+                                        Long time = 0L;
+                                        for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                                            time = Long.valueOf(snapshot.child("time").getValue().toString());
+                                            message = snapshot.child("message").getValue().toString();
+                                            Log.d("MessageBody", "Our message in fore " + message);
+                                        }
                                         messageList.add(new Message(message, time));
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
 
-                                }
-                            });
+                                    }
+                                });
+
+
                 }
 
-                /*FirebaseDatabase.getInstance().getReference().child("Users")
-                        .addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                                    String online = snapshot.child("online").getValue().toString();
-                                    Log.d("OnlineStatusDebug", "In onDataChange online is "+ online);
-                                    //if (online != null) {
-                                        rtUsers.add(new RtUser(online));
-                                    //}
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-
-                            }
-                        });*/
 
                 new FirebaseRepository().getNeededUsers(uidList, userList -> {
                     for (FsUser fsUser : userList) {
@@ -113,29 +104,45 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
 
                     if (userList.isEmpty()) Log.d(Contract.TAG, "LIST IS EMPTY!!!");
 
+                    Log.d("zxc", "Длина листа userList " + userList.size());
+                    Log.d("zxc", "Длина листа chatList " + chatList.size());
+                    Log.d("zxc", "Длина листа rtUsers " + rtUsers.size());
+                    Log.d("zxc", "Длина листа messageList " + messageList.size());
+
 
                     for (int i = 0; i < userList.size(); i++) {
                         String name = userList.get(i).getName();
                         String image = userList.get(i).getImage();
                         String userId = userList.get(i).getUid();
+
                         long timeStamp = chatList.get(i).getTimeStamp();
                         boolean seen = chatList.get(i).getSeen();
+
                         String online = rtUsers.get(i).getOnline();
 
                         String message = messageList.get(i).getMessage();
+                        long messageTimestamp = messageList.get(i).getTimestamp();
 
-                        userChats.add(new UserChat(name, image, timeStamp, seen, userId, online, message));
+                        userChats.add(new UserChat(name, image, timeStamp, seen, userId, online,
+                                message, messageTimestamp));
 
                         Log.d(Contract.TAG, "Отображаем имя в UI фрагмента  " + userChats.get(i).getName());
                         Log.d(Contract.TAG, "Отображаем видимость в UI фрагмента  " + userChats.get(i).getSeen());
-                        Log.d(Contract.TAG, "Отображаем таймстэмп в UI фрагмента  " + userChats.get(i).getTimestamp());
+                        Log.d(Contract.TAG, "Отображаем таймстэмп чата в UI фрагмента  " + userChats.get(i).getChatTimestamp());
+                        Log.d(Contract.TAG, "Отображаем таймстэмп сообщения в UI фрагмента  " + userChats.get(i).getMessageTimestamp());
 
                         Log.d("OnlineStatusDebug", "Отображаем онлайн статус " + userChats.get(i).getOnline());
+
+                        Log.d("zxc", "Данные ячейки - имя " + name + "image " + image +
+                        " userID " + userId + "timestamp " + timeStamp + "seen " + seen +
+                        "online " + online + "message " + message);
+
 
 
                         getViewState().showUserChats(userChats);
 
                     }
+
                 });
 
             }

@@ -17,8 +17,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -28,6 +32,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -93,7 +98,7 @@ public class FirebaseRepository {
      *
      * @return
      */
-    public boolean checkForUserExist() {
+    public boolean isUserExist() {
         return firebaseAuth.getCurrentUser() != null;
     }
 //
@@ -254,23 +259,60 @@ public class FirebaseRepository {
     public void searchByListParams(final List<SearchModel> searchModels, final UsersListCallback usersListCallback) {
         Query query = reference;
 
-        for (SearchModel searchModel : searchModels) {
-            query = query.whereEqualTo(searchModel.getKey(), searchModel.getValue());
+        if(!searchModels.isEmpty()) {
+            for (SearchModel searchModel : searchModels) {
+                query = query.whereEqualTo(searchModel.getKey(), searchModel.getValue());
+            }
+            query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
         }
-        /*for (int i = 0; i < searchModels.size(); i++) {
-            query = query.whereEqualTo(searchModels.get(i).getKey(), searchModels.get(i).getValue());
-        }*/
-
-        query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
+        else query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
 
     }
 
     private void putCallbackData(final UsersListCallback usersListCallback, Task<QuerySnapshot> task) {
         List<FsUser> fsUserList = new ArrayList<>();
         for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-            fsUserList.add(snapshot.toObject(FsUser.class));
+            if (!snapshot.getId().equals(getUid())) {
+                fsUserList.add(snapshot.toObject(FsUser.class));
+            }
         }
+
         usersListCallback.getUsers(fsUserList);
+    }
+
+    public void addUserToActivity(String userUid, String friendUid){
+        Map<String, Object> chatAddMap = new HashMap<>();
+        chatAddMap.put("activity", "visit");
+        chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+        chatAddMap.put("uid", userUid);
+        //DatabaseReference activityDb =
+        realtimeReference.child("Activity").child(friendUid).push();
+//        activityDb.updateChildren(chatAddMap);
+
+        realtimeReference.child("Activity").child(friendUid).child(userUid)
+                .addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    Map<String, Object> chatUserMap = new HashMap<>();
+                    chatUserMap.put("Chat/" + userUid + "/" + friendUid, chatAddMap);
+                    chatUserMap.put("Chat/" + friendUid + "/" + userUid, chatAddMap);
+
+                    realtimeReference.setValue(chatAddMap, new DatabaseReference.CompletionListener() {
+                        @Override
+                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                            if (databaseError != null) {
+                                Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage().toString());
+                            }
+                        }
+                    });
+                }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+
+
     }
 
     //

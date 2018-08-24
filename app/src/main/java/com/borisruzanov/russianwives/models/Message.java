@@ -3,12 +3,12 @@ package com.borisruzanov.russianwives.models;
 public class Message {
 
     private String message, type;
-    private long  time;
+    private Long timestamp;
     private boolean seen;
     private String from;
 
-    public Message(String from) {
-        this.from = from;
+    public Message(String message){
+        this.message = message;
     }
 
     public String getFrom() {
@@ -19,15 +19,15 @@ public class Message {
         this.from = from;
     }
 
-    public Message(String message, long time) {
+    public Message(String message, long timestamp) {
         this.message = message;
-        this.time = time;
+        this.timestamp = timestamp;
     }
 
-    public Message(String message, String type, long time, boolean seen) {
+    public Message(String message, String type, long timestamp, boolean seen) {
         this.message = message;
         this.type = type;
-        this.time = time;
+        this.timestamp = timestamp;
         this.seen = seen;
     }
 
@@ -47,12 +47,12 @@ public class Message {
         this.type = type;
     }
 
-    public long getTime() {
-        return time;
+    public Long getTimestamp() {
+        return timestamp;
     }
 
-    public void setTime(long time) {
-        this.time = time;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
     public boolean isSeen() {

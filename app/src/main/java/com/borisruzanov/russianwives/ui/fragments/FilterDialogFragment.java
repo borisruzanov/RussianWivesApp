@@ -47,9 +47,9 @@ public class FilterDialogFragment extends MvpAppCompatDialogFragment implements 
         return new FilterDialogPresenter(new FilterInteractor(new FilterRepository(new Prefs(getActivity()))));
     }
 
-    @BindViews({R.id.spinner_gender, R.id.spinner_relationship_statuses, R.id.spinner_body_types, R.id.spinner_ethnicities,
-            R.id.spinner_faith_types, R.id.spinner_smoke_statuses, R.id.spinner_drink_statuses,
-            R.id.spinner_have_kids_statuses, R.id.spinner_want_kids_statuses})
+    @BindViews({R.id.spinner_gender, R.id.spinner_age, R.id.spinner_country, R.id.spinner_relationship_statuses,
+            R.id.spinner_body_types, R.id.spinner_ethnicities, R.id.spinner_faith_types, R.id.spinner_smoke_statuses,
+            R.id.spinner_drink_statuses, R.id.spinner_have_kids_statuses, R.id.spinner_want_kids_statuses})
     List<Spinner> spinners;
 
     private FilterListener filterListener;

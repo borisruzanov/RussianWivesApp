@@ -93,8 +93,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
 
         void bind(UserChat model, int position){
             name.setText(model.getName());
-            GetTimeAgo getTimeAgo = new GetTimeAgo();
-            String lastSeenTime = getTimeAgo.getTimeAgo(model.getTimestamp(), context);
+            Long l = 1535047947581L;
+            Log.d("TimestampDebug", "Timestamp is " + model.getMessageTimestamp());
+            String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(l));
             time.setText(lastSeenTime);
             message.setText(model.getMessage());
 //            seen.setText(String.valueOf(model.getSeen()));

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -16,6 +17,7 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserChat;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter;
 import com.borisruzanov.russianwives.mvp.view.ChatsView;
 import com.borisruzanov.russianwives.ui.ChatActivity;
@@ -35,6 +37,8 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
 
     RecyclerView recyclerChatsList;
     ChatsAdapter chatsAdapter;
+
+    TextView emptyText;
 
     private View mMainView;
 
@@ -68,6 +72,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
         Log.d("onlineStatus uid", "mUserDatabase " + FirebaseDatabase.getInstance().getReference()
                 .child("Users").child(mAuth.getCurrentUser().getUid()));
 
+        emptyText = mMainView.findViewById(R.id.chats_empty_text);
 
         recyclerChatsList = (RecyclerView) mMainView.findViewById(R.id.friends_fragment_recycler_chats);
         recyclerChatsList.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -75,7 +80,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
         chatsAdapter = new ChatsAdapter(onItemClickCallback, mUserDatabase, mAuth);
         recyclerChatsList.setAdapter(chatsAdapter);
 
-        chatsPresenter.getUserChatList();
+        //chatsPresenter.getUserChatList();
 
 
         /**
@@ -133,7 +138,6 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
         Log.d(Contract.TAG, "In onCLICK");
         chatsPresenter.openChat(position);
-
 
 
 //        mChatUser = userChats.get(position).getUserId();
@@ -202,7 +206,14 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
 
     @Override
     public void showUserChats(List<UserChat> userChats) {
-        recyclerChatsList.post(() -> chatsAdapter.setData(userChats));
+        if(!userChats.isEmpty()) {
+            emptyText.setVisibility(View.GONE);
+            recyclerChatsList.post(() -> chatsAdapter.setData(userChats));
+        }
+        else {
+            recyclerChatsList.setVisibility(View.GONE);
+            emptyText.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -212,6 +223,9 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
         chatIntent.putExtra("name",name);
         chatIntent.putExtra("photo_url", image);
         startActivity(chatIntent);
+
+        new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
+
     }
 //
 //

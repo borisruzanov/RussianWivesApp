@@ -2,21 +2,23 @@ package com.borisruzanov.russianwives.models;
 
 public class UserChat {
 
-    private String name, image, userId;
-    private long timestamp;
+    private String name, image, userId, online, message;
+    private long chatTimestamp, messageTimestamp;
     private boolean seen;
-    private String online;
+    /*private String online;
     private String message;
+    private String messageTimeStammp;*/
 
-    public UserChat(String name, String image, long timestamp, boolean seen, String userId,
-                    String online, String message) {
+    public UserChat(String name, String image, long chatTimestamp, boolean seen, String userId,
+                    String online, String message, long messageTimestamp) {
         this.name = name;
         this.image = image;
-        this.timestamp = timestamp;
+        this.chatTimestamp = chatTimestamp;
         this.seen = seen;
         this.userId = userId;
         this.online = online;
         this.message = message;
+        this.messageTimestamp = messageTimestamp;
     }
 
     public String getUserId() {
@@ -43,12 +45,12 @@ public class UserChat {
         this.image = image;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public long getChatTimestamp() {
+        return chatTimestamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setChatTimestamp(long chatTimestamp) {
+        this.chatTimestamp = chatTimestamp;
     }
 
     public boolean getSeen() {
@@ -73,5 +75,13 @@ public class UserChat {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public long getMessageTimestamp() {
+        return messageTimestamp;
+    }
+
+    public void setMessageTimestamp(long messageTimestamp) {
+        this.messageTimestamp = messageTimestamp;
     }
 }

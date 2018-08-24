@@ -14,13 +14,8 @@ public class SearchInteractor {
         this.filterRepository = filterRepository;
     }
 
-//    public void searchByListParams(List<SearchModel> searchModels, UsersListCallback usersListCallback){
-//        firebaseRepository.searchByListParams(searchModels, usersListCallback);
-//    }
-//
-
     public void getFilteredList(UsersListCallback usersListCallback){
-        firebaseRepository.searchByListParams(filterRepository.getSearchResult(), usersListCallback);
+        firebaseRepository.searchByListParams(filterRepository.getFilteredSearchResult(), usersListCallback);
     }
 
     public void getUsers(UsersListCallback usersListCallback){

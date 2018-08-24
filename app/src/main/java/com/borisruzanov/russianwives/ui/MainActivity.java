@@ -41,6 +41,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
     //MVP
     @InjectPresenter
     MainPresenter mainPresenter;
+
     @ProvidePresenter
     MainPresenter provideMainPresenter() {
         return new MainPresenter(new MainInteractor(new FirebaseRepository()));
@@ -70,7 +71,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
         searchFragment = new SearchFragment();
 
         //UI
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
@@ -80,14 +81,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
         mainPagerAdapter.addFragment(new ActivitiesFragment(), "Activity");
         tabLayout = (TabLayout) findViewById(R.id.main_tabs);
 
-        //MVP
-//        mainPresenter.checkForUserExist();
-        if(new FirebaseRepository().checkForUserExist()){
-            viewPager.setAdapter(mainPagerAdapter);
-            tabLayout.setupWithViewPager(viewPager);
-        } else {
-            callAuthWindow();
-        }
+        mainPresenter.checkForUserExist();
+
+    }
+
+    @Override
+    public void setViewPager() {
+        viewPager.setAdapter(mainPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -102,13 +103,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
         switch (item.getItemId()) {
             case R.id.sign_out_menu:
                 AuthUI.getInstance().signOut(this);
+                callAuthWindow();
                 return true;
             case R.id.menu_my_profile:
                 Intent settingsIntent = new Intent(MainActivity.this, MyProfile.class);
                 startActivity(settingsIntent);
                 return true;
             case R.id.menu_filter:
-                if(viewPager.getCurrentItem() == 0){
+                if (viewPager.getCurrentItem() == 0) {
                     dialogFragment.show(getSupportFragmentManager(), FilterDialogFragment.TAG);
                 }
                 return true;
@@ -130,18 +132,19 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
                 RC_SIGN_IN);
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             //for checking errors
             IdpResponse response = IdpResponse.fromResultIntent(data);
-            if(resultCode == RESULT_OK){
-                    mainPresenter.saveUser();
-            }
-            else {
+            if (resultCode == RESULT_OK) {
+                mainPresenter.saveUser();
+            } else {
                 //Sign in failed
-                if(response == null){}
+                if (response == null) {
+                }
             }
         }
     }

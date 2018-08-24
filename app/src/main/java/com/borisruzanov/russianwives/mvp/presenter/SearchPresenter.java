@@ -1,5 +1,7 @@
 package com.borisruzanov.russianwives.mvp.presenter;
 
+import android.util.Log;
+
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.models.FsUser;
@@ -48,10 +50,16 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 
     public void getFilteredList(){
         searchInteractor.getFilteredList(userList -> {
+            for (FsUser fsUser : userList) {
+                Log.d("LifecycleDebug", "User name is "+ fsUser.getName());
+            }
+            Log.d("LifecycleDebug", "In SearchPresenter and userList emptyness is " + userList.isEmpty());
             if (!userList.isEmpty()) {
                 fsUsers.addAll(userList);
-                getViewState().showUsers(userList);
-            } else getViewState().showEmpty(true);
+                Log.d("LifecycleDebug", "In SearchPresenter and fsUser empty is " + fsUsers.isEmpty());
+                getViewState().showUsers(fsUsers);
+            }
+//            else getViewState().showEmpty(true);
         });
     }
 

@@ -22,6 +22,22 @@ public class Prefs {
         setValue(Consts.GENDER, value);
     }
 
+    public String getAge() {
+        return getValue(Consts.AGE);
+    }
+
+    public void setAge(String value) {
+        setValue(Consts.AGE, value);
+    }
+
+    public String getCountry() {
+        return getValue(Consts.COUNTRY);
+    }
+
+    public void setCountry(String value) {
+        setValue(Consts.COUNTRY, value);
+    }
+
     public String getRelationshipStatus() {
         return getValue(Consts.RELATIONSHIP_STATUS);
     }

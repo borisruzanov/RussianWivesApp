@@ -10,8 +10,8 @@ public class MainInteractor {
         this.firebaseRepository = firebaseRepository;
     }
 
-    public boolean checkForUserExist() {
-        return firebaseRepository.checkForUserExist();
+    public boolean isUserExist() {
+        return firebaseRepository.isUserExist();
     }
 
     public void saveUser() {

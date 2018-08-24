@@ -12,6 +12,22 @@ import com.arellomobile.mvp.viewstate.strategy.StateStrategy;
 public class MainView$$State extends MvpViewState<com.borisruzanov.russianwives.mvp.view.MainView> implements com.borisruzanov.russianwives.mvp.view.MainView {
 
 	@Override
+	public  void setViewPager() {
+		SetViewPagerCommand setViewPagerCommand = new SetViewPagerCommand();
+		mViewCommands.beforeApply(setViewPagerCommand);
+
+		if (mViews == null || mViews.isEmpty()) {
+			return;
+		}
+
+		for(com.borisruzanov.russianwives.mvp.view.MainView view : mViews) {
+			view.setViewPager();
+		}
+
+		mViewCommands.afterApply(setViewPagerCommand);
+	}
+
+	@Override
 	public  void callAuthWindow() {
 		CallAuthWindowCommand callAuthWindowCommand = new CallAuthWindowCommand();
 		mViewCommands.beforeApply(callAuthWindowCommand);
@@ -43,6 +59,17 @@ public class MainView$$State extends MvpViewState<com.borisruzanov.russianwives.
 		mViewCommands.afterApply(checkingForUserInformationCommand);
 	}
 
+
+	public class SetViewPagerCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.MainView> {
+		SetViewPagerCommand() {
+			super("setViewPager", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
+		}
+
+		@Override
+		public void apply(com.borisruzanov.russianwives.mvp.view.MainView mvpView) {
+			mvpView.setViewPager();
+		}
+	}
 
 	public class CallAuthWindowCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.MainView> {
 		CallAuthWindowCommand() {

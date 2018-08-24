@@ -16,35 +16,32 @@ public class FilterRepository {
         this.prefs = prefs;
     }
 
-    public List<SearchModel> getSearchResult(){
-        List<SearchModel> searchList = getUnfilteredSearchResult();
-        for (int i = 0; i < searchList.size(); i++) {
-            if(isDefault(searchList.get(i).getValue())) searchList.remove(i);
+    public List<SearchModel> getFilteredSearchResult(){
+        List<SearchModel> searchModels = new ArrayList<>();
+
+        for (SearchModel model: getSearchResult()){
+            if (isNotDefault(model.getValue())) searchModels.add(model);
         }
-        return searchList;
+
+        return searchModels;
     }
 
-    public List<String> getPrefsValues(){
-        return Arrays.asList(prefs.getGender(), prefs.getRelationshipStatus(), prefs.getBodyType(), prefs.getEthnicity(),
-                prefs.getFaith(), prefs.getSmokingStatus(), prefs.getDrinkStatus(), prefs.getNumberOfKids(), prefs.getWantChilderOrNot());
+    public List<String> getPrefsValues() {
+        return Arrays.asList(prefs.getGender(), prefs.getAge(), prefs.getCountry(), prefs.getRelationshipStatus(), prefs.getBodyType(),
+                prefs.getEthnicity(), prefs.getFaith(), prefs.getSmokingStatus(), prefs.getDrinkStatus(), prefs.getNumberOfKids(),
+                prefs.getWantChilderOrNot());
     }
 
-    public void setPrefsValues(List<SearchModel> searchModels){
-        for (SearchModel model: searchModels){
+    public void setPrefsValues(List<SearchModel> searchModels) {
+        for (SearchModel model : searchModels) {
             prefs.setValue(model.getKey(), model.getValue());
         }
     }
 
-    public void setValue(String key, String value){
-        prefs.setValue(key, value);
-    }
-
-    public String getValue(String key){
-        return prefs.getValue(key);
-    }
-
-    private List<SearchModel> getUnfilteredSearchResult(){
+    public List<SearchModel> getSearchResult() {
         return new ArrayList<>(Arrays.asList(new SearchModel(Consts.GENDER, prefs.getGender()),
+                new SearchModel(Consts.AGE, prefs.getAge()),
+                new SearchModel(Consts.COUNTRY, prefs.getCountry()),
                 new SearchModel(Consts.RELATIONSHIP_STATUS, prefs.getRelationshipStatus()),
                 new SearchModel(Consts.BODY_TYPE, prefs.getBodyType()),
                 new SearchModel(Consts.ETHNICITY, prefs.getEthnicity()),
@@ -53,11 +50,10 @@ public class FilterRepository {
                 new SearchModel(Consts.DRINK_STATUS, prefs.getDrinkStatus()),
                 new SearchModel(Consts.NUMBER_OF_KIDS, prefs.getNumberOfKids()),
                 new SearchModel(Consts.WANT_CHILDREN_OR_NOT, prefs.getWantChilderOrNot())));
-        /* new SearchModel(Consts.HOBBY, prefs.getHobby()));*/
     }
 
-    private boolean isDefault(String value){
-        return value.equals(Consts.DEFAULT);
+    private boolean isNotDefault(String value) {
+        return !value.equals(Consts.DEFAULT);
     }
 
 }

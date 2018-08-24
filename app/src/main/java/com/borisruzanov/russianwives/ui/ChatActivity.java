@@ -348,7 +348,7 @@ public class ChatActivity extends AppCompatActivity {
      */
     private void loadMoreMessages() {
 
-        DatabaseReference messageRef = mRootRef.child("Message").child(mCurrentUserId).child(mChatUser);
+        DatabaseReference messageRef = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser);
         Query messageQuery = messageRef.orderByKey().endAt(mLastKey).limitToLast(10);
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -392,7 +392,7 @@ public class ChatActivity extends AppCompatActivity {
      * Load messages only once
      */
     private void loadMessages() {
-        DatabaseReference messageRef = mRootRef.child("Message").child(mCurrentUserId).child(mChatUser);
+        DatabaseReference messageRef = mRootRef.child("Messages").child(mCurrentUserId).child(mChatUser);
         Query messageQuery = messageRef.limitToLast(mCurrentPage * TOTAL_ITEMS_TO_LOAD);
         messageQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -436,10 +436,10 @@ public class ChatActivity extends AppCompatActivity {
 //
         if (!TextUtils.isEmpty(message)) {
 
-            String current_user_ref = "Message/" + mCurrentUserId + "/" + mChatUser;
-            String chat_user_ref = "Message/" + mChatUser + "/" + mCurrentUserId;
+            String current_user_ref = "Messages/" + mCurrentUserId + "/" + mChatUser;
+            String chat_user_ref = "Messages/" + mChatUser + "/" + mCurrentUserId;
 
-            DatabaseReference user_message_push = mRootRef.child("Message")
+            DatabaseReference user_message_push = mRootRef.child("Messages")
                     .child(mCurrentUserId).child(mChatUser).push();
 
             String push_id = user_message_push.getKey();
