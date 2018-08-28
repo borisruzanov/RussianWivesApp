@@ -172,16 +172,8 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
 
     @Override
     public void showUsers(final List<FsUser> fsUserList) {
-//        showEmpty(false);
-        Log.d("LifecycleDebug", "SearchFragment is showUsers");
-        for (FsUser fsUser : fsUserList) {
-            Log.d("LifecycleDebug", "User name in fragment is " + fsUser.getName());
-        }
+        showEmpty(false);
         recyclerView.post(() -> adapter.setData(fsUserList));
-        if (recyclerView.getVisibility() == View.VISIBLE) {
-            Log.d("LifecycleDebug", "RecyclerView visibility is visible");
-        }
-        else Log.d("LifecycleDebug", "RecyclerView visibility is visible");
     }
 
     public void onUpdate(){

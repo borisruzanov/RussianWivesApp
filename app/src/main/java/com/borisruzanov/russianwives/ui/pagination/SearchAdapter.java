@@ -57,9 +57,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
         }
         fsUserList.addAll(newFsUsers);
         notifyDataSetChanged();
-        /*int initialSize = fsUserList.size();
-        fsUserList.addAll(newFsUsers);
-        notifyItemRangeInserted(initialSize, newFsUsers.size());*/
     }
 
     public void clearData(){

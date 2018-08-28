@@ -114,6 +114,7 @@
     <string name="what_is_your_gender">What is your gender?</string>
     <string name="where_do_you_live">Where do you live?</string>
     <string name="how_old_are_you">How old are you?</string>
+    <string name="only_with_friends">Only with friends</string>
 
     <!-- Genders -->
     <string-array name="genders">
