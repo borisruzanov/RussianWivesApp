@@ -3,7 +3,7 @@ package com.borisruzanov.russianwives.models;
 public class Message {
 
     private String message, type;
-    private Long timestamp;
+    private long time;
     private boolean seen;
     private String from;
 
@@ -11,23 +11,17 @@ public class Message {
         this.message = message;
     }
 
-    public String getFrom() {
-        return from;
-    }
+    public Message() {}
 
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public Message(String message, long timestamp) {
+    public Message(String message, long time) {
         this.message = message;
-        this.timestamp = timestamp;
+        this.time = time;
     }
 
-    public Message(String message, String type, long timestamp, boolean seen) {
+    public Message(String message, String type, long time, boolean seen) {
         this.message = message;
         this.type = type;
-        this.timestamp = timestamp;
+        this.time = time;
         this.seen = seen;
     }
 
@@ -47,12 +41,20 @@ public class Message {
         this.type = type;
     }
 
-    public Long getTimestamp() {
-        return timestamp;
+    public String getFrom() {
+        return from;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 
     public boolean isSeen() {
@@ -63,8 +65,8 @@ public class Message {
         this.seen = seen;
     }
 
-    public Message(){
-
+    public String convertTimestamp(){
+        return String.valueOf(time);
     }
 
 }

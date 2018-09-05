@@ -44,19 +44,19 @@ public class MainView$$State extends MvpViewState<com.borisruzanov.russianwives.
 	}
 
 	@Override
-	public  void checkingForUserInformation() {
-		CheckingForUserInformationCommand checkingForUserInformationCommand = new CheckingForUserInformationCommand();
-		mViewCommands.beforeApply(checkingForUserInformationCommand);
+	public  void checkingForUserInfo() {
+		CheckingForUserInfoCommand checkingForUserInfoCommand = new CheckingForUserInfoCommand();
+		mViewCommands.beforeApply(checkingForUserInfoCommand);
 
 		if (mViews == null || mViews.isEmpty()) {
 			return;
 		}
 
 		for(com.borisruzanov.russianwives.mvp.view.MainView view : mViews) {
-			view.checkingForUserInformation();
+			view.checkingForUserInfo();
 		}
 
-		mViewCommands.afterApply(checkingForUserInformationCommand);
+		mViewCommands.afterApply(checkingForUserInfoCommand);
 	}
 
 
@@ -82,14 +82,14 @@ public class MainView$$State extends MvpViewState<com.borisruzanov.russianwives.
 		}
 	}
 
-	public class CheckingForUserInformationCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.MainView> {
-		CheckingForUserInformationCommand() {
-			super("checkingForUserInformation", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
+	public class CheckingForUserInfoCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.MainView> {
+		CheckingForUserInfoCommand() {
+			super("checkingForUserInfo", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
 		}
 
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.MainView mvpView) {
-			mvpView.checkingForUserInformation();
+			mvpView.checkingForUserInfo();
 		}
 	}
 }

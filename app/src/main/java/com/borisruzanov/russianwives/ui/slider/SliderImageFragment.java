@@ -136,8 +136,7 @@ public class SliderImageFragment extends Fragment {
                             new FirebaseRepository().updateFieldFromCurrentUser(hashMap, new UpdateCallback() {
                                 @Override
                                 public void onUpdate() {
-                                    Toast.makeText(getActivity(), "Everything fucking works", Toast.LENGTH_LONG).show();
-
+                                    getActivity().onBackPressed();
                                 }
                             });
                             progressDialog.dismiss();

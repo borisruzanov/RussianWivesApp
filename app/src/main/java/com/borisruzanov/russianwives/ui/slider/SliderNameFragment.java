@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
@@ -49,6 +50,8 @@ public class SliderNameFragment extends MvpAppCompatFragment {
                     new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
                         @Override
                         public void onUpdate() {
+                            getActivity().onBackPressed();
+                            Toast.makeText(getActivity(), "Name was updated", Toast.LENGTH_LONG).show();
 
                         }
                     });

@@ -22,17 +22,11 @@ import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class FriendActivity extends MvpAppCompatActivity {
 
@@ -81,14 +75,7 @@ public class FriendActivity extends MvpAppCompatActivity {
         btnAddFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("status", "Declined");
-                // map.put("image", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FqPMqWY8js0NVkaphZL5mMX7LWR73%2Fprofile_photo?alt=media&token=a519ffe5-7228-41c5-ad00-c03527f222ac");
-                new FirebaseRepository().updateUserDataTierTwo("FriendsLogic", userUid, "Requests", friendUid, map, new UpdateCallback() {
-                    @Override
-                    public void onUpdate() {
-                    }
-                });
+
 //                new FirebaseRepository().getUserDataTierTwo("FriendsLogic", "hereUserUid",
 //                        "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, fsUserList -> {
 //                            for (String uid : stringList) Log.d(Contract.TAG, "Uid " + uid);
@@ -115,7 +102,7 @@ public class FriendActivity extends MvpAppCompatActivity {
         age = (TextView) findViewById(R.id.friend_activity_tv_age);
         country = (TextView) findViewById(R.id.friend_activity_tv_country);
 
-        new FirebaseRepository().getFriendsData(Consts.COLLECTION_USERS, getIntent().getStringExtra("uid"), new UserCallback() {
+        new FirebaseRepository().getFriendsData(Consts.USERS_DB, getIntent().getStringExtra("uid"), new UserCallback() {
             @Override
             public void getUser(FsUser fsUser) {
                 name.setText(fsUser.getName());

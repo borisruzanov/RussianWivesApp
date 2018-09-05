@@ -9,6 +9,10 @@
     <string name="sign_out">Log Out</string>
     <string name="send">Send</string>
 
+    <string name="search_title">Search</string>
+    <string name="chats_title">Chats</string>
+    <string name="actions_title">Actions</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_status">Default status</string>
@@ -115,6 +119,9 @@
     <string name="where_do_you_live">Where do you live?</string>
     <string name="how_old_are_you">How old are you?</string>
     <string name="only_with_friends">Only with friends</string>
+    <string name="you">You</string>
+    <string name="didnt_fill_form_question">You Didn\'t Fill The Form. Do You Want To Fill It Now?</string>
+    <string name="yes">Yes</string>
 
     <!-- Genders -->
     <string-array name="genders">

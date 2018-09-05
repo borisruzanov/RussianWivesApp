@@ -17,11 +17,6 @@ import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.zHOLD.GetTimeAgo;
 import com.bumptech.glide.Glide;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,18 +24,12 @@ import java.util.List;
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapterViewHolder> {
 
     private List<UserChat> userChatList = new ArrayList<>();
-    private UserDescriptionListAdapter.ItemClickListener mClickListener;
     OnItemClickListener.OnItemClickCallback onItemClickCallback;
     Context context;
 
-    private DatabaseReference mUserDatabase;
-    private FirebaseAuth mAuth;
 
-
-    public ChatsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback, DatabaseReference mUserDatabase, FirebaseAuth mAuth) {
+    public ChatsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
-        this.mUserDatabase = mUserDatabase;
-        this.mAuth = mAuth;
     }
 
     public void setData(List<UserChat> recipesList){
@@ -78,13 +67,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
 
         public ChatsAdapterViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.item_list_chat_name);
-            container = (LinearLayout) itemView.findViewById(R.id.item_list_chat_container);
+            name = itemView.findViewById(R.id.item_list_chat_name);
+            container = itemView.findViewById(R.id.item_list_chat_container);
 //            seen = (TextView) itemView.findViewById(R.id.item_list_chat_seen);
-            time = (TextView) itemView.findViewById(R.id.item_list_chat_time);
+            time = itemView.findViewById(R.id.item_list_chat_time);
             message = itemView.findViewById(R.id.item_list_chat_message);
-            image = (ImageView) itemView.findViewById(R.id.item_list_chat_image);
-            online = (ImageView) itemView.findViewById(R.id.user_single_online_icon);
+            image = itemView.findViewById(R.id.item_list_chat_image);
+            online = itemView.findViewById(R.id.user_single_online_icon);
         }
 
         @Override
@@ -95,7 +84,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             name.setText(model.getName());
             Long l = 1535047947581L;
             Log.d("TimestampDebug", "Timestamp is " + model.getMessageTimestamp());
-            String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(l));
+            String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
             message.setText(model.getMessage());
 //            seen.setText(String.valueOf(model.getSeen()));
@@ -117,36 +106,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
                 online.setVisibility(View.INVISIBLE);
 
             }
-
-            /*if(mAuth.getCurrentUser() != null) {
-                mUserDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot != null) {
-                            String onlineStatus = dataSnapshot.child("online").getValue().toString();
-                            String created = dataSnapshot.child("created").getValue().toString();
-                            Log.d("onlineStatus", "onlineStatus + created" + onlineStatus + " " + created);
-
-
-
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
-            }*/
         }
     }
-    public void setClickListener(UserDescriptionListAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
 
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
 }

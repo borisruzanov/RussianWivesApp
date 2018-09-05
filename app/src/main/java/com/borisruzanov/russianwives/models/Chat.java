@@ -2,8 +2,8 @@ package com.borisruzanov.russianwives.models;
 
 public class Chat {
 
-    long timeStamp;
-    boolean seen;
+    private long timeStamp;
+    private boolean seen;
 
     public Chat(long timeStamp, boolean seen) {
         this.timeStamp = timeStamp;

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
@@ -49,6 +50,8 @@ public class SliderRalationshipsStatusFragment extends Fragment {
                     new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
                         @Override
                         public void onUpdate() {
+                            getActivity().onBackPressed();
+                            Toast.makeText(getActivity(), "Relationship status was updated", Toast.LENGTH_LONG).show();
 
                         }
                     });

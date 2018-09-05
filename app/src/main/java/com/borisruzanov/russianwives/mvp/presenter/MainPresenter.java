@@ -26,7 +26,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
 
     public void userNeedToAddInfo(){
         if (mainInteractor.checkForUserInfo()){
-            getViewState().checkingForUserInformation();
+            getViewState().checkingForUserInfo();
         }
     }
 }

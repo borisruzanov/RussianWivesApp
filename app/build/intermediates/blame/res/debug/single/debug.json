@@ -24,6 +24,10 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\anim\\abc_grow_fade_in_from_bottom.xml"
     },
     {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_message_text_background_user.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\drawable\\message_text_background_user.xml"
+    },
+    {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\drawable-xhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
     },
@@ -1934,6 +1938,10 @@
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_com_facebook_send_button_icon.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-share-4.29.0.aar\\ca0b886eed9768235f08fea72894bb71\\res\\drawable\\com_facebook_send_button_icon.xml"
+    },
+    {
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_keyboard_backspace_black_24dp.xml.flat",
+        "source": "D:\\nano\\russianwives\\app\\src\\main\\res\\drawable\\ic_keyboard_backspace_black_24dp.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",

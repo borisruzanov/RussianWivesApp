@@ -14,6 +14,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -95,8 +96,12 @@ public class ChatActivity extends AppCompatActivity {
         //UI
         mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
@@ -106,10 +111,13 @@ public class ChatActivity extends AppCompatActivity {
         mTitleView.setText(getIntent().getStringExtra("name"));
         mProfileImage = (CircleImageView) findViewById(R.id.custom_bar_image);
         Glide.with(this).load(getIntent().getStringExtra("photo_url")).into(mProfileImage);
+
+
         //List of Message
         mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
         mLinearLayout = new LinearLayoutManager(this);
-        mAdapter = new MessageAdapter(messageList);
+        mAdapter = new MessageAdapter(getIntent().getStringExtra("photo_url"), getIntent().getStringExtra("name"));
+
         mMessagesList.setHasFixedSize(true);
         mMessagesList.setLayoutManager(mLinearLayout);
         mMessagesList.setAdapter(mAdapter);
@@ -153,7 +161,10 @@ public class ChatActivity extends AppCompatActivity {
 
         //Loading messages first time
         loadMessages();
-
+        for (Message message: messageList) {
+            Log.d("ccc", "Message - " + message.getMessage() + "from - " + message.getFrom() +
+                    "timestamp - " + message.getTime());
+        }
 
 //        mTitleView.setText(userName);
 //
@@ -255,6 +266,19 @@ public class ChatActivity extends AppCompatActivity {
                 loadMoreMessages();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                onBackPressed();
+                //handle the home button onClick event here.
+                return true;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void addFile() {
@@ -398,6 +422,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
+                Log.d("ccc", "TIMESTAMP----------------------> is " + message.getType());
                 itemPos++;
                 if (itemPos == 1) {
                     String messageKey = dataSnapshot.getKey();
@@ -405,7 +430,8 @@ public class ChatActivity extends AppCompatActivity {
                     mPrevKey = messageKey;
                 }
                 messageList.add(message);
-                mAdapter.notifyDataSetChanged();
+                Log.d("ccc", "in Activity timestamp " + String.valueOf(message.getTime()));
+                mAdapter.setData(messageList);
                 mMessagesList.scrollToPosition(messageList.size() - 1);
                 mRefreshLayout.setRefreshing(false);
             }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.borisruzanov.russianwives.Adapters.CountriesAdapter;
 import com.borisruzanov.russianwives.CountriesList;
@@ -49,6 +50,8 @@ public class SliderCountriesFragment extends Fragment {
                 new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
                     @Override
                     public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Country was updated", Toast.LENGTH_LONG).show();
 
                     }
                 });

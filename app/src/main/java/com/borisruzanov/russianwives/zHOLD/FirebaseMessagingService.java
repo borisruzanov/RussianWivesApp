@@ -26,7 +26,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
 //
 //
 //        PendingIntent resultPendingIntent =
-//                PendingIntent.getActivity(
+//                PendingIntent.getAction(
 //                        this,
 //                        0,
 //                        resultIntent,

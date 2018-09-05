@@ -13,6 +13,7 @@ public class MoxyReflector {
 
 	static {
 		sViewStateProviders = new HashMap<>();
+		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.FilterDialogPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.FilterDialogPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.MainPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.MainPresenter$$ViewStateProvider());
@@ -20,6 +21,7 @@ public class MoxyReflector {
 		
 		sPresenterBinders = new HashMap<>();
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.MainActivity.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.MainActivity$$PresentersBinder()));
+		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.ActionsFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.ActionsFragment$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.ChatsFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.ChatsFragment$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.SearchFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.SearchFragment$$PresentersBinder()));

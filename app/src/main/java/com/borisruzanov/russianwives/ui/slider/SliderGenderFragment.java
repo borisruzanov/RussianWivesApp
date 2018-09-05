@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
@@ -53,6 +54,8 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
                     new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
                         @Override
                         public void onUpdate() {
+                            getActivity().onBackPressed();
+                            Toast.makeText(getActivity(), "Gender information was updated", Toast.LENGTH_LONG).show();
 
                         }
                     });

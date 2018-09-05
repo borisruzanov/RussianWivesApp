@@ -3,7 +3,7 @@
     <color name="colorPrimary">#ffffff</color>
     <color name="colorPrimaryDark">#616161</color>
     <color name="colorAccent">#f44336</color>
-
+    <color name="messageBackground">#dceac2</color>
     <color name="greySecondary">#8B000000</color>
     <color name="darkColor">#222222</color>
     <color name="darkGrey">#424242</color>

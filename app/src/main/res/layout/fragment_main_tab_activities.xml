@@ -11,4 +11,11 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true" />
 
+    <TextView
+        android:id="@+id/activities_empty_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/emptyText"
+        android:gravity="center" />
+
 </RelativeLayout>

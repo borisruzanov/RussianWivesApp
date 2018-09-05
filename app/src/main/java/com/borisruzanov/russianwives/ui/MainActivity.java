@@ -1,6 +1,5 @@
 package com.borisruzanov.russianwives.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,7 +7,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +16,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.MainPagerAdapter;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.ui.fragments.ActivitiesFragment;
+import com.borisruzanov.russianwives.ui.fragments.ActionsFragment;
 import com.borisruzanov.russianwives.ui.fragments.ChatsFragment;
 import com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment;
 import com.borisruzanov.russianwives.ui.fragments.SearchFragment;
@@ -35,8 +33,6 @@ import java.util.Arrays;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class MainActivity extends MvpAppCompatActivity implements MainView, FilterDialogFragment.FilterListener {
-
-    //TODO Everywhere check that user is authorized
 
     //MVP
     @InjectPresenter
@@ -74,12 +70,12 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        viewPager = (ViewPager) findViewById(R.id.main_view_pager);
+        viewPager = findViewById(R.id.main_view_pager);
         mainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
-        mainPagerAdapter.addFragment(searchFragment, "Search");
-        mainPagerAdapter.addFragment(new ChatsFragment(), "Chats");
-        mainPagerAdapter.addFragment(new ActivitiesFragment(), "Activity");
-        tabLayout = (TabLayout) findViewById(R.id.main_tabs);
+        mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title));
+        mainPagerAdapter.addFragment(new ChatsFragment(), getString(R.string.chats_title));
+        mainPagerAdapter.addFragment(new ActionsFragment(), getString(R.string.actions_title));
+        tabLayout = findViewById(R.id.main_tabs);
 
         mainPresenter.checkForUserExist();
 
@@ -144,6 +140,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
             } else {
                 //Sign in failed
                 if (response == null) {
+
                 }
             }
         }
@@ -156,22 +153,14 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
 
     //TODO Finish method for checking first needed information
     @Override
-    public void checkingForUserInformation() {
+    public void checkingForUserInfo() {
         builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setMessage("You Didn't Fill The Form. Do You Want To Fill It Now?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                Intent sliderIntent = new Intent(MainActivity.this, SliderActivity.class);
-                startActivity(sliderIntent);
-            }
+        builder.setMessage(R.string.didnt_fill_form_question);
+        builder.setPositiveButton(R.string.yes, (dialogInterface, i) -> {
+            Intent sliderIntent = new Intent(MainActivity.this, SliderActivity.class);
+            startActivity(sliderIntent);
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-            }
-        });
+        builder.setNegativeButton(R.string.no, (dialogInterface, i) -> dialogInterface.dismiss());
         alertDialog = builder.create();
         alertDialog.show();
     }
