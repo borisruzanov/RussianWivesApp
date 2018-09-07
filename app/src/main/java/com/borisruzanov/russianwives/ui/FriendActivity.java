@@ -60,6 +60,8 @@ public class FriendActivity extends MvpAppCompatActivity {
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+
         fab = (FloatingActionButton) findViewById(R.id.friend_activity_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

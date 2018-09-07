@@ -41,8 +41,8 @@ import static android.app.Activity.RESULT_OK;
 public class SliderImageFragment extends Fragment {
 
     Button btnChangeImage;
-    Button btnClose;
-    Button btnNext;
+//    Button btnClose;
+//    Button btnNext;
 
     private StorageReference storageReference;
 
@@ -62,15 +62,15 @@ public class SliderImageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
         btnChangeImage = (Button) view.findViewById(R.id.fragment_slider_image_btn_save);
-        btnClose = (Button) view.findViewById(R.id.fragment_slider_image_btn_close);
-        btnNext = (Button) view.findViewById(R.id.fragment_slider_image_btn_next);
-        if (getActivity().getIntent().getExtras().getString("field_id").equals("image")) {
-            btnClose.setVisibility(View.GONE);
-            btnNext.setVisibility(View.GONE);
-        } else {
-            Log.d("tag", "Inside ELSE " + getActivity().getIntent().getExtras().getString("field_id"));
-
-        }
+//        btnClose = (Button) view.findViewById(R.id.fragment_slider_image_btn_close);
+//        btnNext = (Button) view.findViewById(R.id.fragment_slider_image_btn_next);
+//        if (getActivity().getIntent().getExtras().getString("field_id").equals("image")) {
+//            btnClose.setVisibility(View.INVISIBLE);
+//            btnNext.setVisibility(View.INVISIBLE);
+//        } else {
+//            Log.d("tag", "Inside ELSE " + getActivity().getIntent().getExtras().getString("field_id"));
+//
+//        }
         btnChangeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

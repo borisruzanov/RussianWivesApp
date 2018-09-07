@@ -115,6 +115,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             chat.setOnClickListener(new OnItemClickListener(position, onChatClickCallback));
             like.setOnClickListener(new OnItemClickListener(position, onLikeClickCallback));
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
+//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
             if(fsUser.getImage().equals("default")){
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);

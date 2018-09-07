@@ -1,11 +1,9 @@
 package com.borisruzanov.russianwives.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +14,6 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -43,7 +40,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
     @Override
     public ActionsAdapter.ActivitiesAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_activity, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_action, parent, false);
         return new ActionsAdapter.ActivitiesAdapterViewHolder(view);
     }
 
@@ -62,13 +59,15 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
     public class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name;
         TextView time;
-        TextView type;
+        TextView type_visit;
+        TextView type_like;
         ImageView image;
 
         public ActivitiesAdapterViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.item_activity_name);
-            type = (TextView) itemView.findViewById(R.id.item_activity_type);
+            type_visit = (TextView) itemView.findViewById(R.id.item_activity_type_visit);
+            type_like = (TextView) itemView.findViewById(R.id.item_activity_type_like);
             time = (TextView) itemView.findViewById(R.id.item_activity_time);
             image = (ImageView) itemView.findViewById(R.id.item_activity_image);
         }
@@ -81,7 +80,6 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         void bind(ActionItem model, int position) {
             name.setText(model.getName());
             time.setText(String.valueOf(model.getTimeStamp()));
-            type.setText(model.getAction());
             if (model.getImage().equals("default")) {
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
             } else {
@@ -91,11 +89,14 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
             Log.d("vvv", "in adapter action " + model.getAction());
 
 
-//            if (model.getAction().equals("visit")){
-//                Log.d("vvv", "VISIT " + model.getAction());
-//            } else {
-//                Log.d("vvv", "LIKE");
-//            }
+            if (model.getAction().equals("visit")){
+                type_like.setVisibility(View.VISIBLE);
+                type_visit.setVisibility(View.INVISIBLE);
+            } else {
+                type_visit.setVisibility(View.VISIBLE);
+                type_like.setVisibility(View.INVISIBLE);
+
+            }
         }
     }
 

@@ -67,6 +67,8 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+
 
         recyclerView = (RecyclerView) findViewById(R.id.my_profile_edit_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -92,6 +94,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 UserDescriptionModel itemClicked = userDescriptionEditList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("field_id", itemClicked.getTitle());
+                bundle.putString("intent", "list");
                 Intent sliderIntent = new Intent(ProfileSettingsActivity.this, SliderActivity.class);
                 sliderIntent.putExtras(bundle);
                 startActivity(sliderIntent);

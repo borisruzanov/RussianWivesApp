@@ -137,6 +137,7 @@ public class ChatActivity extends AppCompatActivity {
         mChatSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                initializeChat();
                 sendMessage();
             }
         });
@@ -157,7 +158,7 @@ public class ChatActivity extends AppCompatActivity {
 
 //        mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
 
-        initializeChat();
+
 
         //Loading messages first time
         loadMessages();
@@ -289,34 +290,38 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void initializeChat() {
-        mRootRef.child("Chat").child(mCurrentUserId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (!dataSnapshot.hasChild(mChatUser)) {
-                    Map chatAddMap = new HashMap();
-                    chatAddMap.put("seen", false);
-                    chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+        if (mRootRef.child("Chat").child(mCurrentUserId) != null){
+            mRootRef.child("Chat").child(mCurrentUserId).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.hasChild(mChatUser)) {
+                        Map chatAddMap = new HashMap();
+                        chatAddMap.put("seen", false);
+                        chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
 
-                    Map chatUserMap = new HashMap();
-                    chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser, chatAddMap);
-                    chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId, chatAddMap);
+                        Map chatUserMap = new HashMap();
+                        chatUserMap.put("Chat/" + mCurrentUserId + "/" + mChatUser, chatAddMap);
+                        chatUserMap.put("Chat/" + mChatUser + "/" + mCurrentUserId, chatAddMap);
 
-                    mRootRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                            if (databaseError != null) {
-                                Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage().toString());
+                        mRootRef.updateChildren(chatUserMap, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                if (databaseError != null) {
+                                    Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage().toString());
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+
     }
 
 

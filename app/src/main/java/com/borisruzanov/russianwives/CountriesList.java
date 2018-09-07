@@ -56,12 +56,12 @@ public class CountriesList {
             countries.add(new Country("Croatia"));
             countries.add(new Country("Cuba"));
             countries.add(new Country("Cyprus"));
-            countries.add(new Country("Czech Republic"));
-            countries.add(new Country("Democratic Republic of the Congo"));
+            countries.add(new Country("Czech"));
+            countries.add(new Country("Congo"));
             countries.add(new Country("Denmark"));
             countries.add(new Country("Djibouti"));
             countries.add(new Country("Dominica"));
-            countries.add(new Country("Dominican Republic"));
+            countries.add(new Country("Dominican "));
             countries.add(new Country("Ecuador"));
             countries.add(new Country("Egypt"));
             countries.add(new Country("El Salvador"));
@@ -96,7 +96,7 @@ public class CountriesList {
             countries.add(new Country("Iraq"));
             countries.add(new Country("Israel"));
             countries.add(new Country("Italy"));
-            countries.add(new Country("Ivory Coast (Cote d'Ivoire)"));
+            countries.add(new Country("Ivory Coast"));
             countries.add(new Country("Jamaica"));
             countries.add(new Country("Japan"));
             countries.add(new Country("Jordan"));
@@ -104,7 +104,7 @@ public class CountriesList {
             countries.add(new Country("Kenya"));
             countries.add(new Country("Kosovo"));
             countries.add(new Country("Kuwait"));
-            countries.add(new Country("Kyrgyz Republic (Kyrgyzstan)"));
+            countries.add(new Country("Kyrgyzstan"));
             countries.add(new Country("Laos"));
             countries.add(new Country("Latvia"));
             countries.add(new Country("Lebanon"));
@@ -114,7 +114,7 @@ public class CountriesList {
             countries.add(new Country("Liechtenstein"));
             countries.add(new Country("Lithuania"));
             countries.add(new Country("Luxembourg"));
-            countries.add(new Country("Republic of Macedonia"));
+            countries.add(new Country("Macedonia"));
             countries.add(new Country("Madagascar"));
             countries.add(new Country("Malawi"));
             countries.add(new Country("Malaysia"));
@@ -127,7 +127,7 @@ public class CountriesList {
             countries.add(new Country("Mayotte"));
             countries.add(new Country("Mexico"));
             countries.add(new Country("Moldova"));
-            countries.add(new Country("Republic of Monaco"));
+            countries.add(new Country("Monaco"));
             countries.add(new Country("Mongolia"));
             countries.add(new Country("Montenegro"));
             countries.add(new Country("Montserrat"));
@@ -141,7 +141,7 @@ public class CountriesList {
             countries.add(new Country("Niger"));
             countries.add(new Country("Nigeria"));
             countries.add(new Country("Korea"));
-            countries.add(new Country("Democratic Republic of North Korea"));
+            countries.add(new Country("North Korea"));
             countries.add(new Country("Norway"));
             countries.add(new Country("Oman"));
             countries.add(new Country("Pacific Islands"));
@@ -197,7 +197,7 @@ public class CountriesList {
             countries.add(new Country("Uganda"));
             countries.add(new Country("Ukraine"));
             countries.add(new Country("United Arab Emirates"));
-            countries.add(new Country("United States of America (USA)"));
+            countries.add(new Country("USA"));
             countries.add(new Country("Uruguay"));
             countries.add(new Country("Uzbekistan"));
             countries.add(new Country("Venezuela"));

@@ -3,15 +3,25 @@ package com.borisruzanov.russianwives.mvp.model.repository;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.Message;
+import com.borisruzanov.russianwives.models.RtUser;
 import com.borisruzanov.russianwives.models.SearchModel;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.models.UserChat;
+import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
+import com.borisruzanov.russianwives.utils.MessageListCallback;
+import com.borisruzanov.russianwives.utils.RtUsersAndMessagesCallback;
+import com.borisruzanov.russianwives.utils.RtUsersCallback;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
+import com.borisruzanov.russianwives.utils.UserChatListCallback;
 import com.borisruzanov.russianwives.utils.UsersListCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
+import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +62,7 @@ public class FirebaseRepository {
 
     /**
      * Getting needed field from current user profile in FsUsers
+     *
      * @param valueName
      * @param callback
      */
@@ -61,6 +72,7 @@ public class FirebaseRepository {
 
     /**
      * Getting all datasnapshot from current user profile in FsUsers
+     *
      * @param callback
      */
     public void getAllInfoCurrentUser(final UserCallback callback) {
@@ -75,6 +87,7 @@ public class FirebaseRepository {
 
     /**
      * Updating field information of current user in FsUsers
+     *
      * @param map
      * @param callback
      */
@@ -85,6 +98,7 @@ public class FirebaseRepository {
 
     /**
      * Get list of all users
+     *
      * @param usersListCallback
      */
     public void getUsersData(final UsersListCallback usersListCallback) {
@@ -128,6 +142,7 @@ public class FirebaseRepository {
 
     /**
      * Getting single value from need friend
+     *
      * @param userId
      * @param valueName
      * @param callback
@@ -138,6 +153,7 @@ public class FirebaseRepository {
 
     /**
      * Getting friend's object with needed data
+     *
      * @param collectionName
      * @param docName
      * @param userCallback
@@ -155,6 +171,7 @@ public class FirebaseRepository {
 
     /**
      * Get list of user objects from FsUers based on list of uid
+     *
      * @param uidList
      * @param usersListCallback
      */
@@ -179,33 +196,34 @@ public class FirebaseRepository {
 
     /**
      * Searching by searchModel which includes list of key-value
+     *
      * @param searchModels
      * @param usersListCallback
      */
     public void searchByListParams(final List<SearchModel> searchModels, final UsersListCallback usersListCallback) {
         Query query = reference;
 
-        if(!searchModels.isEmpty()) {
+        if (!searchModels.isEmpty()) {
             for (SearchModel searchModel : searchModels) {
                 query = query.whereEqualTo(searchModel.getKey(), searchModel.getValue());
             }
             query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
-        }
-        else query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
+        } else query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
     }
 
     /**
      * Adding activity type in the table for user activities
+     *
      * @param userUid
      * @param friendUid
      */
     //TODO Проверить на работоспособность
-    public void addUserToActivity(String userUid, String friendUid){
+    public void addUserToActivity(String userUid, String friendUid) {
         Map<String, Object> chatAddMap = new HashMap<>();
         chatAddMap.put(Consts.ACTION, "visit");
         chatAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
         chatAddMap.put(Consts.UID, userUid);
-        DatabaseReference activityDb =realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
+        DatabaseReference activityDb = realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
         //realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
         activityDb.updateChildren(chatAddMap);
 
@@ -226,13 +244,136 @@ public class FirebaseRepository {
                             }
                         });
                     }
+
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 });
     }
 
+
+    private void getChatAndUidList(ChatAndUidCallback callback) {
+        DatabaseReference mConvDatabase = FirebaseDatabase.getInstance().getReference()
+                .child("Chat").child(getUid());
+        mConvDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Chat> chatList = new ArrayList<>();
+                List<String> uidList = new ArrayList<>();
+
+                //Inflate UID List
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    //This is list of chats UID's
+                    uidList.add(snapshot.getKey());
+                    long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
+                    boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
+                    //This is list of Chats Objects
+                    chatList.add(new Chat(timeStamp, seen));
+                }
+
+                callback.getChatsAndUid(chatList, uidList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    private void getRtUsersAndMessages(List<String> uidList, RtUsersAndMessagesCallback callback) {
+        List<RtUser> rtUsers = new ArrayList<>();
+        List<Message> messages = new ArrayList<>();
+
+        for (String uid : uidList) {
+            FirebaseDatabase.getInstance().getReference().child("Users")
+                    .child(uid).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String online = dataSnapshot.child("online").getValue().toString();
+                    rtUsers.add(new RtUser(online));
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+            FirebaseDatabase.getInstance().getReference().child("Messages")
+                    .child(getUid()).child(uid).limitToLast(1)
+                    .addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            String message = "message is empty";
+                            Long time = 0L;
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                time = Long.valueOf(snapshot.child("time").getValue().toString());
+                                message = snapshot.child("message").getValue().toString();
+                                Log.d(Contract.CHAT_FRAGMENT, "dataSnapshot ащк messageList time - " +
+                                        time + " message is - " + message);
+                                messages.add(new Message(message, time));
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
+            callback.getRtUsersAndMessages(rtUsers, messages);
+        }
+    }
+
+
+    public void createUserChats(UserChatListCallback userChatListCallback) {
+        final List<UserChat> userChatList = new ArrayList<>();
+
+        getChatAndUidList((chatList, uidList) -> {
+
+                getRtUsersAndMessages(uidList, (rtUserList, messageList) -> {
+
+                    //Log.d(Contract.CHAT_LIST, "UserList size is " + userList.size());
+                    Log.d(Contract.CHAT_LIST, "UidList size is " + uidList.size());
+                    Log.d(Contract.CHAT_LIST, "RtUserList size is " + rtUserList.size());
+
+                    getNeededUsers(uidList, userList -> {
+                        for (String uid : uidList) {
+                            Log.d(Contract.CHAT_LIST, "User`s uid is " + uid);
+                        }
+
+                        for (FsUser user : userList) {
+                            Log.d(Contract.CHAT_LIST, "User name is " + user.getName());
+                        }
+
+                        if (!userList.isEmpty()) {
+                            for (int i = 0; i < userList.size(); i++) {
+                                String name = userList.get(i).getName();
+                                String image = userList.get(i).getImage();
+                                String userId = userList.get(i).getUid();
+
+                                long timeStamp = chatList.get(i).getTimeStamp();
+                                boolean seen = chatList.get(i).getSeen();
+
+                                String online = rtUserList.get(i).getOnline();
+
+                                String message = messageList.get(i).getMessage();
+                                long messageTimestamp = messageList.get(i).getTime();
+
+                                userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
+                                        message, messageTimestamp));
+
+                            }
+                        }
+                        userChatListCallback.getUserChatList(userChatList);
+                    });
+                });
+
+
+    });
+    }
+
+
     /**
      * Checking for information from FsUsers of current user
+     *
      * @return
      */
     //TODO Дописать метод
@@ -262,6 +403,7 @@ public class FirebaseRepository {
 
     /**
      * Getting single field from Firestore
+     *
      * @param collectionName
      * @param docName
      * @param valueName
@@ -280,6 +422,7 @@ public class FirebaseRepository {
 
     /**
      * Updating signle value field in Firestore
+     *
      * @param collectionName
      * @param docName
      * @param map
@@ -293,6 +436,7 @@ public class FirebaseRepository {
 
     /**
      * Return document reference
+     *
      * @param collectionName
      * @param docName
      * @return
@@ -303,6 +447,7 @@ public class FirebaseRepository {
 
     /**
      * Util method not to copy information
+     *
      * @param usersListCallback
      * @param task
      */

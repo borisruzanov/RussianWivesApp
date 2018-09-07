@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.Adapters.UserInfoPagerAdapter;
+import com.borisruzanov.russianwives.models.Contract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,8 @@ public class SliderActivity extends MvpAppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar_slider);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+
 
         viewPager = findViewById(R.id.view_pager_add_info);
         buttonNext = findViewById(R.id.slider_button);
@@ -76,15 +79,17 @@ public class SliderActivity extends MvpAppCompatActivity {
         buttonNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d(Contract.SLIDER, "Inside extras " + getIntent().getExtras().getString("field_id"));
                 slideToNext(fragmentList, viewPager.getCurrentItem());
             }
         });
-        if (getIntent().getExtras().containsKey("field_id")){
-            buttonNext.setVisibility(View.GONE);
+        if (getIntent().getExtras().getString("intent").equals("list")){
+            buttonNext.setVisibility(View.INVISIBLE);
         }else {
-            Log.d("tag", "Inside ELSE " + getIntent().getExtras().getString("field_id"));
-
+            Log.d("tag", "Inside extras " + getIntent().getExtras().getString("field_id"));
         }
+        Log.d(Contract.SLIDER, "Inside extras " + getIntent().getExtras().getString("field_id"));
+
     }
 
     @Override

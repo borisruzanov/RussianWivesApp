@@ -8,10 +8,6 @@ import android.view.View;
 
 import java.util.List;
 
-/**
- * Created by Boris on 4/3/2018.
- */
-
 public class UserInfoPagerAdapter extends FragmentStatePagerAdapter {
     private List<Fragment> fragments;
 

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.borisruzanov.russianwives.Adapters.UserDescriptionListAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.UserProfileItemsList;
+import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.bumptech.glide.Glide;
@@ -58,6 +60,7 @@ public class MyProfile extends AppCompatActivity {
         collapsingToolbarLayout.setTitleEnabled(false);
 
         setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_list_userDescription);
@@ -96,6 +99,7 @@ public class MyProfile extends AppCompatActivity {
         new FirebaseRepository().getFieldFromCurrentUser("age", value -> age.setText(value));
 
         new FirebaseRepository().getAllInfoCurrentUser(user -> {
+                Log.d(Contract.TAG, "UID is -------+-+- " + user.getUid());
                 userDescriptionList.addAll(UserProfileItemsList.initData(user));
                 setList(userDescriptionList);
         });
