@@ -4308,34 +4308,35 @@ public final class R {
     public static final int ic_launcher_background=0x7f0800ae;
     public static final int ic_launcher_foreground=0x7f0800af;
     public static final int ic_send_black_24dp=0x7f0800b0;
-    public static final int message=0x7f0800b1;
-    public static final int message_text_background=0x7f0800b2;
-    public static final int message_text_background_user=0x7f0800b3;
-    public static final int messenger_bubble_large_blue=0x7f0800b4;
-    public static final int messenger_bubble_large_white=0x7f0800b5;
-    public static final int messenger_bubble_small_blue=0x7f0800b6;
-    public static final int messenger_bubble_small_white=0x7f0800b7;
-    public static final int messenger_button_blue_bg_round=0x7f0800b8;
-    public static final int messenger_button_blue_bg_selector=0x7f0800b9;
-    public static final int messenger_button_send_round_shadow=0x7f0800ba;
-    public static final int messenger_button_white_bg_round=0x7f0800bb;
-    public static final int messenger_button_white_bg_selector=0x7f0800bc;
-    public static final int navigation_empty_icon=0x7f0800bd;
-    public static final int notification_action_background=0x7f0800be;
-    public static final int notification_bg=0x7f0800bf;
-    public static final int notification_bg_low=0x7f0800c0;
-    public static final int notification_bg_low_normal=0x7f0800c1;
-    public static final int notification_bg_low_pressed=0x7f0800c2;
-    public static final int notification_bg_normal=0x7f0800c3;
-    public static final int notification_bg_normal_pressed=0x7f0800c4;
-    public static final int notification_icon_background=0x7f0800c5;
-    public static final int notification_template_icon_bg=0x7f0800c6;
-    public static final int notification_template_icon_low_bg=0x7f0800c7;
-    public static final int notification_tile_bg=0x7f0800c8;
-    public static final int notify_panel_notification_icon_bg=0x7f0800c9;
-    public static final int online_icon=0x7f0800ca;
-    public static final int tooltip_frame_dark=0x7f0800cb;
-    public static final int tooltip_frame_light=0x7f0800cc;
+    public static final int ic_widget=0x7f0800b1;
+    public static final int message=0x7f0800b2;
+    public static final int message_text_background=0x7f0800b3;
+    public static final int message_text_background_user=0x7f0800b4;
+    public static final int messenger_bubble_large_blue=0x7f0800b5;
+    public static final int messenger_bubble_large_white=0x7f0800b6;
+    public static final int messenger_bubble_small_blue=0x7f0800b7;
+    public static final int messenger_bubble_small_white=0x7f0800b8;
+    public static final int messenger_button_blue_bg_round=0x7f0800b9;
+    public static final int messenger_button_blue_bg_selector=0x7f0800ba;
+    public static final int messenger_button_send_round_shadow=0x7f0800bb;
+    public static final int messenger_button_white_bg_round=0x7f0800bc;
+    public static final int messenger_button_white_bg_selector=0x7f0800bd;
+    public static final int navigation_empty_icon=0x7f0800be;
+    public static final int notification_action_background=0x7f0800bf;
+    public static final int notification_bg=0x7f0800c0;
+    public static final int notification_bg_low=0x7f0800c1;
+    public static final int notification_bg_low_normal=0x7f0800c2;
+    public static final int notification_bg_low_pressed=0x7f0800c3;
+    public static final int notification_bg_normal=0x7f0800c4;
+    public static final int notification_bg_normal_pressed=0x7f0800c5;
+    public static final int notification_icon_background=0x7f0800c6;
+    public static final int notification_template_icon_bg=0x7f0800c7;
+    public static final int notification_template_icon_low_bg=0x7f0800c8;
+    public static final int notification_tile_bg=0x7f0800c9;
+    public static final int notify_panel_notification_icon_bg=0x7f0800ca;
+    public static final int online_icon=0x7f0800cb;
+    public static final int tooltip_frame_dark=0x7f0800cc;
+    public static final int tooltip_frame_light=0x7f0800cd;
   }
   public static final class id {
     public static final int ALT=0x7f090000;
@@ -4834,9 +4835,12 @@ public final class R {
     public static final int welcome_back_idp_prompt=0x7f0901ed;
     public static final int welcome_back_password_body=0x7f0901ee;
     public static final int wide=0x7f0901ef;
-    public static final int withText=0x7f0901f0;
-    public static final int wrap=0x7f0901f1;
-    public static final int wrap_content=0x7f0901f2;
+    public static final int widget_action_likes=0x7f0901f0;
+    public static final int widget_action_visits=0x7f0901f1;
+    public static final int widget_container=0x7f0901f2;
+    public static final int withText=0x7f0901f3;
+    public static final int wrap=0x7f0901f4;
+    public static final int wrap_content=0x7f0901f5;
   }
   public static final class integer {
     public static final int abc_config_activityDefaultDur=0x7f0a0000;
@@ -4994,6 +4998,7 @@ public final class R {
     public static final int support_simple_spinner_dropdown_item=0x7f0b008a;
     public static final int users_single_layout=0x7f0b008b;
     public static final int viewpager_item=0x7f0b008c;
+    public static final int widget_action=0x7f0b008d;
   }
   public static final class menu {
     public static final int crop_image_menu=0x7f0c0000;
@@ -17266,5 +17271,8 @@ public final class R {
      * @attr name com.borisruzanov.russianwives:com_facebook_preset_size
      */
     public static final int com_facebook_profile_picture_view_com_facebook_preset_size=1;
+  }
+  public static final class xml {
+    public static final int action_widget_info=0x7f120000;
   }
 }

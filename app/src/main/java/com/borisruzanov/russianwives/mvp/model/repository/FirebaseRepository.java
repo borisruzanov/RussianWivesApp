@@ -10,6 +10,7 @@ import com.borisruzanov.russianwives.models.RtUser;
 import com.borisruzanov.russianwives.models.SearchModel;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.UserChat;
+import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
@@ -23,7 +24,9 @@ import com.borisruzanov.russianwives.utils.UsersListCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
 import com.firebase.ui.auth.data.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -41,6 +44,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -177,21 +181,22 @@ public class FirebaseRepository {
      */
     public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback) {
         CollectionReference users = db.collection(Consts.USERS_DB);
-        for (int j = 0; j < uidList.size(); j++) {
-            users.whereEqualTo("uid", uidList.get(j))
-                    .get()
-                    .addOnCompleteListener(task -> {
-                        List<FsUser> fsUserList = new ArrayList<>();
-                        for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                            fsUserList.add(snapshot.toObject(FsUser.class));
-                            Log.d(Contract.TAG, "Добавляем объект юзер из снэпшота и его имя " + snapshot.getString("name"));
-                        }
-                        for (FsUser fsUser : fsUserList) {
-                            Log.d(Contract.TAG, "Имя добавленного объекта юзера в листе " + fsUser.getName());
-                        }
-                        usersListCallback.getUsers(fsUserList);
-                    });
+        List<Task<QuerySnapshot>> tasks = new ArrayList<>();
+        for (String uid : uidList) {
+            Task<QuerySnapshot> documentSnapshotTask = users.whereEqualTo(Consts.UID, uid).get();
+            tasks.add(documentSnapshotTask);
         }
+        Tasks.whenAllSuccess(tasks).addOnSuccessListener(list -> {
+            List<FsUser> fsUsers = new ArrayList<>();
+            for (Object object : list) {
+                for (DocumentSnapshot snapshot : ((QuerySnapshot) object).getDocuments()) {
+                    FsUser fsUser = snapshot.toObject(FsUser.class);
+                    fsUsers.add(fsUser);
+                    Log.d("TAG", fsUser.getName());
+                }
+            }
+            usersListCallback.getUsers(fsUsers);
+        });
     }
 
     /**
@@ -251,33 +256,57 @@ public class FirebaseRepository {
                 });
     }
 
+    public void getActionsInfo(ActionWidgetCallback callback) {
+        DatabaseReference activityDb = realtimeReference.child(Consts.ACTIONS_DB).child(getUid());
+                activityDb.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        int visits = 0, likes = 0;
+                        for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                            String action = snapshot.child(Consts.ACTION).getValue().toString();
+                            if (action.equals(Consts.VISIT)) visits++;
+                            else if (action.equals(Consts.LIKE)) likes++;
+                        }
+                        String visitsText = String.valueOf(visits) + " " + "visits";
+                        String likesText = String.valueOf(likes) + " " + "likes";
+                        callback.getActions(visitsText, likesText);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) { }
+                });
+    }
+
 
     private void getChatAndUidList(ChatAndUidCallback callback) {
         DatabaseReference mConvDatabase = FirebaseDatabase.getInstance().getReference()
                 .child("Chat").child(getUid());
         mConvDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Chat> chatList = new ArrayList<>();
-                List<String> uidList = new ArrayList<>();
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<Chat> chatList = new ArrayList<>();
+                        List<String> uidList = new ArrayList<>();
 
-                //Inflate UID List
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    //This is list of chats UID's
-                    uidList.add(snapshot.getKey());
-                    long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
-                    boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
-                    //This is list of Chats Objects
-                    chatList.add(new Chat(timeStamp, seen));
+                        //Inflate UID List
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            //This is list of chats UID's
+                            uidList.add(snapshot.getKey());
+                            long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
+                            boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
+                            //This is list of Chats Objects
+                            chatList.add(new Chat(timeStamp, seen));
+                        }
+
+                        Log.d(Contract.CHAT_LIST, "ChatList size in getChatAndUidList is " + chatList.size());
+                        Log.d(Contract.CHAT_LIST, "UidList size in getChatAndUidList is " + uidList.size());
+                        callback.getChatsAndUid(chatList, uidList);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
                 }
-
-                callback.getChatsAndUid(chatList, uidList);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        );
     }
 
     private void getRtUsersAndMessages(List<String> uidList, RtUsersAndMessagesCallback callback) {
@@ -302,8 +331,8 @@ public class FirebaseRepository {
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String message = "message is empty";
-                            Long time = 0L;
+                            String message;
+                            Long time;
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 time = Long.valueOf(snapshot.child("time").getValue().toString());
                                 message = snapshot.child("message").getValue().toString();
@@ -318,6 +347,8 @@ public class FirebaseRepository {
                         public void onCancelled(DatabaseError databaseError) {
                         }
                     });
+            Log.d(Contract.CHAT_LIST, "RtUserList size in getUsersAndMessages is " + rtUsers.size());
+            Log.d(Contract.CHAT_LIST, "MsgList size in getUsersAndMessages is " + messages.size());
             callback.getRtUsersAndMessages(rtUsers, messages);
         }
     }
@@ -326,48 +357,49 @@ public class FirebaseRepository {
     public void createUserChats(UserChatListCallback userChatListCallback) {
         final List<UserChat> userChatList = new ArrayList<>();
 
+        List<String> uidList1 = new ArrayList<>(Arrays.asList("1wvvTVcpzQOZMRnSj1Nk4QVwHNE2", "J40SPgz6p4Rydj5VBHNn8gaIvuq1",
+                "Ji8kbxzqyqY4RIk0LK6Awte0jdB2"));
+
         getChatAndUidList((chatList, uidList) -> {
 
-                getRtUsersAndMessages(uidList, (rtUserList, messageList) -> {
+            Log.d(Contract.CHAT_LIST, "UidList size in getChatAndUidList block is " + uidList.size());
+            Log.d(Contract.CHAT_LIST, "ChatList size in getChatAndUidList block is " + chatList.size());
 
-                    //Log.d(Contract.CHAT_LIST, "UserList size is " + userList.size());
-                    Log.d(Contract.CHAT_LIST, "UidList size is " + uidList.size());
-                    Log.d(Contract.CHAT_LIST, "RtUserList size is " + rtUserList.size());
+            getRtUsersAndMessages(uidList, (rtUserList, messageList) -> {
 
-                    getNeededUsers(uidList, userList -> {
-                        for (String uid : uidList) {
-                            Log.d(Contract.CHAT_LIST, "User`s uid is " + uid);
-                        }
+                getNeededUsers(uidList, userList -> {
+                    Log.d(Contract.CHAT_LIST, "UidList size in getNeededUsers block is " + uidList.size());
+                    Log.d(Contract.CHAT_LIST, "ChatList size in getNeededUsers block is " + chatList.size());
+                    Log.d(Contract.CHAT_LIST, "RtUserList size in getNeededUsers block is " + rtUserList.size());
+                    Log.d(Contract.CHAT_LIST, "MsgList size in getNeededUsers block is " + messageList.size());
+                    Log.d(Contract.CHAT_LIST, "UserList size in getNeededUsers block is " + userList.size());
 
-                        for (FsUser user : userList) {
-                            Log.d(Contract.CHAT_LIST, "User name is " + user.getName());
-                        }
+                    if (!userList.isEmpty() && userChatList.isEmpty()) {
+                        for (int i = 0; i < userList.size(); i++) {
+                            String name = userList.get(i).getName();
+                            String image = userList.get(i).getImage();
+                            String userId = userList.get(i).getUid();
 
-                        if (!userList.isEmpty()) {
-                            for (int i = 0; i < userList.size(); i++) {
-                                String name = userList.get(i).getName();
-                                String image = userList.get(i).getImage();
-                                String userId = userList.get(i).getUid();
+                            long timeStamp = chatList.get(i).getTimeStamp();
+                            boolean seen = chatList.get(i).getSeen();
 
-                                long timeStamp = chatList.get(i).getTimeStamp();
-                                boolean seen = chatList.get(i).getSeen();
+                            String online = rtUserList.get(i).getOnline();
 
-                                String online = rtUserList.get(i).getOnline();
+                            String message = messageList.get(i).getMessage();
+                            long messageTimestamp = messageList.get(i).getTime();
 
-                                String message = messageList.get(i).getMessage();
-                                long messageTimestamp = messageList.get(i).getTime();
+                            Log.d(Contract.CHAT_LIST, "User name is " + name);
 
-                                userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
-                                        message, messageTimestamp));
+                            userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
+                                    message, messageTimestamp));
 
-                            }
                         }
                         userChatListCallback.getUserChatList(userChatList);
-                    });
+                    }
                 });
+            });
 
-
-    });
+        });
     }
 
 

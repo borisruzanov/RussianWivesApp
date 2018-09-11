@@ -27,6 +27,8 @@ public final class Consts {
     public static final String UID  = "uid";
 
     public static String ACTION = "action";
+    public static String VISIT = "visit";
+    public static String LIKE = "like";
     public static String TIMESTAMP = "timestamp";
 
     public static List<String> keyList = Arrays.asList(GENDER, AGE, COUNTRY, RELATIONSHIP_STATUS,

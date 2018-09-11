@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
 MERGED from [com.google.firebase:firebase-firestore:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-firestore-11.8.0.aar\a48a971b2248b0c8942e4ba3b6ecbf62\AndroidManifest.xml:2:1-8:12
 MERGED from [com.google.firebase:firebase-storage:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-storage-11.8.0.aar\c1852be19f37083308b06c473b345538\AndroidManifest.xml:2:1-8:12
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:2:1-86:12
@@ -81,20 +81,20 @@ MERGED from [com.google.firebase:firebase-iid-license:11.8.0] C:\Users\Public\.g
 MERGED from [com.google.firebase:firebase-analytics-impl-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-analytics-impl-license-11.8.0.aar\41067c9f380e1b19bedcd3fcddd40839\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.android.gms:play-services-auth-api-phone-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\play-services-auth-api-phone-license-11.8.0.aar\8b04506ffcd4a6bb49f075a9abed6405\AndroidManifest.xml:2:1-6:12
 MERGED from [com.google.android.gms:play-services-auth-base-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-license-11.8.0.aar\4e629973acbc67282d6f2cdcba57eec2\AndroidManifest.xml:2:1-6:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
-INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
+INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
 	package
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:3:5-44
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 	android:versionCode
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-76:12
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:1-86:12
 		INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:2:11-69
@@ -107,7 +107,7 @@ ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:6:5-81
 	android:name
 		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:6:22-78
 application
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:8:5-74:19
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:7:5-84:19
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:15:5-84:19
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:15:5-84:19
 MERGED from [com.google.firebase:firebase-auth:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-auth-11.8.0.aar\9b80789ed8d6ab2d0e3b8b1c00ad72eb\AndroidManifest.xml:22:5-30:19
@@ -193,145 +193,165 @@ MERGED from [com.google.android.gms:play-services-auth-api-phone-license:11.8.0]
 MERGED from [com.google.android.gms:play-services-auth-base-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-license-11.8.0.aar\4e629973acbc67282d6f2cdcba57eec2\AndroidManifest.xml:5:5-20
 MERGED from [com.google.android.gms:play-services-auth-base-license:11.8.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\play-services-auth-base-license-11.8.0.aar\4e629973acbc67282d6f2cdcba57eec2\AndroidManifest.xml:5:5-20
 	android:supportsRtl
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:14:9-35
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:13:9-35
 	android:label
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:12:9-41
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:11:9-41
 	android:roundIcon
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:13:9-54
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:12:9-54
 	android:icon
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:11:9-43
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:10:9-43
 	android:allowBackup
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:10:9-35
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:15:9-40
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:14:9-40
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:9:9-57
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:8:9-57
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:16:9-18:63
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:15:9-17:63
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:19:9-21:63
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:19:9-21:63
 	android:value
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:18:13-60
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:17:13-60
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:17:13-58
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:16:13-58
 activity#com.facebook.FacebookActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:20:9-23:48
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:19:9-22:48
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:55:9-59:48
 MERGED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:55:9-59:48
 MERGED from [com.facebook.android:facebook-common:4.29.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\308454115fe8ecab646ce45d014c90b9\AndroidManifest.xml:29:9-32:66
 MERGED from [com.facebook.android:facebook-common:4.29.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\308454115fe8ecab646ce45d014c90b9\AndroidManifest.xml:29:9-32:66
 	android:label
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:23:13-45
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:22:13-45
 	tools:ignore
 		ADDED from [com.firebaseui:firebase-ui-auth:3.2.2] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\firebase-ui-auth-3.2.2.aar\2acb426d5b70c0d97d5fd24240c6525c\AndroidManifest.xml:59:13-45
 	android:configChanges
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:22:13-96
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:21:13-96
 	android:theme
 		ADDED from [com.facebook.android:facebook-common:4.29.0] C:\Users\Public\.gradle\caches\transforms-1\files-1.1\facebook-common-4.29.0.aar\308454115fe8ecab646ce45d014c90b9\AndroidManifest.xml:32:13-63
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:21:13-57
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:20:13-57
 service#com.borisruzanov.russianwives.zHOLD.FirebaseMessagingService
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:25:9-29:19
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:24:9-28:19
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:25:18-64
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:24:18-64
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:26:13-28:29
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:25:13-27:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:27:17-78
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:26:17-78
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:27:25-75
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:26:25-75
 activity#com.borisruzanov.russianwives.ui.MainActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:31:9-38:20
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:30:9-37:20
 	android:configChanges
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:32:13-59
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:31:13-59
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:31:19-50
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:30:19-50
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:33:13-37:29
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:32:13-36:29
 action#android.intent.action.MAIN
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:34:17-69
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:33:17-69
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:34:25-66
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:33:25-66
 category#android.intent.category.LAUNCHER
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:36:17-77
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:35:17-77
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:36:27-74
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:35:27-74
 activity#com.theartofdev.edmodo.cropper.CropImageActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:39:9-41:59
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:38:9-40:59
 	android:theme
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:41:13-56
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:40:13-56
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:40:13-76
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:39:13-76
 activity#com.borisruzanov.russianwives.zTEST.ChatUdacityActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:42:9-63
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:41:9-63
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:42:19-60
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:41:19-60
 activity#com.borisruzanov.russianwives.ui.ProfileSettingsActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:43:9-64
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:42:9-64
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:43:19-61
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:42:19-61
 activity#com.borisruzanov.russianwives.zHOLD.AllUsersActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:44:9-46:61
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:43:9-45:61
 	android:parentActivityName
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:46:13-58
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:45:13-58
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:45:13-51
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:44:13-51
 activity#com.borisruzanov.russianwives.zHOLD.ProfileActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:47:9-53:20
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:46:9-52:20
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:47:19-56
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:46:19-56
 intent-filter#action:name:com.borisruzanov.russianwives_TARGET_NOTIFICATION+category:name:android.intent.category.DEFAULT
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:48:13-52:29
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:47:13-51:29
 action#com.borisruzanov.russianwives_TARGET_NOTIFICATION
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:49:17-92
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:48:17-92
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:49:25-89
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:48:25-89
 category#android.intent.category.DEFAULT
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:51:17-76
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:50:17-76
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:51:27-73
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:50:27-73
 activity#com.borisruzanov.russianwives.ui.ChatActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:54:9-56:61
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:53:9-55:61
 	android:parentActivityName
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:56:13-58
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:55:13-58
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:55:13-44
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:54:13-44
 activity#com.borisruzanov.russianwives.zHOLD.StatusActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:57:9-58
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:56:9-58
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:57:19-55
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:56:19-55
 activity#com.borisruzanov.russianwives.zTEST.SettingsProfileBasics
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:58:9-60:72
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:57:9-59:72
 	android:parentActivityName
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:60:13-69
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:59:13-69
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:59:13-56
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:58:13-56
 activity#com.borisruzanov.russianwives.ui.MyProfile
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:61:9-63:59
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:60:9-62:59
 	android:theme
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:63:13-56
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:62:13-56
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:62:13-41
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:61:13-41
 activity#com.borisruzanov.russianwives.zTEST.UserInfoViewPager
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:64:9-61
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:63:9-61
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:64:19-58
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:63:19-58
 activity#com.borisruzanov.russianwives.ui.slider.SliderActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:65:9-71:20
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:64:9-70:20
 	android:parentActivityName
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:67:13-58
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:66:13-58
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:66:13-53
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:65:13-53
 meta-data#android.support.PARENT_ACTIVITY
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:68:13-70:81
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:67:13-69:81
 	android:value
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:70:17-78
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:69:17-78
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:69:17-63
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:68:17-63
 activity#com.borisruzanov.russianwives.ui.FriendActivity
-ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:72:9-64
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:71:9-64
 	android:name
-		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:72:19-52
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:71:19-52
+receiver#com.borisruzanov.russianwives.widget.ActionWidgetProvider
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:73:9-81:20
+	android:name
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:73:19-62
+intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:74:13-76:29
+action#android.appwidget.action.APPWIDGET_UPDATE
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:75:17-84
+	android:name
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:75:25-81
+meta-data#android.appwidget.provider
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:78:13-80:62
+	android:resource
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:80:17-59
+	android:name
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:79:17-58
+service#com.borisruzanov.russianwives.widget.ActionWidgetService
+ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:82:9-63
+	android:name
+		ADDED from D:\nano\russianwives\app\src\main\AndroidManifest.xml:82:18-60
 uses-sdk
 INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from D:\nano\russianwives\app\src\main\AndroidManifest.xml

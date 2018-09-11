@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Action;
 import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
@@ -24,6 +25,7 @@ public class ActionsPresenter extends MvpPresenter<ActionsView> {
     private List<ActionItem> actionItems = new ArrayList<>();
 
     public void setActionsList(){
+
         String currentUserId = new FirebaseRepository().getUid();
         DatabaseReference actionDb = FirebaseDatabase.getInstance().getReference().child(Consts.ACTIONS_DB)
                 .child(currentUserId);
@@ -45,15 +47,17 @@ public class ActionsPresenter extends MvpPresenter<ActionsView> {
                 }
                 new FirebaseRepository().getNeededUsers(uidList, userList -> {
 
-                    for (int i = 0; i < userList.size(); i++) {
-                        Log.d("ty", "final list populated");
+                    if(!userList.isEmpty()) {
+                        for (int i = 0; i < userList.size(); i++) {
+                            Log.d("ty", "final list populated");
 
-                        String name = userList.get(i).getName();
-                        String image = userList.get(i).getImage();
-                        String action  = actionList.get(i).getAction();
-                        long timeStamp = actionList.get(i).getTimeStamp();
+                            String name = userList.get(i).getName();
+                            String image = userList.get(i).getImage();
+                            String action = actionList.get(i).getAction();
+                            long timeStamp = actionList.get(i).getTimeStamp();
 
-                        actionItems.add(new ActionItem(name, action, timeStamp,image));
+                            actionItems.add(new ActionItem(name, action, timeStamp, image));
+                        }
                     }
                     getViewState().showUserActions(actionItems);
 
