@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +23,7 @@ import com.borisruzanov.russianwives.UserProfileItemsList;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.ui.fragments.SearchFragment;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -60,6 +63,8 @@ public class MyProfile extends AppCompatActivity {
         collapsingToolbarLayout.setTitleEnabled(false);
 
         setSupportActionBar(toolbar);
+        toolbar.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        toolbar.getBackground().setAlpha(125);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -103,6 +108,17 @@ public class MyProfile extends AppCompatActivity {
                 userDescriptionList.addAll(UserProfileItemsList.initData(user));
                 setList(userDescriptionList);
         });
+
+        // получаем экземпляр FragmentTransaction
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager
+                .beginTransaction();
+
+        // добавляем фрагмент
+        SearchFragment recipeListFragment = new SearchFragment();
+        fragmentTransaction.add(R.id.my_profile_list_container, recipeListFragment);
+        fragmentTransaction.commit();
+
     }
 
     public void setList(List<UserDescriptionModel> userDescriptionList) {

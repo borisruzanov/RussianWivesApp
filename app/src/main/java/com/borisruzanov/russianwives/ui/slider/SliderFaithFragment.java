@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,6 +38,27 @@ public class SliderFaithFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_faith, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_faith_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_faith_btn_save);
+
+        new FirebaseRepository().getFieldFromCurrentUser("faith", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null && value.equals("Christian")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
+                } else if (value != null && value.equals("Black / African descent")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_black);
+                } else if (value != null && value.equals("Muslim")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_muslim);
+                }else if (value != null && value.equals("Atheist")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_atheist);
+                }else if (value != null && value.equals("Buddist")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_buddist);
+                }else if (value != null && value.equals("Other")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_other);
+                }else if (value != null && value.equals("Adventist")){
+                    radioGroup.check(R.id.fragment_slider_faith_rbtn_adventist);
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

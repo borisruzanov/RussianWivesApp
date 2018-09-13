@@ -5,6 +5,10 @@ public class Action {
     private String uid;
     private long timeStamp;
 
+    public Action(String action) {
+        this.action = action;
+    }
+
     public Action(String action, String uid, long timeStamp) {
         this.action = action;
         this.uid = uid;

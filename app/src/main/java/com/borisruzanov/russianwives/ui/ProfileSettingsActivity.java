@@ -27,6 +27,7 @@ import com.borisruzanov.russianwives.UserProfileItemsListForEdit;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.ui.slider.SliderActivity;
+import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.zHOLD.StatusActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -94,6 +95,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 UserDescriptionModel itemClicked = userDescriptionEditList.get(position);
                 Bundle bundle = new Bundle();
                 bundle.putString("field_id", itemClicked.getTitle());
+                Log.d(Contract.SLIDER, "Id from list clicked is - " + itemClicked.getTitle());
                 bundle.putString("intent", "list");
                 Intent sliderIntent = new Intent(ProfileSettingsActivity.this, SliderActivity.class);
                 sliderIntent.putExtras(bundle);

@@ -468,46 +468,46 @@ public class ChatActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(message)) {
 
             String current_user_ref = "Messages/" + mCurrentUserId + "/" + mChatUser;
-            String chat_user_ref = "Messages/" + mChatUser + "/" + mCurrentUserId;
+        String chat_user_ref = "Messages/" + mChatUser + "/" + mCurrentUserId;
 
-            DatabaseReference user_message_push = mRootRef.child("Messages")
-                    .child(mCurrentUserId).child(mChatUser).push();
+        DatabaseReference user_message_push = mRootRef.child("Messages")
+                .child(mCurrentUserId).child(mChatUser).push();
 
-            String push_id = user_message_push.getKey();
+        String push_id = user_message_push.getKey();
 
-            //TODO Put users name instead of UserId
-            Map messageMap = new HashMap();
-            messageMap.put("message", message);
-            messageMap.put("seen", false);
-            messageMap.put("type", "text");
-            messageMap.put("time", ServerValue.TIMESTAMP);
-            messageMap.put("from", mCurrentUserId);
+        //TODO Put users name instead of UserId
+        Map messageMap = new HashMap();
+        messageMap.put("message", message);
+        messageMap.put("seen", false);
+        messageMap.put("type", "text");
+        messageMap.put("time", ServerValue.TIMESTAMP);
+        messageMap.put("from", mCurrentUserId);
 
-            Map messageUserMap = new HashMap();
-            messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
-            messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+        Map messageUserMap = new HashMap();
+        messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
+        messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
-            mChatMessageView.setText("");
+        mChatMessageView.setText("");
 
-            mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
-            mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);
-            mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("seen").setValue(false);
-            mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("timestamp").setValue(ServerValue.TIMESTAMP);
+        mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("seen").setValue(true);
+        mRootRef.child("Chat").child(mCurrentUserId).child(mChatUser).child("timestamp").setValue(ServerValue.TIMESTAMP);
+        mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("seen").setValue(false);
+        mRootRef.child("Chat").child(mChatUser).child(mCurrentUserId).child("timestamp").setValue(ServerValue.TIMESTAMP);
 
-            mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
-                @Override
-                public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+        mRootRef.updateChildren(messageUserMap, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
-                    if (databaseError != null) {
+                if (databaseError != null) {
 
-                        Log.d("CHAT_LOG", databaseError.getMessage().toString());
-
-                    }
+                    Log.d("CHAT_LOG", databaseError.getMessage().toString());
 
                 }
-            });
 
-        }
+            }
+        });
+
+    }
 
     }
 }

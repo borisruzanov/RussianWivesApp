@@ -10,12 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,8 +27,10 @@ import java.util.Map;
 public class SliderAgeFragment extends MvpAppCompatFragment {
 
     //    SliderFragmentsPresenter sliderFragmentsPresenter;
-    EditText answer;
+    RadioGroup radioGroup;
     Button btnSave;
+    RadioButton radioButton;
+
 //    String result;
 
     public SliderAgeFragment() {
@@ -42,23 +47,43 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
 
 
         btnSave = (Button) view.findViewById(R.id.fragment_slider_age_btn_save);
-        answer = (EditText) view.findViewById(R.id.fragment_slider_age_et_answer);
+        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_age_radiogroup);
+
+        new FirebaseRepository().getFieldFromCurrentUser("age", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null && value.equals("18-21")){
+                    radioGroup.check(R.id.fragment_slider_age_18_21);
+                } else if (value != null && value.equals("22-26")){
+                    radioGroup.check(R.id.fragment_slider_age_22_26);
+                } else if (value != null && value.equals("26-35")){
+                    radioGroup.check(R.id.fragment_slider_age_26_35);
+                }else if (value != null && value.equals("36-45")){
+                    radioGroup.check(R.id.fragment_slider_age_36_45);
+                }else if (value != null && value.equals("45+")){
+                    radioGroup.check(R.id.fragment_slider_age_45_plus);
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                if(!answer.getText().toString().trim().isEmpty()){
+            public void onClick(View v) {
+                int selectedId = radioGroup.getCheckedRadioButtonId();
+                radioButton = (RadioButton) view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put("age", answer.getText().toString());
+                    map.put("age", radioButton.getText());
                     new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
                         @Override
                         public void onUpdate() {
                             getActivity().onBackPressed();
                             Toast.makeText(getActivity(), "Age was updated", Toast.LENGTH_LONG).show();
-
                         }
                     });
+
                 }
+
             }
         });
 

@@ -2,7 +2,6 @@ package com.borisruzanov.russianwives.ui.slider;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +12,9 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.mvp.model.interactor.SliderInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
-import com.borisruzanov.russianwives.mvp.presenter.SliderFragmentsPresenter;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,6 +38,25 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_slider_bodytype, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_bodytype_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_bodytype_btn_save);
+
+        new FirebaseRepository().getFieldFromCurrentUser("body_type", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null && value.equals("Slender")){
+                    radioGroup.check(R.id.fragment_slider_bodytype_rbtn_slender);
+                } else if (value != null && value.equals("About average")){
+                    radioGroup.check(R.id.fragment_slider_bodytype_rbtn_average);
+                } else if (value != null && value.equals("Athletic")){
+                    radioGroup.check(R.id.fragment_slider_bodytype_rbtn_athletic);
+                }else if (value != null && value.equals("Heavyset")){
+                    radioGroup.check(R.id.fragment_slider_bodytype_rbtn_heavyset);
+                }else if (value != null && value.equals("A few extra pounds")){
+                    radioGroup.check(R.id.fragment_slider_bodytype_rbtn_fewextra);
+                }else if (value != null && value.equals("Stocky")){
+                    radioGroup.check(R.id.fragment_slider_bodytype_rbtn_stocky);
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

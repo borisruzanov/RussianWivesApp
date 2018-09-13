@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.borisruzanov.russianwives.GetTimeAgo;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.ActionItem;
@@ -79,7 +80,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
 
         void bind(ActionItem model, int position) {
             name.setText(model.getName());
-            time.setText(String.valueOf(model.getTimeStamp()));
+            time.setText(GetTimeAgo.getTimeAgo(model.getTimeStamp()));
             if (model.getImage().equals("default")) {
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
             } else {
@@ -95,7 +96,6 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
             } else {
                 type_visit.setVisibility(View.VISIBLE);
                 type_like.setVisibility(View.INVISIBLE);
-
             }
         }
     }

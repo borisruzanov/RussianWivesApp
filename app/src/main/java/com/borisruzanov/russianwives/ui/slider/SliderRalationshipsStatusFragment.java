@@ -14,13 +14,11 @@ import android.widget.Toast;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SliderRalationshipsStatusFragment extends Fragment {
     Button btnSave;
     RadioGroup radioGroup;
@@ -38,6 +36,21 @@ public class SliderRalationshipsStatusFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_relationships_status, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_relationships_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_relationships_btn_save);
+
+        new FirebaseRepository().getFieldFromCurrentUser("relationship_status", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null && value.equals("Never married")){
+                    radioGroup.check(R.id.fragment_slider_rbtn_never_married);
+                } else if (value != null && value.equals("Currently separated")){
+                    radioGroup.check(R.id.fragment_slider_rbtn_separated);
+                } else if (value != null && value.equals("Divorced")){
+                    radioGroup.check(R.id.fragment_slider_rbtn_divorced);
+                }else if (value != null && value.equals("Widow / Widower")){
+                    radioGroup.check(R.id.fragment_slider_rbtn_widow);
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

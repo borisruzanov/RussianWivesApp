@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.ui.fragments;
 
 
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -56,6 +57,8 @@ public class ActionsFragment extends MvpAppCompatFragment implements ActionsView
         recyclerActivitiesList = view.findViewById(R.id.friends_fragment_recycler_activities);
         recyclerActivitiesList.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerActivitiesList.setHasFixedSize(true);
+        recyclerActivitiesList.addItemDecoration(new DividerItemDecoration(recyclerActivitiesList.getContext(), DividerItemDecoration.VERTICAL));
+
         actionsAdapter = new ActionsAdapter(onItemClickCallback);
         recyclerActivitiesList.setAdapter(actionsAdapter);
 

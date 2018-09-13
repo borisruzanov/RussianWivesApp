@@ -15,7 +15,6 @@ import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 
 public class ActionWidgetService extends Service {
 
-    String s;
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -28,6 +27,7 @@ public class ActionWidgetService extends Service {
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
         for (int appWidgetId: widgetIds) {
+            Log.d("WidgetDebug", "appwidgetId is " +  appWidgetId);
             updateAppWidgetContent(getApplicationContext(), manager, appWidgetId);
         }
 
@@ -38,13 +38,12 @@ public class ActionWidgetService extends Service {
         //TODO create request to firebase for getting user with likes and visits
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_action);
 
-        /*new FirebaseRepository().getActionsInfo((visits, likes) -> {
-            Log.d("WidgetDebug", "Count: " + visits + " and " + likes);
+        new FirebaseRepository().getActionsInfo((visits, likes) -> {
             views.setTextViewText(R.id.widget_action_likes, visits);
             views.setTextViewText(R.id.widget_action_visits, likes);
-        });*/
+        });
 
-        views.addView(R.id.widget_container, views);
+        //views.addView(R.id.widget_container, views);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
 

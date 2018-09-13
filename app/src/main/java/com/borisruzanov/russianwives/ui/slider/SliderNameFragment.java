@@ -14,13 +14,14 @@ import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SliderNameFragment extends MvpAppCompatFragment {
 
-//    SliderFragmentsPresenter sliderFragmentsPresenter;
+    //    SliderFragmentsPresenter sliderFragmentsPresenter;
     EditText answer;
     Button btnSave;
 //    String result;
@@ -41,10 +42,29 @@ public class SliderNameFragment extends MvpAppCompatFragment {
         btnSave = (Button) view.findViewById(R.id.fragment_slider_name_btn_save);
         answer = (EditText) view.findViewById(R.id.fragment_slider_name_et_answer);
 
+        new FirebaseRepository().getFieldFromCurrentUser("name", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null) {
+                    answer.setText(value);
+                    answer.setSelection(answer.getText().length());
+                }
+            }
+        });
+
+        answer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (answer.getText() != null) {
+                    answer.setText("");
+                }
+            }
+        });
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!answer.getText().toString().trim().isEmpty()){
+                if (!answer.getText().toString().trim().isEmpty()) {
                     Map<String, Object> map = new HashMap<>();
                     map.put("name", answer.getText().toString());
                     new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {

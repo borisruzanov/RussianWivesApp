@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +40,21 @@ public class SliderDrinkStatusFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_drink_status, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_drink_status_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_drinkstatus_btn_save);
+
+        new FirebaseRepository().getFieldFromCurrentUser("drink_status", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null && value.equals("Never")){
+                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
+                } else if (value != null && value.equals("Only with friends")){
+                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_friends);
+                } else if (value != null && value.equals("Moderately")){
+                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_moderaely);
+                }else if (value != null && value.equals("Regularly")){
+                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_regularly);
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

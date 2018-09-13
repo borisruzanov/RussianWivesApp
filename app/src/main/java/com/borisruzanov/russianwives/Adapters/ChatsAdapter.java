@@ -15,7 +15,7 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserChat;
-import com.borisruzanov.russianwives.zHOLD.GetTimeAgo;
+import com.borisruzanov.russianwives.GetTimeAgo;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;

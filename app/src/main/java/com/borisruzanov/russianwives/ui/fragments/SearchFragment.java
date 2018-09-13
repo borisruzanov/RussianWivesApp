@@ -77,6 +77,8 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     };
 
     private OnItemClickListener.OnItemClickCallback onItemLikeCallback = (View view, int position) -> {
+        searchPresenter.setFriendLiked(position);
+
     };
 
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = (View view, int position) -> {

@@ -210,39 +210,29 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/settings_image_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:backgroundTint="@android:color/white"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:text="@string/check_your_search_parameters"
-                        android:textColor="@color/colorPrimary" />
-
                     <TextView
                         android:id="@+id/my_profile_tv_also_like"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/settings_image_btn"
                         android:layout_gravity="left"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="ACTIVITY_MY_PROFILE"
+                        android:layout_margin="8dp"
+                        android:text="You may also like them"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/my_profile_recyler"
+                    <FrameLayout
+                        android:id="@+id/my_profile_list_container"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/my_profile_tv_also_like" />
+                        android:layout_height="wrap_content" />
+
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
 
         </RelativeLayout>
+
+
 
     </android.support.v4.widget.NestedScrollView>
 

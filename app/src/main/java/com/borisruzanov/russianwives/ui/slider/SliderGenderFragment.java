@@ -17,6 +17,7 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,6 +43,17 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_slider_gender, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_gender_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_gender_btn_save);
+
+        new FirebaseRepository().getFieldFromCurrentUser("gender", new ValueCallback() {
+            @Override
+            public void getValue(String value) {
+                if (value != null && value.equals("Female")){
+                    radioGroup.check(R.id.fragment_slider_gender_radiobutton_female);
+                } else if (value != null && value.equals("Male")){
+                    radioGroup.check(R.id.fragment_slider_gender_radiobutton_male);
+                }
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override

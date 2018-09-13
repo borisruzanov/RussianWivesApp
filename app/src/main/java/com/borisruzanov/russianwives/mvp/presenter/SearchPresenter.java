@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.view.SearchView;
@@ -54,13 +55,18 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
                 Log.d("LifecycleDebug", "User name is "+ fsUser.getName());
             }
             Log.d("LifecycleDebug", "In SearchPresenter and userList emptyness is " + userList.isEmpty());
-            if (!userList.isEmpty()) {
+            if (!userList.isEmpty() && fsUsers.isEmpty()) {
                 fsUsers.addAll(userList);
                 Log.d("LifecycleDebug", "In SearchPresenter and fsUser empty is " + fsUsers.isEmpty());
                 getViewState().showUsers(fsUsers);
             }
 //            else getViewState().showEmpty(true);
         });
+    }
+
+    public void setFriendLiked(int position){
+        Log.d(Contract.SEARCH, "Friends name is " + fsUsers.get(position).getUid());
+        searchInteractor.setFriendLiked(fsUsers.get(position).getUid());
     }
 
 

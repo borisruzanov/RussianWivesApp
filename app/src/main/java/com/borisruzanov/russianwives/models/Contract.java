@@ -11,4 +11,5 @@ public class Contract {
     public static final int LOADING = 3;
     public static final int USERS = 5;
     public static final String SLIDER = "SliderLogs";
+    public static final String SEARCH = "SearchLogs";
 }

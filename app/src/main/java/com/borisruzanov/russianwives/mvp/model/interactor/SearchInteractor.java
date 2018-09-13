@@ -22,4 +22,8 @@ public class SearchInteractor {
         firebaseRepository.getUsersData(usersListCallback);
     }
 
+    public void setFriendLiked(String friendUid){
+        firebaseRepository.setFriendLiked(friendUid);
+    }
+
 }

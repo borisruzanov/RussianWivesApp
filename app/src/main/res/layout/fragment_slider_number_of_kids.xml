@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderNumberOfKidsFragment">
+    tools:context="com.borisruzanov.russianwives.ui.slider.SliderHaveKidsFragment">
 
     <TextView
         android:id="@+id/fragment_slider_numberofkids_tv_question"
@@ -34,6 +34,7 @@
             android:orientation="vertical">
 
         <RadioButton
+            android:id="@+id/fragment_slider_number_of_kids_rbtn_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -41,6 +42,7 @@
             android:textSize="20sp" />
 
         <RadioButton
+            android:id="@+id/fragment_slider_number_of_kids_rbtn_sometimes_at_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -48,6 +50,7 @@
             android:textSize="20sp" />
 
         <RadioButton
+            android:id="@+id/fragment_slider_number_of_kids_rbtn_away"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -55,6 +58,7 @@
             android:textSize="20sp" />
 
         <RadioButton
+            android:id="@+id/fragment_slider_number_of_kids_rbtn_at_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

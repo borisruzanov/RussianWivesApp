@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -59,6 +60,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
         recyclerChatsList = mMainView.findViewById(R.id.friends_fragment_recycler_chats);
         recyclerChatsList.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerChatsList.setHasFixedSize(true);
+        recyclerChatsList.addItemDecoration(new DividerItemDecoration(recyclerChatsList.getContext(), DividerItemDecoration.VERTICAL));
         chatsAdapter = new ChatsAdapter(onItemClickCallback);
         recyclerChatsList.setAdapter(chatsAdapter);
 

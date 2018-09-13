@@ -62,8 +62,8 @@ public class SliderActivity extends MvpAppCompatActivity {
             fragmentList.add(new SliderSmokingStatusFragment());
         }else if (getIntent().getExtras().getString("field_id").equals("How Often Do You Drink Alcohol")){
             fragmentList.add(new SliderDrinkStatusFragment());
-        }else if (getIntent().getExtras().getString("field_id").equals("Number Of Kids You Have")){
-            fragmentList.add(new SliderNumberOfKidsFragment());
+        }else if (getIntent().getExtras().getString("field_id").equals("Do You Have Kids")){
+            fragmentList.add(new SliderHaveKidsFragment());
         }else if (getIntent().getExtras().getString("field_id").equals("Do You Want Kids")){
             fragmentList.add(new SliderWillingKidsFragment());
         }else if (getIntent().getExtras().getString("field_id").equals("Hobby")){

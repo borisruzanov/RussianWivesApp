@@ -24,7 +24,7 @@
         android:orientation="vertical">
 
         <RadioButton
-            android:id="@+id/fragment_slider_gender_linear_male"
+            android:id="@+id/fragment_slider_gender_radiobutton_male"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -32,7 +32,7 @@
             android:textSize="20sp" />
 
         <RadioButton
-            android:id="@+id/fragment_slider_gender_linear_female"
+            android:id="@+id/fragment_slider_gender_radiobutton_female"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"

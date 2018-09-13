@@ -9,6 +9,7 @@ import com.borisruzanov.russianwives.models.Action;
 import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.view.ActionsView;
+import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +26,9 @@ public class ActionsPresenter extends MvpPresenter<ActionsView> {
     private List<ActionItem> actionItems = new ArrayList<>();
 
     public void setActionsList(){
+        new FirebaseRepository().getActionsInfo((visits, likes) -> {
+
+        });
 
         String currentUserId = new FirebaseRepository().getUid();
         DatabaseReference actionDb = FirebaseDatabase.getInstance().getReference().child(Consts.ACTIONS_DB)
@@ -47,7 +51,7 @@ public class ActionsPresenter extends MvpPresenter<ActionsView> {
                 }
                 new FirebaseRepository().getNeededUsers(uidList, userList -> {
 
-                    if(!userList.isEmpty()) {
+                    if(!userList.isEmpty() && actionItems.isEmpty()) {
                         for (int i = 0; i < userList.size(); i++) {
                             Log.d("ty", "final list populated");
 
