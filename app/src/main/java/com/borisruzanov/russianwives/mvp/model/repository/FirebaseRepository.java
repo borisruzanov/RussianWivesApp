@@ -215,26 +215,18 @@ public class FirebaseRepository {
     }
 
     public void setFriendLiked(String friendUid){
-        String currentUserRef = "Likes/" + getUid() + "/" + friendUid;
-        String chatUserRef = "Likes/" + getUid() + "/" + friendUid;
-
         DatabaseReference userLikePush = realtimeReference.child("Likes")
-                .child(getUid()).child(friendUid).push();
+                .child(getUid()).child(friendUid);
 
-        String pushId = userLikePush.getKey();
+        //Map Likes -> uid -> FrUid
 
-        Map<String, Map<String, String>> messageMap = new HashMap<>();
+        Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("timestamp", ServerValue.TIMESTAMP);
 
-        Map<String, Object> messageUserMap = new HashMap<>();
-        messageUserMap.put(currentUserRef + "/" + pushId, messageMap);
-        messageUserMap.put(chatUserRef + "/" + pushId, messageMap);
-
-        //realtimeReference.child("Likes").child(getUid()).child(friendUid).child("timestamp").setValue(ServerValue.TIMESTAMP);
-        realtimeReference.updateChildren(messageUserMap, (databaseError, databaseReference) -> {
+        userLikePush.updateChildren(messageMap, (databaseError, databaseReference) -> {
             if (databaseError != null) {
 
-                Log.d("CHAT_LOG", databaseError.getMessage().toString());
+                Log.d("CHAT_LOG", databaseError.getMessage());
 
             }
 
