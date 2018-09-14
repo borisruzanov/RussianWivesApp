@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.borisruzanov.russianwives.models.ActInfo;
 import com.borisruzanov.russianwives.models.Action;
+import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.Message;
@@ -12,6 +13,7 @@ import com.borisruzanov.russianwives.models.RtUser;
 import com.borisruzanov.russianwives.models.SearchModel;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.UserChat;
+import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
@@ -43,6 +45,7 @@ import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,6 +236,84 @@ public class FirebaseRepository {
         });
     }
 
+    public void setUserVisited(String friendUid){
+        Map<String, Object> visitAddMap = new HashMap<>();
+        visitAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
+        visitAddMap.put("fromUid", friendUid);
+
+        DatabaseReference activityDb = realtimeReference.child("Visits").child(getUid()).push();
+        activityDb.updateChildren(visitAddMap);
+
+        activityDb.child("Visits").child(friendUid).child(getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, Object> visitUserMap = new HashMap<>();
+                        visitUserMap.put("Visits/" + getUid() + "/" + friendUid, visitAddMap);
+                        visitUserMap.put("Visits/" + friendUid + "/" + getUid(), visitAddMap);
+                        activityDb.setValue(visitAddMap, (databaseError, databaseReference) -> {
+                            if (databaseError != null) {
+                                Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
+    }
+
+    public void getLikes(ActionCallback callback){
+        realtimeReference.child("Likes").child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<ActionModel> actionModels = new ArrayList<>();
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    actionModels.add(new ActionModel(
+                            Long.valueOf(snapshot.child("timestamp").getValue().toString()),
+                            snapshot.getKey(),
+                            "likes"));
+                }
+                callback.getActionList(actionModels);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getVisits(ActionCallback callback){
+        realtimeReference.child("Visits").child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<ActionModel> actionModels = new ArrayList<>();
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()){
+                    Long timestamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
+                    String fromUid = snapshot.child("fromUid").getValue().toString();
+                    actionModels.add(new ActionModel(timestamp, fromUid, "visits"));
+                }
+                callback.getActionList(actionModels);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getMergedActions(ActionCallback callback){
+        List<ActionModel> actionModels = new ArrayList<>();
+        getLikes(actionLikeModels -> {
+            actionModels.addAll(actionLikeModels);
+            getVisits(actionVisitModels -> actionModels.addAll(actionVisitModels));
+            Collections.sort(actionModels, (e1, e2) -> Long.compare(e1.getTimestamp(), e2.getTimestamp()));
+            callback.getActionList(actionModels);
+        });
+    }
+
     /**
      * Adding activity type in the table for user activities
      *
@@ -246,7 +327,6 @@ public class FirebaseRepository {
         chatAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
         chatAddMap.put(Consts.UID, userUid);
         DatabaseReference activityDb = realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
-        //realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
         activityDb.updateChildren(chatAddMap);
 
         activityDb.child(Consts.ACTIONS_DB).child(friendUid).child(userUid)

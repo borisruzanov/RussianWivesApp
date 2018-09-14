@@ -90,75 +90,71 @@ public class SliderImageFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Uri imageUri = data.getData();
+            Uri imageUri = data.getData();
+            if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
+                Log.d(Contract.TAG, "Image URI " + imageUri);
+                CropImage.activity(imageUri)
+                        .setAspectRatio(1, 1)
+                        .setMinCropWindowSize(500, 500)
+                        .start(getContext(), this);
+            }
 
-        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
-
-
-            Log.d(Contract.TAG, "Image URI " + imageUri);
-
-            CropImage.activity(imageUri)
-                    .setAspectRatio(1, 1)
-                    .setMinCropWindowSize(500, 500)
-                    .start(getContext(), this);
-        }
-
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
-            CropImage.ActivityResult result = CropImage.getActivityResult(data);
-
-            if (resultCode == RESULT_OK) {
-                Log.d(Contract.TAG, "resultCode == RESULT_OK");
-
-                progressDialog = new ProgressDialog(getActivity());
-                progressDialog.setTitle("Uploading Image");
-                progressDialog.setMessage("Please Wait...");
-                progressDialog.show();
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == RESULT_OK) {
+                    Log.d(Contract.TAG, "resultCode == RESULT_OK");
+                    progressDialog = new ProgressDialog(getActivity());
+                    progressDialog.setTitle("Uploading Image");
+                    progressDialog.setMessage("Please Wait...");
+                    progressDialog.show();
 
 
-                Uri resultUri = result.getUri();
-                Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
+                    Uri resultUri = result.getUri();
+                    Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
 //                sliderFragmentsPresenter.insertImageInStorage(resultUri);
 
-                // <-------------SAVING IMAGE-------------->
-                //TODO REFACTOR TO REPOSITORY
-                FirebaseRepository firebaseRepository = new FirebaseRepository();
-                StorageReference filePath = storageReference.child("profile_images").child(firebaseRepository.getUid()).child("profile_photo");
-                filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), "Photo was updated", Toast.LENGTH_LONG).show();
-                            String download_url = task.getResult().getDownloadUrl().toString();
-                            HashMap<String, Object> hashMap = new HashMap<>();
-                            hashMap.put(Consts.IMAGE, download_url);
-
-                            new FirebaseRepository().updateFieldFromCurrentUser(hashMap, new UpdateCallback() {
-                                @Override
-                                public void onUpdate() {
-                                    getActivity().onBackPressed();
-                                }
-                            });
-                            progressDialog.dismiss();
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), "There is an error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
                     // <-------------SAVING IMAGE-------------->
+                    //TODO REFACTOR TO REPOSITORY
+                    FirebaseRepository firebaseRepository = new FirebaseRepository();
+                    StorageReference filePath = storageReference.child("profile_images").child(firebaseRepository.getUid()).child("profile_photo");
+                    filePath.putFile(resultUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                Toast.makeText(getActivity(), "Photo was updated", Toast.LENGTH_LONG).show();
+                                String download_url = task.getResult().getDownloadUrl().toString();
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put(Consts.IMAGE, download_url);
+
+                                new FirebaseRepository().updateFieldFromCurrentUser(hashMap, new UpdateCallback() {
+                                    @Override
+                                    public void onUpdate() {
+                                        getActivity().onBackPressed();
+                                    }
+                                });
+                                progressDialog.dismiss();
+                            } else {
+                                progressDialog.dismiss();
+                                Toast.makeText(getActivity(), "There is an error", Toast.LENGTH_LONG).show();
+                            }
+
+                        }
+                        // <-------------SAVING IMAGE-------------->
 
 
-                });
+                    });
 
 
-            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Exception error = result.getError();
-                Log.d(Contract.TAG, "resultCode == CropImage.ERROR");
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    Exception error = result.getError();
+                    Log.d(Contract.TAG, "resultCode == CropImage.ERROR");
+
+                }
+                Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in ELSE");
 
             }
-            Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in ELSE");
 
-        }
+
     }
 }

@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -127,9 +128,74 @@ public class FriendActivity extends MvpAppCompatActivity {
             }
         });
 
-        new FirebaseRepository().addUserToActivity(userUid, friendUid);
+        new FirebaseRepository().setUserVisited(friendUid);
+        //new FirebaseRepository().addUserToActivity(userUid, friendUid);
 
     }
+
+
+//    private void onUiReady(String nameLink, String ageLink, String countryLink, String imageLink) {
+
+//        }
+//        imageView.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                // remove previous listener
+//                imageView.getViewTreeObserver().removeOnPreDrawListener(this);
+//                // prep the scene
+//                prepareScene();
+//                // run the animation
+//                runEnterAnimation();
+//                return true;
+//            }
+//        });
+//    }
+//
+//    private void prepareScene() {
+//        // capture the end values in the destionation view
+//        mEndValues = captureValues(mDestinationView);
+//
+//        // calculate the scale and positoin deltas
+//        float scaleX = scaleDelta(mStartValues, mEndValues);
+//        float scaleY = scaleDelta(mStartValues, mEndValues);
+//        int deltaX = translationDelta(mStartValues, mEndValues);
+//        int deltaY = translationDelta(mStartValues, mEndValues);
+//
+//        // scale and reposition the image
+//        mDestinationView.setScaleX(scaleX);
+//        mDestinationView.setScaleY(scaleY);
+//        mDestinationView.setTranslationX(deltaX);
+//        mDestinationView.setTranslationY(deltaY);
+//    }
+//    private void runEnterAnimation() {
+//        // We can now make it visible
+//        imageView.setVisibility(View.VISIBLE);
+//        // finally, run the animation
+//        imageView.animate()
+//                .setDuration(DEFAULT_DURATION)
+//                .setInterpolator(DEFAULT_INTERPOLATOR)
+//                .scaleX(1f)
+//                .scaleY(1f)
+//                .translationX(0)
+//                .translationY(0)
+//                .start();
+//    }
+//    private void runExitAnimation() {
+//        imageView.animate()
+//                .setDuration(DEFAULT_DURATION)
+//                .setInterpolator(DEFAULT_INTERPOLATOR)
+//                .scaleX(scaleX)
+//                .scaleY(scaleY)
+//                .translationX(deltaX)
+//                .translationY(deltaY)
+//                .withEndAction(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        finish();
+//                        overridePendingTransition(0, 0);
+//                    }
+//                }).start();
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

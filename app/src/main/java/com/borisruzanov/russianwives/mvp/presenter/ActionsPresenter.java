@@ -7,8 +7,10 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Action;
 import com.borisruzanov.russianwives.models.ActionItem;
+import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.view.ActionsView;
+import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.database.DataSnapshot;
@@ -63,6 +65,27 @@ public class ActionsPresenter extends MvpPresenter<ActionsView> {
                             actionItems.add(new ActionItem(name, action, timeStamp, image));
                         }
                     }
+
+                    /*new FirebaseRepository().getVisits(actionModels -> {
+                        for (ActionModel actionModel : actionModels) {
+                            Log.d("VisitsDebug", "Friend uid is " + actionModel.getUid());
+                        }
+
+                    });*/
+
+                    /*new FirebaseRepository().getLikes(actionModels -> {
+                        for (ActionModel actionModel : actionModels) {
+                            Log.d("LikesDebug", "Friend uid is " + actionModel.getUid());
+                        }
+
+                    });*/
+
+                    new FirebaseRepository().getMergedActions(actionModels -> {
+                        for (ActionModel actionModel : actionModels) {
+                            Log.d("ActionsDebug", "Friend uid is " + actionModel.getUid());
+                        }
+                    });
+
                     getViewState().showUserActions(actionItems);
 
                 });

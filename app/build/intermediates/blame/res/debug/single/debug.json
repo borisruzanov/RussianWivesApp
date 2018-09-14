@@ -1160,16 +1160,16 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\80dca3289cbdcf071333b0e0ad5252d7\\res\\drawable\\abc_ratingbar_small_material.xml"
     },
     {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_fui_phone_progress_dialog.xml.flat",
-        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-3.2.2.aar\\2acb426d5b70c0d97d5fd24240c6525c\\res\\layout\\fui_phone_progress_dialog.xml"
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_com_facebook_tooltip_black_xout.png.flat",
+        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.29.0.aar\\2cb4aa865d88cbb0b1782d9c05aeb61a\\res\\drawable-hdpi-v4\\com_facebook_tooltip_black_xout.png"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_dark_focused.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-base-11.8.0.aar\\332379869502bdabf0517254818bf046\\res\\drawable\\common_google_signin_btn_text_dark_focused.xml"
     },
     {
-        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_com_facebook_tooltip_black_xout.png.flat",
-        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.29.0.aar\\2cb4aa865d88cbb0b1782d9c05aeb61a\\res\\drawable-hdpi-v4\\com_facebook_tooltip_black_xout.png"
+        "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\layout_fui_phone_progress_dialog.xml.flat",
+        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-3.2.2.aar\\2acb426d5b70c0d97d5fd24240c6525c\\res\\layout\\fui_phone_progress_dialog.xml"
     },
     {
         "merged": "D:\\nano\\russianwives\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_dark_normal.xml.flat",

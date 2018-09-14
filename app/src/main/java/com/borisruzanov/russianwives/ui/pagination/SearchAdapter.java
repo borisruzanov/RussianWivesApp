@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.ui.pagination;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
@@ -41,6 +43,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
     private OnItemClickListener.OnItemClickCallback onChatClickCallback;
     private OnItemClickListener.OnItemClickCallback onLikeClickCallback;
     Context context;
+
+
 
     public SearchAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback,
                          OnItemClickListener.OnItemClickCallback onChatClickCallback,
@@ -93,6 +97,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
         RelativeLayout container;
         ImageView imageView, like, chat;
         TextView name, country;
+
+        private LottieAnimationView animationView;
+
 //        Context context;
 
         UserViewHolder(View itemView) {
@@ -103,16 +110,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             like = itemView.findViewById(R.id.search_btn_like);
             chat = itemView.findViewById(R.id.search_btn_chat);
             name = itemView.findViewById(R.id.user_name);
-//            age = itemView.findViewById(R.id.user_age);
             country = itemView.findViewById(R.id.user_country);
+            animationView = (LottieAnimationView) itemView.findViewById(R.id.lottieAnimationView);
         }
 
 
 
         void bind(FsUser fsUser, int position){
-//            chat.setOnClickListener(new OnMultipleItemClickListener(position, onItemClickCallback, onChatClickCallback, onLikeClickCallback));
-//            like.setOnClickListener(new OnMultipleItemClickListener(position, onItemClickCallback, onChatClickCallback, onLikeClickCallback));
-//            container.setOnClickListener(new OnMultipleItemClickListener(position, onItemClickCallback, onChatClickCallback, onLikeClickCallback));
 
             if (fsUser.getUid() != null) {
                 if (mDatabase.child("Likes").child(uid).child(fsUser.getUid()) != null) {
@@ -125,6 +129,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                             }
                             if (likedList.contains(fsUser.getUid())) {
                                 like.setImageResource(R.drawable.ic_favorite);
+                                animationView.setVisibility(View.VISIBLE);
                                 //return true value
                             }
                         }
@@ -143,18 +148,31 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             chat.setOnClickListener(new OnItemClickListener(position, onChatClickCallback));
             like.setOnClickListener(new OnItemClickListener(position, onLikeClickCallback));
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
-//            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-//            if(fsUser.getImage().equals("default")){
-//                Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);
-//
-//            }else {
-//                Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);
-//            }
+            if(fsUser.getImage().equals("default")){
+                Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);
+            }else {
+                Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);
+            }
             name.setText(fsUser.getName());
 //            age.setText(fsUser.getAge());
             country.setText(fsUser.getCountry());
 //            status.setText(fsUser.getStatus());
+
+            ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500);
+            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                    animationView.setProgress((Float) valueAnimator.getAnimatedValue());
+                }
+            });
+
+            if (animationView.getProgress() == 0f) {
+                animator.start();
+            } else {
+                animationView.setProgress(0f);
+            }
         }
     }
 

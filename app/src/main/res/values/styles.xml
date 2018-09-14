@@ -40,4 +40,9 @@
         <item name="colorButtonNormal">@color/colorAccent</item>
     </style>
 
+    <style name="Transparent" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

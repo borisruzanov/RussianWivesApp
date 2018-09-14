@@ -13,7 +13,7 @@ public final class R {
         public static final int colorScheme = 0x7f04006e;
         public static final int imageAspectRatio = 0x7f0400f4;
         public static final int imageAspectRatioAdjust = 0x7f0400f5;
-        public static final int scopeUris = 0x7f040171;
+        public static final int scopeUris = 0x7f04017e;
     }
     public static final class color {
         public static final int common_google_signin_btn_text_dark = 0x7f060042;
@@ -61,16 +61,16 @@ public final class R {
         public static final int email = 0x7f090077;
         public static final int icon_only = 0x7f09010d;
         public static final int light = 0x7f090136;
-        public static final int none = 0x7f09016a;
-        public static final int normal = 0x7f09016b;
-        public static final int progressBar = 0x7f09018b;
-        public static final int radio = 0x7f090191;
-        public static final int standard = 0x7f0901d7;
-        public static final int text = 0x7f0901e2;
-        public static final int text2 = 0x7f0901e3;
-        public static final int toolbar = 0x7f0901ef;
-        public static final int wide = 0x7f090211;
-        public static final int wrap_content = 0x7f090217;
+        public static final int none = 0x7f09016c;
+        public static final int normal = 0x7f09016d;
+        public static final int progressBar = 0x7f09018d;
+        public static final int radio = 0x7f090193;
+        public static final int standard = 0x7f0901db;
+        public static final int text = 0x7f0901e7;
+        public static final int text2 = 0x7f0901e8;
+        public static final int toolbar = 0x7f0901f4;
+        public static final int wide = 0x7f090217;
+        public static final int wrap_content = 0x7f09021d;
     }
     public static final class integer {
         public static final int google_play_services_version = 0x7f0a0008;
@@ -101,7 +101,7 @@ public final class R {
         public static final int LoadingImageView_circleCrop = 0;
         public static final int LoadingImageView_imageAspectRatio = 1;
         public static final int LoadingImageView_imageAspectRatioAdjust = 2;
-        public static final int[] SignInButton = { 0x7f040049, 0x7f04006e, 0x7f040171 };
+        public static final int[] SignInButton = { 0x7f040049, 0x7f04006e, 0x7f04017e };
         public static final int SignInButton_buttonSize = 0;
         public static final int SignInButton_colorScheme = 1;
         public static final int SignInButton_scopeUris = 2;

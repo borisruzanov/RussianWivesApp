@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.presenter;
 
+import android.animation.ValueAnimator;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -65,6 +66,20 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
     }
 
     public void setFriendLiked(int position){
+//            ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500);
+//            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//                @Override
+//                public void onAnimationUpdate(ValueAnimator valueAnimator) {
+//                    animationView.setProgress((Float) valueAnimator.getAnimatedValue());
+//                }
+//            });
+//
+//            if (animationView.getProgress() == 0f) {
+//                animator.start();
+//            } else {
+//                animationView.setProgress(0f);
+//            }
+
         Log.d(Contract.SEARCH, "Friends name is " + fsUsers.get(position).getUid());
         searchInteractor.setFriendLiked(fsUsers.get(position).getUid());
     }
