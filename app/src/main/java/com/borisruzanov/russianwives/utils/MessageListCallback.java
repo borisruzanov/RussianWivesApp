@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface MessageListCallback {
 
-    void getMessages(List<Message> messageList);
+    void setMessages(List<Message> messageList);
 
 }

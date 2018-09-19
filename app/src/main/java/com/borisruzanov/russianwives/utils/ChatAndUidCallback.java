@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ChatAndUidCallback {
 
-    void getChatsAndUid(List<Chat> chatList, List<String> uidList);
+    void setChatsAndUid(List<Chat> chatList, List<String> uidList);
 
 }

@@ -41,7 +41,7 @@ public class SliderFaithFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("faith", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Christian")){
                     radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
                 } else if (value != null && value.equals("Black / African descent")){

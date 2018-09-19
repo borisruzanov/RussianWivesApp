@@ -35,15 +35,13 @@ public class ActionWidgetService extends Service {
     }
 
     private void updateAppWidgetContent(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
-        //TODO create request to firebase for getting user with likes and visits
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_action);
 
-        new FirebaseRepository().getActionsInfo((visits, likes) -> {
-            views.setTextViewText(R.id.widget_action_likes, visits);
-            views.setTextViewText(R.id.widget_action_visits, likes);
+        new FirebaseRepository().getActionsWidget((visits, likes) -> {
+            views.setTextViewText(R.id.widget_action_likes, visits + " visits");
+            views.setTextViewText(R.id.widget_action_visits, likes + " likes");
+            Log.d("WidgetDebug", "User has " + visits + " and " + likes);
         });
-
-        //views.addView(R.id.widget_container, views);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
 

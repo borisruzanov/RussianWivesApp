@@ -46,7 +46,7 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
 
         new FirebaseRepository().getFieldFromCurrentUser("hobby", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null) {
                     answer.setText(value);
                     answer.setSelection(answer.getText().length());

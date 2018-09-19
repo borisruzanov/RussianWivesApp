@@ -90,8 +90,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //                //TODO Get reference for image + name from firestore
-//                String name = dataSnapshot.child("name").getValue().toString();
-//                String image = dataSnapshot.child("thumb_image").getValue().toString();
+//                String name = dataSnapshot.child("name").setValue().toString();
+//                String image = dataSnapshot.child("thumb_image").setValue().toString();
 //                viewHolder.displayName.setText(name);
 //                //TODO Need to be glide not picasso
 //                Picasso.with(viewHolder.profileImage.getContext()).load(image)

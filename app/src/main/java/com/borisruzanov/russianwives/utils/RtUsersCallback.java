@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface RtUsersCallback {
 
-    void getUsers(List<RtUser> rtUserList);
+    void setUsers(List<RtUser> rtUserList);
 
 }

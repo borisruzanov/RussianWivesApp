@@ -21,8 +21,8 @@ public class FilterInteractor {
         filterRepository.setPrefsValues(searchModels);
     }
 
-    /*public String getValue(String key){
-        return filterRepository.getValue(key);
+    /*public String setValue(String key){
+        return filterRepository.setValue(key);
     }
 
     public void setValue(String key, String value){

@@ -1,16 +1,23 @@
 package com.borisruzanov.russianwives.models;
 
 public class ActionItem {
-    private String image;
-    private String name;
-    private String action;
+    private String uid, name, image, action;
     private long timeStamp;
 
-    public ActionItem(String name, String action, long timeStamp, String image) {
+    public ActionItem(String uid, String name, String image, String action, long timeStamp) {
+        this.uid = uid;
         this.name = name;
+        this.image = image;
         this.action = action;
         this.timeStamp = timeStamp;
-        this.image = image;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getName() {

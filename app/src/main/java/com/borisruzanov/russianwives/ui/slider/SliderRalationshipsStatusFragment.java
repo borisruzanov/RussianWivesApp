@@ -39,7 +39,7 @@ public class SliderRalationshipsStatusFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("relationship_status", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Never married")){
                     radioGroup.check(R.id.fragment_slider_rbtn_never_married);
                 } else if (value != null && value.equals("Currently separated")){

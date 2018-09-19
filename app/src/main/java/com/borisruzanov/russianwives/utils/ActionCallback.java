@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface ActionCallback {
 
-    void getActionList(List<ActionModel> actionModels);
+    void setActionList(List<ActionModel> actionModels);
 
 }

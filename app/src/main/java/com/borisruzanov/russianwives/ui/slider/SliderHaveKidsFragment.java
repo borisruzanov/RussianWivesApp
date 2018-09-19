@@ -42,7 +42,7 @@ public class SliderHaveKidsFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("number_of_kids", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("No")){
                     radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_no);
                 } else if (value != null && value.equals("Yes, they sometimes live at home")){

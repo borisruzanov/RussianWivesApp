@@ -41,7 +41,7 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("body_type", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Slender")){
                     radioGroup.check(R.id.fragment_slider_bodytype_rbtn_slender);
                 } else if (value != null && value.equals("About average")){

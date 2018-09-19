@@ -68,7 +68,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.borisruzanov.russianwives.ui.MainActivity" />
         </activity>
-        <activity android:name=".ui.FriendActivity"></activity>
+        <activity android:name=".ui.FriendProfileActivity"></activity>
 
         <receiver android:name=".widget.ActionWidgetProvider">
             <intent-filter>

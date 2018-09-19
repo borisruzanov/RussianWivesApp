@@ -3,21 +3,24 @@ package com.borisruzanov.russianwives.mvp.model.repository;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
 import com.borisruzanov.russianwives.models.ActInfo;
 import com.borisruzanov.russianwives.models.Action;
+import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.models.RtUser;
 import com.borisruzanov.russianwives.models.SearchModel;
-import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.utils.ActionCallback;
+import com.borisruzanov.russianwives.utils.ActionCountCallback;
+import com.borisruzanov.russianwives.utils.ActionItemCallback;
 import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
 import com.borisruzanov.russianwives.utils.RtUsersAndMessagesCallback;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
@@ -44,7 +47,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -80,12 +82,12 @@ public class FirebaseRepository {
      *
      * @param callback
      */
-    public void getAllInfoCurrentUser(final UserCallback callback) {
+    public void getAllCurrentUserInfo(final UserCallback callback) {
         getDocRef(Consts.USERS_DB, getUid()).get()
                 .addOnCompleteListener(task -> {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot.exists()) {
-                        callback.getUser(snapshot.toObject(FsUser.class));
+                        callback.setUser(snapshot.toObject(FsUser.class));
                     }
                 });
     }
@@ -112,7 +114,7 @@ public class FirebaseRepository {
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                 fsUserList.add(snapshot.toObject(FsUser.class));
             }
-            usersListCallback.getUsers(fsUserList);
+            usersListCallback.setUsers(fsUserList);
         });
     }
 
@@ -168,7 +170,7 @@ public class FirebaseRepository {
             DocumentSnapshot snapshot = task.getResult();
             if (snapshot.exists()) {
                 Log.d("check", "exist");
-                userCallback.getUser(snapshot.toObject(FsUser.class));
+                userCallback.setUser(snapshot.toObject(FsUser.class));
             }
 
         });
@@ -196,7 +198,7 @@ public class FirebaseRepository {
                     Log.d("TAG", fsUser.getName());
                 }
             }
-            usersListCallback.getUsers(fsUsers);
+            usersListCallback.setUsers(fsUsers);
         });
     }
 
@@ -263,7 +265,7 @@ public class FirebaseRepository {
                 });
     }
 
-    public void getLikes(ActionCallback callback){
+    private void getLikes(ActionCallback callback){
         realtimeReference.child("Likes").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -272,19 +274,17 @@ public class FirebaseRepository {
                     actionModels.add(new ActionModel(
                             Long.valueOf(snapshot.child("timestamp").getValue().toString()),
                             snapshot.getKey(),
-                            "likes"));
+                            "like"));
                 }
-                callback.getActionList(actionModels);
+                callback.setActionList(actionModels);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
-    public void getVisits(ActionCallback callback){
+    private void getVisits(ActionCallback callback){
         realtimeReference.child("Visits").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -292,26 +292,61 @@ public class FirebaseRepository {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Long timestamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
                     String fromUid = snapshot.child("fromUid").getValue().toString();
-                    actionModels.add(new ActionModel(timestamp, fromUid, "visits"));
+                    actionModels.add(new ActionModel(timestamp, fromUid, "visit"));
                 }
-                callback.getActionList(actionModels);
+                callback.setActionList(actionModels);
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 
-    public void getMergedActions(ActionCallback callback){
+    private void getMergedActions(ActionCallback callback){
         List<ActionModel> actionModels = new ArrayList<>();
         getLikes(actionLikeModels -> {
-            actionModels.addAll(actionLikeModels);
-            getVisits(actionVisitModels -> actionModels.addAll(actionVisitModels));
-            Collections.sort(actionModels, (e1, e2) -> Long.compare(e1.getTimestamp(), e2.getTimestamp()));
-            callback.getActionList(actionModels);
+            getVisits(actionVisitModels -> {
+                actionModels.addAll(actionLikeModels);
+                actionModels.addAll(actionVisitModels);
+                Collections.sort(actionModels, (e1, e2) -> Long.compare(e1.getTimestamp(), e2.getTimestamp()));
+                callback.setActionList(actionModels);
+            });
         });
+    }
+
+    public void getTransformedActions(ActionItemCallback callback){
+        List<ActionItem> actionItems = new ArrayList<>();
+        getMergedActions(actionModels -> {
+            List<String> uidList = new ArrayList<>();
+            for (ActionModel model: actionModels){
+                uidList.add(model.getUid());
+            }
+            getNeededUsers(uidList, fsUserList -> {
+                for(int i=0;i<fsUserList.size(); i++){
+                    actionItems.add(new ActionItem(actionModels.get(i).getUid(), fsUserList.get(i).getName(),
+                            fsUserList.get(i).getImage(), actionModels.get(i).getType(),
+                            actionModels.get(i).getTimestamp()));
+                }
+                callback.setActionItems(actionItems);
+            });
+        });
+    }
+
+    private void getActionCount(String dbName, ActionCountCallback callback){
+        realtimeReference.child(dbName).child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                callback.setActionCount(dataSnapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
+    }
+
+    public void getActionsWidget(ActionWidgetCallback callback){
+        getActionCount("Visits", visitsCount ->
+                getActionCount("Likes", likesCount -> callback.setActions(visitsCount, likesCount)));
     }
 
     /**
@@ -353,29 +388,6 @@ public class FirebaseRepository {
                 });
     }
 
-    public void getActionsInfo(ActionWidgetCallback callback) {
-        DatabaseReference activityDb = realtimeReference.child(Consts.ACTIONS_DB).child(getUid());
-        Log.d("ActionsDebug", "UId is " + getUid());
-        activityDb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<Action> actions = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    String action = snapshot.child(Consts.ACTION).getValue().toString();
-                    actions.add(new Action(action));
-                }
-                ActInfo actInfo = getActInfo(actions);
-                String visits = actInfo.getVisits() + " visits";
-                String likes = actInfo.getLikes() + " likes";
-                Log.d("ActionsTAG", "Visits - " + visits + " Likes - " + likes);
-                callback.getActions(visits, likes);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
-    }
-
     private ActInfo getActInfo(List<Action> actionList) {
         int visits = 0, likes = 0;
         for (Action action : actionList) {
@@ -407,7 +419,7 @@ public class FirebaseRepository {
 
                         Log.d(Contract.CHAT_LIST, "ChatList size in getChatAndUidList is " + chatList.size());
                         Log.d(Contract.CHAT_LIST, "UidList size in getChatAndUidList is " + uidList.size());
-                        callback.getChatsAndUid(chatList, uidList);
+                        callback.setChatsAndUid(chatList, uidList);
                     }
 
                     @Override
@@ -448,7 +460,6 @@ public class FirebaseRepository {
                                         time + " message is - " + message);
                                 messages.add(new Message(message, time));
                             }
-
                         }
 
                         @Override
@@ -457,16 +468,12 @@ public class FirebaseRepository {
                     });
             Log.d(Contract.CHAT_LIST, "RtUserList size in getUsersAndMessages is " + rtUsers.size());
             Log.d(Contract.CHAT_LIST, "MsgList size in getUsersAndMessages is " + messages.size());
-            callback.getRtUsersAndMessages(rtUsers, messages);
+            callback.setRtUsersAndMessages(rtUsers, messages);
         }
     }
 
-
     public void createUserChats(UserChatListCallback userChatListCallback) {
         final List<UserChat> userChatList = new ArrayList<>();
-
-        List<String> uidList1 = new ArrayList<>(Arrays.asList("1wvvTVcpzQOZMRnSj1Nk4QVwHNE2", "J40SPgz6p4Rydj5VBHNn8gaIvuq1",
-                "Ji8kbxzqyqY4RIk0LK6Awte0jdB2"));
 
         getChatAndUidList((chatList, uidList) -> {
 
@@ -483,33 +490,32 @@ public class FirebaseRepository {
                     Log.d(Contract.CHAT_LIST, "UserList size in getNeededUsers block is " + userList.size());
 
                     if (!userList.isEmpty() && userChatList.isEmpty()) {
-//                        for (int i = 0; i < userList.size(); i++) {
-//                            String name = userList.get(i).getName();
-//                            String image = userList.get(i).getImage();
-//                            String userId = userList.get(i).getUid();
-//
-//                            long timeStamp = chatList.get(i).getTimeStamp();
-//                            boolean seen = chatList.get(i).getSeen();
-//
-//                            String online = rtUserList.get(i).getOnline();
-//
-//                            String message = messageList.get(i).getMessage();
-//                            long messageTimestamp = messageList.get(i).getTime();
-//
-//                            Log.d(Contract.CHAT_LIST, "User name is " + name);
-//
-//                            userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
-//                                    message, messageTimestamp));
-//
-//                        }
-//                        userChatListCallback.getUserChatList(userChatList);
+                        for (int i = 0; i < userList.size(); i++) {
+                            String name = userList.get(i).getName();
+                            String image = userList.get(i).getImage();
+                            String userId = userList.get(i).getUid();
+
+                            long timeStamp = chatList.get(i).getTimeStamp();
+                            boolean seen = chatList.get(i).getSeen();
+
+                            String online = rtUserList.get(i).getOnline();
+
+                            String message = messageList.get(i).getMessage();
+                            long messageTimestamp = messageList.get(i).getTime();
+
+                            Log.d(Contract.CHAT_LIST, "User name is " + name);
+
+                            userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
+                                    message, messageTimestamp));
+
+                        }
+                        userChatListCallback.setUserChatList(userChatList);
                     }
                 });
             });
 
         });
     }
-
 
     /**
      * Checking for information from FsUsers of current user
@@ -554,7 +560,7 @@ public class FirebaseRepository {
         getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
             if (snapshot.exists()) {
-                callback.getValue(snapshot.getString(valueName));
+                callback.setValue(snapshot.getString(valueName));
             }
 
         });
@@ -598,7 +604,7 @@ public class FirebaseRepository {
                 fsUserList.add(snapshot.toObject(FsUser.class));
             }
         }
-        usersListCallback.getUsers(fsUserList);
+        usersListCallback.setUsers(fsUserList);
     }
 
     /**
@@ -664,7 +670,7 @@ public class FirebaseRepository {
                     for (DocumentSnapshot snapshot : snapshotList) {
                         stringList.add(snapshot.getId());
                     }
-                    stringsCallback.getStrings(stringList);
+                    stringsCallback.setStrings(stringList);
                 });
     }*/
 

@@ -42,7 +42,7 @@ public class SliderSmokingStatusFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("smoking_status", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("No way")){
                     radioGroup.check(R.id.fragment_slider_smoking_status_rbtn_no_way);
                 } else if (value != null && value.equals("Occasionally")){

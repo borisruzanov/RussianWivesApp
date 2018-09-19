@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface UserChatListCallback {
 
-    void getUserChatList(List<UserChat> userChats);
+    void setUserChatList(List<UserChat> userChats);
 
 }

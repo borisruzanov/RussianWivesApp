@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Sep 14 16:06:58 GMT-05:00 2018
+#Wed Sep 19 12:30:19 GMT-05:00 2018
 2.base=D\:\\nano\\russianwives\\app\\build\\intermediates\\assets\\debug
 0.path=classes2.dex
 2.baseType=DIRECTORY

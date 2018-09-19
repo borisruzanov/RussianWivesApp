@@ -43,7 +43,7 @@ public class SliderDrinkStatusFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("drink_status", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Never")){
                     radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
                 } else if (value != null && value.equals("Only with friends")){

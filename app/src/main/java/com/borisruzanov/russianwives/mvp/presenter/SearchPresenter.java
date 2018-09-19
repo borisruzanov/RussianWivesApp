@@ -30,7 +30,7 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 //                new SearchModel("hobby", "adventures"));
 //        searchInteractor.searchByListParams(searchModels, new UsersListCallback() {
 //            @Override
-//            public void getUsers(List<FsUser> fsUsers) {
+//            public void setUsers(List<FsUser> fsUsers) {
 //                if(fsUsers.isEmpty()) Log.d("Search", "Search list is empty");
 //
 //                for (FsUser model: fsUsers) {

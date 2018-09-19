@@ -103,7 +103,7 @@ public class MyProfile extends AppCompatActivity {
 
         new FirebaseRepository().getFieldFromCurrentUser("age", value -> age.setText(value));
 
-        new FirebaseRepository().getAllInfoCurrentUser(user -> {
+        new FirebaseRepository().getAllCurrentUserInfo(user -> {
                 Log.d(Contract.TAG, "UID is -------+-+- " + user.getUid());
                 userDescriptionList.addAll(UserProfileItemsList.initData(user));
                 setList(userDescriptionList);

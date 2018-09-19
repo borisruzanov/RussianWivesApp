@@ -27,6 +27,22 @@ public class ActionsView$$State extends MvpViewState<com.borisruzanov.russianwiv
 		mViewCommands.afterApply(showUserActionsCommand);
 	}
 
+	@Override
+	public  void openFriendProfile( java.lang.String friendUid) {
+		OpenFriendProfileCommand openFriendProfileCommand = new OpenFriendProfileCommand(friendUid);
+		mViewCommands.beforeApply(openFriendProfileCommand);
+
+		if (mViews == null || mViews.isEmpty()) {
+			return;
+		}
+
+		for(com.borisruzanov.russianwives.mvp.view.ActionsView view : mViews) {
+			view.openFriendProfile(friendUid);
+		}
+
+		mViewCommands.afterApply(openFriendProfileCommand);
+	}
+
 
 	public class ShowUserActionsCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.ActionsView> {
 		public final java.util.List<com.borisruzanov.russianwives.models.ActionItem> actionItems;
@@ -39,6 +55,20 @@ public class ActionsView$$State extends MvpViewState<com.borisruzanov.russianwiv
 		@Override
 		public void apply(com.borisruzanov.russianwives.mvp.view.ActionsView mvpView) {
 			mvpView.showUserActions(actionItems);
+		}
+	}
+
+	public class OpenFriendProfileCommand extends ViewCommand<com.borisruzanov.russianwives.mvp.view.ActionsView> {
+		public final java.lang.String friendUid;
+
+		OpenFriendProfileCommand( java.lang.String friendUid) {
+			super("openFriendProfile", com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy.class);
+			this.friendUid = friendUid;
+		}
+
+		@Override
+		public void apply(com.borisruzanov.russianwives.mvp.view.ActionsView mvpView) {
+			mvpView.openFriendProfile(friendUid);
 		}
 	}
 }

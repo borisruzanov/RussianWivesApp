@@ -173,8 +173,8 @@ public class ChatActivity extends AppCompatActivity {
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot) {
 //
-//                String online = dataSnapshot.child("online").getValue().toString();
-//                String image = dataSnapshot.child("image").getValue().toString();
+//                String online = dataSnapshot.child("online").setValue().toString();
+//                String image = dataSnapshot.child("image").setValue().toString();
 //
 //                if(online.equals("true")) {
 //

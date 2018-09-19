@@ -44,7 +44,7 @@ public class SliderNameFragment extends MvpAppCompatFragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("name", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null) {
                     answer.setText(value);
                     answer.setSelection(answer.getText().length());

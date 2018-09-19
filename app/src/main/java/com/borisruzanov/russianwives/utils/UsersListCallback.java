@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface UsersListCallback {
 
-    void getUsers(List<FsUser> fsUserList);
+    void setUsers(List<FsUser> fsUserList);
 
 }

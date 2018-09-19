@@ -246,7 +246,7 @@ public class ChatUdacityActivity extends BaseActivity{
 //            mChildEventListener = new ChildEventListener() {
 //                @Override
 //                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                    FriendlyMessage friendlyMessage = dataSnapshot.getValue(FriendlyMessage.class);
+//                    FriendlyMessage friendlyMessage = dataSnapshot.setValue(FriendlyMessage.class);
 //                    mMessageUdacityAdapter.add(friendlyMessage);
 //                }
 //

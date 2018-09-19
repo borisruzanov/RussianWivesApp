@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface RtUsersAndMessagesCallback {
 
-    void getRtUsersAndMessages(List<RtUser> rtUserList, List<Message> messageList);
+    void setRtUsersAndMessages(List<RtUser> rtUserList, List<Message> messageList);
 
 }

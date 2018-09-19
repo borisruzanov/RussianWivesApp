@@ -4,6 +4,6 @@ import com.borisruzanov.russianwives.models.FsUser;
 
 public interface UserCallback {
 
-    void getUser(FsUser fsUser);
+    void setUser(FsUser fsUser);
 
 }

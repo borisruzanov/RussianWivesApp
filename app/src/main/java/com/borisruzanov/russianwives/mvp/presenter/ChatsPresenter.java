@@ -50,7 +50,7 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     //This is list of chats UID's
                     uidList.add(snapshot.getKey());
-                    long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
+                    long timeStamp = Long.valueOf(snapshot.child("timestamp").setValue().toString());
                     boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
                     //This is list of Chats Objects
                     chatList.add(new Chat(timeStamp, seen));
@@ -64,9 +64,9 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
                             .addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                    String online = dataSnapshot.child("online").getValue().toString();
+                                    String online = dataSnapshot.child("online").setValue().toString();
                                     rtUsers.add(new RtUser(online));
-                                    //rtUsersCallback.getUsers(rtUsers);
+                                    //rtUsersCallback.setUsers(rtUsers);
                                 }
 
                                 @Override
@@ -86,12 +86,12 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
                                     String message = "message is empty";
                                     Long time = 0L;
                                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        time = Long.valueOf(snapshot.child("time").getValue().toString());
-                                        message = snapshot.child("message").getValue().toString();
+                                        time = Long.valueOf(snapshot.child("time").setValue().toString());
+                                        message = snapshot.child("message").setValue().toString();
                                         Log.d(Contract.CHAT_FRAGMENT, "dataSnapshot ащк messageList time - " +
                                         time + " message is - " + message);
                                         messageList.add(new Message(message, time));
-                                        messageListCallback.getMessages(messageList);
+                                        messageListCallback.setMessages(messageList);
                                     }
 
                                 }

@@ -40,7 +40,7 @@ public class SliderWillingKidsFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("want_children_or_not", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Definitely")){
                     radioGroup.check(R.id.fragment_slider_willingkids_rbtn_definitely);
                 } else if (value != null && value.equals("Someday")){

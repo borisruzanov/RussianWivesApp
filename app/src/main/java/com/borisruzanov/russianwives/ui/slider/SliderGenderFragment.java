@@ -46,7 +46,7 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("gender", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Female")){
                     radioGroup.check(R.id.fragment_slider_gender_radiobutton_female);
                 } else if (value != null && value.equals("Male")){

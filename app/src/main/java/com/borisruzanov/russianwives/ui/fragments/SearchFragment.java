@@ -3,15 +3,12 @@ package com.borisruzanov.russianwives.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -19,7 +16,6 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
@@ -27,7 +23,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.FilterRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
 import com.borisruzanov.russianwives.ui.ChatActivity;
-import com.borisruzanov.russianwives.ui.FriendActivity;
+import com.borisruzanov.russianwives.ui.FriendProfileActivity;
 import com.borisruzanov.russianwives.ui.pagination.SearchAdapter;
 
 import java.util.List;
@@ -101,7 +97,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
      */
     @Override
     public void openFriend(String uid, String name, String image) {
-        Intent dataIntent = new Intent(getContext(), FriendActivity.class);
+        Intent dataIntent = new Intent(getContext(), FriendProfileActivity.class);
         dataIntent.putExtra("uid", uid);
         startActivity(dataIntent);
         //new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
@@ -174,7 +170,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
                 if (!isLoading && mTotalItemCount <= (mLastVisibleItemPosition + 10)) {
                     Log.d("Pagination", "Statement is true");
                     if (adapter.getItemCount() > 0) {
-                        //searchPresenter.getUsers(adapter.getLastItemId());
+                        //searchPresenter.setUsers(adapter.getLastItemId());
                         //Log.d("Pagination", "Statement is false inside getItemCount");
                     }
                 } else Log.d("Pagination", "Statement is false");

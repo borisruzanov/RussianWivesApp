@@ -45,7 +45,7 @@ public class SliderEthnicityFragment extends Fragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("ethnicity", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("Asian")){
                     radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_asian);
                 } else if (value != null && value.equals("Black / African descent")){

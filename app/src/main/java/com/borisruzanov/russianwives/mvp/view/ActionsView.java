@@ -8,5 +8,5 @@ import java.util.List;
 public interface ActionsView extends MvpView {
 
     void showUserActions(List<ActionItem> actionItems);
-
+    void openFriendProfile(String friendUid);
 }

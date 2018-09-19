@@ -51,7 +51,7 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
 
         new FirebaseRepository().getFieldFromCurrentUser("age", new ValueCallback() {
             @Override
-            public void getValue(String value) {
+            public void setValue(String value) {
                 if (value != null && value.equals("18-21")){
                     radioGroup.check(R.id.fragment_slider_age_18_21);
                 } else if (value != null && value.equals("22-26")){

@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface StringsCallback {
 
-    void getStrings(List<String> stringList);
+    void setStrings(List<String> stringList);
 
 }

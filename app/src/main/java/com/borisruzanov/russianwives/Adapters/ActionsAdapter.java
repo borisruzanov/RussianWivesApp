@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.borisruzanov.russianwives.GetTimeAgo;
@@ -23,9 +24,9 @@ import java.util.List;
 public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.ActivitiesAdapterViewHolder> {
 
     private List<ActionItem> activitiesList = new ArrayList<>();
-    private UserDescriptionListAdapter.ItemClickListener mClickListener;
-    OnItemClickListener.OnItemClickCallback onItemClickCallback;
-    Context context;
+    //private UserDescriptionListAdapter.ItemClickListener mClickListener;
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    private Context context;
 
     public ActionsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
@@ -57,7 +58,8 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         return activitiesList.size();
     }
 
-    public class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout actionContainer;
         TextView name;
         TextView time;
         TextView type_visit;
@@ -66,16 +68,12 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
 
         public ActivitiesAdapterViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.item_activity_name);
-            type_visit = (TextView) itemView.findViewById(R.id.item_activity_type_visit);
-            type_like = (TextView) itemView.findViewById(R.id.item_activity_type_like);
-            time = (TextView) itemView.findViewById(R.id.item_activity_time);
-            image = (ImageView) itemView.findViewById(R.id.item_activity_image);
-        }
-
-        @Override
-        public void onClick(View v) {
-
+            actionContainer = itemView.findViewById(R.id.item_action_container);
+            name = itemView.findViewById(R.id.item_action_name);
+            type_visit = itemView.findViewById(R.id.item_action_type_visit);
+            type_like = itemView.findViewById(R.id.item_action_type_like);
+            time = itemView.findViewById(R.id.item_action_time);
+            image = itemView.findViewById(R.id.item_action_image);
         }
 
         void bind(ActionItem model, int position) {
@@ -86,11 +84,11 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
             } else {
                 Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
             }
-            time.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
+            actionContainer.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
             Log.d("vvv", "in adapter action " + model.getAction());
 
 
-            if (model.getAction().equals("visit")){
+            if (model.getAction().equals("like")){
                 type_like.setVisibility(View.VISIBLE);
                 type_visit.setVisibility(View.INVISIBLE);
             } else {
@@ -100,11 +98,11 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         }
     }
 
-    public void setClickListener(UserDescriptionListAdapter.ItemClickListener itemClickListener) {
+   /* public void setClickListener(UserDescriptionListAdapter.ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
     public interface ItemClickListener {
         void onItemClick(View view, int position);
-    }
+    }*/
 }
