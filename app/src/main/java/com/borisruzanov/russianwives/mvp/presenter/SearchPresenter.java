@@ -40,16 +40,6 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
 //        });
     }
 
-    //TODO fix double recreation of the list after device rotation
-    public void getUsers() {
-        searchInteractor.getUsers(userList -> {
-            if (!userList.isEmpty()) {
-                fsUsers.addAll(userList);
-                getViewState().showUsers(fsUsers);
-            } else getViewState().showEmpty(true);
-        });
-    }
-
     public void getFilteredList(){
         searchInteractor.getFilteredList(userList -> {
             for (FsUser fsUser : userList) {

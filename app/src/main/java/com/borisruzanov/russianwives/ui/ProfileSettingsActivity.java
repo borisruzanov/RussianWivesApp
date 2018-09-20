@@ -47,8 +47,6 @@ import butterknife.BindView;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileSettingsActivity extends AppCompatActivity {
-    //MVP
-    //TODO Implement MVP
 
     //UI
     RecyclerView recyclerView;
@@ -89,20 +87,16 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     }
 
     private OnItemClickListener.OnItemClickCallback setOnItemClickCallback() {
-        OnItemClickListener.OnItemClickCallback onItemClickCallback = new OnItemClickListener.OnItemClickCallback() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                UserDescriptionModel itemClicked = userDescriptionEditList.get(position);
-                Bundle bundle = new Bundle();
-                bundle.putString("field_id", itemClicked.getTitle());
-                Log.d(Contract.SLIDER, "Id from list clicked is - " + itemClicked.getTitle());
-                bundle.putString("intent", "list");
-                Intent sliderIntent = new Intent(ProfileSettingsActivity.this, SliderActivity.class);
-                sliderIntent.putExtras(bundle);
-                startActivity(sliderIntent);
-            }
+        return (view, position) -> {
+            UserDescriptionModel itemClicked = userDescriptionEditList.get(position);
+            Bundle bundle = new Bundle();
+            bundle.putString("field_id", itemClicked.getTitle());
+            Log.d(Contract.SLIDER, "Id from list clicked is - " + itemClicked.getTitle());
+            bundle.putString("intent", "list");
+            Intent sliderIntent = new Intent(this, SliderActivity.class);
+            sliderIntent.putExtras(bundle);
+            startActivity(sliderIntent);
         };
-        return onItemClickCallback;
     }
 
     @Override

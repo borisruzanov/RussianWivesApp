@@ -102,7 +102,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
                 callAuthWindow();
                 return true;
             case R.id.menu_my_profile:
-                Intent settingsIntent = new Intent(MainActivity.this, MyProfile.class);
+                Intent settingsIntent = new Intent(MainActivity.this, MyProfileActivity.class);
                 startActivity(settingsIntent);
                 return true;
             case R.id.menu_filter:

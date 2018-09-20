@@ -21,7 +21,7 @@ public class ActionsFragment$$PresentersBinder extends PresenterBinder<com.boris
 
 		@Override
 		public MvpPresenter<?> providePresenter(com.borisruzanov.russianwives.ui.fragments.ActionsFragment delegated) {
-			return new com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter();
+			return delegated.provideActionsPresenter();
 		}
 	}
 

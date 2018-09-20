@@ -1,7 +1,7 @@
 package com.borisruzanov.russianwives.ui;
 
-import android.support.design.widget.FloatingActionButton;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -12,41 +12,43 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
+import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.UserDescriptionListAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.UserProfileItemsList;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
+import com.borisruzanov.russianwives.mvp.model.interactor.FriendProfileInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter;
+import com.borisruzanov.russianwives.mvp.view.FriendProfileView;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class FriendProfileActivity extends MvpAppCompatActivity {
+public class FriendProfileActivity extends MvpAppCompatActivity implements FriendProfileView {
 
-    //TODO Refactor to ActivitiesActivity functionality
+    //TODO change view initializations to ButterKnife binds
     Toolbar toolbar;
     FloatingActionButton fab;
 
-    RecyclerView recyclerView;
-
-    List<UserDescriptionModel> userDescriptionList = new ArrayList<>();
-    UserDescriptionListAdapter userDescriptionListAdapter;
-
-    String userUid;
-    String friendUid;
-
-    TextView name;
-    TextView age;
-    TextView country;
+    TextView nameText, ageText, countryText;
     ImageView imageView;
 
+    Button btnAddFriend, btnStartChat;
 
-    Button btnAddFriend;
-    Button btnStartChat;
+    RecyclerView recyclerView;
+    UserDescriptionListAdapter userDescriptionListAdapter;
+
+    @InjectPresenter
+    FriendProfilePresenter presenter;
+
+    @ProvidePresenter
+    public FriendProfilePresenter provideFriendProfilePresenter(){
+        return new FriendProfilePresenter(new FriendProfileInteractor(new FirebaseRepository()));
+    }
 
 
     @Override
@@ -64,9 +66,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity {
             //TODO Make sure user can make only 1 like
         });
 
-        userUid = new FirebaseRepository().getUid();
-        friendUid = getIntent().getStringExtra("uid");
-
         btnAddFriend = findViewById(R.id.friend_activity_btn_add_friend);
         btnAddFriend.setOnClickListener(v -> {
 
@@ -74,7 +73,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity {
 //                        "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, fsUserList -> {
 //                            for (String uid : stringList) Log.d(Contract.TAG, "Uid " + uid);
 //                            for (FsUser user : fsUserList) {
-//                                Log.d(Contract.TAG, "FsUser name " + user.getName());
+//                                Log.d(Contract.TAG, "FsUser nameText " + user.getName());
 //                            }
 //                        }));
 
@@ -88,27 +87,14 @@ public class FriendProfileActivity extends MvpAppCompatActivity {
         userDescriptionListAdapter = new UserDescriptionListAdapter(setOnItemClickCallback());
         recyclerView.setAdapter(userDescriptionListAdapter);
 
-        name = findViewById(R.id.friend_activity_tv_name);
-        age = findViewById(R.id.friend_activity_tv_age);
-        country = findViewById(R.id.friend_activity_tv_country);
+        nameText = findViewById(R.id.friend_activity_tv_name);
+        ageText = findViewById(R.id.friend_activity_tv_age);
+        countryText = findViewById(R.id.friend_activity_tv_country);
 
-        new FirebaseRepository().getFriendsData(Consts.USERS_DB, getIntent().getStringExtra("uid"), fsUser -> {
-            name.setText(fsUser.getName());
-            age.setText(fsUser.getAge());
-            country.setText(fsUser.getCountry());
-            if (!fsUser.getImage().equals("default")) {
-                Glide.with(FriendProfileActivity.this)
-                        .load(fsUser.getImage())
-                        .into(imageView);
-            }
-        });
+        String friendUid = getIntent().getStringExtra("uid");
+        presenter.setAllInfo(friendUid);
 
-        new FirebaseRepository().getAllCurrentUserInfo(fsUser -> {
-            userDescriptionList.addAll(UserProfileItemsList.initData(fsUser));
-            setList(userDescriptionList);
-        });
 
-        new FirebaseRepository().setUserVisited(friendUid);
     }
 
 
@@ -122,6 +108,19 @@ public class FriendProfileActivity extends MvpAppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void setFriendData(String name, String age, String country, String image) {
+        nameText.setText(name);
+        ageText.setText(age);
+        countryText.setText(country);
+        if (!image.equals(Consts.DEFAULT)) {
+            Glide.with(this)
+                    .load(image)
+                    .into(imageView);
+        }
+    }
+
+    @Override
     public void setList(List<UserDescriptionModel> userDescriptionList) {
         if (userDescriptionList.isEmpty()) {
             Log.d(Contract.TAG, "The list is empty");
@@ -133,10 +132,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity {
     }
 
     private OnItemClickListener.OnItemClickCallback setOnItemClickCallback() {
-        OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
-
-        };
-        return onItemClickCallback;
+        return (view, position) -> {};
     }
 
 

@@ -51,14 +51,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.ChatActivity"
+            android:name=".ui.ChatMessageActivity"
             android:parentActivityName=".ui.MainActivity" />
         <activity android:name=".zHOLD.StatusActivity" />
         <activity
             android:name=".zTEST.SettingsProfileBasics"
             android:parentActivityName=".ui.ProfileSettingsActivity" />
         <activity
-            android:name=".ui.MyProfile"
+            android:name=".ui.MyProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".zTEST.UserInfoViewPager" />
         <activity

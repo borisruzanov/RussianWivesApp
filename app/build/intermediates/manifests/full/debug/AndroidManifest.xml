@@ -72,14 +72,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.borisruzanov.russianwives.ui.ChatActivity"
+            android:name="com.borisruzanov.russianwives.ui.ChatMessageActivity"
             android:parentActivityName="com.borisruzanov.russianwives.ui.MainActivity" />
         <activity android:name="com.borisruzanov.russianwives.zHOLD.StatusActivity" />
         <activity
             android:name="com.borisruzanov.russianwives.zTEST.SettingsProfileBasics"
             android:parentActivityName="com.borisruzanov.russianwives.ui.ProfileSettingsActivity" />
         <activity
-            android:name="com.borisruzanov.russianwives.ui.MyProfile"
+            android:name="com.borisruzanov.russianwives.ui.MyProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name="com.borisruzanov.russianwives.zTEST.UserInfoViewPager" />
         <activity
@@ -89,7 +89,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.borisruzanov.russianwives.ui.MainActivity" />
         </activity>
-        <activity android:name="com.borisruzanov.russianwives.ui.FriendActivity" />
+        <activity android:name="com.borisruzanov.russianwives.ui.FriendProfileActivity" />
 
         <receiver android:name="com.borisruzanov.russianwives.widget.ActionWidgetProvider" >
             <intent-filter>

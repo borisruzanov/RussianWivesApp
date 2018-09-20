@@ -13,22 +13,17 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.ChatsAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserChat;
+import com.borisruzanov.russianwives.mvp.model.interactor.ChatsInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter;
 import com.borisruzanov.russianwives.mvp.view.ChatsView;
-import com.borisruzanov.russianwives.ui.ChatActivity;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
+import com.borisruzanov.russianwives.ui.ChatMessageActivity;
 
 import java.util.List;
 
@@ -39,10 +34,13 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
 
     TextView emptyText;
 
-    private View mMainView;
-
     @InjectPresenter
     ChatsPresenter chatsPresenter;
+
+    @ProvidePresenter
+    public ChatsPresenter provideChatsPresenter(){
+        return new ChatsPresenter(new ChatsInteractor(new FirebaseRepository()));
+    }
 
     public ChatsFragment() {
         // Required empty public constructor
@@ -53,7 +51,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
+        View mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
 
         emptyText = mMainView.findViewById(R.id.chats_empty_text);
 
@@ -100,7 +98,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
      */
     @Override
     public void openChat(String uid, String name, String image) {
-        Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+        Intent chatIntent = new Intent(getContext(), ChatMessageActivity.class);
         chatIntent.putExtra("uid", uid);
         chatIntent.putExtra("name",name);
         chatIntent.putExtra("photo_url", image);

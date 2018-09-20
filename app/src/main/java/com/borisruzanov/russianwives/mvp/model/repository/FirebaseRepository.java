@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.model.repository;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -18,7 +19,7 @@ import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionCountCallback;
 import com.borisruzanov.russianwives.utils.ActionItemCallback;
-import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
+import com.borisruzanov.russianwives.utils.ActionsCountInfoCallback;
 import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.RtUsersAndMessagesCallback;
@@ -45,6 +46,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -57,7 +60,7 @@ public class FirebaseRepository {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
 
-//    private StorageReference mImageStorage = FirebaseStorage.getInstance().getReference();
+    private StorageReference mImageStorage = FirebaseStorage.getInstance().getReference();
 //    private StorageReference filePath = mImageStorage.child("profile_images").child("profile_image.jpg");
 
     private boolean needInfo = true;
@@ -165,7 +168,7 @@ public class FirebaseRepository {
      * @param docName
      * @param userCallback
      */
-    public void getFriendsData(String collectionName, String docName, final UserCallback userCallback) {
+    public void getFriendData(String collectionName, String docName, final UserCallback userCallback) {
         getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
             if (snapshot.exists()) {
@@ -304,14 +307,12 @@ public class FirebaseRepository {
 
     private void getMergedActions(ActionCallback callback){
         List<ActionModel> actionModels = new ArrayList<>();
-        getLikes(actionLikeModels -> {
-            getVisits(actionVisitModels -> {
-                actionModels.addAll(actionLikeModels);
-                actionModels.addAll(actionVisitModels);
-                Collections.sort(actionModels, (e1, e2) -> Long.compare(e1.getTimestamp(), e2.getTimestamp()));
-                callback.setActionList(actionModels);
-            });
-        });
+        getLikes(actionLikeModels -> getVisits(actionVisitModels -> {
+            actionModels.addAll(actionLikeModels);
+            actionModels.addAll(actionVisitModels);
+            Collections.sort(actionModels, (e1, e2) -> Long.compare(e1.getTimestamp(), e2.getTimestamp()));
+            callback.setActionList(actionModels);
+        }));
     }
 
     public void getTransformedActions(ActionItemCallback callback){
@@ -344,9 +345,112 @@ public class FirebaseRepository {
         });
     }
 
-    public void getActionsWidget(ActionWidgetCallback callback){
+    public void getActionsCountInfo(ActionsCountInfoCallback callback){
         getActionCount("Visits", visitsCount ->
                 getActionCount("Likes", likesCount -> callback.setActions(visitsCount, likesCount)));
+    }
+
+    public void initChat(String friendUid) {
+        if (realtimeReference.child("Chat").child(getUid()) != null){
+            realtimeReference.child("Chat").child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.hasChild(friendUid)) {
+                        Map<String, Object> chatAddMap = new HashMap<>();
+                        chatAddMap.put("seen", false);
+                        chatAddMap.put("timestamp", ServerValue.TIMESTAMP);
+
+                        Map<String, Object> chatUserMap = new HashMap<>();
+                        chatUserMap.put("Chat/" + getUid() + "/" + friendUid, chatAddMap);
+                        chatUserMap.put("Chat/" + friendUid + "/" + getUid(), chatAddMap);
+
+                        realtimeReference.updateChildren(chatUserMap, (databaseError, databaseReference) -> {
+                            if (databaseError != null) {
+                                Log.d(Contract.TAG, "initChat Error is " + databaseError.getMessage());
+                            }
+                        });
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+        }
+
+    }
+
+    public void sendMessage(String friendUid, String message, UpdateCallback callback){
+        if (!message.isEmpty()) {
+            String current_user_ref = "Messages/" + getUid() + "/" + friendUid;
+            String chat_user_ref = "Messages/" + friendUid + "/" + getUid();
+
+            DatabaseReference user_message_push = realtimeReference.child("Messages")
+                    .child(getUid()).child(friendUid).push();
+
+            String push_id = user_message_push.getKey();
+
+            //TODO Put users nameText instead of UserId
+            Map<String, Object> messageMap = new HashMap<>();
+            messageMap.put("message", message);
+            messageMap.put("seen", false);
+            messageMap.put("type", "text");
+            messageMap.put("time", ServerValue.TIMESTAMP);
+            messageMap.put("from", getUid());
+
+            Map<String, Object> messageUserMap = new HashMap<>();
+            messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
+            messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+
+            callback.onUpdate();
+
+            realtimeReference.child("Chat").child(getUid()).child(friendUid).child("seen").setValue(true);
+            realtimeReference.child("Chat").child(getUid()).child(friendUid).child("timestamp").setValue(ServerValue.TIMESTAMP);
+            realtimeReference.child("Chat").child(friendUid).child(getUid()).child("seen").setValue(false);
+            realtimeReference.child("Chat").child(friendUid).child(getUid()).child("timestamp").setValue(ServerValue.TIMESTAMP);
+
+            realtimeReference.updateChildren(messageUserMap, (databaseError, databaseReference) -> {
+                if (databaseError != null) {
+                    Log.d("CHAT_LOG", databaseError.getMessage());
+                }
+            });
+        }
+    }
+
+    public void sendImage(String friendUid, Uri imageUri, UpdateCallback callback){
+        final String current_user_ref = "Message/" + getUid() + "/" + friendUid;
+        final String chat_user_ref = "Message/" + friendUid + "/" + getUid();
+        DatabaseReference user_message_push = realtimeReference.child("Message")
+                .child(getDeviceToken())
+                .child(friendUid)
+                .push();
+
+        final String push_id = user_message_push.getKey();
+        StorageReference filepath = mImageStorage.child("message_images").child(push_id + ".jpg");
+
+        filepath.putFile(imageUri).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                String download_url = task.getResult().getDownloadUrl().toString();
+                Map<String, Object> messageMap = new HashMap<>();
+                messageMap.put("message", download_url);
+                messageMap.put("seen", false);
+                messageMap.put("type", "image");
+                messageMap.put("time", ServerValue.TIMESTAMP);
+                messageMap.put("from", getUid());
+
+                Map<String, Object> messageUserMap = new HashMap<>();
+                messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
+                messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
+
+                callback.onUpdate();
+
+                realtimeReference.updateChildren(messageUserMap, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        Log.d(Contract.TAG, "Error with insert image in DB" + databaseError.getMessage().toString());
+                    }
+                });
+            }
+        });
     }
 
     /**

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    tools:context="com.borisruzanov.russianwives.ui.MyProfile">
+    tools:context="com.borisruzanov.russianwives.ui.MyProfileActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
@@ -130,6 +130,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/number_of_visits"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="24dp"
@@ -163,6 +164,7 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/number_of_likes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

@@ -13,10 +13,13 @@ import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
+import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.ActionsAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.ActionItem;
+import com.borisruzanov.russianwives.mvp.model.interactor.ActionsInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter;
 import com.borisruzanov.russianwives.mvp.view.ActionsView;
 import com.borisruzanov.russianwives.ui.FriendProfileActivity;
@@ -27,6 +30,11 @@ public class ActionsFragment extends MvpAppCompatFragment implements ActionsView
 
     @InjectPresenter
     ActionsPresenter actionsPresenter;
+
+    @ProvidePresenter
+    public ActionsPresenter provideActionsPresenter(){
+        return new ActionsPresenter(new ActionsInteractor(new FirebaseRepository()));
+    }
 
     RecyclerView recyclerActivitiesList;
     ActionsAdapter actionsAdapter;

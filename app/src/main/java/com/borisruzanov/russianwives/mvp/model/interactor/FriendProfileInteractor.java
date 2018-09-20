@@ -12,12 +12,8 @@ public class FriendProfileInteractor {
         this.firebaseRepository = firebaseRepository;
     }
 
-    public void getFriendsData(String friendUid, final UserCallback userCallback){
-        firebaseRepository.getFriendsData(Consts.USERS_DB, friendUid, userCallback);
-    }
-
-    public void getAllCurrentUserInfo(final UserCallback callback){
-        firebaseRepository.getAllCurrentUserInfo(callback);
+    public void getFriendData(String friendUid, final UserCallback userCallback){
+        firebaseRepository.getFriendData(Consts.USERS_DB, friendUid, userCallback);
     }
 
     public void setUserVisited(String friendUid){

@@ -16,11 +16,16 @@ public class MoxyReflector {
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.FilterDialogPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.FilterDialogPresenter$$ViewStateProvider());
+		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter.class, new com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.MainPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.MainPresenter$$ViewStateProvider());
+		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.MyProfilePresenter.class, new com.borisruzanov.russianwives.mvp.presenter.MyProfilePresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.SearchPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.SearchPresenter$$ViewStateProvider());
 		
 		sPresenterBinders = new HashMap<>();
+		sPresenterBinders.put(com.borisruzanov.russianwives.ui.ChatMessageActivity.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.ChatMessageActivity$$PresentersBinder()));
+		sPresenterBinders.put(com.borisruzanov.russianwives.ui.FriendProfileActivity.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.FriendProfileActivity$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.MainActivity.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.MainActivity$$PresentersBinder()));
+		sPresenterBinders.put(com.borisruzanov.russianwives.ui.MyProfileActivity.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.MyProfileActivity$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.ActionsFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.ActionsFragment$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.ChatsFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.ChatsFragment$$PresentersBinder()));
 		sPresenterBinders.put(com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment.class, Arrays.<Object>asList(new com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment$$PresentersBinder()));

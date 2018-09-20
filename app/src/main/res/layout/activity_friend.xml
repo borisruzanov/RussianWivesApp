@@ -147,7 +147,7 @@
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp"
                         android:text="+ ADD FRIEND"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorAccent" />
 
 
                     <Button
@@ -159,7 +159,7 @@
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp"
                         android:text="WRITE MESSAGE"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorAccent" />
 
 
                 </LinearLayout>
@@ -186,7 +186,7 @@
                         android:paddingLeft="25dp"
                         android:paddingRight="25dp"
                         android:text="@string/check_your_search_parameters"
-                        android:textColor="@color/colorPrimary" />
+                        android:textColor="@color/colorAccent" />
 
                     <TextView
                         android:id="@+id/my_profile_tv_also_like"

@@ -11,7 +11,6 @@ import android.widget.RemoteViews;
 
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
-import com.borisruzanov.russianwives.utils.ActionWidgetCallback;
 
 public class ActionWidgetService extends Service {
 
@@ -37,7 +36,7 @@ public class ActionWidgetService extends Service {
     private void updateAppWidgetContent(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_action);
 
-        new FirebaseRepository().getActionsWidget((visits, likes) -> {
+        new FirebaseRepository().getActionsCountInfo((visits, likes) -> {
             views.setTextViewText(R.id.widget_action_likes, visits + " visits");
             views.setTextViewText(R.id.widget_action_visits, likes + " likes");
             Log.d("WidgetDebug", "User has " + visits + " and " + likes);

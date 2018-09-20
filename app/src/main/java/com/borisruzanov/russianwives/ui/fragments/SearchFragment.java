@@ -22,7 +22,7 @@ import com.borisruzanov.russianwives.mvp.model.interactor.SearchInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FilterRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
-import com.borisruzanov.russianwives.ui.ChatActivity;
+import com.borisruzanov.russianwives.ui.ChatMessageActivity;
 import com.borisruzanov.russianwives.ui.FriendProfileActivity;
 import com.borisruzanov.russianwives.ui.pagination.SearchAdapter;
 
@@ -111,7 +111,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
      */
     @Override
     public void openChat(String uid, String name, String image) {
-        Intent chatIntent = new Intent(getContext(), ChatActivity.class);
+        Intent chatIntent = new Intent(getContext(), ChatMessageActivity.class);
         chatIntent.putExtra("uid", uid);
         chatIntent.putExtra("name", name);
         chatIntent.putExtra("photo_url", image);
