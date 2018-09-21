@@ -94,9 +94,6 @@ public class MyProfileActivity extends MvpAppCompatActivity implements MyProfile
         numberOfLikes = findViewById(R.id.number_of_likes);
         numberOfVisits = findViewById(R.id.number_of_visits);
 
-        //presenter.setAllCurrentUserInfo();
-        //presenter.setActionsCount();
-
         getSupportFragmentManager().beginTransaction().add(R.id.my_profile_list_container, new SearchFragment()).commit();
 
     }

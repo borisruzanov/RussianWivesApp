@@ -20,8 +20,7 @@ import java.util.List;
 public class UserDescriptionEditListAdapter extends RecyclerView.Adapter<UserDescriptionEditListAdapter.UserDescriptionEditListViewHolder> {
 
     private List<UserDescriptionModel> userDescriptionList = new ArrayList<>();
-    private ItemClickListener mClickListener;
-    OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback;
 
     public UserDescriptionEditListAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
@@ -53,21 +52,15 @@ public class UserDescriptionEditListAdapter extends RecyclerView.Adapter<UserDes
         TextView title;
         LinearLayout item;
 
-        public UserDescriptionEditListViewHolder(View itemView) {
+        UserDescriptionEditListViewHolder(View itemView) {
             super(itemView);
-            title = (TextView) itemView.findViewById(R.id.item_user_edit_profile_title);
-            item = (LinearLayout) itemView.findViewById(R.id.item_user_description_edit_linear);
+            title = itemView.findViewById(R.id.item_user_edit_profile_title);
+            item = itemView.findViewById(R.id.item_user_description_edit_linear);
         }
 
         @Override
         public void onClick(View v) {
         }
     }
-    public void setClickListener(UserDescriptionEditListAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
 
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }
 }

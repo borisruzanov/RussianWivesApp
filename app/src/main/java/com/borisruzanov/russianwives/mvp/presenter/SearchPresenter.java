@@ -23,23 +23,6 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
         this.searchInteractor = searchInteractor;
     }
 
-    @Override
-    protected void onFirstViewAttach() {
-        super.onFirstViewAttach();
-//        List<SearchModel> searchModels = Arrays.asList(new SearchModel("name", "John"),
-//                new SearchModel("hobby", "adventures"));
-//        searchInteractor.searchByListParams(searchModels, new UsersListCallback() {
-//            @Override
-//            public void setUsers(List<FsUser> fsUsers) {
-//                if(fsUsers.isEmpty()) Log.d("Search", "Search list is empty");
-//
-//                for (FsUser model: fsUsers) {
-//                    Log.d("Search", model.getName());
-//                }
-//            }
-//        });
-    }
-
     public void getFilteredList(){
         searchInteractor.getFilteredList(userList -> {
             for (FsUser fsUser : userList) {
@@ -51,7 +34,6 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
                 Log.d("LifecycleDebug", "In SearchPresenter and fsUser empty is " + fsUsers.isEmpty());
                 getViewState().showUsers(fsUsers);
             }
-//            else getViewState().showEmpty(true);
         });
     }
 

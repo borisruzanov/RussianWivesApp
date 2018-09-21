@@ -10,9 +10,16 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.interactor.WidgetInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 
 public class ActionWidgetService extends Service {
+
+    private WidgetInteractor interactor;
+
+    public ActionWidgetService() {
+        interactor = new WidgetInteractor(new FirebaseRepository());
+    }
 
     @Nullable
     @Override
@@ -25,22 +32,28 @@ public class ActionWidgetService extends Service {
         int [] widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
-        for (int appWidgetId: widgetIds) {
-            Log.d("WidgetDebug", "appwidgetId is " +  appWidgetId);
-            updateAppWidgetContent(getApplicationContext(), manager, appWidgetId);
+        if(widgetIds != null) {
+            for (int appWidgetId : widgetIds) {
+                Log.d("WidgetDebug", "appwidgetId is " + appWidgetId);
+                interactor.getActionsInfo((visits, likes) ->
+                        updateAppWidgetContent(getApplicationContext(), manager, appWidgetId,
+                        visits + " " + getApplicationContext().getString(R.string.visits),
+                                likes + " " + getApplicationContext().getString(R.string.likes)));
+
+            }
         }
+        else Log.d("WidgetDebug",  "Widgets are null");
 
         return super.onStartCommand(intent, flags, startId);
     }
 
-    private void updateAppWidgetContent(Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
+    private void updateAppWidgetContent(Context context, AppWidgetManager appWidgetManager, int appWidgetId,
+                                        String visits, String likes) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_action);
 
-        new FirebaseRepository().getActionsCountInfo((visits, likes) -> {
-            views.setTextViewText(R.id.widget_action_likes, visits + " visits");
-            views.setTextViewText(R.id.widget_action_visits, likes + " likes");
+            views.setTextViewText(R.id.widget_action_likes, likes);
+            views.setTextViewText(R.id.widget_action_visits, visits);
             Log.d("WidgetDebug", "User has " + visits + " and " + likes);
-        });
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
 

@@ -2516,7 +2516,7 @@
         <item>Probably not</item>
         <item>No, but its ok if partner has kids</item>
         <item>No</item>
-    </string-array></file><file path="D:\nano\russianwives\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </string-array><string name="visits">Visits</string><string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8-ddbc-4777-bcc5-016103d06330]]></string></file><file path="D:\nano\russianwives\app\src\main\res\values\styles.xml" qualifiers=""><style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

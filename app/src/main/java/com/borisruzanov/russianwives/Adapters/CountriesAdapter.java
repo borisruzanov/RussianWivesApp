@@ -56,6 +56,4 @@ public class CountriesAdapter extends BaseAdapter {
         return (Country) getItem(position);
     }
 
-    {
-    }
 }

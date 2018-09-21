@@ -3,7 +3,7 @@ package com.borisruzanov.russianwives.models;
 public class ActionModel {
 
     private long timestamp;
-    String type, uid;
+    private String type, uid;
 
     public ActionModel(long timestamp, String uid, String type) {
         this.timestamp = timestamp;

@@ -24,8 +24,8 @@ import java.util.List;
 public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapterViewHolder> {
 
     private List<UserChat> userChatList = new ArrayList<>();
-    OnItemClickListener.OnItemClickCallback onItemClickCallback;
-    Context context;
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    private Context context;
 
 
     public ChatsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
@@ -59,7 +59,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
     public class ChatsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         LinearLayout container;
         TextView name;
-//        TextView seen;
         TextView time;
         TextView message;
         ImageView image;
@@ -69,7 +68,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             super(itemView);
             name = itemView.findViewById(R.id.item_list_chat_name);
             container = itemView.findViewById(R.id.item_list_chat_container);
-//            seen = (TextView) itemView.findViewById(R.id.item_list_chat_seen);
             time = itemView.findViewById(R.id.item_list_chat_time);
             message = itemView.findViewById(R.id.item_list_chat_message);
             image = itemView.findViewById(R.id.item_list_chat_image);
@@ -87,7 +85,6 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
             message.setText(model.getMessage());
-//            seen.setText(String.valueOf(model.getSeen()));
             if(model.getImage().equals("default")){
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
             }else {

@@ -19,9 +19,6 @@ public class App extends Application {
 
     private DatabaseReference mUserDatabase;
     private FirebaseAuth mAuth;
-//
-//        public DatabaseReference usersCattegory;
-//        public FirebaseUser user;
 
     @Override
     public void onCreate() {
@@ -59,9 +56,6 @@ public class App extends Application {
             });
 
         }
-//            user = mAuth.getCurrentUser();
-
-        /* Picasso */
 
         Picasso.Builder builder = new Picasso.Builder(this);
         builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));

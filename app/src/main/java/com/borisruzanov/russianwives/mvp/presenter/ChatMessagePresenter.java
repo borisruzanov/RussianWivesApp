@@ -2,10 +2,12 @@ package com.borisruzanov.russianwives.mvp.presenter;
 
 import android.net.Uri;
 
+import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.mvp.model.interactor.ChatMessageInteractor;
 import com.borisruzanov.russianwives.mvp.view.ChatMessageView;
 
+@InjectViewState
 public class ChatMessagePresenter extends MvpPresenter<ChatMessageView> {
 
     private ChatMessageInteractor interactor;

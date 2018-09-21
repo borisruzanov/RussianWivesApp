@@ -38,42 +38,36 @@ public class SliderWillingKidsFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_willingkids_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_willingkids_btn_save);
 
-        new FirebaseRepository().getFieldFromCurrentUser("want_children_or_not", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null && value.equals("Definitely")){
-                    radioGroup.check(R.id.fragment_slider_willingkids_rbtn_definitely);
-                } else if (value != null && value.equals("Someday")){
-                    radioGroup.check(R.id.fragment_slider_willingkids_rbtn_someday);
-                } else if (value != null && value.equals("Not sure")){
-                    radioGroup.check(R.id.fragment_slider_willingkids_rbtn_not_sure);
-                }else if (value != null && value.equals("Probably not")){
-                    radioGroup.check(R.id.fragment_slider_willingkids_rbtn_probably);
-                }else if (value != null && value.equals("No")){
-                    radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no);
-                }else if (value != null && value.equals("No, but its ok if partner has kids")){
-                    radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no_but_ok);
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("want_children_or_not", value -> {
+            if (value != null && value.equals("Definitely")){
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_definitely);
+            } else if (value != null && value.equals("Someday")){
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_someday);
+            } else if (value != null && value.equals("Not sure")){
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_not_sure);
+            }else if (value != null && value.equals("Probably not")){
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_probably);
+            }else if (value != null && value.equals("No")){
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no);
+            }else if (value != null && value.equals("No, but its ok if partner has kids")){
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no_but_ok);
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) view.findViewById(selectedId);
-                if(radioButton.getText() != null){
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("want_children_or_not", radioButton.getText());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Willing kids status was updated", Toast.LENGTH_LONG).show();
+        btnSave.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) view.findViewById(selectedId);
+            if(radioButton.getText() != null){
+                Map<String, Object> map = new HashMap<>();
+                map.put("want_children_or_not", radioButton.getText());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Willing kids status was updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
         return view;    }

@@ -24,7 +24,6 @@ import java.util.List;
 public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.ActivitiesAdapterViewHolder> {
 
     private List<ActionItem> activitiesList = new ArrayList<>();
-    //private UserDescriptionListAdapter.ItemClickListener mClickListener;
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private Context context;
 
@@ -58,7 +57,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         return activitiesList.size();
     }
 
-    public class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder {
+    class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder {
         LinearLayout actionContainer;
         TextView name;
         TextView time;
@@ -66,7 +65,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         TextView type_like;
         ImageView image;
 
-        public ActivitiesAdapterViewHolder(View itemView) {
+        ActivitiesAdapterViewHolder(View itemView) {
             super(itemView);
             actionContainer = itemView.findViewById(R.id.item_action_container);
             name = itemView.findViewById(R.id.item_action_name);
@@ -98,11 +97,4 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         }
     }
 
-   /* public void setClickListener(UserDescriptionListAdapter.ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
-    }*/
 }

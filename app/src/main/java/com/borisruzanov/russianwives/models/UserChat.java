@@ -5,9 +5,6 @@ public class UserChat {
     private String name, image, userId, online, message;
     private long chatTimestamp, messageTimestamp;
     private boolean seen;
-    /*private String online;
-    private String message;
-    private String messageTimeStammp;*/
 
     public UserChat(String name, String image, long chatTimestamp, boolean seen, String userId,
                     String online, String message, long messageTimestamp) {

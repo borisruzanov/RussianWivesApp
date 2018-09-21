@@ -34,6 +34,8 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
 
     TextView emptyText;
 
+    private View mMainView;
+
     @InjectPresenter
     ChatsPresenter chatsPresenter;
 
@@ -51,7 +53,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
+        mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false);
 
         emptyText = mMainView.findViewById(R.id.chats_empty_text);
 

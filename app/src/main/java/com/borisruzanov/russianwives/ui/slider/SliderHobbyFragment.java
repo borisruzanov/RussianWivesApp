@@ -44,34 +44,27 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
         btnSave = (Button) view.findViewById(R.id.fragment_slider_hobby_btn_save);
         answer = (EditText) view.findViewById(R.id.fragment_slider_hobby_et_answer);
 
-        new FirebaseRepository().getFieldFromCurrentUser("hobby", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null) {
-                    answer.setText(value);
-                    answer.setSelection(answer.getText().length());
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("hobby", value -> {
+            if (value != null) {
+                answer.setText(value);
+                answer.setSelection(answer.getText().length());
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                result = answer.getText().toString();
+        btnSave.setOnClickListener(view1 -> {
+            result = answer.getText().toString();
 
-                if(!result.isEmpty()){
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("hobby", answer.getText().toString());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Height was updated", Toast.LENGTH_LONG).show();
+            if(!result.isEmpty()){
+                Map<String, Object> map = new HashMap<>();
+                map.put("hobby", answer.getText().toString());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Height was updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
-                //sliderFragmentsPresenter.updateHobbyUserInfo(result);
+                    }
+                });
             }
         });
 

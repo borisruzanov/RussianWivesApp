@@ -62,23 +62,11 @@ public class SliderImageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
         btnChangeImage = (Button) view.findViewById(R.id.fragment_slider_image_btn_save);
-//        btnClose = (Button) view.findViewById(R.id.fragment_slider_image_btn_close);
-//        btnNext = (Button) view.findViewById(R.id.fragment_slider_image_btn_next);
-//        if (getActivity().getIntent().getExtras().getString("field_id").equals("image")) {
-//            btnClose.setVisibility(View.INVISIBLE);
-//            btnNext.setVisibility(View.INVISIBLE);
-//        } else {
-//            Log.d("tag", "Inside ELSE " + getActivity().getIntent().getExtras().getString("field_id"));
-//
-//        }
-        btnChangeImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setType("image/*");
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
-            }
+        btnChangeImage.setOnClickListener(view1 -> {
+            Intent galleryIntent = new Intent();
+            galleryIntent.setType("image/*");
+            galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
         });
 
         //TODO REFACTOR TO REPOSITORY
@@ -112,7 +100,6 @@ public class SliderImageFragment extends Fragment {
 
                     Uri resultUri = result.getUri();
                     Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
-//                sliderFragmentsPresenter.insertImageInStorage(resultUri);
 
                     // <-------------SAVING IMAGE-------------->
                     //TODO REFACTOR TO REPOSITORY

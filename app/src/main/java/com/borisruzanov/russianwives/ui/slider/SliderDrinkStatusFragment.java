@@ -41,18 +41,15 @@ public class SliderDrinkStatusFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_drink_status_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_drinkstatus_btn_save);
 
-        new FirebaseRepository().getFieldFromCurrentUser("drink_status", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null && value.equals("Never")){
-                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
-                } else if (value != null && value.equals("Only with friends")){
-                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_friends);
-                } else if (value != null && value.equals("Moderately")){
-                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_moderaely);
-                }else if (value != null && value.equals("Regularly")){
-                    radioGroup.check(R.id.fragment_slider_drink_status_rbtn_regularly);
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("drink_status", value -> {
+            if (value != null && value.equals("Never")){
+                radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
+            } else if (value != null && value.equals("Only with friends")){
+                radioGroup.check(R.id.fragment_slider_drink_status_rbtn_friends);
+            } else if (value != null && value.equals("Moderately")){
+                radioGroup.check(R.id.fragment_slider_drink_status_rbtn_moderaely);
+            }else if (value != null && value.equals("Regularly")){
+                radioGroup.check(R.id.fragment_slider_drink_status_rbtn_regularly);
             }
         });
 

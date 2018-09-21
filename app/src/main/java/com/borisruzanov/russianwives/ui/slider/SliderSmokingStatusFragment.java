@@ -57,23 +57,20 @@ public class SliderSmokingStatusFragment extends Fragment {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) view.findViewById(selectedId);
-                if(radioButton.getText() != null){
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("smoking_status", radioButton.getText());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Smoking status was updated", Toast.LENGTH_LONG).show();
+        btnSave.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) view.findViewById(selectedId);
+            if(radioButton.getText() != null){
+                Map<String, Object> map = new HashMap<>();
+                map.put("smoking_status", radioButton.getText());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Smoking status was updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
         return view;    }

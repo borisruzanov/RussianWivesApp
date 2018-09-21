@@ -1,8 +1,8 @@
 package com.borisruzanov.russianwives.models;
 
 public class UserDescriptionModel {
-    String title;
-    String answerDescription;
+    private String title;
+    private String answerDescription;
 
     public UserDescriptionModel(String title, String answerDescription) {
         this.title = title;

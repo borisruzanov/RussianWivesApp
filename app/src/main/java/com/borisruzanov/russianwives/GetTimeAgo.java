@@ -1,7 +1,5 @@
 package com.borisruzanov.russianwives;
 
-import android.content.Context;
-
 public class GetTimeAgo {
     private static final int SECOND_MILLIS = 1000;
     private static final int MINUTE_MILLIS = 60 * SECOND_MILLIS;

@@ -102,9 +102,6 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         mChatUser = getIntent().getStringExtra("uid");
-
-        presenter.initChat(mChatUser);
-
         //UI
         mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
@@ -113,7 +110,6 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
 
 
         ActionBar actionBar = getSupportActionBar();
-//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
@@ -143,10 +139,6 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 
-        mChatSendBtn.setOnClickListener(v -> {
-            presenter.sendMessage(mChatUser, mChatMessageView.getText().toString());
-        });
-
         //Pagination
         mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.message_swipe_layout);
 
@@ -168,6 +160,12 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
             itemPos = 0;
             loadMoreMessages();
         });
+
+        mChatSendBtn.setOnClickListener(v -> {
+            presenter.initChat(mChatUser);
+            presenter.sendMessage(mChatUser, mChatMessageView.getText().toString());
+        });
+
     }
 
     @Override

@@ -19,8 +19,7 @@ import java.util.List;
 public class UserDescriptionListAdapter extends RecyclerView.Adapter<UserDescriptionListAdapter.UserDescriptionListViewHolder> {
 
     private List<UserDescriptionModel> userDescriptionList = new ArrayList<>();
-    private ItemClickListener mClickListener;
-    OnItemClickListener.OnItemClickCallback onItemClickCallback;
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback;
 
 
     public UserDescriptionListAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
@@ -65,12 +64,5 @@ public class UserDescriptionListAdapter extends RecyclerView.Adapter<UserDescrip
         @Override
         public void onClick(View v) {
         }
-    }
-    public void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
-    }
-
-    public interface ItemClickListener {
-        void onItemClick(View view, int position);
     }
 }

@@ -14,6 +14,7 @@ public class MoxyReflector {
 	static {
 		sViewStateProviders = new HashMap<>();
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ActionsPresenter$$ViewStateProvider());
+		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ChatMessagePresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ChatMessagePresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.ChatsPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.FilterDialogPresenter.class, new com.borisruzanov.russianwives.mvp.presenter.FilterDialogPresenter$$ViewStateProvider());
 		sViewStateProviders.put(com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter.class, new com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter$$ViewStateProvider());

@@ -40,38 +40,32 @@ public class SliderHaveKidsFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_number_of_kids_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_numberofkids_btn_save);
 
-        new FirebaseRepository().getFieldFromCurrentUser("number_of_kids", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null && value.equals("No")){
-                    radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_no);
-                } else if (value != null && value.equals("Yes, they sometimes live at home")){
-                    radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_sometimes_at_home);
-                } else if (value != null && value.equals("Yes, they live away from home")){
-                    radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_away);
-                }else if (value != null && value.equals("Yes, they live at home")){
-                    radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_at_home);
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("number_of_kids", value -> {
+            if (value != null && value.equals("No")){
+                radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_no);
+            } else if (value != null && value.equals("Yes, they sometimes live at home")){
+                radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_sometimes_at_home);
+            } else if (value != null && value.equals("Yes, they live away from home")){
+                radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_away);
+            }else if (value != null && value.equals("Yes, they live at home")){
+                radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_at_home);
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) view.findViewById(selectedId);
-                if(radioButton.getText() != null){
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("number_of_kids", radioButton.getText());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Number of kids were updated", Toast.LENGTH_LONG).show();
+        btnSave.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) view.findViewById(selectedId);
+            if(radioButton.getText() != null){
+                Map<String, Object> map = new HashMap<>();
+                map.put("number_of_kids", radioButton.getText());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Number of kids were updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
         return view;    }

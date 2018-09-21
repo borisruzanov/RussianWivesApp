@@ -39,44 +39,38 @@ public class SliderFaithFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_faith_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_faith_btn_save);
 
-        new FirebaseRepository().getFieldFromCurrentUser("faith", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null && value.equals("Christian")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
-                } else if (value != null && value.equals("Black / African descent")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_black);
-                } else if (value != null && value.equals("Muslim")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_muslim);
-                }else if (value != null && value.equals("Atheist")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_atheist);
-                }else if (value != null && value.equals("Buddist")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_buddist);
-                }else if (value != null && value.equals("Other")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_other);
-                }else if (value != null && value.equals("Adventist")){
-                    radioGroup.check(R.id.fragment_slider_faith_rbtn_adventist);
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("faith", value -> {
+            if (value != null && value.equals("Christian")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
+            } else if (value != null && value.equals("Black / African descent")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_black);
+            } else if (value != null && value.equals("Muslim")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_muslim);
+            }else if (value != null && value.equals("Atheist")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_atheist);
+            }else if (value != null && value.equals("Buddist")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_buddist);
+            }else if (value != null && value.equals("Other")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_other);
+            }else if (value != null && value.equals("Adventist")){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_adventist);
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) view.findViewById(selectedId);
-                if(radioButton.getText() != null){
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("faith", radioButton.getText());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Faith was updated", Toast.LENGTH_LONG).show();
+        btnSave.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) view.findViewById(selectedId);
+            if(radioButton.getText() != null){
+                Map<String, Object> map = new HashMap<>();
+                map.put("faith", radioButton.getText());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Faith was updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
         return view;

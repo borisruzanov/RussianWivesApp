@@ -21,10 +21,8 @@ import java.util.Map;
 
 public class SliderNameFragment extends MvpAppCompatFragment {
 
-    //    SliderFragmentsPresenter sliderFragmentsPresenter;
     EditText answer;
     Button btnSave;
-//    String result;
 
     public SliderNameFragment() {
         // Required empty public constructor
@@ -36,48 +34,37 @@ public class SliderNameFragment extends MvpAppCompatFragment {
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_name, container, false);
-//        sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
-
 
         btnSave = (Button) view.findViewById(R.id.fragment_slider_name_btn_save);
         answer = (EditText) view.findViewById(R.id.fragment_slider_name_et_answer);
 
-        new FirebaseRepository().getFieldFromCurrentUser("name", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null) {
-                    answer.setText(value);
-                    answer.setSelection(answer.getText().length());
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("name", value -> {
+            if (value != null) {
+                answer.setText(value);
+                answer.setSelection(answer.getText().length());
             }
         });
 
-        answer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (answer.getText() != null) {
-                    answer.setText("");
-                }
+        answer.setOnClickListener(v -> {
+            if (answer.getText() != null) {
+                answer.setText("");
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (!answer.getText().toString().trim().isEmpty()) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("name", answer.getText().toString());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Name was updated", Toast.LENGTH_LONG).show();
+        btnSave.setOnClickListener(view1 -> {
+            if (!answer.getText().toString().trim().isEmpty()) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", answer.getText().toString());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Name was updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
-                // else
+                    }
+                });
             }
+            // else
         });
 
         return view;

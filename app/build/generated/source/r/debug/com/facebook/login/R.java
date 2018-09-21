@@ -931,8 +931,8 @@ public final class R {
         public static final int com_facebook_smart_login_confirmation_continue_as = 0x7f0f004b;
         public static final int com_facebook_smart_login_confirmation_title = 0x7f0f004c;
         public static final int com_facebook_tooltip_default = 0x7f0f004d;
-        public static final int search_menu_title = 0x7f0f00f6;
-        public static final int status_bar_notification_info_overflow = 0x7f0f0107;
+        public static final int search_menu_title = 0x7f0f00f7;
+        public static final int status_bar_notification_info_overflow = 0x7f0f0108;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat = 0x7f100000;

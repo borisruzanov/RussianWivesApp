@@ -2,7 +2,7 @@ package com.borisruzanov.russianwives.models;
 
 public class ActInfo {
 
-    int visits, likes;
+    private int visits, likes;
 
     public ActInfo(int visits, int likes) {
         this.visits = visits;

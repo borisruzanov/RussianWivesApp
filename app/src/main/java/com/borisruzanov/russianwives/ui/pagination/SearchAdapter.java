@@ -33,12 +33,9 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHolder>{
     //TODO REMOVE OR DELETE?
 
-    String uid = new FirebaseRepository().getUid();
+    private String uid = new FirebaseRepository().getUid();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private List<FsUser> fsUserList = new ArrayList<>();
-    /*private OnMultipleItemClickListener.OnMultipleItemClickCallback onItemClickCallback;
-    private OnMultipleItemClickListener.OnChatClickCallback onChatClickCallback;
-    private OnMultipleItemClickListener.OnLikeClickCallback onLikeClickCallback;*/
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private OnItemClickListener.OnItemClickCallback onChatClickCallback;
     private OnItemClickListener.OnItemClickCallback onLikeClickCallback;
@@ -130,7 +127,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                             if (likedList.contains(fsUser.getUid())) {
                                 like.setImageResource(R.drawable.ic_favorite);
                                 animationView.setVisibility(View.VISIBLE);
-                                //return true value
                             }
                         }
 
@@ -156,17 +152,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                 Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);
             }
             name.setText(fsUser.getName());
-//            age.setText(fsUser.getAge());
             country.setText(fsUser.getCountry());
-//            status.setText(fsUser.getStatus());
 
             ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500);
-            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                @Override
-                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                    animationView.setProgress((Float) valueAnimator.getAnimatedValue());
-                }
-            });
+            animator.addUpdateListener(valueAnimator ->
+                    animationView.setProgress((Float) valueAnimator.getAnimatedValue()));
 
             if (animationView.getProgress() == 0f) {
                 animator.start();

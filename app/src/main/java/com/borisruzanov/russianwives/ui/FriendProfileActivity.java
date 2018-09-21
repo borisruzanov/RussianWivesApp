@@ -69,14 +69,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         btnAddFriend = findViewById(R.id.friend_activity_btn_add_friend);
         btnAddFriend.setOnClickListener(v -> {
 
-//                new FirebaseRepository().getUserDataTierTwo("FriendsLogic", "hereUserUid",
-//                        "Requests", stringList -> new FirebaseRepository().getNeededUsers(stringList, fsUserList -> {
-//                            for (String uid : stringList) Log.d(Contract.TAG, "Uid " + uid);
-//                            for (FsUser user : fsUserList) {
-//                                Log.d(Contract.TAG, "FsUser nameText " + user.getName());
-//                            }
-//                        }));
-
         });
         btnStartChat = findViewById(R.id.friend_activity_btn_start_chat);
         imageView = findViewById(R.id.friend_activity_image);

@@ -27,7 +27,7 @@ public class MyProfilePresenter extends MvpPresenter<MyProfileView> {
         setActionsCount();
     }
 
-    public void setAllCurrentUserInfo(){
+    private void setAllCurrentUserInfo(){
         interactor.getAllCurrentUserInfo(fsUser -> {
             getViewState().setUserData(fsUser.getName(), fsUser.getAge(), fsUser.getCountry(), fsUser.getImage());
             userDescriptionList.addAll(UserProfileItemsList.initData(fsUser));
@@ -35,7 +35,7 @@ public class MyProfilePresenter extends MvpPresenter<MyProfileView> {
         });
     }
 
-    public void setActionsCount(){
+    private void setActionsCount(){
         interactor.getActionsCountInfo((visits, likes) -> getViewState().setActionsCount(visits, likes));
     }
 

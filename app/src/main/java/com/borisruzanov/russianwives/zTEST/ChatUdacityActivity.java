@@ -1,8 +1,9 @@
 package com.borisruzanov.russianwives.zTEST;
 
-import com.borisruzanov.russianwives.base.BaseActivity;
+import android.support.v7.app.AppCompatActivity;
 
-public class ChatUdacityActivity extends BaseActivity{
+
+public class ChatUdacityActivity extends AppCompatActivity{
 //
 //    private static final String TAG = " ==> Chat Activity ==>";
 //    Toolbar toolbar;

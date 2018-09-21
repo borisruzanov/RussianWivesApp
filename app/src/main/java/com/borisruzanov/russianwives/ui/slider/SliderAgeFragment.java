@@ -43,8 +43,6 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
                              @Nullable Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_age, container, false);
-//        sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new FirebaseRepository()), new SliderImageFragment());
-
 
         btnSave = (Button) view.findViewById(R.id.fragment_slider_age_btn_save);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_age_radiogroup);
@@ -66,25 +64,19 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) view.findViewById(selectedId);
-                if (radioButton.getText() != null) {
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("age", radioButton.getText());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Age was updated", Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                }
+        btnSave.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) view.findViewById(selectedId);
+            if (radioButton.getText() != null) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("age", radioButton.getText());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, () -> {
+                    getActivity().onBackPressed();
+                    Toast.makeText(getActivity(), "Age was updated", Toast.LENGTH_LONG).show();
+                });
 
             }
+
         });
 
         return view;

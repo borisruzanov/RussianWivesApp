@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.Adapters;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -29,6 +30,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     private List<Message> mMessageList = new ArrayList<>();
     private String friendsPhoto;
     private String friendsName;
+    private Context context;
 
     public MessageAdapter(String friendsPhoto, String friendsName) {
         this.friendsPhoto = friendsPhoto;
@@ -43,6 +45,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     @Override
     public MessageViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        context = parent.getContext();
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.message_single_layout, parent, false);
         return new MessageViewHolder(v);
@@ -51,11 +54,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
 
     public class MessageViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView messageText;
-        public TextView timeView;
-        public CircleImageView profileImage;
-        public TextView displayName;
-        public ImageView messageImage;
+        private TextView messageText;
+        private TextView timeView;
+        private CircleImageView profileImage;
+        private TextView displayName;
+        private ImageView messageImage;
         public LinearLayout container;
 
         public MessageViewHolder(View view) {
@@ -84,28 +87,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
         viewHolder.displayName.setText(currentMessage.getFrom());
         Glide.with(viewHolder.profileImage.getContext()).load(friendsPhoto).into(viewHolder.profileImage);
         viewHolder.timeView.setText(time);
-//
-//        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("FsUser").child(from_user);
-//        mUserDatabase.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                //TODO Get reference for image + name from firestore
-//                String name = dataSnapshot.child("name").setValue().toString();
-//                String image = dataSnapshot.child("thumb_image").setValue().toString();
-//                viewHolder.displayName.setText(name);
-//                //TODO Need to be glide not picasso
-//                Picasso.with(viewHolder.profileImage.getContext()).load(image)
-//                        .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
 
-        //Edit style depends who send the message user / friend
-//        Glide.with(viewHolder.profileImage.getContext()).load(friendsPhoto).into(viewHolder.messageImage);
-
-        // Если сообщение НЕ ОТ НАС
+        // If we get message not from us
         if (!from_user.equals(new FirebaseRepository().getUid())) {
             viewHolder.displayName.setText(friendsName);
             viewHolder.messageText.setBackgroundColor(Color.WHITE);
@@ -125,7 +108,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             viewHolder.messageImage.setVisibility(View.INVISIBLE);
         } else {
             viewHolder.messageText.setVisibility(View.INVISIBLE);
-            Picasso.with(viewHolder.profileImage.getContext()).load("https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8-ddbc-4777-bcc5-016103d06330")
+            Picasso.with(viewHolder.profileImage.getContext())
+                    .load(context.getString(R.string.image_message_link))
                     .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
 
         }

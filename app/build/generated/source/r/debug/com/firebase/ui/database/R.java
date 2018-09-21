@@ -211,7 +211,7 @@ public final class R {
         public static final int common_signin_button_text = 0x7f0f005e;
         public static final int common_signin_button_text_long = 0x7f0f005f;
         public static final int fcm_fallback_notification_channel_label = 0x7f0f007c;
-        public static final int status_bar_notification_info_overflow = 0x7f0f0107;
+        public static final int status_bar_notification_info_overflow = 0x7f0f0108;
     }
     public static final class style {
         public static final int TextAppearance_Compat_Notification = 0x7f10012d;

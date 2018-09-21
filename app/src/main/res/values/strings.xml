@@ -21,7 +21,6 @@
     <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb382050188909546</string>
     <string name="visitors">Visitors</string>
-    <string name="likes">Likes</string>
     <string name="number_of_visitors_default">1</string>
     <string name="number_of_likes_default">1</string>
     <string name="about">About You</string>
@@ -122,6 +121,9 @@
     <string name="you">You</string>
     <string name="didnt_fill_form_question">You Didn\'t Fill The Form. Do You Want To Fill It Now?</string>
     <string name="yes">Yes</string>
+    <string name="likes">Likes</string>
+    <string name="visits">Visits</string>
+    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8-ddbc-4777-bcc5-016103d06330]]></string>
 
     <!-- Genders -->
     <string-array name="genders">

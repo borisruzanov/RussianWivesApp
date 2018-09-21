@@ -32,43 +32,36 @@ public class SliderRalationshipsStatusFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_relationships_status, container, false);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_relationships_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_relationships_btn_save);
 
-        new FirebaseRepository().getFieldFromCurrentUser("relationship_status", new ValueCallback() {
-            @Override
-            public void setValue(String value) {
-                if (value != null && value.equals("Never married")){
-                    radioGroup.check(R.id.fragment_slider_rbtn_never_married);
-                } else if (value != null && value.equals("Currently separated")){
-                    radioGroup.check(R.id.fragment_slider_rbtn_separated);
-                } else if (value != null && value.equals("Divorced")){
-                    radioGroup.check(R.id.fragment_slider_rbtn_divorced);
-                }else if (value != null && value.equals("Widow / Widower")){
-                    radioGroup.check(R.id.fragment_slider_rbtn_widow);
-                }
+        new FirebaseRepository().getFieldFromCurrentUser("relationship_status", value -> {
+            if (value != null && value.equals("Never married")){
+                radioGroup.check(R.id.fragment_slider_rbtn_never_married);
+            } else if (value != null && value.equals("Currently separated")){
+                radioGroup.check(R.id.fragment_slider_rbtn_separated);
+            } else if (value != null && value.equals("Divorced")){
+                radioGroup.check(R.id.fragment_slider_rbtn_divorced);
+            }else if (value != null && value.equals("Widow / Widower")){
+                radioGroup.check(R.id.fragment_slider_rbtn_widow);
             }
         });
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int selectedId = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) view.findViewById(selectedId);
-                if(radioButton.getText() != null){
-                    Map<String, Object> map = new HashMap<>();
-                    map.put("relationship_status", radioButton.getText());
-                    new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                        @Override
-                        public void onUpdate() {
-                            getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Relationship status was updated", Toast.LENGTH_LONG).show();
+        btnSave.setOnClickListener(v -> {
+            int selectedId = radioGroup.getCheckedRadioButtonId();
+            radioButton = (RadioButton) view.findViewById(selectedId);
+            if(radioButton.getText() != null){
+                Map<String, Object> map = new HashMap<>();
+                map.put("relationship_status", radioButton.getText());
+                new FirebaseRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+                        getActivity().onBackPressed();
+                        Toast.makeText(getActivity(), "Relationship status was updated", Toast.LENGTH_LONG).show();
 
-                        }
-                    });
-                }
+                    }
+                });
             }
         });
         return view;
