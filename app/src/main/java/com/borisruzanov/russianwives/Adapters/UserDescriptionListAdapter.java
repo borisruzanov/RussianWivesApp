@@ -40,7 +40,7 @@ public class UserDescriptionListAdapter extends RecyclerView.Adapter<UserDescrip
     @Override
     public void onBindViewHolder(@NonNull UserDescriptionListAdapter.UserDescriptionListViewHolder holder, int position) {
         UserDescriptionModel model = userDescriptionList.get(position);
-        Log.d(Contract.TAG, "UserDescriptionListAdapter - onBindViewHolder");
+        Log.d(Contract.TAG, "UserDescriptionListAdapter - onBindViewHoldeerr");
         holder.title.setText(model.getTitle());
         holder.description.setText(model.getAnswerDescription());
         holder.description.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
