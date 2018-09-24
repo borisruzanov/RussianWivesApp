@@ -81,9 +81,8 @@ public class ActionsFragment extends MvpAppCompatFragment implements ActionsView
         }
     }
 
-    private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) -> {
-        actionsPresenter.openFriendProfile(position);
-    };
+    private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) ->
+            actionsPresenter.openFriendProfile(position);
 
     @Override
     public void openFriendProfile(String friendUid){

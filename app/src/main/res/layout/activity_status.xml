@@ -17,14 +17,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/status_appBar"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginLeft="@dimen/dp20"
+        android:layout_marginRight="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp40">
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Your Status" />
+            android:hint="@string/your_status_hint"
+            android:inputType="text" />
     </android.support.design.widget.TextInputLayout>
 
     <Button
@@ -33,9 +34,9 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/status_input"
         android:layout_below="@+id/status_input"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/dp20"
         android:backgroundTint="@color/colorAccent"
-        android:text="SAVE CHANGES"
+        android:text="@string/status_save_btn_text"
         android:textColor="@android:color/white" />
 
 </RelativeLayout>

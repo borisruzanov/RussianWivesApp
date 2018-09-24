@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="pb_margin">5dp</dimen>
+    <dimen name="photo_picker_button_size">36dp</dimen>
+    <dimen name="dp64">64dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+    <dimen name="collapsing_toolbar_height">300dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="friend_age_text_size">16sp</dimen>
+    <dimen name="dp8">8dp</dimen>
+    <dimen name="friend_btn_padding">25dp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="profile_action_layout_size">200dp</dimen>
+    <dimen name="profile_action_text_size">34sp</dimen>
+    <dimen name="action_tv_margin">24dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="profile_img_size">220dp</dimen>
+    <dimen name="display_name_text_margin">26dp</dimen>
+    <dimen name="dp12">12dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="custom_bar_img_margin">10dp</dimen>
+    <dimen name="custom_bar_img_size">36dp</dimen>
+    <dimen name="answers_text_size">20sp</dimen>
+    <dimen name="huge_text_size">34sp</dimen>
+    <dimen name="user_desc_view_height">1px</dimen>
+    <dimen name="lottie_animation_view_size">26dp</dimen>
+    <dimen name="user_cv_width">160dp</dimen>
+    <dimen name="user_cv_height">180dp</dimen>
+    <dimen name="user_rl_width">160dp</dimen>
+    <dimen name="user_rl_height">140dp</dimen>
 </resources>

@@ -37,7 +37,7 @@ public class SliderSmokingStatusFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_smoking_status, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_smokine_status_radiogroup);
+        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_smoking_status_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_smokestatus_btn_save);
 
         new FirebaseRepository().getFieldFromCurrentUser("smoking_status", new ValueCallback() {

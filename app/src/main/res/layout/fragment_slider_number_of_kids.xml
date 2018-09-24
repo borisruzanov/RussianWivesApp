@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.borisruzanov.russianwives.ui.slider.SliderHaveKidsFragment">
 
     <TextView
@@ -10,26 +9,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="36dp"
+        android:layout_marginTop="@dimen/dp40"
         android:text="@string/do_you_have_any_kids"
         android:textColor="@color/darkGrey"
-        android:textSize="24sp" />
+        android:textSize="@dimen/large_text_size" />
 
-    <LinearLayout
-        android:id="@+id/fragment_slider_numberofkids_linear_tvs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_slider_numberofkids_tv_question"
-        android:layout_marginHorizontal="16dp"
-        android:gravity="center"
-        android:orientation="vertical">
         <RadioGroup
             android:id="@+id/fragment_slider_number_of_kids_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/fragment_slider_bodytype_tv_question"
-            android:layout_marginHorizontal="16dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -37,44 +26,42 @@
             android:id="@+id/fragment_slider_number_of_kids_rbtn_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/no"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_number_of_kids_rbtn_sometimes_at_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/yes_they_sometimes_live_at_home"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_number_of_kids_rbtn_away"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/yes_they_live_away_from_home"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_number_of_kids_rbtn_at_home"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/yes_they_live_at_home"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
         </RadioGroup>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/fragment_slider_numberofkids_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_slider_numberofkids_linear_tvs"
+        android:layout_below="@+id/fragment_slider_number_of_kids_radiogroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/dp12"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/save"
         android:textColor="@android:color/white" />

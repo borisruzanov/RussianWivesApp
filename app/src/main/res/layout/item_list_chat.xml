@@ -2,39 +2,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/item_list_chat_container"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_list_chat_image"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="@dimen/dp64"
+            android:layout_height="@dimen/dp64"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp16"
             android:src="@drawable/default_avatar" />
 
         <LinearLayout
             android:id="@+id/item_list_chat_top_linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/item_list_chat_image"
+            android:layout_toEndOf="@+id/item_list_chat_image"
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/item_list_chat_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_marginStart="21dp"
+                android:layout_margin="@dimen/dp4"
+                android:layout_marginStart="@dimen/dp20"
                 android:layout_weight="1"
-                android:text="Name Lastname"
+                android:text="@string/name_lastname_text"
                 android:textColor="@android:color/black"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -43,10 +43,9 @@
                 android:id="@+id/item_list_chat_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="11dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginBottom="@dimen/dp12"
+                android:layout_marginEnd="@dimen/dp8"
                 android:layout_weight="4"
-                android:text="01/03/2018"
                 android:textAlignment="viewEnd" />
         </LinearLayout>
 
@@ -55,8 +54,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/item_list_chat_top_linear"
-            android:layout_toRightOf="@+id/item_list_chat_image"
-            android:padding="8dp"
+            android:layout_toEndOf="@+id/item_list_chat_image"
+            android:padding="@dimen/dp8"
             android:orientation="horizontal">
 
             <TextView
@@ -66,17 +65,17 @@
                 android:layout_weight="1"
                 android:maxLines="1"
                 android:maxLength="15"
-                android:text="Message" />
+                android:text="@string/message_text" />
 
             <ImageView
                 android:id="@+id/user_single_online_icon"
                 android:layout_width="match_parent"
-                android:layout_height="8dp"
+                android:layout_height="@dimen/dp8"
                 android:layout_weight="4"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/dp12"
                 android:textAlignment="viewEnd"
                 android:visibility="invisible"
-
+                android:contentDescription="@string/user_single_online_desc"
                 app:srcCompat="@drawable/online_icon" />
         </LinearLayout>
 

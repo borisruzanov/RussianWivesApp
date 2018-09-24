@@ -58,12 +58,7 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
 
     //UI
     private String mChatUser;
-    private Toolbar mChatToolbar;
-    private TextView mTitleView;
     private TextView mLastSeenView;
-    private CircleImageView mProfileImage;
-    private ImageButton mChatAddBtn;
-    private ImageButton mChatSendBtn;
     private EditText mChatMessageView;
     private SwipeRefreshLayout mRefreshLayout;
 
@@ -103,7 +98,7 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         setContentView(R.layout.activity_chat);
         mChatUser = getIntent().getStringExtra("uid");
         //UI
-        mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
+        Toolbar mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -115,14 +110,14 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
         actionBar.setCustomView(action_bar_view);
         //Custom Action bar Items
-        mTitleView = findViewById(R.id.custom_bar_title);
+        TextView mTitleView = findViewById(R.id.custom_bar_title);
         mTitleView.setText(getIntent().getStringExtra("nameText"));
-        mProfileImage = findViewById(R.id.custom_bar_image);
+        CircleImageView mProfileImage = findViewById(R.id.custom_bar_image);
         Glide.with(this).load(getIntent().getStringExtra("photo_url")).into(mProfileImage);
 
 
         //List of Message
-        mMessagesList = (RecyclerView) findViewById(R.id.messages_list);
+        mMessagesList = findViewById(R.id.messages_list);
         mLinearLayout = new LinearLayoutManager(this);
         mAdapter = new MessageAdapter(getIntent().getStringExtra("photo_url"), getIntent().getStringExtra("nameText"));
 
@@ -134,9 +129,9 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
 
 
         //Buttons
-        mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
+        ImageButton mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
         mChatAddBtn.setOnClickListener(v -> addFile());
-        mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+        ImageButton mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 
         //Pagination
@@ -254,7 +249,6 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Message message = dataSnapshot.getValue(Message.class);
-                Log.d("ccc", "TIMESTAMP----------------------> is " + message.getType());
                 itemPos++;
                 if (itemPos == 1) {
                     String messageKey = dataSnapshot.getKey();

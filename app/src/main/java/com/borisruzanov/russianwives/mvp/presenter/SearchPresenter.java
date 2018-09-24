@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.presenter;
 
 import android.animation.ValueAnimator;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
@@ -31,6 +32,9 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
             Log.d("LifecycleDebug", "In SearchPresenter and userList emptyness is " + userList.isEmpty());
             if (!userList.isEmpty() && fsUsers.isEmpty()) {
                 fsUsers.addAll(userList);
+                for(FsUser fsUser: fsUsers){
+                    Log.d("LikeDebug", "User uid is " + fsUser.getUid() + " name is " + fsUser.getName());
+                }
                 Log.d("LifecycleDebug", "In SearchPresenter and fsUser empty is " + fsUsers.isEmpty());
                 getViewState().showUsers(fsUsers);
             }
@@ -57,8 +61,8 @@ public class SearchPresenter extends MvpPresenter<SearchView> {
     }
 
 
-    public void openFriend(int position) {
-        getViewState().openFriend(fsUsers.get(position).getUid(), fsUsers.get(position).getName(), fsUsers.get(position).getImage());
+    public void openFriend(int position, Bundle args) {
+        getViewState().openFriend(fsUsers.get(position).getUid(), fsUsers.get(position).getName(), args);
     }
     public void openChat(int position) {
         getViewState().openChat(fsUsers.get(position).getUid(), fsUsers.get(position).getName(), fsUsers.get(position).getImage());

@@ -1,5 +1,7 @@
 package com.borisruzanov.russianwives.mvp.view;
 
+import android.os.Bundle;
+
 import com.arellomobile.mvp.MvpView;
 import com.borisruzanov.russianwives.models.FsUser;
 
@@ -12,7 +14,7 @@ public interface SearchView extends MvpView {
     void showEmpty(boolean show);
     void showUsers(List<FsUser> fsUserList);
     void showError();
-    void openFriend(String uid, String name, String image);
+    void openFriend(String uid, String transitionName, Bundle args);
     void openChat(String uid, String name, String image);
     /*void showLoading();
     void stopLoading();*/

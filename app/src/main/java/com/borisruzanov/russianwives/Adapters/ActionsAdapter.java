@@ -48,7 +48,6 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
     @Override
     public void onBindViewHolder(@NonNull ActionsAdapter.ActivitiesAdapterViewHolder holder, int position) {
         ActionItem model = activitiesList.get(position);
-        Log.d(Contract.TAG, "UserDescriptionListAdapter - onBindViewHolder");
         holder.bind(model, position);
     }
 
@@ -84,8 +83,6 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
                 Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
             }
             actionContainer.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
-            Log.d("vvv", "in adapter action " + model.getAction());
-
 
             if (model.getAction().equals("like")){
                 type_like.setVisibility(View.VISIBLE);

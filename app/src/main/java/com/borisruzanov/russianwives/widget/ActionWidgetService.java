@@ -1,11 +1,12 @@
 package com.borisruzanov.russianwives.widget;
 
-import android.app.Service;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.JobIntentService;
 import android.util.Log;
 import android.widget.RemoteViews;
 
@@ -13,13 +14,9 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.interactor.WidgetInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 
-public class ActionWidgetService extends Service {
+public class ActionWidgetService extends JobIntentService {
 
-    private WidgetInteractor interactor;
-
-    public ActionWidgetService() {
-        interactor = new WidgetInteractor(new FirebaseRepository());
-    }
+    public ActionWidgetService() {}
 
     @Nullable
     @Override
@@ -28,7 +25,8 @@ public class ActionWidgetService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    protected void onHandleWork(@NonNull Intent intent) {
+        WidgetInteractor interactor = new WidgetInteractor(new FirebaseRepository());
         int [] widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
@@ -37,14 +35,12 @@ public class ActionWidgetService extends Service {
                 Log.d("WidgetDebug", "appwidgetId is " + appWidgetId);
                 interactor.getActionsInfo((visits, likes) ->
                         updateAppWidgetContent(getApplicationContext(), manager, appWidgetId,
-                        visits + " " + getApplicationContext().getString(R.string.visits),
+                                visits + " " + getApplicationContext().getString(R.string.visits),
                                 likes + " " + getApplicationContext().getString(R.string.likes)));
 
             }
         }
         else Log.d("WidgetDebug",  "Widgets are null");
-
-        return super.onStartCommand(intent, flags, startId);
     }
 
     private void updateAppWidgetContent(Context context, AppWidgetManager appWidgetManager, int appWidgetId,
@@ -56,7 +52,6 @@ public class ActionWidgetService extends Service {
             Log.d("WidgetDebug", "User has " + visits + " and " + likes);
 
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
     }
 
 }

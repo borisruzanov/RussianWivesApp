@@ -2,35 +2,29 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="10dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingBottom="@dimen/dp12"
+    android:paddingLeft="@dimen/dp12"
+    android:paddingRight="@dimen/dp12">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_user_profile_title"
-        android:textSize="16sp"
-        android:textColor="#000000"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:text="Title"/>
+        android:textSize="@dimen/answers_text_size"
+        android:textColor="@android:color/black"
+        android:padding="@dimen/dp8"
+        android:text="@string/title_text"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/item_user_profile_title"
         android:id="@+id/item_user_profile_description"
-        android:textSize="20sp"
-        android:textColor="#000000"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:paddingBottom="8dp"
-        android:paddingTop="8dp"
-        android:text="Description"/>
+        android:textSize="@dimen/answers_text_size"
+        android:textColor="@android:color/black"
+        android:padding="@dimen/dp8"
+        android:text="@string/user_profile_text"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="#7e7e7e"/>
+        android:layout_height="@dimen/user_desc_view_height"
+        android:background="@color/grey_600"/>
 </RelativeLayout>

@@ -4,11 +4,16 @@ package com.borisruzanov.russianwives.ui.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Scene;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
@@ -24,6 +29,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.SearchPresenter;
 import com.borisruzanov.russianwives.ui.ChatMessageActivity;
 import com.borisruzanov.russianwives.ui.FriendProfileActivity;
+import com.borisruzanov.russianwives.ui.MainActivity;
 import com.borisruzanov.russianwives.ui.pagination.SearchAdapter;
 
 import java.util.List;
@@ -59,6 +65,7 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         super.onActivityCreated(savedInstanceState);
 
         recyclerView = view.findViewById(R.id.search_recycler_view);
+
         emptyText = view.findViewById(R.id.search_empty_text);
 
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -69,9 +76,8 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         searchPresenter.getFilteredList();
     }
 
-    private OnItemClickListener.OnItemClickCallback onItemChatCallback = (View view, int position) -> {
-        searchPresenter.openChat(position);
-    };
+    private OnItemClickListener.OnItemClickCallback onItemChatCallback = (View view, int position) ->
+            searchPresenter.openChat(position);
 
     private OnItemClickListener.OnItemClickCallback onItemLikeCallback = (View view, int position) -> {
         searchPresenter.setFriendLiked(position);
@@ -79,7 +85,12 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     };
 
     private OnItemClickListener.OnItemClickCallback onItemClickCallback = (View view, int position) -> {
-        searchPresenter.openFriend(position);
+        ImageView sharedImageView = (ImageView)view;
+
+        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                getActivity(), sharedImageView, ViewCompat.getTransitionName(sharedImageView));
+
+        searchPresenter.openFriend(position, options.toBundle());
     };
 
     /**
@@ -92,15 +103,16 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
     /**
      * Open fragment with data of clicked item
      * @param uid
-     * @param name
-     * @param image
+     * @param transitionName
+     * @param args
      */
     @Override
-    public void openFriend(String uid, String name, String image) {
+    public void openFriend(String uid, String transitionName, Bundle args) {
         Intent dataIntent = new Intent(getContext(), FriendProfileActivity.class);
         dataIntent.putExtra("uid", uid);
-        startActivity(dataIntent);
-        //new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
+        dataIntent.putExtra("transitionName", transitionName);
+
+        startActivity(dataIntent, args);
     }
 
     /**

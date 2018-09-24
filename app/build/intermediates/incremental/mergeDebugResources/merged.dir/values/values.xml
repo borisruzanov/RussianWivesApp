@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="urn:oasis:names:tc:xliff:document:1.2" xmlns:ns2="http://schemas.android.com/tools">
     <string-array name="age_types">
-        <item>default</item>
-        <item>18–21</item>
-        <item>22–26</item>
-        <item>26–35</item>
-        <item>36–45</item>
-        <item>45+</item>
+        <item>@string/default_data</item>
+        <item>@string/age_18_21</item>
+        <item>@string/age_22_26</item>
+        <item>@string/age_26_35</item>
+        <item>@string/age_36_45</item>
+        <item>@string/age_45_plus</item>
     </string-array>
     <string-array name="body_types">
         <item>default</item>
@@ -266,7 +266,7 @@
     <string-array name="smoke_statuses">
         <item>default</item>
         <item>No way</item>
-        <item>Ocassionally</item>
+        <item>Occasionally</item>
         <item>Daily</item>
         <item>Cigar aficionado</item>
         <item>Yes, but trying to quit</item>
@@ -277,7 +277,7 @@
         <item>Someday</item>
         <item>Not sure</item>
         <item>Probably not</item>
-        <item>No, but its ok if partner has kids</item>
+        <item>No, but its OK if partner has kids</item>
         <item>No</item>
     </string-array>
     <attr format="enum" name="barrierDirection">
@@ -490,6 +490,8 @@
     <color name="fui_linkColor">#4285F4</color>
     <color name="fui_transparent">#00000000</color>
     <color name="greySecondary">#8B000000</color>
+    <color name="grey_600">#757575</color>
+    <color name="grey_mid_light">#8fff</color>
     <color name="highlighted_text_material_dark">#6680cbc4</color>
     <color name="highlighted_text_material_light">#66009688</color>
     <color name="material_blue_grey_800">#ff37474f</color>
@@ -505,6 +507,7 @@
     <color name="material_grey_850">#ff303030</color>
     <color name="material_grey_900">#ff212121</color>
     <color name="messageBackground">#dceac2</color>
+    <color name="message_text_color">#444444</color>
     <color name="notification_action_color_filter">#ffffffff</color>
     <color name="notification_icon_bg_color">#ff9e9e9e</color>
     <color name="notification_material_background_media_default_color">#ff424242</color>
@@ -528,6 +531,7 @@
     <color name="switch_thumb_normal_material_light">#fff1f1f1</color>
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6FFFFFF</color>
+    <color name="user_item_bg">#40000000</color>
     <declare-styleable name="ActionBar"><attr name="navigationMode">
             
             <enum name="normal" value="0"/>
@@ -1054,9 +1058,12 @@
     <dimen name="abc_text_size_subtitle_material_toolbar">16dp</dimen>
     <dimen name="abc_text_size_title_material">20sp</dimen>
     <dimen name="abc_text_size_title_material_toolbar">20dp</dimen>
+    <dimen name="action_tv_margin">24dp</dimen>
+    <dimen name="answers_text_size">20sp</dimen>
     <dimen name="cardview_compat_inset_shadow">1dp</dimen>
     <dimen name="cardview_default_elevation">2dp</dimen>
     <dimen name="cardview_default_radius">2dp</dimen>
+    <dimen name="collapsing_toolbar_height">300dp</dimen>
     <dimen name="com_facebook_auth_dialog_corner_radius">2dp</dimen>
     <dimen name="com_facebook_auth_dialog_corner_radius_oversized">4dp</dimen>
     <dimen name="com_facebook_button_corner_radius">2dp</dimen>
@@ -1078,6 +1085,8 @@
     <dimen name="compat_button_padding_horizontal_material">8dp</dimen>
     <dimen name="compat_button_padding_vertical_material">4dp</dimen>
     <dimen name="compat_control_corner_material">2dp</dimen>
+    <dimen name="custom_bar_img_margin">10dp</dimen>
+    <dimen name="custom_bar_img_size">36dp</dimen>
     <dimen name="design_appbar_elevation">4dp</dimen>
     <dimen name="design_bottom_navigation_active_item_max_width">168dp</dimen>
     <dimen name="design_bottom_navigation_active_text_size">14sp</dimen>
@@ -1118,9 +1127,20 @@
     <dimen name="design_tab_text_size_2line">12sp</dimen>
     <item format="float" name="disabled_alpha_material_dark" type="dimen">0.30</item>
     <item format="float" name="disabled_alpha_material_light" type="dimen">0.26</item>
+    <dimen name="display_name_text_margin">26dp</dimen>
+    <dimen name="dp12">12dp</dimen>
+    <dimen name="dp16">16dp</dimen>
+    <dimen name="dp20">20dp</dimen>
+    <dimen name="dp4">4dp</dimen>
+    <dimen name="dp40">40dp</dimen>
+    <dimen name="dp48">48dp</dimen>
+    <dimen name="dp64">64dp</dimen>
+    <dimen name="dp8">8dp</dimen>
     <dimen name="fastscroll_default_thickness">8dp</dimen>
     <dimen name="fastscroll_margin">0dp</dimen>
     <dimen name="fastscroll_minimum_range">50dp</dimen>
+    <dimen name="friend_age_text_size">16sp</dimen>
+    <dimen name="friend_btn_padding">25dp</dimen>
     <dimen name="fui_auth_method_button_drawablePadding">12dp</dimen>
     <dimen name="fui_auth_method_button_margin">4dp</dimen>
     <dimen name="fui_auth_method_button_width">208dp</dimen>
@@ -1139,9 +1159,13 @@
     <item format="float" name="hint_alpha_material_light" type="dimen">0.38</item>
     <item format="float" name="hint_pressed_alpha_material_dark" type="dimen">0.70</item>
     <item format="float" name="hint_pressed_alpha_material_light" type="dimen">0.54</item>
+    <dimen name="huge_text_size">34sp</dimen>
     <dimen name="item_touch_helper_max_drag_scroll_per_frame">20dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_max_velocity">800dp</dimen>
     <dimen name="item_touch_helper_swipe_escape_velocity">120dp</dimen>
+    <dimen name="large_text_size">24sp</dimen>
+    <dimen name="lottie_animation_view_size">26dp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
     <dimen name="notification_action_icon_size">32dp</dimen>
     <dimen name="notification_action_text_size">13sp</dimen>
     <dimen name="notification_big_circle_margin">12dp</dimen>
@@ -1158,6 +1182,10 @@
     <dimen name="notification_top_pad">10dp</dimen>
     <dimen name="notification_top_pad_large_text">5dp</dimen>
     <dimen name="pb_margin">5dp</dimen>
+    <dimen name="photo_picker_button_size">36dp</dimen>
+    <dimen name="profile_action_layout_size">200dp</dimen>
+    <dimen name="profile_action_text_size">34sp</dimen>
+    <dimen name="profile_img_size">220dp</dimen>
     <dimen name="tooltip_corner_radius">2dp</dimen>
     <dimen name="tooltip_horizontal_padding">16dp</dimen>
     <dimen name="tooltip_margin">8dp</dimen>
@@ -1166,6 +1194,11 @@
     <dimen name="tooltip_vertical_padding">6.5dp</dimen>
     <dimen name="tooltip_y_offset_non_touch">0dp</dimen>
     <dimen name="tooltip_y_offset_touch">16dp</dimen>
+    <dimen name="user_cv_height">180dp</dimen>
+    <dimen name="user_cv_width">160dp</dimen>
+    <dimen name="user_desc_view_height">1px</dimen>
+    <dimen name="user_rl_height">140dp</dimen>
+    <dimen name="user_rl_width">160dp</dimen>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
     <item name="action_bar_activity_content" type="id"/>
@@ -1246,23 +1279,37 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="about">About You</string>
     <string name="about_average">About average</string>
+    <string name="action_type_liked_text">LIKED YOU</string>
+    <string name="action_type_visit_text">VISITED your profile</string>
     <string name="actions_title">Actions</string>
     <string name="add">Add</string>
     <string name="add_photo">Change photo</string>
     <string name="adventist">Adventist</string>
+    <string name="age_18_21">18–21</string>
+    <string name="age_22_26">22–26</string>
+    <string name="age_26_35">26–35</string>
+    <string name="age_36_45">36–45</string>
+    <string name="age_45_plus">45+</string>
+    <string name="age_text">Age</string>
+    <string name="also_like_text">ACTIVITY_FRIEND</string>
     <string name="app_name">Russian Wives</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="apply">Apply</string>
     <string name="asian">Asian</string>
     <string name="atheist">Atheist</string>
     <string name="athletic">Athletic</string>
+    <string name="avatar_sender_desc">Avatar of message sender</string>
     <string name="basic_info">Basic info</string>
     <string name="black_african_descent">Black / African descent</string>
     <string name="bottom_sheet_behavior" translatable="false">android.support.design.widget.BottomSheetBehavior</string>
-    <string name="buddist">Buddist</string>
+    <string name="btn_add_friend_text">+ ADD FRIEND</string>
+    <string name="btn_start_chat_text">WRITE MESSAGE</string>
+    <string name="buddist">Buddhist</string>
     <string name="cancel">Cancel</string>
     <string name="change">CHANGE</string>
     <string name="character_counter_pattern" translatable="false">%1$d / %2$d</string>
+    <string name="chat_add_btn_desc">Button for sending images</string>
+    <string name="chat_send_btn_desc">Button for sending message</string>
     <string name="chats_title">Chats</string>
     <string name="check_your_search_parameters">CHECK YOUR SEARCH PARAMETERS</string>
     <string name="choose_languages_you_can_talk">Choose languages you can talk</string>
@@ -1310,6 +1357,7 @@
     <string name="common_open_on_phone">Open on phone</string>
     <string name="common_signin_button_text">Sign in</string>
     <string name="common_signin_button_text_long">Sign in with Google</string>
+    <string name="country_text">Country</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="crop_image_activity_no_permissions">Cancelling, required permissions are not granted</string>
     <string name="crop_image_activity_title"/>
@@ -1319,14 +1367,18 @@
     <string name="crop_image_menu_flip_vertically">Flip vertically</string>
     <string name="crop_image_menu_rotate_left">Rotate counter clockwise</string>
     <string name="crop_image_menu_rotate_right">Rotate</string>
+    <string name="current_user_status_text">Current User Status</string>
     <string name="currently_separated">Currently separated</string>
     <string name="daily">Daily</string>
+    <string name="decline_friend_request_text">DECLINE FRIEND REQUEST</string>
+    <string name="default_data">default</string>
     <string name="default_status">Default status</string>
     <string name="default_web_client_id" translatable="false">589177605842-bf17q8c8cktg7hopua2af2f28u5qh5es.apps.googleusercontent.com</string>
     <string name="definitely">Definitely</string>
     <string name="didnt_fill_form_question">You Didn\'t Fill The Form. Do You Want To Fill It Now?</string>
-    <string name="discribe_what_you_like_to_do_in_couple_words">Discribe what you like to do</string>
+    <string name="discribe_what_you_like_to_do_in_couple_words">Describe what you like to do</string>
     <string name="display_name">Display Name</string>
+    <string name="display_name_text">Display Name</string>
     <string name="divorced">Divorced</string>
     <string name="do_you_have_any_kids">Do you have any kids?</string>
     <string name="do_you_smoke">Do You Smoke</string>
@@ -1335,11 +1387,14 @@
     <string name="edit">Edit</string>
     <string name="email">Email</string>
     <string name="emptyText">Nothing to show</string>
+    <string name="enter_message_hint">Enter Message…</string>
     <string name="enter_your_name">Enter Your Name</string>
     <string name="facebook_application_id" translatable="false">382050188909546</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb382050188909546</string>
     <string name="fcm_fallback_notification_channel_label">Miscellaneous</string>
+    <string name="female_option">Female</string>
     <string name="firebase_database_url" translatable="false">https://russianwives.firebaseio.com</string>
+    <string name="friend_image_desc">friend avatar</string>
     <string name="fui_accessibility_logo" translation_description="Content description for app logo">App logo</string>
     <string name="fui_button_text_save" translation_description="Button text to save input form">Save</string>
     <string name="fui_button_text_send" translation_description="Button text to send recovery email">Send</string>
@@ -1428,26 +1483,34 @@
     <string name="have_a_hobby_describe_what_do_you_like_to_do">Have a hobby? Describe what do you like to do.</string>
     <string name="header_filters">Filter</string>
     <string name="heavyset">Heavyset</string>
+    <string name="height_cm_text">CM</string>
+    <string name="height_number_text">Number</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="how_many_kids_you_have">How Many Kids You Have</string>
     <string name="how_often_do_you_drink">How often do you drink?</string>
     <string name="how_old_are_you">How old are you?</string>
     <string name="how_tall_are_you">How Tall Are You</string>
-    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8-ddbc-4777-bcc5-016103d06330]]></string>
+    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5-016103d06330]]></string>
     <string name="languages_you_can_speak">Languages You Can Speak</string>
+    <string name="last_seen_text">Last Seen</string>
     <string name="latino_hispanic">Latino / Hispanic</string>
     <string name="likes">Likes</string>
     <string name="log_out">Log Out</string>
+    <string name="male_option">Male</string>
+    <string name="message_image_layout_desc">Message image layout</string>
+    <string name="message_text">Message</string>
     <string name="messenger_send_button_text">Send</string>
     <string name="moderately">Moderately</string>
     <string name="muslim">Muslim</string>
+    <string name="name_lastname_text">Name Lastname</string>
+    <string name="name_text">Name</string>
     <string name="native_american">Native American</string>
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
     <string name="never">Never</string>
     <string name="never_married">Never married</string>
     <string name="next_text">Next</string>
     <string name="no">No</string>
-    <string name="no_but_its_ok_if_partner_has_kids">No, but its ok if partner has kids</string>
+    <string name="no_but_its_ok_if_partner_has_kids">No, but its OK if partner has kids</string>
     <string name="no_way">No way</string>
     <string name="not_sure">Not sure</string>
     <string name="number_of_likes_default">1</string>
@@ -1464,15 +1527,21 @@
     <string name="pick_image_intent_chooser_title">Select source</string>
     <string name="please_set_your_status">Set Your Status</string>
     <string name="probably_not">Probably not</string>
+    <string name="profile_arrow_desc">Arrow image</string>
+    <string name="profile_img_desc">profile image</string>
     <string name="project_id" translatable="false">russianwives</string>
     <string name="regularly">Regularly</string>
     <string name="relationship_status">Relationship Status</string>
+    <string name="request_btn_accept_desc">Image button accept</string>
+    <string name="request_btn_decline_desc">Image button decline</string>
     <string name="save">Save</string>
+    <string name="search_btn_like_desc">Search Button like</string>
     <string name="search_menu_title">Search</string>
     <string name="search_title">Search</string>
     <string name="select_your_gender">Select Your Gender</string>
     <string name="select_your_smoke_status">Select Your Smoke Status</string>
     <string name="send">Send</string>
+    <string name="send_friend_request_text">SEND FRIEND REQUEST</string>
     <string name="set_languages">Set Languages</string>
     <string name="set_status">Set Status</string>
     <string name="set_the_answer">Set The Answer</string>
@@ -1482,13 +1551,21 @@
     <string name="set_your_height">Set Your Height</string>
     <string name="sign_out">Log Out</string>
     <string name="slender">Slender</string>
+    <string name="slider_language_text">English</string>
     <string name="smoking_status">Do you smoke?</string>
     <string name="social_drinker">Social drinker</string>
     <string name="someday">Someday</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="status_save_btn_text">Save changes</string>
     <string name="stocky">Stocky</string>
+    <string name="time_of_message_text">time of message</string>
+    <string name="title_text">Title</string>
+    <string name="total_friends_text">Total Friends</string>
     <string name="twitter_consumer_key" translatable="false">CHANGE-ME</string>
     <string name="twitter_consumer_secret" translatable="false">CHANGE-ME</string>
+    <string name="user_avatar">User Avatar</string>
+    <string name="user_profile_text">Description</string>
+    <string name="user_single_online_desc">Online icon</string>
     <string name="visitors">Visitors</string>
     <string name="visits">Visits</string>
     <string name="what_is_your_bodytype">What is your bodytype?</string>
@@ -1514,7 +1591,8 @@
     <string name="your_body_type">Your Body Type</string>
     <string name="your_gender">Your Gender</string>
     <string name="your_hobby">Your Hobby</string>
-    <string name="your_name_is_here">Your name is here...</string>
+    <string name="your_name_is_here">Your name is here…</string>
+    <string name="your_status_hint">Your Status</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
@@ -1525,7 +1603,7 @@
         <item name="android:windowExitAnimation">@anim/design_bottom_sheet_slide_out</item>
     </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+        
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -1790,7 +1868,7 @@
         <item name="actionBarWidgetTheme">@null</item>
         <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
 
-        <!-- Panel attributes -->
+        
         <item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_dark</item>
 
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
@@ -1841,7 +1919,7 @@
         <item name="colorButtonNormal">@color/button_material_dark</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_dark</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">false</item>
     </style>
     <style name="Base.ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -1878,7 +1956,7 @@
         <item name="colorButtonNormal">@color/button_material_light</item>
         <item name="colorSwitchThumbNormal">@color/switch_thumb_material_light</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">true</item>
     </style>
     <style name="Base.V14.Widget.Design.AppBarLayout" parent="android:Widget">
@@ -1894,7 +1972,7 @@
 
         <item name="colorBackgroundFloating">@color/background_floating_material_dark</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">false</item>
 
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_dark</item>
@@ -1905,7 +1983,7 @@
         <item name="dividerVertical">@drawable/abc_list_divider_mtrl_alpha</item>
         <item name="dividerHorizontal">@drawable/abc_list_divider_mtrl_alpha</item>
 
-        <!-- Action Bar Styles -->
+        
         <item name="actionBarTabStyle">@style/Widget.AppCompat.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.AppCompat.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.AppCompat.ActionBar.TabText</item>
@@ -1922,10 +2000,10 @@
         <item name="actionMenuTextAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryDisableOnly</item>
 
-        <!-- Dropdown Spinner Attributes -->
+        
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Spinner.DropDown.ActionBar</item>
 
-        <!-- Action Mode -->
+        
         <item name="actionModeStyle">@style/Widget.AppCompat.ActionMode</item>
         <item name="actionModeBackground">@drawable/abc_cab_background_top_material</item>
         <item name="actionModeSplitBackground">?attr/colorPrimaryDark</item>
@@ -1938,14 +2016,14 @@
         <item name="actionModeSelectAllDrawable">@drawable/abc_ic_menu_selectall_mtrl_alpha</item>
         <item name="actionModeShareDrawable">@drawable/abc_ic_menu_share_mtrl_alpha</item>
 
-        <!-- Panel attributes -->
+        
         <item name="panelMenuListWidth">@dimen/abc_panel_menu_list_width</item>
         <item name="panelMenuListTheme">@style/Theme.AppCompat.CompactMenu</item>
         <item name="panelBackground">@drawable/abc_menu_hardkey_panel_mtrl_mult</item>
         <item name="android:panelBackground">@android:color/transparent</item>
         <item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_dark</item>
 
-        <!-- List attributes -->
+        
         <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSecondary">@style/TextAppearance.AppCompat.Body1</item>
@@ -1955,16 +2033,16 @@
         <item name="listPreferredItemPaddingLeft">@dimen/abc_list_item_padding_horizontal_material</item>
         <item name="listPreferredItemPaddingRight">@dimen/abc_list_item_padding_horizontal_material</item>
 
-        <!-- Spinner styles -->
+        
         <item name="spinnerStyle">@style/Widget.AppCompat.Spinner</item>
         <item name="android:spinnerItemStyle">@style/Widget.AppCompat.TextView.SpinnerItem</item>
         <item name="android:dropDownListViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
 
-        <!-- Required for use of support_simple_spinner_dropdown_item.xml -->
+        
         <item name="spinnerDropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="dropdownListPreferredItemHeight">?attr/listPreferredItemHeightSmall</item>
 
-        <!-- Popup Menu styles -->
+        
         <item name="popupMenuStyle">@style/Widget.AppCompat.PopupMenu</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.AppCompat.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.AppCompat.Widget.PopupMenu.Small</item>
@@ -1973,17 +2051,17 @@
         <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
         <item name="listMenuViewStyle">@style/Widget.AppCompat.ListMenuView</item>
 
-        <!-- SearchView attributes -->
+        
         <item name="searchViewStyle">@style/Widget.AppCompat.SearchView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="textColorSearchUrl">@color/abc_search_url_text</item>
         <item name="textAppearanceSearchResultTitle">@style/TextAppearance.AppCompat.SearchResult.Title</item>
         <item name="textAppearanceSearchResultSubtitle">@style/TextAppearance.AppCompat.SearchResult.Subtitle</item>
 
-        <!-- ShareActionProvider attributes -->
+        
         <item name="activityChooserViewStyle">@style/Widget.AppCompat.ActivityChooserView</item>
 
-        <!-- Toolbar styles -->
+        
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.AppCompat.Toolbar.Button.Navigation</item>
 
@@ -1992,7 +2070,7 @@
         <item name="editTextColor">?android:attr/textColorPrimary</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
 
-        <!-- Color palette -->
+        
         <item name="colorPrimaryDark">@color/primary_dark_material_dark</item>
         <item name="colorPrimary">@color/primary_material_dark</item>
         <item name="colorAccent">@color/accent_material_dark</item>
@@ -2015,7 +2093,7 @@
         <item name="ratingBarStyleSmall">@style/Widget.AppCompat.RatingBar.Small</item>
         <item name="seekBarStyle">@style/Widget.AppCompat.SeekBar</item>
 
-        <!-- Button styles -->
+        
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="buttonStyleSmall">@style/Widget.AppCompat.Button.Small</item>
         <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Widget.Button</item>
@@ -2028,7 +2106,7 @@
         <item name="buttonBarNegativeButtonStyle">?attr/buttonBarButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">?attr/buttonBarButtonStyle</item>
 
-        <!-- Dialog attributes -->
+        
         <item name="dialogTheme">@style/ThemeOverlay.AppCompat.Dialog</item>
         <item name="dialogPreferredPadding">@dimen/abc_dialog_padding_material</item>
 
@@ -2038,14 +2116,13 @@
         <item name="textColorAlertDialogListItem">@color/abc_primary_text_material_dark</item>
         <item name="listDividerAlertDialog">@null</item>
 
-        <!-- Define these here; ContextThemeWrappers around themes that define them should
-             always clear these values. -->
+        
         <item name="windowFixedWidthMajor">@null</item>
         <item name="windowFixedWidthMinor">@null</item>
         <item name="windowFixedHeightMajor">@null</item>
         <item name="windowFixedHeightMinor">@null</item>
 
-        <!-- Tooltip attributes -->
+        
         <item name="tooltipFrameBackground">@drawable/tooltip_frame_light</item>
         <item name="tooltipForegroundColor">@color/foreground_material_light</item>
 
@@ -2088,7 +2165,7 @@
 
         <item name="colorBackgroundFloating">@color/background_floating_material_light</item>
 
-        <!-- Used by MediaRouter -->
+        
         <item name="isLightTheme">true</item>
 
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
@@ -2099,7 +2176,7 @@
         <item name="dividerVertical">@drawable/abc_list_divider_mtrl_alpha</item>
         <item name="dividerHorizontal">@drawable/abc_list_divider_mtrl_alpha</item>
 
-        <!-- Action Bar Styles -->
+        
         <item name="actionBarTabStyle">@style/Widget.AppCompat.Light.ActionBar.TabView</item>
         <item name="actionBarTabBarStyle">@style/Widget.AppCompat.Light.ActionBar.TabBar</item>
         <item name="actionBarTabTextStyle">@style/Widget.AppCompat.Light.ActionBar.TabText</item>
@@ -2116,7 +2193,7 @@
         <item name="actionMenuTextAppearance">@style/TextAppearance.AppCompat.Widget.ActionBar.Menu</item>
         <item name="actionMenuTextColor">?android:attr/textColorPrimaryDisableOnly</item>
 
-        <!-- Action Mode -->
+        
         <item name="actionModeStyle">@style/Widget.AppCompat.ActionMode</item>
         <item name="actionModeBackground">@drawable/abc_cab_background_top_material</item>
         <item name="actionModeSplitBackground">?attr/colorPrimaryDark</item>
@@ -2129,17 +2206,17 @@
         <item name="actionModeSelectAllDrawable">@drawable/abc_ic_menu_selectall_mtrl_alpha</item>
         <item name="actionModeShareDrawable">@drawable/abc_ic_menu_share_mtrl_alpha</item>
 
-        <!-- Dropdown Spinner Attributes -->
+        
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar</item>
 
-        <!-- Panel attributes -->
+        
         <item name="panelMenuListWidth">@dimen/abc_panel_menu_list_width</item>
         <item name="panelMenuListTheme">@style/Theme.AppCompat.CompactMenu</item>
         <item name="panelBackground">@drawable/abc_menu_hardkey_panel_mtrl_mult</item>
         <item name="android:panelBackground">@android:color/transparent</item>
         <item name="listChoiceBackgroundIndicator">@drawable/abc_list_selector_holo_light</item>
 
-        <!-- List attributes -->
+        
         <item name="textAppearanceListItem">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSmall">@style/TextAppearance.AppCompat.Subhead</item>
         <item name="textAppearanceListItemSecondary">@style/TextAppearance.AppCompat.Body1</item>
@@ -2149,16 +2226,16 @@
         <item name="listPreferredItemPaddingLeft">@dimen/abc_list_item_padding_horizontal_material</item>
         <item name="listPreferredItemPaddingRight">@dimen/abc_list_item_padding_horizontal_material</item>
 
-        <!-- Spinner styles -->
+        
         <item name="spinnerStyle">@style/Widget.AppCompat.Spinner</item>
         <item name="android:spinnerItemStyle">@style/Widget.AppCompat.TextView.SpinnerItem</item>
         <item name="android:dropDownListViewStyle">@style/Widget.AppCompat.ListView.DropDown</item>
 
-        <!-- Required for use of support_simple_spinner_dropdown_item.xml -->
+        
         <item name="spinnerDropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="dropdownListPreferredItemHeight">?attr/listPreferredItemHeightSmall</item>
 
-        <!-- Popup Menu styles -->
+        
         <item name="popupMenuStyle">@style/Widget.AppCompat.Light.PopupMenu</item>
         <item name="textAppearanceLargePopupMenu">@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Large</item>
         <item name="textAppearanceSmallPopupMenu">@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small</item>
@@ -2167,17 +2244,17 @@
         <item name="dropDownListViewStyle">?android:attr/dropDownListViewStyle</item>
         <item name="listMenuViewStyle">@style/Widget.AppCompat.ListMenuView</item>
 
-        <!-- SearchView attributes -->
+        
         <item name="searchViewStyle">@style/Widget.AppCompat.Light.SearchView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
         <item name="textColorSearchUrl">@color/abc_search_url_text</item>
         <item name="textAppearanceSearchResultTitle">@style/TextAppearance.AppCompat.SearchResult.Title</item>
         <item name="textAppearanceSearchResultSubtitle">@style/TextAppearance.AppCompat.SearchResult.Subtitle</item>
 
-        <!-- ShareActionProvider attributes -->
+        
         <item name="activityChooserViewStyle">@style/Widget.AppCompat.ActivityChooserView</item>
 
-        <!-- Toolbar styles -->
+        
         <item name="toolbarStyle">@style/Widget.AppCompat.Toolbar</item>
         <item name="toolbarNavigationButtonStyle">@style/Widget.AppCompat.Toolbar.Button.Navigation</item>
 
@@ -2186,7 +2263,7 @@
         <item name="editTextColor">?android:attr/textColorPrimary</item>
         <item name="autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
 
-        <!-- Color palette -->
+        
         <item name="colorPrimaryDark">@color/primary_dark_material_light</item>
         <item name="colorPrimary">@color/primary_material_light</item>
         <item name="colorAccent">@color/accent_material_light</item>
@@ -2209,7 +2286,7 @@
         <item name="ratingBarStyleSmall">@style/Widget.AppCompat.RatingBar.Small</item>
         <item name="seekBarStyle">@style/Widget.AppCompat.SeekBar</item>
 
-        <!-- Button styles -->
+        
         <item name="buttonStyle">@style/Widget.AppCompat.Button</item>
         <item name="buttonStyleSmall">@style/Widget.AppCompat.Button.Small</item>
         <item name="android:textAppearanceButton">@style/TextAppearance.AppCompat.Widget.Button</item>
@@ -2222,7 +2299,7 @@
         <item name="buttonBarNegativeButtonStyle">?attr/buttonBarButtonStyle</item>
         <item name="buttonBarNeutralButtonStyle">?attr/buttonBarButtonStyle</item>
 
-        <!-- Dialog attributes -->
+        
         <item name="dialogTheme">@style/ThemeOverlay.AppCompat.Dialog</item>
         <item name="dialogPreferredPadding">@dimen/abc_dialog_padding_material</item>
 
@@ -2232,14 +2309,13 @@
         <item name="textColorAlertDialogListItem">@color/abc_primary_text_material_light</item>
         <item name="listDividerAlertDialog">@null</item>
 
-        <!-- Define these here; ContextThemeWrappers around themes that define them should
-             always clear these values. -->
+        
         <item name="windowFixedWidthMajor">@null</item>
         <item name="windowFixedWidthMinor">@null</item>
         <item name="windowFixedHeightMajor">@null</item>
         <item name="windowFixedHeightMinor">@null</item>
 
-        <!-- Tooltip attributes -->
+        
         <item name="tooltipFrameBackground">@drawable/tooltip_frame_dark</item>
         <item name="tooltipForegroundColor">@color/foreground_material_dark</item>
 
@@ -2652,7 +2728,7 @@
         <item name="android:minWidth">@dimen/fui_auth_method_button_width</item>
         <item name="android:orientation">vertical</item>
         <item name="android:clipToPadding">false</item>
-        <!-- These have to be padding instead of margin so the shadows aren't clipped. -->
+        
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
     </style>
@@ -2859,7 +2935,7 @@
     <item name="android:layout_gravity">center</item>
     <item name="android:drawablePadding">4dp</item>
     <item name="android:gravity">center</item>
-    <!--suppress NewApi -->
+    
     <item name="android:textAllCaps">true</item>
     <item name="android:textSize">14sp</item>
     <item name="android:textStyle">bold</item>
@@ -2890,7 +2966,7 @@
         <item name="android:buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
         <item name="android:borderlessButtonStyle">?attr/borderlessButtonStyle</item>
 
-        <!-- Window colors -->
+        
         <item name="android:colorForeground">@color/foreground_material_dark</item>
         <item name="android:colorForegroundInverse">@color/foreground_material_light</item>
         <item name="android:colorBackground">@color/background_material_dark</item>
@@ -2899,7 +2975,7 @@
         <item name="android:backgroundDimAmount">0.6</item>
         <item name="android:windowBackground">@color/background_material_dark</item>
 
-        <!-- Text colors -->
+        
         <item name="android:textColorPrimary">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_light</item>
         <item name="android:textColorPrimaryDisableOnly">@color/abc_primary_text_disable_only_material_dark</item>
@@ -2915,7 +2991,7 @@
         <item name="android:textColorLinkInverse">?attr/colorAccent</item>
         <item name="android:textColorAlertDialogListItem">@color/abc_primary_text_material_dark</item>
 
-        <!-- Text styles -->
+        
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
         <item name="android:textAppearanceInverse">@style/TextAppearance.AppCompat.Inverse</item>
         <item name="android:textAppearanceLarge">@style/TextAppearance.AppCompat.Large</item>
@@ -2948,7 +3024,7 @@
         <item name="android:buttonBarButtonStyle">?attr/buttonBarButtonStyle</item>
         <item name="android:borderlessButtonStyle">?attr/borderlessButtonStyle</item>
 
-        <!-- Window colors -->
+        
         <item name="android:colorForeground">@color/foreground_material_light</item>
         <item name="android:colorForegroundInverse">@color/foreground_material_dark</item>
         <item name="android:colorBackground">@color/background_material_light</item>
@@ -2957,7 +3033,7 @@
         <item name="android:backgroundDimAmount">0.6</item>
         <item name="android:windowBackground">@color/background_material_light</item>
 
-        <!-- Text colors -->
+        
         <item name="android:textColorPrimary">@color/abc_primary_text_material_light</item>
         <item name="android:textColorPrimaryInverse">@color/abc_primary_text_material_dark</item>
         <item name="android:textColorSecondary">@color/abc_secondary_text_material_light</item>
@@ -2974,7 +3050,7 @@
         <item name="android:textColorLinkInverse">?attr/colorAccent</item>
         <item name="android:textColorAlertDialogListItem">@color/abc_primary_text_material_light</item>
 
-        <!-- Text styles -->
+        
         <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
         <item name="android:textAppearanceInverse">@style/TextAppearance.AppCompat.Inverse</item>
         <item name="android:textAppearanceLarge">@style/TextAppearance.AppCompat.Large</item>
@@ -3001,12 +3077,12 @@
     </style>
     <style name="Platform.ThemeOverlay.AppCompat" parent=""/>
     <style name="Platform.ThemeOverlay.AppCompat.Dark">
-        <!-- Action Bar styles -->
+        
         <item name="actionBarItemBackground">@drawable/abc_item_background_holo_dark</item>
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Spinner.DropDown.ActionBar</item>
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_dark</item>
 
-        <!-- SearchView styles -->
+        
         <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.AutoCompleteTextView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>
@@ -3015,7 +3091,7 @@
         <item name="actionDropDownStyle">@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar</item>
         <item name="selectableItemBackground">@drawable/abc_item_background_holo_light</item>
 
-        <!-- SearchView attributes -->
+        
         <item name="android:autoCompleteTextViewStyle">@style/Widget.AppCompat.Light.AutoCompleteTextView</item>
         <item name="android:dropDownItemStyle">@style/Widget.AppCompat.DropDownItem.Spinner</item>
     </style>

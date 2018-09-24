@@ -7,4 +7,8 @@
     <color name="greySecondary">#8B000000</color>
     <color name="darkColor">#222222</color>
     <color name="darkGrey">#424242</color>
+    <color name="grey_mid_light">#8fff</color>
+    <color name="grey_600">#757575</color>
+    <color name="message_text_color">#444444</color>
+    <color name="user_item_bg">#40000000</color>
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
     <RelativeLayout
         android:layout_weight="1"
@@ -12,11 +12,11 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/item_request_image"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_marginBottom="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
+            android:layout_width="@dimen/dp64"
+            android:layout_height="@dimen/dp64"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp16"
             android:src="@drawable/default_avatar" />
 
         <TextView
@@ -24,11 +24,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/item_request_image"
-            android:layout_marginStart="21dp"
+            android:layout_marginStart="@dimen/dp20"
             android:layout_toEndOf="@+id/item_request_image"
-            android:text="Name Lastname"
+            android:text="@string/name_lastname_text"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/medium_text_size"
             android:textStyle="bold" />
 
         <TextView
@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/item_request_image"
             android:layout_alignStart="@+id/item_request_name"
-            android:layout_marginBottom="11dp"
-            android:text="User Default Status" />
+            android:layout_marginBottom="@dimen/dp12"
+            android:text="@string/country_text" />
 
         <TextView
             android:id="@+id/item_request_age"
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/item_request_image"
             android:layout_alignStart="@+id/item_request_name"
-            android:layout_marginBottom="11dp"
-            android:text="User Default Status" />
+            android:layout_marginBottom="@dimen/dp12"
+            android:text="@string/default_status" />
 
     </RelativeLayout>
     <RelativeLayout
@@ -58,16 +58,17 @@
         <ImageView
             android:id="@+id/item_request_btn_accept"
             android:layout_width="wrap_content"
-            android:layout_marginLeft="8dp"
-
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_check_black_24dp"/>
+            android:layout_marginStart="@dimen/dp8"
+            android:src="@drawable/ic_check_black_24dp"
+            android:contentDescription="@string/request_btn_accept_desc"/>
         <ImageView
             android:id="@+id/item_request_btn_decline"
-            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/item_request_btn_accept"
+            android:layout_toEndOf="@+id/item_request_btn_accept"
+            android:layout_marginStart="@dimen/dp8"
+            android:contentDescription="@string/request_btn_decline_desc"
             android:src="@drawable/ic_close_black_24dp"/>
     </RelativeLayout>
 </LinearLayout>

@@ -10,7 +10,7 @@
         style="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:padding="@dimen/dp16"
         android:text="@string/likes" />
 
     <TextView
@@ -18,8 +18,8 @@
         style="@style/Base.TextAppearance.AppCompat.Large"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/widget_action_likes"
-        android:padding="16dp"
+        android:layout_toEndOf="@+id/widget_action_likes"
+        android:padding="@dimen/dp16"
         android:text="@string/visits" />
 
 </RelativeLayout>

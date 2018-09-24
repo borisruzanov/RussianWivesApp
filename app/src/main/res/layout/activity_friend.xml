@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    tools:ignore="ButtonStyle">
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
@@ -14,18 +16,18 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/collapsing_toolbar_height"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="48dp"
+            app:expandedTitleMarginEnd="@dimen/dp64"
+            app:expandedTitleMarginStart="@dimen/dp48"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
                 android:id="@+id/friend_activity_image"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:contentDescription="Default Avatar"
+                android:contentDescription="@string/friend_image_desc"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/avatar"
@@ -39,10 +41,10 @@
                 android:alpha="0.8"
                 android:background="@android:color/black"
                 android:orientation="vertical"
-                android:paddingBottom="16dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp">
+                android:paddingBottom="@dimen/dp16"
+                android:paddingLeft="@dimen/dp16"
+                android:paddingRight="@dimen/dp16"
+                android:paddingTop="@dimen/dp16">
 
                 <TextView
                     android:id="@+id/friend_activity_tv_name"
@@ -51,9 +53,9 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed"
                     android:paddingBottom="0dp"
-                    android:text="NAME"
-                    android:textColor="#fff"
-                    android:textSize="24sp"
+                    android:text="@string/name_text"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/large_text_size"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -66,25 +68,24 @@
                         style="?android:attr/textAppearanceSmall"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="AGE"
-                        android:textColor="#8fff"
-                        android:textSize="16sp" />
+                        android:text="@string/age_text"
+                        android:textColor="@color/grey_mid_light"
+                        android:textSize="@dimen/medium_text_size" />
 
                     <TextView
                         android:id="@+id/friend_activity_tv_country"
                         style="?android:attr/textAppearanceLarge"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
+                        android:layout_marginStart="@dimen/dp8"
                         android:paddingBottom="0dp"
-                        android:text="COUNTRY"
-                        android:textColor="#8fff"
-                        android:textSize="16sp" />
+                        android:text="@string/country_text"
+                        android:textColor="@color/grey_mid_light"
+                        android:textSize="@dimen/medium_text_size" />
                 </LinearLayout>
 
             </LinearLayout>
 
-            <!--android:src="@drawable/default_avatar"-->
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -112,7 +113,7 @@
                 android:id="@+id/friend_activity_cardview_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="@dimen/dp8">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_list_friendDescription"
@@ -128,8 +129,8 @@
                 android:layout_below="@+id/friend_activity_cardview_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="8dp">
+                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginTop="@dimen/dp8">
 
                 <LinearLayout
                     android:id="@+id/my_profile_linear_likers_visitors"
@@ -144,9 +145,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:backgroundTint="@android:color/white"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:text="+ ADD FRIEND"
+                        android:paddingLeft="@dimen/friend_btn_padding"
+                        android:paddingRight="@dimen/friend_btn_padding"
+                        android:text="@string/btn_add_friend_text"
                         android:textColor="@color/colorAccent" />
 
 
@@ -156,9 +157,9 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:backgroundTint="@android:color/white"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
-                        android:text="WRITE MESSAGE"
+                        android:paddingLeft="@dimen/friend_btn_padding"
+                        android:paddingRight="@dimen/friend_btn_padding"
+                        android:text="@string/btn_start_chat_text"
                         android:textColor="@color/colorAccent" />
 
 
@@ -170,7 +171,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/friend_activity_cardview_buttons_block"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="@dimen/dp8">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -183,8 +184,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:backgroundTint="@android:color/white"
-                        android:paddingLeft="25dp"
-                        android:paddingRight="25dp"
+                        android:paddingLeft="@dimen/friend_btn_padding"
+                        android:paddingRight="@dimen/friend_btn_padding"
                         android:text="@string/check_your_search_parameters"
                         android:textColor="@color/colorAccent" />
 
@@ -192,19 +193,18 @@
                         android:id="@+id/my_profile_tv_also_like"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/settings_image_btn"
-                        android:layout_gravity="left"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:text="ACTIVITY_FRIEND"
-                        android:textSize="24sp"
+                        android:layout_gravity="start"
+                        android:layout_marginStart="@dimen/dp8"
+                        android:layout_marginTop="@dimen/dp8"
+                        android:text="@string/also_like_text"
+                        android:textSize="@dimen/large_text_size"
                         android:textStyle="bold" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/my_profile_recyler"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_below="@+id/my_profile_tv_also_like" />
+                        android:padding="@dimen/dp8"/>
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -218,7 +218,7 @@
         android:id="@+id/friend_activity_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/dp16"
         android:src="@drawable/ic_favorite_black_24dp"
         app:fabSize="normal"
         app:layout_anchor="@id/app_bar_layout"

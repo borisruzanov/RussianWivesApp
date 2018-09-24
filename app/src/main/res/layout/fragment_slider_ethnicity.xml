@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,8 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="36dp"
+        android:layout_marginTop="@dimen/dp40"
         android:text="@string/which_ethnicity_best_describe_you"
         android:textColor="@color/darkGrey"
         android:textSize="24sp" />
@@ -22,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/fragment_slider_ethnicity_tv_question"
-        android:layout_marginHorizontal="16dp"
+        android:layout_margin="@dimen/dp16"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -30,57 +28,57 @@
             android:id="@+id/fragment_slider_ethnicity_radiobtn_asian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/asian"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_ethnicity_radiobtn_black"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/black_african_descent"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_ethnicity_radiobtn_indian"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/east_indian"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_ethnicity_radiobtn_latino"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/latino_hispanic"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_ethnicity_radiobtn_native"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/native_american"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_ethnicity_radiobtn_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/white_caucasian"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
         <RadioButton
             android:id="@+id/fragment_slider_ethnicity_radiobtn_other"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/dp8"
             android:text="@string/other"
-            android:textSize="20sp" />
+            android:textSize="@dimen/answers_text_size" />
 
 
     </RadioGroup>
@@ -91,12 +89,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_slider_ethnicity_radiogroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/dp12"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/save"
         android:textColor="@android:color/white" />
-
-
-
 
 </RelativeLayout>

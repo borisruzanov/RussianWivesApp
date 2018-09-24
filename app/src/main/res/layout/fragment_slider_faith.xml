@@ -1,5 +1,4 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,27 +9,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginVertical="36dp"
+        android:layout_marginTop="@dimen/dp40"
         android:text="@string/what_is_your_faith"
         android:textColor="@color/darkGrey"
-        android:textSize="24sp" />
-
-    <LinearLayout
-        android:id="@+id/fragment_slider_faith_linear_tvs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/fragment_slider_faith_tv_question"
-        android:layout_marginHorizontal="16dp"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:textSize="@dimen/large_text_size" />
 
         <RadioGroup
             android:id="@+id/fragment_slider_faith_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_slider_bodytype_tv_question"
-            android:layout_marginHorizontal="16dp"
+            android:layout_below="@+id/fragment_slider_faith_tv_question"
+            android:layout_margin="@dimen/dp16"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -38,68 +27,66 @@
                 android:id="@+id/fragment_slider_faith_rbtn_christian"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/christian_catholic"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
                 android:id="@+id/fragment_slider_faith_rbtn_black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/black_african_descent"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
                 android:id="@+id/fragment_slider_faith_rbtn_muslim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/muslim"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
                 android:id="@+id/fragment_slider_faith_rbtn_atheist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/atheist"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
                 android:id="@+id/fragment_slider_faith_rbtn_buddist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/buddist"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
                 android:id="@+id/fragment_slider_faith_rbtn_adventist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/adventist"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
                 android:id="@+id/fragment_slider_faith_rbtn_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/dp8"
                 android:text="@string/other"
-                android:textSize="20sp" />
+                android:textSize="@dimen/answers_text_size" />
         </RadioGroup>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/fragment_slider_faith_btn_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/fragment_slider_faith_linear_tvs"
+        android:layout_below="@+id/fragment_slider_faith_radiogroup"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/dp12"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/save"
         android:textColor="@android:color/white" />

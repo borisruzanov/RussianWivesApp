@@ -35,9 +35,10 @@
 
         <ImageButton
             android:id="@+id/photoPickerButton"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:background="@android:drawable/ic_menu_gallery" />
+            android:layout_width="@dimen/photo_picker_button_size"
+            android:layout_height="@dimen/photo_picker_button_size"
+            android:background="@android:drawable/ic_menu_gallery"
+            android:contentDescription="@null"/>
 
         <EditText
             android:id="@+id/messageEditText"

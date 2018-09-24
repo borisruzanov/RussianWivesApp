@@ -79,7 +79,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/action_widget_info" />
         </receiver>
-        <service android:name=".widget.ActionWidgetService" />
+        <service android:name=".widget.ActionWidgetService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
     </application>
 

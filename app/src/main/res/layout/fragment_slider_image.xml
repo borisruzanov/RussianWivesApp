@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.borisruzanov.russianwives.ui.slider.SliderImageFragment">
 
     <TextView
@@ -10,10 +9,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="31dp"
-        android:layout_marginVertical="36dp"
+        android:layout_marginTop="@dimen/dp40"
         android:text="@string/add_photo"
-        android:textSize="24sp"
+        android:textSize="@dimen/large_text_size"
         android:textColor="@color/darkGrey"/>
 
     <Button
@@ -22,8 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/fragment_slider_image_tv_question"
         android:layout_centerHorizontal="true"
-        android:layout_marginHorizontal="36dp"
-        android:layout_marginVertical="36dp"
+        android:layout_marginTop="@dimen/dp12"
         android:backgroundTint="@color/colorAccent"
         android:text="@string/change"
         android:textColor="@android:color/white" />

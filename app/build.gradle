@@ -2,95 +2,107 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
-    defaultConfig {
-        applicationId "com.borisruzanov.russianwives"
-        minSdkVersion 21
-        targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        // Enabling multidex support.
-        multiDexEnabled true
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+    signingConfigs {
+        // More code
+        myConfig {
+            storeFile file("keystore.jks")
+            storePassword "Russianwives1"
+            keyAlias "general_key"
+            keyPassword "Russianwives1"
+        }
+
+        defaultConfig {
+            applicationId "com.borisruzanov.russianwives"
+            minSdkVersion 21
+            targetSdkVersion 27
+            versionCode 1
+            versionName "1.0"
+            testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+            // Enabling multidex support.
+            multiDexEnabled true
+        }
+        buildTypes {
+            release {
+                minifyEnabled false
+                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                signingConfig signingConfigs.myConfig
+            }
+        }
+        compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+
+    dependencies {
+        implementation 'com.google.firebase:firebase-firestore:11.8.0'
+        implementation 'com.google.firebase:firebase-storage:11.8.0'
+        implementation 'com.google.firebase:firebase-auth:11.8.0'
+        ext {
+            firebase = '11.8.0'
+            firebaseUI = '3.2.2'
+        }
+
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation 'com.android.support:multidex:1.0.3'
+        implementation 'com.android.support:support-v4:27.1.0'
+        //implementation 'com.android.support:cardview-v7:27.1.0'
+        //implementation 'com.android.support:animated-vector-drawable:27.1.0'
+        //implementation 'com.android.support:customtabs:27.1.0'
+        implementation 'com.android.support:appcompat-v7:27.1.0'
+        implementation 'com.android.support:design:27.1.0'
+        implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+        testImplementation 'junit:junit:4.12'
+        androidTestImplementation 'com.android.support.test:runner:1.0.1'
+        androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+        //General
+        implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
+        //Moxy MVP
+        implementation 'com.arello-mobile:moxy:1.5.3'
+        annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
+        implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
+        //Images
+        implementation 'com.github.bumptech.glide:glide:4.6.1'
+        annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
+        implementation 'de.hdodenhof:circleimageview:2.2.0'
+        implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.+'
+        implementation 'com.squareup.picasso:picasso:2.5.2'
+        implementation 'id.zelory:compressor:2.1.0'
+        //Network
+        implementation 'com.squareup.okhttp:okhttp:2.7.5'
+        implementation 'com.android.support:cardview-v7:27.1.0'
+        //        implementation('com.google.guava:guava:23.0') {
+        //            transitive = false
+        //        }
+        //        implementation('com.facebook.android:facebook-android-sdk:4.29.0')
+        //                {
+        //                    exclude group: 'com.android.support', module: 'support-v4'
+        //                }
+        //Firebase
+        implementation "com.google.firebase:firebase-core:$firebase"
+        implementation "com.google.firebase:firebase-firestore:$firebase"
+        implementation "com.google.firebase:firebase-database:$firebase"
+        implementation "com.google.firebase:firebase-auth:$firebase"
+        implementation "com.google.firebase:firebase-storage:$firebase"
+        implementation "com.firebaseui:firebase-ui-auth:$firebaseUI"
+        implementation "com.google.firebase:firebase-messaging:$firebase"
+        implementation "com.google.firebase:firebase-config:$firebase"
+        implementation "com.firebaseui:firebase-ui-database:$firebaseUI"
+        //Rx
+        implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
+        implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
+        //RxFirestore
+        implementation 'com.github.FrangSierra:RxFirebase:1.5.0'
+
+        //Dependency Injections
+        implementation 'com.jakewharton:butterknife:8.8.1'
+        annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+
+        //Lottie
+        implementation 'com.airbnb.android:lottie:2.6.1'
     }
+
+
+    apply plugin: 'com.google.gms.google-services'
 }
-
-dependencies {
-    implementation 'com.google.firebase:firebase-firestore:11.8.0'
-    implementation 'com.google.firebase:firebase-storage:11.8.0'
-    implementation 'com.google.firebase:firebase-auth:11.8.0'
-    ext {
-        firebase = '11.8.0'
-        firebaseUI = '3.2.2'
-    }
-
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.android.support:support-v4:27.1.0'
-    //implementation 'com.android.support:cardview-v7:27.1.0'
-    //implementation 'com.android.support:animated-vector-drawable:27.1.0'
-    //implementation 'com.android.support:customtabs:27.1.0'
-    implementation 'com.android.support:appcompat-v7:27.1.0'
-    implementation 'com.android.support:design:27.1.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    //General
-    implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
-    //Moxy MVP
-    implementation 'com.arello-mobile:moxy:1.5.3'
-    annotationProcessor 'com.arello-mobile:moxy-compiler:1.5.3'
-    implementation 'com.arello-mobile:moxy-app-compat:1.5.3'
-    //Images
-    implementation 'com.github.bumptech.glide:glide:4.6.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.6.1'
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
-    implementation 'com.theartofdev.edmodo:android-image-cropper:2.6.+'
-    implementation 'com.squareup.picasso:picasso:2.5.2'
-    implementation 'id.zelory:compressor:2.1.0'
-    //Network
-    implementation 'com.squareup.okhttp:okhttp:2.7.5'
-    implementation 'com.android.support:cardview-v7:27.1.0'
-    //        implementation('com.google.guava:guava:23.0') {
-    //            transitive = false
-    //        }
-    //        implementation('com.facebook.android:facebook-android-sdk:4.29.0')
-    //                {
-    //                    exclude group: 'com.android.support', module: 'support-v4'
-    //                }
-    //Firebase
-    implementation "com.google.firebase:firebase-core:$firebase"
-    implementation "com.google.firebase:firebase-firestore:$firebase"
-    implementation "com.google.firebase:firebase-database:$firebase"
-    implementation "com.google.firebase:firebase-auth:$firebase"
-    implementation "com.google.firebase:firebase-storage:$firebase"
-    implementation "com.firebaseui:firebase-ui-auth:$firebaseUI"
-    implementation "com.google.firebase:firebase-messaging:$firebase"
-    implementation "com.google.firebase:firebase-config:$firebase"
-    implementation "com.firebaseui:firebase-ui-database:$firebaseUI"
-    //Rx
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
-    //RxFirestore
-    implementation 'com.github.FrangSierra:RxFirebase:1.5.0'
-
-    //Dependency Injections
-    implementation 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-
-    //Lottie
-    implementation 'com.airbnb.android:lottie:2.6.1'
-}
-
-
-apply plugin: 'com.google.gms.google-services'

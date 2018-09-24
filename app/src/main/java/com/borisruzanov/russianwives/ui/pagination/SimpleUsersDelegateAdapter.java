@@ -29,7 +29,7 @@ public class SimpleUsersDelegateAdapter implements ViewTypeDelegateAdapter {
 
     class UserViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
-        TextView name, status;
+        TextView name, country;
         Context context;
 
         UserViewHolder(View itemView) {
@@ -37,13 +37,13 @@ public class SimpleUsersDelegateAdapter implements ViewTypeDelegateAdapter {
             context = itemView.getContext();
             imageView = itemView.findViewById(R.id.user_img);
             name = itemView.findViewById(R.id.user_name);
-            status = itemView.findViewById(R.id.user_status);
+            country = itemView.findViewById(R.id.user_country);
         }
 
         void bind(FsUser fsUser){
             Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);
             name.setText(fsUser.getName());
-            status.setText(fsUser.getStatus());
+            country.setText(fsUser.getStatus());
         }
     }
 

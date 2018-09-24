@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.ui.pagination;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -97,8 +98,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
 
         private LottieAnimationView animationView;
 
-//        Context context;
-
         UserViewHolder(View itemView) {
             super(itemView);
             context = itemView.getContext();
@@ -108,12 +107,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             chat = itemView.findViewById(R.id.search_btn_chat);
             name = itemView.findViewById(R.id.user_name);
             country = itemView.findViewById(R.id.user_country);
-            animationView = (LottieAnimationView) itemView.findViewById(R.id.lottieAnimationView);
+            animationView = itemView.findViewById(R.id.lottieAnimationView);
         }
 
 
 
         void bind(FsUser fsUser, int position){
+
+            ViewCompat.setTransitionName(imageView, fsUser.getName());
+
 
             if (fsUser.getUid() != null) {
                 if (mDatabase.child("Likes").child(uid).child(fsUser.getUid()) != null) {
@@ -141,8 +143,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                 }
             }
 
-            chat.setOnClickListener(new OnItemClickListener(position, onChatClickCallback));
-            like.setOnClickListener(new OnItemClickListener(position, onLikeClickCallback));
+            if(fsUser.getUid() != null) {
+                chat.setOnClickListener(new OnItemClickListener(position, onChatClickCallback));
+                like.setOnClickListener(new OnItemClickListener(position, onLikeClickCallback));
+            }
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
@@ -163,6 +167,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             } else {
                 animationView.setProgress(0f);
             }
+
+
         }
     }
 

@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.ui;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,8 @@ import com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter;
 import com.borisruzanov.russianwives.mvp.view.FriendProfileView;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -55,6 +58,15 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
+        //Transition
+        supportPostponeEnterTransition();
+        imageView = findViewById(R.id.friend_activity_image);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            String imageTransitionName = getIntent().getStringExtra("transitionName");
+            imageView.setTransitionName(imageTransitionName);
+        }
+
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -71,7 +83,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
         });
         btnStartChat = findViewById(R.id.friend_activity_btn_start_chat);
-        imageView = findViewById(R.id.friend_activity_image);
 
         recyclerView = findViewById(R.id.recycler_list_friendDescription);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -106,9 +117,19 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         ageText.setText(age);
         countryText.setText(country);
         if (!image.equals(Consts.DEFAULT)) {
-            Glide.with(this)
+            Picasso.with(this)
                     .load(image)
-                    .into(imageView);
+                    .into(imageView, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            supportStartPostponedEnterTransition();
+                        }
+
+                        @Override
+                        public void onError() {
+                            supportStartPostponedEnterTransition();
+                        }
+                    });
         }
     }
 

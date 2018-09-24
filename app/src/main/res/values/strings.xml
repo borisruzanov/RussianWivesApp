@@ -8,6 +8,7 @@
     <string name="log_out">Log Out</string>
     <string name="sign_out">Log Out</string>
     <string name="send">Send</string>
+    <string name="default_data">default</string>
 
     <string name="search_title">Search</string>
     <string name="chats_title">Chats</string>
@@ -53,7 +54,7 @@
     <string name="change">CHANGE</string>
     <string name="have_a_hobby_describe_what_do_you_like_to_do">Have a hobby? Describe what do you like to do.</string>
     <string name="save">Save</string>
-    <string name="discribe_what_you_like_to_do_in_couple_words">Discribe what you like to do</string>
+    <string name="discribe_what_you_like_to_do_in_couple_words">Describe what you like to do</string>
     <string name="what_is_your_height">What is your height?</string>
     <string name="edit">Edit</string>
     <string name="what_is_your_bodytype">What is your bodytype?</string>
@@ -76,7 +77,7 @@
     <string name="christian_catholic">Christian</string>
     <string name="muslim">Muslim</string>
     <string name="atheist">Atheist</string>
-    <string name="buddist">Buddist</string>
+    <string name="buddist">Buddhist</string>
     <string name="adventist">Adventist</string>
     <string name="never">Never</string>
     <string name="social_drinker">Social drinker</string>
@@ -101,12 +102,12 @@
     <string name="someday">Someday</string>
     <string name="not_sure">Not sure</string>
     <string name="probably_not">Probably not</string>
-    <string name="no_but_its_ok_if_partner_has_kids">No, but its ok if partner has kids</string>
+    <string name="no_but_its_ok_if_partner_has_kids">No, but its OK if partner has kids</string>
     <string name="next_text">Next</string>
     <string name="emptyText">Nothing to show</string>
     <string name="basic_info">Basic info</string>
     <string name="enter_your_name">Enter Your Name</string>
-    <string name="your_name_is_here">Your name is here...</string>
+    <string name="your_name_is_here">Your name is here…</string>
 
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
@@ -123,7 +124,52 @@
     <string name="yes">Yes</string>
     <string name="likes">Likes</string>
     <string name="visits">Visits</string>
-    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8-ddbc-4777-bcc5-016103d06330]]></string>
+    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5-016103d06330]]></string>
+    <string name="chat_add_btn_desc">Button for sending images</string>
+    <string name="chat_send_btn_desc">Button for sending message</string>
+    <string name="enter_message_hint">Enter Message…</string>
+    <string name="friend_image_desc">friend avatar</string>
+    <string name="name_text">Name</string>
+    <string name="age_text">Age</string>
+    <string name="country_text">Country</string>
+    <string name="btn_add_friend_text">+ ADD FRIEND</string>
+    <string name="btn_start_chat_text">WRITE MESSAGE</string>
+    <string name="also_like_text">ACTIVITY_FRIEND</string>
+    <string name="user_avatar">User Avatar</string>
+    <string name="display_name_text">Display Name</string>
+    <string name="total_friends_text">Total Friends</string>
+    <string name="current_user_status_text">Current User Status</string>
+    <string name="send_friend_request_text">SEND FRIEND REQUEST</string>
+    <string name="decline_friend_request_text">DECLINE FRIEND REQUEST</string>
+    <string name="profile_img_desc">profile image</string>
+    <string name="your_status_hint">Your Status</string>
+    <string name="status_save_btn_text">Save changes</string>
+    <string name="last_seen_text">Last Seen</string>
+    <string name="age_18_21">18–21</string>
+    <string name="age_22_26">22–26</string>
+    <string name="age_26_35">26–35</string>
+    <string name="age_36_45">36–45</string>
+    <string name="age_45_plus">45+</string>
+    <string name="male_option">Male</string>
+    <string name="female_option">Female</string>
+    <string name="height_number_text">Number</string>
+    <string name="height_cm_text">CM</string>
+    <string name="slider_language_text">English</string>
+    <string name="name_lastname_text">Name Lastname</string>
+    <string name="action_type_visit_text">VISITED your profile</string>
+    <string name="action_type_liked_text">LIKED YOU</string>
+    <string name="title_text">Title</string>
+    <string name="message_text">Message</string>
+    <string name="user_single_online_desc">Online icon</string>
+    <string name="avatar_sender_desc">Avatar of message sender</string>
+    <string name="request_btn_accept_desc">Image button accept</string>
+    <string name="request_btn_decline_desc">Image button decline</string>
+    <string name="profile_arrow_desc">Arrow image</string>
+    <string name="user_profile_text">Description</string>
+    <string name="time_of_message_text">time of message</string>
+    <string name="message_image_layout_desc">Message image layout</string>
+    <string name="search_btn_like_desc">Search Button like</string>
+
 
     <!-- Genders -->
     <string-array name="genders">
@@ -335,12 +381,12 @@
     </string-array>
 
     <string-array name="age_types">
-        <item>default</item>
-        <item>18–21</item>
-        <item>22–26</item>
-        <item>26–35</item>
-        <item>36–45</item>
-        <item>45+</item>
+        <item>@string/default_data</item>
+        <item>@string/age_18_21</item>
+        <item>@string/age_22_26</item>
+        <item>@string/age_26_35</item>
+        <item>@string/age_36_45</item>
+        <item>@string/age_45_plus</item>
     </string-array>
 
     <!-- Relationship statuses -->
@@ -391,7 +437,7 @@
     <string-array name="smoke_statuses">
         <item>default</item>
         <item>No way</item>
-        <item>Ocassionally</item>
+        <item>Occasionally</item>
         <item>Daily</item>
         <item>Cigar aficionado</item>
         <item>Yes, but trying to quit</item>
@@ -422,7 +468,7 @@
         <item>Someday</item>
         <item>Not sure</item>
         <item>Probably not</item>
-        <item>No, but its ok if partner has kids</item>
+        <item>No, but its OK if partner has kids</item>
         <item>No</item>
     </string-array>
 
