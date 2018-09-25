@@ -65,7 +65,7 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Bodytype was updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.bkodytype_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

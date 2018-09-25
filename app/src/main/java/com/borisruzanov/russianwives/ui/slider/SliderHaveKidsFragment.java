@@ -62,7 +62,7 @@ public class SliderHaveKidsFragment extends Fragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Number of kids were updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.number_of_kids_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

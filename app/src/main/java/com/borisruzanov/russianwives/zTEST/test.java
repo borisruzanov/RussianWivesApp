@@ -215,7 +215,7 @@ public class test extends AppCompatActivity{
 
                             if(databaseError != null){
 
-                                Toast.makeText(test.this, "There was some error in sending request", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(test.this, R.string.error_request, Toast.LENGTH_SHORT).show();
 
                             } else {
 

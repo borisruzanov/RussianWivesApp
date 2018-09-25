@@ -67,7 +67,7 @@ public class SliderFaithFragment extends Fragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Faith was updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.faith_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

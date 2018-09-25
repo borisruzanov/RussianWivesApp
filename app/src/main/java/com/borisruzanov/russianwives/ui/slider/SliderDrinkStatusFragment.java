@@ -65,7 +65,7 @@ public class SliderDrinkStatusFragment extends Fragment {
                         @Override
                         public void onUpdate() {
                             getActivity().onBackPressed();
-                            Toast.makeText(getActivity(), "Drink status was updated", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), R.string.drink_updated, Toast.LENGTH_LONG).show();
 
                         }
                     });

@@ -72,7 +72,7 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
                 map.put("age", radioButton.getText());
                 new FirebaseRepository().updateFieldFromCurrentUser(map, () -> {
                     getActivity().onBackPressed();
-                    Toast.makeText(getActivity(), "Age was updated", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), R.string.age_updated, Toast.LENGTH_LONG).show();
                 });
 
             }

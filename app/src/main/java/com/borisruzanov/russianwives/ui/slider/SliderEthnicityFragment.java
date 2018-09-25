@@ -71,7 +71,7 @@ public class SliderEthnicityFragment extends Fragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Ethnicity was updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.ethnicity_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

@@ -67,7 +67,7 @@ public class SliderSmokingStatusFragment extends Fragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Smoking status was updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.smoking_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

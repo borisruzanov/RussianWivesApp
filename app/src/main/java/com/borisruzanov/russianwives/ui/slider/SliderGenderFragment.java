@@ -62,7 +62,7 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Gender information was updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.gender_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

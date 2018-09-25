@@ -47,7 +47,7 @@ public class SliderCountriesFragment extends Fragment {
             map.put("country", country);
             new FirebaseRepository().updateFieldFromCurrentUser(map, () -> {
                 getActivity().onBackPressed();
-                Toast.makeText(getActivity(), "Country was updated", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.country_updated, Toast.LENGTH_LONG).show();
 
             });
         });

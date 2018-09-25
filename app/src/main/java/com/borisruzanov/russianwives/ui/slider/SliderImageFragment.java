@@ -109,7 +109,7 @@ public class SliderImageFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(getActivity(), "Photo was updated", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), R.string.photo_was_updated, Toast.LENGTH_LONG).show();
                                 String download_url = task.getResult().getDownloadUrl().toString();
                                 HashMap<String, Object> hashMap = new HashMap<>();
                                 hashMap.put(Consts.IMAGE, download_url);
@@ -123,7 +123,7 @@ public class SliderImageFragment extends Fragment {
                                 progressDialog.dismiss();
                             } else {
                                 progressDialog.dismiss();
-                                Toast.makeText(getActivity(), "There is an error", Toast.LENGTH_LONG).show();
+                                Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
                             }
 
                         }

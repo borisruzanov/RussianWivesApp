@@ -11,7 +11,7 @@
         <!--app:showAsAction="never"/>-->
     <item
         android:id="@+id/menu_my_profile"
-        android:title="My Profile"
+        android:title="@string/my_profile"
         app:showAsAction="never"/>
     <!--<item-->
         <!--android:id="@+id/menu_main_all_users_btn"-->

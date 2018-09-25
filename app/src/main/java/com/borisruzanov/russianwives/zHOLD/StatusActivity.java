@@ -80,7 +80,7 @@ public class StatusActivity extends AppCompatActivity {
 
                         } else {
 
-                            Toast.makeText(getApplicationContext(), "There was some error in saving Changes.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), R.string.error_in_changes, Toast.LENGTH_LONG).show();
 
                         }
 

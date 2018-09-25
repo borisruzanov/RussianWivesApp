@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.zHOLD;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -119,7 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if(req_type.equals("received")){
 
                                 mCurrent_state = "req_received";
-                                mProfileSendReqBtn.setText("Accept Friend Request");
+                                mProfileSendReqBtn.setText(R.string.accept_friend_request);
 
                                 mDeclineBtn.setVisibility(View.VISIBLE);
                                 mDeclineBtn.setEnabled(true);
@@ -128,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                             } else if(req_type.equals("sent")) {
 
                                 mCurrent_state = "req_sent";
-                                mProfileSendReqBtn.setText("Cancel Friend Request");
+                                mProfileSendReqBtn.setText(R.string.cancel_friend_request);
 
                                 mDeclineBtn.setVisibility(View.INVISIBLE);
                                 mDeclineBtn.setEnabled(false);
@@ -148,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
                                     if(dataSnapshot.hasChild(user_id)){
 
                                         mCurrent_state = "friends";
-                                        mProfileSendReqBtn.setText("Unfriend this Person");
+                                        mProfileSendReqBtn.setText(R.string.unfriend);
 
                                         mDeclineBtn.setVisibility(View.INVISIBLE);
                                         mDeclineBtn.setEnabled(false);
@@ -218,12 +219,12 @@ public class ProfileActivity extends AppCompatActivity {
 
                             if(databaseError != null){
 
-                                Toast.makeText(ProfileActivity.this, "There was some error in sending request", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, R.string.error_in_request, Toast.LENGTH_SHORT).show();
 
                             } else {
 
                                 mCurrent_state = "req_sent";
-                                mProfileSendReqBtn.setText("Cancel Friend Request");
+                                mProfileSendReqBtn.setText(R.string.cancel_friend_request);
 
                             }
 
@@ -251,7 +252,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                     mProfileSendReqBtn.setEnabled(true);
                                     mCurrent_state = "not_friends";
-                                    mProfileSendReqBtn.setText("Send Friend Request");
+                                    mProfileSendReqBtn.setText(R.string.send_friend_request);
 
                                     mDeclineBtn.setVisibility(View.INVISIBLE);
                                     mDeclineBtn.setEnabled(false);
@@ -282,6 +283,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
                     mRootRef.updateChildren(friendsMap, new DatabaseReference.CompletionListener() {
+                        @SuppressLint("SetTextI18n")
                         @Override
                         public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
 
@@ -290,7 +292,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                                 mProfileSendReqBtn.setEnabled(true);
                                 mCurrent_state = "friends";
-                                mProfileSendReqBtn.setText("Unfriend this Person");
+                                mProfileSendReqBtn.setText(R.string.unfriend);
 
                                 mDeclineBtn.setVisibility(View.INVISIBLE);
                                 mDeclineBtn.setEnabled(false);
@@ -326,7 +328,7 @@ public class ProfileActivity extends AppCompatActivity {
                             if(databaseError == null){
 
                                 mCurrent_state = "not_friends";
-                                mProfileSendReqBtn.setText("Send Friend Request");
+                                mProfileSendReqBtn.setText(R.string.send_friend_request);
 
                                 mDeclineBtn.setVisibility(View.INVISIBLE);
                                 mDeclineBtn.setEnabled(false);

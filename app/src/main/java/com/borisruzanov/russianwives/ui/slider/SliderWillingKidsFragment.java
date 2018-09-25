@@ -64,7 +64,7 @@ public class SliderWillingKidsFragment extends Fragment {
                     @Override
                     public void onUpdate() {
                         getActivity().onBackPressed();
-                        Toast.makeText(getActivity(), "Willing kids status was updated", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), R.string.willing_kids_updated, Toast.LENGTH_LONG).show();
 
                     }
                 });

@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Russian Wives</string>
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
-    <string name="display_name">Display Name</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="create_account">CREATE ACCOUNT</string>
@@ -169,6 +168,31 @@
     <string name="time_of_message_text">time of message</string>
     <string name="message_image_layout_desc">Message image layout</string>
     <string name="search_btn_like_desc">Search Button like</string>
+    <string name="my_profile">My Profile</string>
+    <string name="display_name">Display Name</string>
+    <string name="user_default_status">User default Status</string>
+    <string name="accept_friend_request">Accept Friend Request</string>
+    <string name="cancel_friend_request">Cancel Friend Request</string>
+    <string name="unfriend">Unfriend this Person</string>
+    <string name="send_friend_request">Send Friend Request</string>
+    <string name="photo_was_updated">Photo was updated</string>
+    <string name="there_is_an_error">There is an error</string>
+    <string name="relationship_was_updated">Relationship status was updated</string>
+    <string name="willing_kids_updated">Willing kids status was updated</string>
+    <string name="name_updated">Name was updated</string>
+    <string name="bkodytype_updated">Bodytype was updated</string>
+    <string name="number_of_kids_updated">Number of kids were updated</string>
+    <string name="smoking_updated">Smoking status was updated</string>
+    <string name="gender_updated">Gender information was updated</string>
+    <string name="height_updated">Height was updated</string>
+    <string name="error_in_changes">There was some error in saving Changes.</string>
+    <string name="error_in_request">There was some error in sending request</string>
+    <string name="error_request">There was some error in sending request</string>
+    <string name="country_updated">Country was updated</string>
+    <string name="drink_updated">Drink status was updated</string>
+    <string name="age_updated">Age was updated</string>
+    <string name="ethnicity_updated">Ethnicity was updated</string>
+    <string name="faith_updated">Faith was updated</string>
 
 
     <!-- Genders -->
