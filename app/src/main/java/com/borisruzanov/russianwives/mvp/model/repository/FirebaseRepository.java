@@ -127,6 +127,7 @@ public class FirebaseRepository {
      * @return
      */
     public String getUid() {
+
         return firebaseAuth.getCurrentUser().getUid();
     }
 
@@ -136,7 +137,8 @@ public class FirebaseRepository {
      * @return
      */
     public boolean isUserExist() {
-        return firebaseAuth.getCurrentUser() != null;
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        return firebaseUser != null;
     }
 
     /**
@@ -148,6 +150,7 @@ public class FirebaseRepository {
         db.collection(Consts.USERS_DB).document(currentUser.getUid())
                 .set(FirebaseRequestManager.createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid()));
         realtimeReference.child(Consts.USERS_DB).child(currentUser.getUid()).child("created").setValue("registered");
+        realtimeReference.child(Consts.USERS_DB).child(currentUser.getUid()).child("online").setValue(ServerValue.TIMESTAMP);
     }
 
     /**
@@ -420,16 +423,20 @@ public class FirebaseRepository {
     public void sendImage(String friendUid, Uri imageUri, UpdateCallback callback){
         final String current_user_ref = "Message/" + getUid() + "/" + friendUid;
         final String chat_user_ref = "Message/" + friendUid + "/" + getUid();
+        // Пушим Message -> Token -> FrUid
         DatabaseReference user_message_push = realtimeReference.child("Message")
                 .child(getDeviceToken())
                 .child(friendUid)
                 .push();
 
         final String push_id = user_message_push.getKey();
+        // Берем ссылку на картинку
         StorageReference filepath = mImageStorage.child("message_images").child(push_id + ".jpg");
 
+        //
         filepath.putFile(imageUri).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
+                Log.d("xxx", "inside isSuccessful");
                 String download_url = task.getResult().getDownloadUrl().toString();
                 Map<String, Object> messageMap = new HashMap<>();
                 messageMap.put("message", download_url);
@@ -543,6 +550,7 @@ public class FirebaseRepository {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     String online = dataSnapshot.child("online").getValue().toString();
+//                    String online = "true";
                     rtUsers.add(new RtUser(online));
                 }
 
@@ -604,7 +612,9 @@ public class FirebaseRepository {
 
                             String online = rtUserList.get(i).getOnline();
 
+                           // String message = "test message";
                             String message = messageList.get(i).getMessage();
+                           // long messageTimestamp = 235235234234L;
                             long messageTimestamp = messageList.get(i).getTime();
 
                             Log.d(Contract.CHAT_LIST, "User name is " + name);

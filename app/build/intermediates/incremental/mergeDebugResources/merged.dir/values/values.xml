@@ -1293,7 +1293,7 @@
     <string name="age_45_plus">45+</string>
     <string name="age_text">Age</string>
     <string name="age_updated">Age was updated</string>
-    <string name="also_like_text">ACTIVITY_FRIEND</string>
+    <string name="also_like_text">You may also like them</string>
     <string name="app_name">Russian Wives</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="apply">Apply</string>

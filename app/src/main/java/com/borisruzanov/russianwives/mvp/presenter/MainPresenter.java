@@ -4,6 +4,8 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.mvp.model.interactor.MainInteractor;
 import com.borisruzanov.russianwives.mvp.view.MainView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 @InjectViewState
 public class MainPresenter extends MvpPresenter<MainView> {
@@ -15,6 +17,7 @@ public class MainPresenter extends MvpPresenter<MainView> {
     }
 
     public void checkForUserExist() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         if (mainInteractor.isUserExist()){
             getViewState().setViewPager();
         } else getViewState().callAuthWindow();

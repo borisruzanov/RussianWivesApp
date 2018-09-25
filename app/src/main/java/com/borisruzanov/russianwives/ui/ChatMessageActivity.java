@@ -26,13 +26,16 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.MessageAdapter;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.FriendlyMessage;
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.mvp.model.interactor.ChatMessageInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.ChatMessagePresenter;
 import com.borisruzanov.russianwives.mvp.view.ChatMessageView;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -53,6 +56,9 @@ import java.util.List;
 import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.borisruzanov.russianwives.models.Contract.RC_PHOTO_PICKER;
+import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMessageView {
 
@@ -92,11 +98,17 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
 
     private static final int GALLERY_PICK = 1;
 
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
         mChatUser = getIntent().getStringExtra("uid");
+
         //UI
         Toolbar mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
@@ -185,14 +197,37 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         Intent galleryIntent = new Intent();
         galleryIntent.setType("image/*");
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+        Log.d(Contract.CHAT_LIST, "inside addFile");
+
         startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
-            presenter.sendImage(mChatUser, data.getData());
+        if (requestCode == RC_SIGN_IN) {
+            Log.d(Contract.CHAT_LIST, "inside RC_SIGN_IN");
+
+            if (resultCode == RESULT_OK) {
+                Log.d(Contract.CHAT_LIST, "inside if");
+                Uri selectedImageUri = data.getData();
+                Log.d(Contract.CHAT_LIST, "Uri is " + selectedImageUri);
+                new FirebaseRepository().sendImage(mChatUser, selectedImageUri, new UpdateCallback() {
+                    @Override
+                    public void onUpdate() {
+
+                    }
+                });
+            } else if (resultCode == RESULT_CANCELED) {
+                Log.d(Contract.CHAT_LIST, "inside RESULT_CANCELED");
+
+                finish();
+            } else if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK){
+
+            }
+        }else {
+            Log.d(Contract.CHAT_LIST, "inside bbbbbbbdfdfgdfgdfgdfg");
+
         }
     }
 

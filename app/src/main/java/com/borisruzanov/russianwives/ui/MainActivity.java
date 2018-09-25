@@ -136,6 +136,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
             //for checking errors
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
+                mainPresenter.checkForUserExist();
                 mainPresenter.saveUser();
             } else {
                 //Sign in failed

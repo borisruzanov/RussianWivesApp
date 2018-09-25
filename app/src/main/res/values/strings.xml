@@ -133,7 +133,7 @@
     <string name="country_text">Country</string>
     <string name="btn_add_friend_text">+ ADD FRIEND</string>
     <string name="btn_start_chat_text">WRITE MESSAGE</string>
-    <string name="also_like_text">ACTIVITY_FRIEND</string>
+    <string name="also_like_text">You may also like them</string>
     <string name="user_avatar">User Avatar</string>
     <string name="display_name_text">Display Name</string>
     <string name="total_friends_text">Total Friends</string>
