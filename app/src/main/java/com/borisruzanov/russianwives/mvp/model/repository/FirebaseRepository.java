@@ -201,7 +201,6 @@ public class FirebaseRepository {
                 for (DocumentSnapshot snapshot : ((QuerySnapshot) object).getDocuments()) {
                     FsUser fsUser = snapshot.toObject(FsUser.class);
                     fsUsers.add(fsUser);
-                    Log.d("TAG", fsUser.getName());
                 }
             }
             usersListCallback.setUsers(fsUsers);
@@ -209,7 +208,7 @@ public class FirebaseRepository {
     }
 
     /**
-     * Searching by searchModel which includes list of key-value
+     * Searchings by searchModel which includes list of key-valuesss
      *
      * @param searchModels
      * @param usersListCallback
