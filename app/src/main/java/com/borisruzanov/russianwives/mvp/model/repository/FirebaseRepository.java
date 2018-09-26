@@ -511,6 +511,7 @@ public class FirebaseRepository {
     private void getChatAndUidList(ChatAndUidCallback callback) {
         DatabaseReference mConvDatabase = FirebaseDatabase.getInstance().getReference()
                 .child("Chat").child(getUid());
+
         mConvDatabase.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -548,8 +549,8 @@ public class FirebaseRepository {
                     .child(uid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String online = dataSnapshot.child("online").getValue().toString();
-//                    String online = "true";
+//                    String online = dataSnapshot.child("online").getValue().toString();
+                    String online = "true";
                     rtUsers.add(new RtUser(online));
                 }
 
@@ -601,7 +602,7 @@ public class FirebaseRepository {
                     Log.d(Contract.CHAT_LIST, "UserList size in getNeededUsers block is " + userList.size());
 
                     if (!userList.isEmpty() && userChatList.isEmpty()) {
-                        for (int i = 0; i < userList.size(); i++) {
+                        for (int i = 0; i < messageList.size(); i++) {
                             String name = userList.get(i).getName();
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
@@ -611,9 +612,9 @@ public class FirebaseRepository {
 
                             String online = rtUserList.get(i).getOnline();
 
-                           // String message = "test message";
+//                            String message = "test message";
                             String message = messageList.get(i).getMessage();
-                           // long messageTimestamp = 235235234234L;
+//                            long messageTimestamp = 235235234234L;
                             long messageTimestamp = messageList.get(i).getTime();
 
                             Log.d(Contract.CHAT_LIST, "User name is " + name);

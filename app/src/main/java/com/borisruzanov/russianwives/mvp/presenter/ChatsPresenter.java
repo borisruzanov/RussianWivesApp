@@ -6,6 +6,7 @@ import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.models.Chat;
 import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.models.RtUser;
 import com.borisruzanov.russianwives.models.UserChat;
@@ -36,6 +37,12 @@ public class ChatsPresenter extends MvpPresenter<ChatsView> {
 
     public void getUserChatList() {
         interactor.getUsersChats(userChatList -> {
+            if (userChatList.isEmpty()) Log.d(Contract.CHAT_LIST, "List is empty, bye");
+            else {
+                for (UserChat userChat: userChatList){
+                    Log.d(Contract.CHAT_LIST, "User name is" + userChat.getName());
+                }
+            }
             userChats.addAll(userChatList);
             getViewState().showUserChats(userChatList);
         });
