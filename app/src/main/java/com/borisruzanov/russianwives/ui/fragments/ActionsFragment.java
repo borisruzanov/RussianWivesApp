@@ -28,68 +28,68 @@ import java.util.List;
 
 public class ActionsFragment extends MvpAppCompatFragment implements ActionsView {
 
-    @InjectPresenter
-    ActionsPresenter actionsPresenter;
+  @InjectPresenter
+  ActionsPresenter actionsPresenter;
 
-    @ProvidePresenter
-    public ActionsPresenter provideActionsPresenter(){
-        return new ActionsPresenter(new ActionsInteractor(new FirebaseRepository()));
+  @ProvidePresenter
+  public ActionsPresenter provideActionsPresenter(){
+    return new ActionsPresenter(new ActionsInteractor(new FirebaseRepository()));
+  }
+
+  RecyclerView recyclerActivitiesList;
+  ActionsAdapter actionsAdapter;
+
+  private TextView emptyText;
+
+  public ActionsFragment() {
+    // Required empty public constructor
+  }
+
+
+  @Override
+  public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                           Bundle savedInstanceState) {
+
+    View view = inflater.inflate(R.layout.fragment_main_tab_activities, container, false);
+
+    recyclerActivitiesList = view.findViewById(R.id.friends_fragment_recycler_activities);
+    recyclerActivitiesList.setLayoutManager(new LinearLayoutManager(getActivity()));
+    recyclerActivitiesList.setHasFixedSize(true);
+    recyclerActivitiesList.addItemDecoration(new DividerItemDecoration(recyclerActivitiesList.getContext(),
+            DividerItemDecoration.VERTICAL));
+
+    actionsAdapter = new ActionsAdapter(onItemClickCallback);
+    recyclerActivitiesList.setAdapter(actionsAdapter);
+
+    emptyText = view.findViewById(R.id.activities_empty_text);
+
+    //actionsPresenter.setActionsList();
+
+    // Inflate the layout for this fragment
+    return view;
+  }
+
+  @Override
+  public void showUserActions(List<ActionItem> actionItems) {
+    if(!actionItems.isEmpty()) {
+      emptyText.setVisibility(View.GONE);
+      recyclerActivitiesList.post(() -> actionsAdapter.setData(actionItems));
     }
-
-    RecyclerView recyclerActivitiesList;
-    ActionsAdapter actionsAdapter;
-
-    private TextView emptyText;
-
-    public ActionsFragment() {
-        // Required empty public constructor
+    else {
+      recyclerActivitiesList.setVisibility(View.GONE);
+      emptyText.setVisibility(View.VISIBLE);
     }
+  }
 
+  private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) ->
+          actionsPresenter.openFriendProfile(position);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_main_tab_activities, container, false);
-
-        recyclerActivitiesList = view.findViewById(R.id.friends_fragment_recycler_activities);
-        recyclerActivitiesList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerActivitiesList.setHasFixedSize(true);
-        recyclerActivitiesList.addItemDecoration(new DividerItemDecoration(recyclerActivitiesList.getContext(),
-                DividerItemDecoration.VERTICAL));
-
-        actionsAdapter = new ActionsAdapter(onItemClickCallback);
-        recyclerActivitiesList.setAdapter(actionsAdapter);
-
-        emptyText = view.findViewById(R.id.activities_empty_text);
-
-        actionsPresenter.setActionsList();
-
-        // Inflate the layout for this fragment
-        return view;
-    }
-
-    @Override
-    public void showUserActions(List<ActionItem> actionItems) {
-        if(!actionItems.isEmpty()) {
-            emptyText.setVisibility(View.GONE);
-            recyclerActivitiesList.post(() -> actionsAdapter.setData(actionItems));
-        }
-        else {
-            recyclerActivitiesList.setVisibility(View.GONE);
-            emptyText.setVisibility(View.VISIBLE);
-        }
-    }
-
-    private OnItemClickListener.OnItemClickCallback onItemClickCallback = (view, position) ->
-            actionsPresenter.openFriendProfile(position);
-
-    @Override
-    public void openFriendProfile(String friendUid){
-        Intent friendProfileIntent = new Intent(getActivity(), FriendProfileActivity.class);
-        friendProfileIntent.putExtra("uid", friendUid);
-        startActivity(friendProfileIntent);
-    }
+  @Override
+  public void openFriendProfile(String friendUid){
+    Intent friendProfileIntent = new Intent(getActivity(), FriendProfileActivity.class);
+    friendProfileIntent.putExtra("uid", friendUid);
+    startActivity(friendProfileIntent);
+  }
 
 
 }

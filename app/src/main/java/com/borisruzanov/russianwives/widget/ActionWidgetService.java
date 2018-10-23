@@ -11,8 +11,8 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.mvp.model.interactor.WidgetInteractor;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.mvp.model.interactor.widget.WidgetInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 
 public class ActionWidgetService extends JobIntentService {
 
@@ -26,7 +26,7 @@ public class ActionWidgetService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-        WidgetInteractor interactor = new WidgetInteractor(new FirebaseRepository());
+        WidgetInteractor interactor = new WidgetInteractor(new UserRepository());
         int [] widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
 

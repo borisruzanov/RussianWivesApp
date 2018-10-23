@@ -102,15 +102,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
             viewHolder.messageText.setTextColor(Color.BLACK);
         }
 
+        Log.d("MessageDebug", "Message is " + currentMessage.getMessage());
+
         //Проверка на текст или картинку
         if (message_type.equals("text")) {
             viewHolder.messageText.setText(currentMessage.getMessage());
             viewHolder.messageImage.setVisibility(View.INVISIBLE);
         } else {
             viewHolder.messageText.setVisibility(View.INVISIBLE);
-            Picasso.with(viewHolder.profileImage.getContext())
-                    .load(context.getString(R.string.image_message_link))
-                    .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
+            Picasso.with(viewHolder.messageImage.getContext())
+                    .load(currentMessage.getMessage())
+                    .placeholder(R.drawable.default_avatar)
+                    .into(viewHolder.messageImage);
 
         }
     }

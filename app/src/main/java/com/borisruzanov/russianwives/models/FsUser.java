@@ -1,6 +1,6 @@
 package com.borisruzanov.russianwives.models;
 
-import com.borisruzanov.russianwives.ui.global.ViewType;
+import com.borisruzanov.russianwives.mvp.ui.global.ViewType;
 
 public class FsUser implements ViewType {
 

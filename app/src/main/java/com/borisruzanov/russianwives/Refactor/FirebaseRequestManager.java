@@ -37,10 +37,4 @@ public class FirebaseRequestManager {
         return userMap;
     }
 
-    public static List<String> createFieldsList(){
-        return Arrays.asList(Consts.BODY_TYPE, Consts.DRINK_STATUS, Consts.ETHNICITY,Consts.GENDER,
-                Consts.HOBBY, Consts.FAITH, Consts.HOW_TALL, Consts.IMAGE, Consts.LANGUAGES, Consts.DRINK_STATUS,
-                Consts.SMOKING_STATUS, Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT, Consts.NUMBER_OF_KIDS);
-    }
-
 }

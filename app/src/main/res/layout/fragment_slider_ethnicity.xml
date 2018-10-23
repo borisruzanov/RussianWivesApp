@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderEthnicityFragment">
+    tools:context=".mvp.ui.slider.SliderEthnicityFragment">
 
 
     <TextView
@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp16"
         android:text="@string/which_ethnicity_best_describe_you"
         android:textColor="@color/darkGrey"
         android:textSize="24sp" />

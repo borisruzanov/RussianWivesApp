@@ -4,14 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -26,17 +23,12 @@ import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.MessageAdapter;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.models.FriendlyMessage;
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.mvp.model.interactor.ChatMessageInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.presenter.ChatMessagePresenter;
 import com.borisruzanov.russianwives.mvp.view.ChatMessageView;
-import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -44,21 +36,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-
-import static com.borisruzanov.russianwives.models.Contract.RC_PHOTO_PICKER;
-import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMessageView {
 
@@ -95,12 +77,7 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
     private String mLastKey = "";
     private String mPrevKey = "";
 
-
     private static final int GALLERY_PICK = 1;
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +87,7 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         mChatUser = getIntent().getStringExtra("uid");
 
         //UI
-        Toolbar mChatToolbar = (Toolbar) findViewById(R.id.chat_app_bar);
+        Toolbar mChatToolbar = findViewById(R.id.chat_app_bar);
         setSupportActionBar(mChatToolbar);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -122,9 +99,13 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
         View action_bar_view = inflater.inflate(R.layout.chat_custom_bar, null);
         actionBar.setCustomView(action_bar_view);
         //Custom Action bar Items
-        TextView mTitleView = findViewById(R.id.custom_bar_title);
-        mTitleView.setText(getIntent().getStringExtra("nameText"));
-        CircleImageView mProfileImage = findViewById(R.id.custom_bar_image);
+        TextView mTitleView = action_bar_view.findViewById(R.id.custom_bar_title);
+        mTitleView.setText(getIntent().getStringExtra("name"));
+
+        TextView lastSeenText = action_bar_view.findViewById(R.id.custom_bar_seen);
+        new FirebaseRepository().getRtUserOnlineStatus(mChatUser, value -> lastSeenText.setText(value));
+
+        CircleImageView mProfileImage = action_bar_view.findViewById(R.id.custom_bar_image);
         Glide.with(this).load(getIntent().getStringExtra("photo_url")).into(mProfileImage);
 
 
@@ -141,9 +122,9 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
 
 
         //Buttons
-        ImageButton mChatAddBtn = (ImageButton) findViewById(R.id.chat_add_btn);
+        ImageButton mChatAddBtn = findViewById(R.id.chat_add_btn);
         mChatAddBtn.setOnClickListener(v -> addFile());
-        ImageButton mChatSendBtn = (ImageButton) findViewById(R.id.chat_send_btn);
+        ImageButton mChatSendBtn = findViewById(R.id.chat_send_btn);
         mChatMessageView = (EditText) findViewById(R.id.chat_message_view);
 
         //Pagination
@@ -205,26 +186,15 @@ public class ChatMessageActivity extends MvpAppCompatActivity implements ChatMes
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            Log.d(Contract.CHAT_LIST, "inside RC_SIGN_IN");
+        if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
+            Log.d(Contract.CHAT_LIST, "inside if");
+            Uri selectedImageUri = data.getData();
+            Log.d(Contract.CHAT_LIST, "Uri is " + selectedImageUri);
+            new FirebaseRepository().sendImage(mChatUser, selectedImageUri, () -> mChatMessageView.setText(""));
+        } else if (resultCode == RESULT_CANCELED) {
+            Log.d(Contract.CHAT_LIST, "inside RESULT_CANCELED");
 
-            if (resultCode == RESULT_OK) {
-                Log.d(Contract.CHAT_LIST, "inside if");
-                Uri selectedImageUri = data.getData();
-                Log.d(Contract.CHAT_LIST, "Uri is " + selectedImageUri);
-                new FirebaseRepository().sendImage(mChatUser, selectedImageUri, new UpdateCallback() {
-                    @Override
-                    public void onUpdate() {
-
-                    }
-                });
-            } else if (resultCode == RESULT_CANCELED) {
-                Log.d(Contract.CHAT_LIST, "inside RESULT_CANCELED");
-
-                finish();
-            } else if (requestCode == RC_PHOTO_PICKER && resultCode == RESULT_OK){
-
-            }
+            finish();
         }else {
             Log.d(Contract.CHAT_LIST, "inside bbbbbbbdfdfgdfgdfgdfg");
 

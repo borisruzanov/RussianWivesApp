@@ -16,6 +16,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.Adapters.MainPagerAdapter;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.CheckRepository;
 import com.borisruzanov.russianwives.ui.fragments.ActionsFragment;
 import com.borisruzanov.russianwives.ui.fragments.ChatsFragment;
 import com.borisruzanov.russianwives.ui.fragments.FilterDialogFragment;
@@ -40,7 +41,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
 
     @ProvidePresenter
     MainPresenter provideMainPresenter() {
-        return new MainPresenter(new MainInteractor(new FirebaseRepository()));
+        return new MainPresenter(new MainInteractor(new FirebaseRepository(), new CheckRepository()));
     }
 
     //UI
@@ -77,7 +78,8 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Filt
         mainPagerAdapter.addFragment(new ActionsFragment(), getString(R.string.actions_title));
         tabLayout = findViewById(R.id.main_tabs);
 
-        mainPresenter.checkForUserExist();
+        //mainPresenter.checkForUserExist();
+        mainPresenter.checkUserRegistered();
 
     }
 

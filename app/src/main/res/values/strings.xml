@@ -193,7 +193,15 @@
     <string name="age_updated">Age was updated</string>
     <string name="ethnicity_updated">Ethnicity was updated</string>
     <string name="faith_updated">Faith was updated</string>
-
+    <string name="need_register_actions">You need to be registered to see who liked or visited you</string>
+    <string name="need_register_chats">You need to be registered to read and send messages</string>
+    <string name="register">Register</string>
+    <string name="confirm_dialog_reg_header">You need to create account</string>
+    <string name="confirm_dialog_slider_header">Do you want to fill the form and get rating points?</string>
+    <string name="login">Login</string>
+    <string name="header_necessary_info">Please, fill necessary info</string>
+    <string name="finish">Finish</string>
+    <string name="hobby_updated">Hobby was updated</string>
 
     <!-- Genders -->
     <string-array name="genders">

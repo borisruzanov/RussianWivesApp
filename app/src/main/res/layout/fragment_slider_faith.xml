@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderFaithFragment">
+    tools:context=".mvp.ui.slider.SliderFaithFragment">
 
     <TextView
         android:id="@+id/fragment_slider_faith_tv_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp16"
         android:text="@string/what_is_your_faith"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/large_text_size" />

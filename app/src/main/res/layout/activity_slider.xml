@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderActivity">
+    tools:context=".mvp.ui.slider.SliderActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_slider"

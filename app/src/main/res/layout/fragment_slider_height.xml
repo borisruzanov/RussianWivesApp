@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderHeightFragment">
+    tools:context=".mvp.ui.slider.SliderHeightFragment">
 
     <TextView
         android:id="@+id/fragment_slider_height_tv_question"

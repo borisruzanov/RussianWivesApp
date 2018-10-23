@@ -1,57 +1,24 @@
 package com.borisruzanov.russianwives.mvp.model.repository;
 
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.util.Log;
-
-import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
-import com.borisruzanov.russianwives.models.ActInfo;
-import com.borisruzanov.russianwives.models.Action;
-import com.borisruzanov.russianwives.models.ActionItem;
-import com.borisruzanov.russianwives.models.ActionModel;
-import com.borisruzanov.russianwives.models.Chat;
-import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
-import com.borisruzanov.russianwives.models.Message;
-import com.borisruzanov.russianwives.models.RtUser;
-import com.borisruzanov.russianwives.models.SearchModel;
-import com.borisruzanov.russianwives.models.UserChat;
-import com.borisruzanov.russianwives.utils.ActionCallback;
-import com.borisruzanov.russianwives.utils.ActionCountCallback;
-import com.borisruzanov.russianwives.utils.ActionItemCallback;
-import com.borisruzanov.russianwives.utils.ActionsCountInfoCallback;
-import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.RtUsersAndMessagesCallback;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
-import com.borisruzanov.russianwives.utils.UserCallback;
-import com.borisruzanov.russianwives.utils.UserChatListCallback;
 import com.borisruzanov.russianwives.utils.UsersListCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ServerValue;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,21 +37,21 @@ public class FirebaseRepository {
     private CollectionReference reference = db.collection(Consts.USERS_DB);
 
 
-    /**
+   /* *//**
      * Getting needed field from current user profile in FsUsers
      *
      * @param valueName
      * @param callback
-     */
+     *//*
     public void getFieldFromCurrentUser(String valueName, final ValueCallback callback) {
         getData(Consts.USERS_DB, getUid(), valueName, callback);
     }
-
-    /**
+*/
+   /* *//**
      * Getting all datasnapshot from current user profile in FsUsers
      *
      * @param callback
-     */
+     *//*
     public void getAllCurrentUserInfo(final UserCallback callback) {
         getDocRef(Consts.USERS_DB, getUid()).get()
                 .addOnCompleteListener(task -> {
@@ -93,24 +60,24 @@ public class FirebaseRepository {
                         callback.setUser(snapshot.toObject(FsUser.class));
                     }
                 });
-    }
+    }*/
 
-    /**
+ /*   *//**
      * Updating field information of current user in FsUsers
      *
      * @param map
      * @param callback
-     */
+     *//*
     public void updateFieldFromCurrentUser(Map<String, Object> map, UpdateCallback callback) {
         updateData(Consts.USERS_DB, getUid(), map, callback);
     }
+*/
 
-
-    /**
+   /* *//**
      * Get list of all users
      *
      * @param usersListCallback
-     */
+     *//*
     public void getUsersData(final UsersListCallback usersListCallback) {
         reference.get().addOnCompleteListener(task -> {
             List<FsUser> fsUserList = new ArrayList<>();
@@ -119,7 +86,7 @@ public class FirebaseRepository {
             }
             usersListCallback.setUsers(fsUserList);
         });
-    }
+    }*/
 
     /**
      * Get UID of Current user
@@ -131,19 +98,19 @@ public class FirebaseRepository {
         return firebaseAuth.getCurrentUser().getUid();
     }
 
-    /**
+   /* *//**
      * Checking for user exist
      *
      * @return
-     */
+     *//*
     public boolean isUserExist() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         return firebaseUser != null;
-    }
+    }*/
 
-    /**
+   /* *//**
      * Saving FsUser to data base
-     */
+     *//*
     //TODO поменять название баз данных на RtUsers / FsUsers
     public void saveUser() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
@@ -151,28 +118,16 @@ public class FirebaseRepository {
                 .set(FirebaseRequestManager.createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid()));
         realtimeReference.child(Consts.USERS_DB).child(currentUser.getUid()).child("created").setValue("registered");
         realtimeReference.child(Consts.USERS_DB).child(currentUser.getUid()).child("online").setValue(ServerValue.TIMESTAMP);
-    }
-
-    /**
-     * Getting single value from need friend
-     *
-     * @param userId
-     * @param valueName
-     * @param callback
-     */
-    public void getDataFromNeededFriend(String userId, String valueName, final ValueCallback callback) {
-        getData(Consts.USERS_DB, userId, valueName, callback);
-    }
-
-    /**
+    }*/
+/*
+    *//**
      * Getting friend's object with needed data
      *
-     * @param collectionName
      * @param docName
      * @param userCallback
-     */
-    public void getFriendData(String collectionName, String docName, final UserCallback userCallback) {
-        getDocRef(collectionName, docName).get().addOnCompleteListener(task -> {
+     *//*
+    public void getFriendData(String docName, final UserCallback userCallback) {
+        db.collection(Consts.USERS_DB).document(docName).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
             if (snapshot.exists()) {
                 Log.d("check", "exist");
@@ -180,15 +135,15 @@ public class FirebaseRepository {
             }
 
         });
-    }
+    }*/
 
-    /**
+  /*  *//**
      * Get list of user objects from FsUers based on list of uid
      *
      * @param uidList
      * @param usersListCallback
-     */
-    public void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback) {
+     *//*
+    private void getNeededUsers(List<String> uidList, UsersListCallback usersListCallback) {
         CollectionReference users = db.collection(Consts.USERS_DB);
         List<Task<QuerySnapshot>> tasks = new ArrayList<>();
         for (String uid : uidList) {
@@ -205,14 +160,14 @@ public class FirebaseRepository {
             }
             usersListCallback.setUsers(fsUsers);
         });
-    }
+    }*/
 
     /**
-     * Searchings by searchModel which includes list of key-valuesss
+     * Searching data by searchModel which includes list of key-values
      *
      * @param searchModels
      * @param usersListCallback
-     */
+     *//*
     public void searchByListParams(final List<SearchModel> searchModels, final UsersListCallback usersListCallback) {
         Query query = reference;
 
@@ -222,9 +177,9 @@ public class FirebaseRepository {
             }
             query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
         } else query.get().addOnCompleteListener(task -> putCallbackData(usersListCallback, task));
-    }
+    }*/
 
-    public void setFriendLiked(String friendUid){
+    /*public void setFriendLiked(String friendUid){
         DatabaseReference userLikePush = realtimeReference.child("Likes")
                 .child(getUid()).child(friendUid);
 
@@ -241,9 +196,9 @@ public class FirebaseRepository {
             }
 
         });
-    }
+    }*/
 
-    public void setUserVisited(String friendUid){
+    /*public void setFriendVisited(String friendUid){
         Map<String, Object> visitAddMap = new HashMap<>();
         visitAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
         visitAddMap.put("fromUid", friendUid);
@@ -268,9 +223,9 @@ public class FirebaseRepository {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {}
                 });
-    }
+    }*/
 
-    private void getLikes(ActionCallback callback){
+   /* private void getLikes(ActionCallback callback){
         realtimeReference.child("Likes").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -350,9 +305,9 @@ public class FirebaseRepository {
     public void getActionsCountInfo(ActionsCountInfoCallback callback){
         getActionCount("Visits", visitsCount ->
                 getActionCount("Likes", likesCount -> callback.setActions(visitsCount, likesCount)));
-    }
+    }*/
 
-    public void initChat(String friendUid) {
+   /* public void initChat(String friendUid) {
         if (realtimeReference.child("Chat").child(getUid()) != null){
             realtimeReference.child("Chat").child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -404,7 +359,7 @@ public class FirebaseRepository {
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
             messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
-            callback.onUpdate();
+            callback.setInfo();
 
             realtimeReference.child("Chat").child(getUid()).child(friendUid).child("seen").setValue(true);
             realtimeReference.child("Chat").child(getUid()).child(friendUid).child("timestamp").setValue(ServerValue.TIMESTAMP);
@@ -448,7 +403,7 @@ public class FirebaseRepository {
                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
                 messageUserMap.put(chat_user_ref + "/" + push_id, messageMap);
 
-                callback.onUpdate();
+                callback.setInfo();
 
                 realtimeReference.updateChildren(messageUserMap, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
@@ -457,58 +412,9 @@ public class FirebaseRepository {
                 });
             }
         });
-    }
+    }*/
 
-    /**
-     * Adding activity type in the table for user activities
-     *
-     * @param userUid
-     * @param friendUid
-     */
-    //TODO Проверить на работоспособность
-    public void addUserToActivity(String userUid, String friendUid) {
-        Map<String, Object> chatAddMap = new HashMap<>();
-        chatAddMap.put(Consts.ACTION, "visit");
-        chatAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
-        chatAddMap.put(Consts.UID, userUid);
-        DatabaseReference activityDb = realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
-        activityDb.updateChildren(chatAddMap);
-
-        activityDb.child(Consts.ACTIONS_DB).child(friendUid).child(userUid)
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        Map<String, Object> chatUserMap = new HashMap<>();
-                        chatUserMap.put("Chat/" + userUid + "/" + friendUid, chatAddMap);
-                        chatUserMap.put("Chat/" + friendUid + "/" + userUid, chatAddMap);
-                        activityDb.setValue(chatAddMap, new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-                                if (databaseError != null) {
-                                    Log.d(Contract.TAG, "initializeChat Error is "
-                                            + databaseError.getMessage().toString());
-                                }
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                    }
-                });
-    }
-
-    private ActInfo getActInfo(List<Action> actionList) {
-        int visits = 0, likes = 0;
-        for (Action action : actionList) {
-            if (action.getAction().equals(Consts.VISIT)) visits++;
-            else if (action.getAction().equals(Consts.LIKE)) likes++;
-        }
-        return new ActInfo(visits, likes);
-    }
-
-
-    private void getChatAndUidList(ChatAndUidCallback callback) {
+    /*private void getChatAndUidList(ChatAndUidCallback callback) {
         DatabaseReference mConvDatabase = FirebaseDatabase.getInstance().getReference()
                 .child("Chat").child(getUid());
 
@@ -630,7 +536,7 @@ public class FirebaseRepository {
 
         });
     }
-
+*/
     /**
      * Checking for information from FsUsers of current user
      *
@@ -639,14 +545,11 @@ public class FirebaseRepository {
     //TODO Дописать метод
     public boolean checkingForFirstNeededInformationOfUser() {
         reference.document(getUid()).get()
-                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
+                .addOnCompleteListener(task -> {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
 //                            needInfo = isChanged(createList(document));
-                            //return some data with callback
-                        }
+                        //return some data with callback
                     }
                 });
 
@@ -730,6 +633,44 @@ public class FirebaseRepository {
         return FirebaseInstanceId.getInstance().getToken();
     }
 
+/*
+    *//**
+     * Adding activity type in the table for user activities
+     *
+     * @param userUid
+     * @param friendUid
+     *//*
+    public void addUserToActivity(String userUid, String friendUid) {
+        Map<String, Object> chatAddMap = new HashMap<>();
+        chatAddMap.put(Consts.ACTION, "visit");
+        chatAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
+        chatAddMap.put(Consts.UID, userUid);
+        DatabaseReference activityDb = realtimeReference.child(Consts.ACTIONS_DB).child(friendUid).push();
+        activityDb.updateChildren(chatAddMap);
+
+        activityDb.child(Consts.ACTIONS_DB).child(friendUid).child(userUid)
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Map<String, Object> chatUserMap = new HashMap<>();
+                        chatUserMap.put("Chat/" + userUid + "/" + friendUid, chatAddMap);
+                        chatUserMap.put("Chat/" + friendUid + "/" + userUid, chatAddMap);
+                        activityDb.setValue(chatAddMap, new DatabaseReference.CompletionListener() {
+                            @Override
+                            public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                if (databaseError != null) {
+                                    Log.d(Contract.TAG, "initializeChat Error is "
+                                            + databaseError.getMessage().toString());
+                                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+    }*/
 
 //
 //    private boolean isChanged(List<String> fieldsList) {
@@ -771,7 +712,7 @@ public class FirebaseRepository {
     /*   public void updateUserDataTierTwo(String firstCollection, String firstDocument, String secondCollection,
                                       String secondDocument, Map<String, Object> map, UpdateCallback callback) {
         getDocRefTwo(firstCollection, firstDocument, secondCollection, secondDocument).set(map)
-                .addOnCompleteListener(task -> callback.onUpdate());
+                .addOnCompleteListener(task -> callback.setInfo());
     }
 
 

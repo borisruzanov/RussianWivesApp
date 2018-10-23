@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderSmokingStatusFragment">
+    tools:context=".mvp.ui.slider.SliderSmokingStatusFragment">
 
     <TextView
         android:id="@+id/fragment_slider_smokestatus_tv_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp16"
         android:text="@string/smoking_status"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/large_text_size" />
@@ -18,9 +18,9 @@
             android:id="@+id/fragment_slider_smoking_status_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_slider_bodytype_tv_question"
             android:layout_margin="@dimen/dp16"
             android:gravity="center"
+            android:layout_below="@+id/fragment_slider_smokestatus_tv_question"
             android:orientation="vertical">
 
             <RadioButton

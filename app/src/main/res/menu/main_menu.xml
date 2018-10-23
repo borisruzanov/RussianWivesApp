@@ -6,17 +6,17 @@
         android:title="@string/sign_out"
         app:showAsAction="never"/>
     <!--<item-->
-        <!--android:id="@+id/menu_user"-->
-        <!--android:title="Profile"-->
-        <!--app:showAsAction="never"/>-->
+    <!--android:id="@+id/menu_user"-->
+    <!--android:title="Profile"-->
+    <!--app:showAsAction="never"/>-->
     <item
         android:id="@+id/menu_my_profile"
         android:title="@string/my_profile"
         app:showAsAction="never"/>
     <!--<item-->
-        <!--android:id="@+id/menu_main_all_users_btn"-->
-        <!--android:title="All FsUser"-->
-        <!--app:showAsAction="never"/>-->
+    <!--android:id="@+id/menu_main_all_users_btn"-->
+    <!--android:title="All FsUser"-->
+    <!--app:showAsAction="never"/>-->
 
     <item
         android:id="@+id/menu_filter"
@@ -24,9 +24,16 @@
         app:showAsAction="never" />
 
     <item
-        android:title=""
-        android:id="@+id/menu_toolbar_profile"
-        android:icon="@drawable/ic_account_circle_black_24dp"
-        app:showAsAction="always"
-        />
+        android:id="@+id/login"
+        android:title="@string/login"
+        android:icon="@drawable/ic_person_add"
+        app:showAsAction="ifRoom" />
+
+
+    <!-- <item
+         android:title=""
+         android:id="@+id/menu_toolbar_profile"
+         android:icon="@drawable/ic_account_circle_black_24dp"
+         app:showAsAction="always"
+         />-->
 </menu>

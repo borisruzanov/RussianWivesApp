@@ -5,14 +5,14 @@ import com.borisruzanov.russianwives.utils.UserChatListCallback;
 
 public class ChatsInteractor {
 
-    private FirebaseRepository repository;
+  private FirebaseRepository repository;
 
-    public ChatsInteractor(FirebaseRepository repository) {
-        this.repository = repository;
-    }
+  public ChatsInteractor(FirebaseRepository repository) {
+    this.repository = repository;
+  }
 
-    public void getUsersChats(UserChatListCallback callback){
-        repository.createUserChats(callback);
-    }
+  public void getUsersChats(UserChatListCallback callback){
+    repository.createUserChats(callback);
+  }
 
 }

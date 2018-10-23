@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderImageFragment">
+    tools:context=".mvp.ui.slider.SliderImageFragment">
 
     <TextView
         android:id="@+id/fragment_slider_image_tv_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp16"
         android:text="@string/add_photo"
         android:textSize="@dimen/large_text_size"
         android:textColor="@color/darkGrey"/>

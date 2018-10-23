@@ -27,7 +27,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ui.MainActivity"
+        <activity android:name="com.borisruzanov.russianwives.mvp.ui.main.MainActivity"
             android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -39,10 +39,10 @@
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".zTEST.ChatUdacityActivity" />
-        <activity android:name=".ui.ProfileSettingsActivity" />
+        <activity android:name="com.borisruzanov.russianwives.mvp.ui.profilesettings.ProfileSettingsActivity" />
         <activity
             android:name=".zHOLD.AllUsersActivity"
-            android:parentActivityName=".ui.MainActivity" />
+            android:parentActivityName="com.borisruzanov.russianwives.mvp.ui.main.MainActivity" />
         <activity android:name=".zHOLD.ProfileActivity">
             <intent-filter>
                 <action android:name="com.borisruzanov.russianwives_TARGET_NOTIFICATION" />
@@ -51,24 +51,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.ChatMessageActivity"
-            android:parentActivityName=".ui.MainActivity" />
+            android:name="com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity"
+            android:parentActivityName="com.borisruzanov.russianwives.mvp.ui.main.MainActivity" />
         <activity android:name=".zHOLD.StatusActivity" />
         <activity
             android:name=".zTEST.SettingsProfileBasics"
-            android:parentActivityName=".ui.ProfileSettingsActivity" />
+            android:parentActivityName="com.borisruzanov.russianwives.mvp.ui.profilesettings.ProfileSettingsActivity" />
         <activity
-            android:name=".ui.MyProfileActivity"
+            android:name="com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".zTEST.UserInfoViewPager" />
         <activity
-            android:name=".ui.slider.SliderActivity"
-            android:parentActivityName=".ui.MainActivity">
+            android:name="com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity"
+            android:parentActivityName="com.borisruzanov.russianwives.mvp.ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.borisruzanov.russianwives.ui.MainActivity" />
+                android:value="com.borisruzanov.russianwives.mvp.ui.main.MainActivity" />
         </activity>
-        <activity android:name=".ui.FriendProfileActivity"></activity>
+        <activity android:name="com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity"></activity>
 
         <receiver android:name=".widget.ActionWidgetProvider">
             <intent-filter>

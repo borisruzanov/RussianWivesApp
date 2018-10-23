@@ -5,7 +5,9 @@ import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.UserProfileItemsList;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.interactor.FriendProfileInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.view.FriendProfileView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +24,7 @@ public class FriendProfilePresenter extends MvpPresenter<FriendProfileView> {
 
     public void setAllInfo(String friendUid){
         setFriendData(friendUid);
-        setUserVisited(friendUid);
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) setUserVisited(friendUid);
     }
 
     private void setFriendData(String friendUid) {

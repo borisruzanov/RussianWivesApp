@@ -26,6 +26,7 @@ import com.borisruzanov.russianwives.mvp.presenter.FriendProfilePresenter;
 import com.borisruzanov.russianwives.mvp.view.FriendProfileView;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -59,13 +60,13 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
         //Transition
-        supportPostponeEnterTransition();
+        //supportPostponeEnterTransition();
         imageView = findViewById(R.id.friend_activity_image);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             String imageTransitionName = getIntent().getStringExtra("transitionName");
             imageView.setTransitionName(imageTransitionName);
-        }
+        }*/
 
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -76,6 +77,12 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         fab = findViewById(R.id.friend_activity_fab);
         fab.setOnClickListener(v -> {
             //TODO Make sure user can make only 1 like
+            if(FirebaseAuth.getInstance().getCurrentUser() == null){
+                //show Registration dialog
+            }
+            else {
+                // add like
+            }
         });
 
         btnAddFriend = findViewById(R.id.friend_activity_btn_add_friend);
@@ -96,6 +103,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
         String friendUid = getIntent().getStringExtra("uid");
         presenter.setAllInfo(friendUid);
+
 
 
     }
@@ -119,7 +127,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         if (!image.equals(Consts.DEFAULT)) {
             Picasso.with(this)
                     .load(image)
-                    .into(imageView, new Callback() {
+                    .into(imageView); /*new Callback() {
                         @Override
                         public void onSuccess() {
                             supportStartPostponedEnterTransition();
@@ -129,7 +137,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
                         public void onError() {
                             supportStartPostponedEnterTransition();
                         }
-                    });
+                    });*/
         }
     }
 

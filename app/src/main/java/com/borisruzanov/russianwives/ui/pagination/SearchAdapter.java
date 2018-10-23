@@ -22,6 +22,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.data.model.User;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +35,6 @@ import java.util.List;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHolder>{
     //TODO REMOVE OR DELETE?
 
-    private String uid = new FirebaseRepository().getUid();
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private List<FsUser> fsUserList = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
@@ -117,16 +117,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             ViewCompat.setTransitionName(imageView, fsUser.getName());
 
 
-            if (fsUser.getUid() != null) {
-                if (mDatabase.child("Likes").child(uid).child(fsUser.getUid()) != null) {
-                    mDatabase.child("Likes").child(uid).addValueEventListener(new ValueEventListener() {
+            if (fsUser.getUid() != null && FirebaseAuth.getInstance().getCurrentUser() != null) {
+                String uid = new FirebaseRepository().getUid();
+                if (mDatabase.child("Likes").child(fsUser.getUid()).child(uid) != null) {
+                    mDatabase.child("Likes").child(fsUser.getUid()).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             List<String> likedList = new ArrayList<>();
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                 likedList.add(snapshot.getKey());
                             }
-                            if (likedList.contains(fsUser.getUid())) {
+                            if (likedList.contains(uid)) {
                                 like.setImageResource(R.drawable.ic_favorite);
                                 animationView.setVisibility(View.VISIBLE);
                             }

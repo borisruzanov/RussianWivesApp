@@ -111,7 +111,6 @@ public class SearchFragment extends MvpAppCompatFragment implements com.borisruz
         Intent dataIntent = new Intent(getContext(), FriendProfileActivity.class);
         dataIntent.putExtra("uid", uid);
         dataIntent.putExtra("transitionName", transitionName);
-
         startActivity(dataIntent, args);
     }
 

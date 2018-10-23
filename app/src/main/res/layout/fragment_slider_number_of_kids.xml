@@ -2,14 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.borisruzanov.russianwives.ui.slider.SliderHaveKidsFragment">
+    tools:context=".mvp.ui.slider.SliderHaveKidsFragment">
 
     <TextView
         android:id="@+id/fragment_slider_numberofkids_tv_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/dp40"
+        android:layout_marginTop="@dimen/dp16"
         android:text="@string/do_you_have_any_kids"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/large_text_size" />
@@ -18,7 +18,7 @@
             android:id="@+id/fragment_slider_number_of_kids_radiogroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/fragment_slider_bodytype_tv_question"
+            android:layout_below="@id/fragment_slider_numberofkids_tv_question"
             android:gravity="center"
             android:orientation="vertical">
 

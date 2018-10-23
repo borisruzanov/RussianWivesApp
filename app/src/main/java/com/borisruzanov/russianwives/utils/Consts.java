@@ -31,8 +31,24 @@ public final class Consts {
     public static String LIKE = "like";
     public static String TIMESTAMP = "timestamp";
 
+    public static String MODULE = "module";
+    public static final String REG_MODULE = "reg_module";
+    public static final String SLIDER_MODULE = "slider_module";
+    public static final String DEFAULT_LIST = "default_list";
+
+    public static String REG_TAB_NAME = "reg_tab_name";
+    public static String CHATS_TAB_NAME = "chats";
+    public static String ACTIONS_TAB_NAME = "actions";
+
+    public static final String NEED_BACK = "need_back";
+    public static final String BACK = "back";
+
     public static List<String> keyList = Arrays.asList(GENDER, AGE, COUNTRY, RELATIONSHIP_STATUS,
             BODY_TYPE, ETHNICITY, FAITH, SMOKING_STATUS, DRINK_STATUS, NUMBER_OF_KIDS, WANT_CHILDREN_OR_NOT);
+
+    public static List<String> fieldKeyList = Arrays.asList(Consts.BODY_TYPE, Consts.DRINK_STATUS, Consts.ETHNICITY,Consts.GENDER,
+            Consts.HOBBY, Consts.FAITH, Consts.IMAGE, Consts.LANGUAGES, Consts.SMOKING_STATUS,
+            Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT);
 
     public static final String DEFAULT  = "default";
 }

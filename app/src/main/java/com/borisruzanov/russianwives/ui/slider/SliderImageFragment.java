@@ -117,6 +117,7 @@ public class SliderImageFragment extends Fragment {
                                 new FirebaseRepository().updateFieldFromCurrentUser(hashMap, new UpdateCallback() {
                                     @Override
                                     public void onUpdate() {
+                                        //updateRank(int rank_photo, photo);
                                         getActivity().onBackPressed();
                                     }
                                 });

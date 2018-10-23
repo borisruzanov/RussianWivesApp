@@ -64,7 +64,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
         chatsAdapter = new ChatsAdapter(onItemClickCallback);
         recyclerChatsList.setAdapter(chatsAdapter);
 
-        chatsPresenter.getUserChatList();
+        //chatsPresenter.getUserChatList();
         return mMainView;
     }
 
@@ -106,7 +106,7 @@ public class ChatsFragment extends MvpAppCompatFragment implements ChatsView {
         chatIntent.putExtra("photo_url", image);
         startActivity(chatIntent);
 
-        new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
+        //new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
     }
 
 
