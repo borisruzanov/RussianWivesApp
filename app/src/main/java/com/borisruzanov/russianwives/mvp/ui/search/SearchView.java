@@ -10,12 +10,11 @@ import java.util.List;
 
 public interface SearchView extends MvpView {
 
-    void showLoading(boolean isLoading);
+    void setProgressBar(boolean isLoading);
     void showEmpty(boolean show);
-    void showUsers(List<FsUser> fsUserList);
+    void addUsers(List<FsUser> usersList);
+    void onUpdate();
     void showError();
     void openFriend(String uid, String transitionName, Bundle args);
     void openChat(String uid, String name, String image);
-    /*void showLoading();
-    void stopLoading();*/
 }

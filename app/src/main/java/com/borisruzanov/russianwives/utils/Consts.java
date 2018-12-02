@@ -26,6 +26,10 @@ public final class Consts {
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
     public static final String UID  = "uid";
 
+    public static final String RATING  = "rating";
+
+    public static final String DEVICE_TOKEN = "device_token";
+
     public static String ACTION = "action";
     public static String VISIT = "visit";
     public static String LIKE = "like";

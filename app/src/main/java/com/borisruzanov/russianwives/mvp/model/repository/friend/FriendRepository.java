@@ -38,19 +38,15 @@ public class FriendRepository {
     public void setUserVisited(String friendUid){
         Map<String, Object> visitAddMap = new HashMap<>();
         visitAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
-        visitAddMap.put("fromUid", friendUid);
+        visitAddMap.put("fromUid", getUid());
 
-        DatabaseReference activityDb = realtimeReference.child("Visits").child(getUid()).push();
+        DatabaseReference activityDb = realtimeReference.child("Visits").child(friendUid).push();
         activityDb.updateChildren(visitAddMap);
 
-        activityDb.child("Visits").child(friendUid).child(getUid())
-                .addValueEventListener(new ValueEventListener() {
+        activityDb.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        Map<String, Object> visitUserMap = new HashMap<>();
-                        visitUserMap.put("Visits/" + getUid() + "/" + friendUid, visitAddMap);
-                        visitUserMap.put("Visits/" + friendUid + "/" + getUid(), visitAddMap);
-                        activityDb.setValue(visitUserMap, (databaseError, databaseReference) -> {
+                        activityDb.setValue(visitAddMap, (databaseError, databaseReference) -> {
                             if (databaseError != null) {
                                 Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage());
                             }
@@ -63,22 +59,27 @@ public class FriendRepository {
     }
 
     public void setFriendLiked(String friendUid){
-        DatabaseReference userLikePush = realtimeReference.child("Likes")
-                .child(getUid()).child(friendUid);
+        //Map Likes -> FrUid -> uid
+        DatabaseReference userLikePush = realtimeReference.child("Likes").child(friendUid).child(getUid());
 
-        //Map Likes -> uid -> FrUid
+        //Map Liked -> uid -> frUid
+        DatabaseReference userLikedPush = realtimeReference.child("Liked").child(getUid()).child(friendUid);
 
         Map<String, Object> messageMap = new HashMap<>();
         messageMap.put("timestamp", ServerValue.TIMESTAMP);
 
         userLikePush.updateChildren(messageMap, (databaseError, databaseReference) -> {
             if (databaseError != null) {
-
                 Log.d("CHAT_LOG", databaseError.getMessage());
-
             }
-
         });
+
+        userLikedPush.updateChildren(messageMap, (databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                Log.d("CHAT_LOG", databaseError.getMessage());
+            }
+        });
+
     }
 
 }

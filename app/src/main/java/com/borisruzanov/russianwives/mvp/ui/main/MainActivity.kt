@@ -51,16 +51,13 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     private lateinit var viewPager: ViewPager
     private lateinit var mainPagerAdapter: MainPagerAdapter
-    private lateinit var unregPagerAdapter: MainPagerAdapter
 
     //Fragments
     private var dialogFragment: DialogFragment? = null
     private var searchFragment: SearchFragment? = null
 
     @ProvidePresenter
-    internal fun provideMainPresenter(): MainPresenter? {
-        return mainPresenter
-    }
+    internal fun provideMainPresenter() = mainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
@@ -79,7 +76,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         tabLayout = findViewById(R.id.main_tabs)
 
         mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
-        unregPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
         mainPresenter.checkForUserExist()
         tabLayout.setupWithViewPager(viewPager)
@@ -88,19 +84,17 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun setAdapter(isUserExist: Boolean) {
         Log.d("RegDebug", "In setAdapter")
+        mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
         if (isUserExist) {
             Log.d("RegDebug", "In setAdapter reg")
-            mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
             mainPagerAdapter.addFragment(ChatsFragment(), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(ActionsFragment(), getString(R.string.actions_title))
-            viewPager.adapter = mainPagerAdapter
         } else {
             Log.d("RegDebug", "In setAdapter unreg")
-            unregPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
-            unregPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
-            unregPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
-            viewPager.adapter = unregPagerAdapter
+            mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
+            mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
         }
+        viewPager.adapter = mainPagerAdapter
     }
 
     override fun showNecessaryInfoDialog(gender: String, age: String) {
@@ -137,7 +131,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
-        //if (mainPresenter != null)
         inflater.inflate(R.menu.main_menu, menu)
         return true
     }
@@ -145,8 +138,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sign_out_menu -> {
-                AuthUI.getInstance().signOut(this)
-                reload()
+                AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
                 return true
             }
             R.id.menu_my_profile -> {

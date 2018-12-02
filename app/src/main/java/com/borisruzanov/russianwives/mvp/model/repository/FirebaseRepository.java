@@ -614,15 +614,16 @@ public class FirebaseRepository {
      * @param usersListCallback
      * @param task
      */
-    private void putCallbackData(final UsersListCallback usersListCallback, Task<QuerySnapshot> task) {
-        List<FsUser> fsUserList = new ArrayList<>();
-        for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-            if (!snapshot.getId().equals(getUid())) {
-                fsUserList.add(snapshot.toObject(FsUser.class));
-            }
-        }
-        usersListCallback.setUsers(fsUserList);
-    }
+    //todo: delete
+//    private void putCallbackData(final UsersListCallback usersListCallback, Task<QuerySnapshot> task) {
+//        List<FsUser> fsUserList = new ArrayList<>();
+//        for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+//            if (!snapshot.getId().equals(getUid())) {
+//                fsUserList.add(snapshot.toObject(FsUser.class));
+//            }
+//        }
+//        usersListCallback.setUsers(fsUserList);
+//    }
 
     /**
      * Get Device Token of Current user

@@ -30,15 +30,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
+
+//todo: rename to UsersAdapter
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHolder>{
-    //TODO REMOVE OR DELETE?
 
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     private List<FsUser> fsUserList = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private OnItemClickListener.OnItemClickCallback onChatClickCallback;
     private OnItemClickListener.OnItemClickCallback onLikeClickCallback;
-    Context context;
+    private Context context;
 
 
 
@@ -50,15 +52,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
         this.onLikeClickCallback = onLikeClickCallback;
     }
 
+    public void addUsers(List<FsUser> userList) {
+        fsUserList.addAll(userList);
+        notifyItemRangeInserted(fsUserList.size() - userList.size(), fsUserList.size());
 
-
-    public void setData(List<FsUser> newFsUsers) {
-        Log.d("LifecycleDebug", "List in adapter list empty is "+ newFsUsers.isEmpty());
-        for (FsUser fsUser : fsUserList) {
-            Log.d("LifecycleDebug", "User name in adapter is "+ fsUser.getName());
-        }
-        fsUserList.addAll(newFsUsers);
-        notifyDataSetChanged();
     }
 
     public void clearData(){
@@ -116,9 +113,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
 
 
             if (FirebaseUtils.isUserExist() && fsUser.getUid() != null) {
-                String uid = new FirebaseRepository().getUid();
-                if (mDatabase.child("Likes").child(uid).child(fsUser.getUid()) != null) {
-                    mDatabase.child("Likes").child(uid).addValueEventListener(new ValueEventListener() {
+                String uid = getUid();
+                if (mDatabase.child("Liked").child(uid).child(fsUser.getUid()) != null) {
+                    mDatabase.child("Liked").child(uid).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             List<String> likedList = new ArrayList<>();

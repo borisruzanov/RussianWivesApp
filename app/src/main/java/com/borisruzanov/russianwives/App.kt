@@ -41,8 +41,9 @@ class App : Application() {
                     .child("Users").child(mAuth!!.currentUser!!.uid)
 
             Log.d("xx", "user != null")
+            //TODO fix-1
             mUserDatabase!!.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot?) {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
                     Log.d("xx", "onDataChange")
 
                     if (dataSnapshot != null) {
@@ -51,14 +52,10 @@ class App : Application() {
                         mUserDatabase!!.child("online").setValue(true)
                     } else {
                         Log.d("xx", "dataSnapshot == null")
-
                     }
-
                 }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-
-                }
+                override fun onCancelled(databaseError: DatabaseError) {}
             })
 
         }

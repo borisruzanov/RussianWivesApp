@@ -55,6 +55,7 @@ public class ChatsRepository {
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+                        Log.d(Contract.CHAT_LIST, "getChatAndUidList()" + databaseError.getMessage());
                     }
                 }
         );
@@ -93,6 +94,7 @@ public class ChatsRepository {
 
                         @Override
                         public void onCancelled(DatabaseError databaseError) {
+                            Log.d(Contract.CHAT_LIST, "getRtUsersAndMessages()" + databaseError.getMessage());
                         }
                     });
             Log.d(Contract.CHAT_LIST, "RtUserList size in getUsersAndMessages is " + rtUsers.size());

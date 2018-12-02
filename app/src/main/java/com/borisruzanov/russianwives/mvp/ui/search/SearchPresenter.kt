@@ -5,7 +5,6 @@ import android.util.Log
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor
 import com.borisruzanov.russianwives.utils.UsersListCallback
@@ -17,21 +16,21 @@ import javax.inject.Inject
 class SearchPresenter @Inject constructor(private val searchInteractor: SearchInteractor) : MvpPresenter<SearchView>() {
     private val fsUsers = ArrayList<FsUser>()
 
-    fun getFilteredList() {
-        searchInteractor.getFilteredList(UsersListCallback { userList ->
-            for (fsUser in userList) {
-                Log.d("LifecycleDebug", "User name is " + fsUser.name)
-            }
-            Log.d("LifecycleDebug", "In SearchPresenter and userList emptyness is " + userList.isEmpty())
-            if (!userList.isEmpty() && fsUsers.isEmpty()) {
-                fsUsers.addAll(userList)
-                for (fsUser in fsUsers) {
-                    Log.d("LikeDebug", "User uid is " + fsUser.uid + " name is " + fsUser.name)
-                }
-                Log.d("LifecycleDebug", "In SearchPresenter and fsUser empty is " + fsUsers.isEmpty())
-                viewState.showUsers(fsUsers)
-            }
-        })
+    fun getUserList(page: Int) {
+        searchInteractor.getFilteredUserList(usersListCallback, page)
+    }
+
+    private val usersListCallback = UsersListCallback { userList ->
+            fsUsers.addAll(userList)
+            viewState.addUsers(userList)
+    }
+
+    fun setProgressBar(isLoading: Boolean) {
+        viewState.setProgressBar(isLoading)
+    }
+
+    fun onUpdate() {
+        viewState.onUpdate()
     }
 
     fun setFriendLiked(position: Int) {
@@ -48,8 +47,6 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         //            } else {
         //                animationView.setProgress(0f);
         //            }
-
-        Log.d(Contract.SEARCH, "Friends name is " + fsUsers[position].uid)
         searchInteractor.setFriendLiked(fsUsers[position].uid)
     }
 

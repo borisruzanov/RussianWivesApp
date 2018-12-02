@@ -4,17 +4,25 @@
     android:id="@+id/search_root_container"
     android:background="@android:color/white">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/search_recycler_view"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/users_swipe_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/search_empty_text"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/emptyText"
-        android:layout_gravity="center"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/users_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/users_empty_text"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/emptyText"
+            android:layout_gravity="center"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 
 </FrameLayout>

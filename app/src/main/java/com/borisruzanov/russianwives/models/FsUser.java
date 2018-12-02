@@ -186,4 +186,9 @@ public class FsUser implements ViewType {
     public int getViewType() {
         return Contract.USERS;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

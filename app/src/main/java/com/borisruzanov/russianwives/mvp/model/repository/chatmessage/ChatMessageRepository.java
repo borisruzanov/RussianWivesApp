@@ -110,7 +110,7 @@ public class ChatMessageRepository {
         filepath.putFile(imageUri).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 Log.d("xxx", "inside isSuccessful");
-                String download_url = task.getResult().getDownloadUrl().toString();
+                String download_url = filepath.getDownloadUrl().toString();
                 Map<String, Object> messageMap = new HashMap<>();
                 messageMap.put("message", download_url);
                 messageMap.put("seen", false);

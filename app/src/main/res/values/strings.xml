@@ -202,6 +202,7 @@
     <string name="header_necessary_info">Please, fill necessary info</string>
     <string name="finish">Finish</string>
     <string name="hobby_updated">Hobby was updated</string>
+    <string name="notification_channel_id">RW_CH</string>
 
     <!-- Genders -->
     <string-array name="genders">

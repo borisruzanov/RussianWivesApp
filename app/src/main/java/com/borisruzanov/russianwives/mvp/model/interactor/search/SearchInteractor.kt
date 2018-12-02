@@ -9,12 +9,12 @@ import javax.inject.Inject
 class SearchInteractor @Inject constructor(private val searchRepository: SearchRepository,
                        private val filterRepository: FilterRepository, private val friendRepository: FriendRepository) {
 
-    fun getFilteredList(usersListCallback: UsersListCallback) {
-        searchRepository.searchByListParams(filterRepository.filteredSearchResult, usersListCallback)
-    }
-
     fun setFriendLiked(friendUid: String) {
         friendRepository.setFriendLiked(friendUid)
+    }
+
+    fun getFilteredUserList(usersListCallback: UsersListCallback, page: Int) {
+        searchRepository.getUsers(filterRepository.filteredSearchResult, usersListCallback, page)
     }
 
 }

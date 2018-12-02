@@ -79,8 +79,8 @@ class FilterDialogFragment : MvpAppCompatDialogFragment(), FilterView {
 
     @OnClick(R.id.button_search)
     fun onSearchClicked() {
-        presenter.saveValues(spinners!!)
-        filterListener!!.onUpdate()
+        presenter.saveValues(spinners)
+        filterListener.onUpdate()
 
         dismiss()
     }

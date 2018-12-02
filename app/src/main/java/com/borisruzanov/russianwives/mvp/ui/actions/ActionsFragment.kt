@@ -29,13 +29,14 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
     @InjectPresenter
     lateinit var actionsPresenter: ActionsPresenter
 
-    lateinit var recyclerActivitiesList: RecyclerView
-    lateinit var actionsAdapter: ActionsAdapter
+    private lateinit var recyclerActivitiesList: RecyclerView
 
-    private var emptyText: TextView? = null
+    private lateinit var emptyText: TextView
 
     private val onItemClickCallback
             = OnItemClickListener.OnItemClickCallback{ view: View, position: Int -> actionsPresenter.openFriendProfile(position) }
+
+    private val actionsAdapter = ActionsAdapter(onItemClickCallback)
 
     @ProvidePresenter
     fun provideActionsPresenter(): ActionsPresenter = actionsPresenter
@@ -58,7 +59,6 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         recyclerActivitiesList.addItemDecoration(DividerItemDecoration(recyclerActivitiesList.context,
                 DividerItemDecoration.VERTICAL))
 
-        actionsAdapter = ActionsAdapter(onItemClickCallback)
         recyclerActivitiesList.adapter = actionsAdapter
 
         emptyText = view.findViewById(R.id.activities_empty_text)
@@ -70,12 +70,12 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
     }
 
     override fun showUserActions(actionItems: List<ActionItem>) {
-        if (!actionItems.isEmpty()) {
-            emptyText!!.visibility = View.GONE
+        if (actionItems.isNotEmpty()) {
+            emptyText.visibility = View.GONE
             recyclerActivitiesList.post { actionsAdapter.setData(actionItems) }
         } else {
             recyclerActivitiesList.visibility = View.GONE
-            emptyText!!.visibility = View.VISIBLE
+            emptyText.visibility = View.VISIBLE
         }
     }
 
@@ -85,5 +85,4 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         startActivity(friendProfileIntent)
     }
 
-
-}// Required empty public constructor
+}

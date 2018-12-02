@@ -111,7 +111,7 @@ public class SliderImageFragment extends Fragment {
                     filePath.putFile(resultUri).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             Toast.makeText(getActivity(), R.string.photo_was_updated, Toast.LENGTH_LONG).show();
-                            String download_url = task.getResult().getDownloadUrl().toString();
+                            String download_url = filePath.getDownloadUrl().toString();
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put(Consts.IMAGE, download_url);
 

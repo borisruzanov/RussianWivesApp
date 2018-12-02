@@ -31,7 +31,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
     lateinit var emptyText: TextView
 
-    private var mMainView: View? = null
+    private lateinit var mMainView: View
 
     @Inject
     @InjectPresenter
@@ -42,7 +42,6 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
     private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { view, position ->
         Log.d(Contract.TAG, "In onCLICK")
         chatsPresenter.openChat(position)
-
     }
 
 
@@ -56,9 +55,9 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false)
 
-        emptyText = mMainView!!.findViewById(R.id.chats_empty_text)
+        emptyText = mMainView.findViewById(R.id.chats_empty_text)
 
-        recyclerChatsList = mMainView!!.findViewById(R.id.friends_fragment_recycler_chats)
+        recyclerChatsList = mMainView.findViewById(R.id.friends_fragment_recycler_chats)
         recyclerChatsList.layoutManager = LinearLayoutManager(activity)
         recyclerChatsList.setHasFixedSize(true)
         recyclerChatsList.addItemDecoration(DividerItemDecoration(recyclerChatsList.context, DividerItemDecoration.VERTICAL))
@@ -97,9 +96,6 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         chatIntent.putExtra("name", name)
         chatIntent.putExtra("photo_url", image)
         startActivity(chatIntent)
-
-        //new FirebaseRepository().addUserToActivity(new FirebaseRepository().getUid(), uid);
     }
 
-
-}// Required empty public constructor
+}

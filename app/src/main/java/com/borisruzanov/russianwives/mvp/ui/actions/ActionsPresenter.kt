@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.ui.actions
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.models.ActionItem
@@ -16,10 +17,11 @@ class ActionsPresenter @Inject constructor(private val interactor: ActionsIntera
 
     fun setActionsList() {
         interactor.getActions(callback = ActionItemCallback { actionList ->
-            if (!actionList.isEmpty() && actionItems.isEmpty()) {
+            if (actionList.isNotEmpty() && actionItems.isEmpty()) {
                 actionItems.addAll(actionList)
-                viewState.showUserActions(actionItems)
             }
+            else Log.d("ActionList", "Actions list is empty " + actionList.isEmpty())
+            viewState.showUserActions(actionItems)
         })
 
     }
