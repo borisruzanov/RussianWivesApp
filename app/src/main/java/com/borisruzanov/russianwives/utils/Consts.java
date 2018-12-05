@@ -27,6 +27,7 @@ public final class Consts {
     public static final String UID  = "uid";
 
     public static final String RATING  = "rating";
+    public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";
 

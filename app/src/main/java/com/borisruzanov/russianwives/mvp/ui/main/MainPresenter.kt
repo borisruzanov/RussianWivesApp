@@ -23,7 +23,13 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         //UserRepository().addInfo()
 
         if(isUserExist()) {
-            RatingRepository().addRating(10)
+            /*RatingRepository().addRating(10, "Necessary Info")
+            RatingRepository().getRatingAch {rating, achievements ->
+                run {
+                    Log.d("RatingDebug", "Rating is $rating")
+                    for(achievement in achievements) Log.d("RatingDebug", "Achievement is $achievement")
+                }
+            }*/
             showNecessaryInfoDialog()
             showAdditionalInfoDialog()
         }

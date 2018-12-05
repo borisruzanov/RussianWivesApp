@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\AndroidProjects\\ruswifes\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-id\\values-id.xml",
+            "outputFile": "D:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-id\\values-id.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.29.0.aar\\3ad9d9116193e2ec75502c5f3911aea3\\res\\values-id\\values-id.xml",

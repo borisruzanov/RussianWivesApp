@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\AndroidProjects\\ruswifes\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es-rMX\\values-es-rMX.xml",
+            "outputFile": "D:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-es-rMX\\values-es-rMX.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-4.2.1.aar\\9b429831ff5c1b05a2fa3cbef096b4e0\\res\\values-es-rMX\\values-es-rMX.xml",
