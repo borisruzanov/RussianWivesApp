@@ -23,7 +23,7 @@ public class FirebaseUtils {
     }
 
     public static String getDeviceToken() {
-        return FirebaseInstanceId.getInstance().getInstanceId().getResult().getToken();
+        return FirebaseInstanceId.getInstance().getToken();
     }
 
     public static void getNeededUsers(CollectionReference users, List<String> uidList, UsersListCallback usersListCallback) {
