@@ -48,6 +48,8 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
     private lateinit var mChatMessageView: EditText
     private lateinit var mRefreshLayout: SwipeRefreshLayout
 
+    private var sp: String? = null
+
     //MVP
     @Inject
     @InjectPresenter

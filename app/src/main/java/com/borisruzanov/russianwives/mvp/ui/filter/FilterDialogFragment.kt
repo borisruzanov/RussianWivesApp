@@ -106,6 +106,7 @@ class FilterDialogFragment : MvpAppCompatDialogFragment(), FilterView {
     companion object {
 
         var TAG = "Dialog Fragment"
+
     }
 
 }

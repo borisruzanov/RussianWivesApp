@@ -7,6 +7,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.chatmessage.ChatMessag
 import com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository
 import com.borisruzanov.russianwives.mvp.model.repository.filter.FilterRepository
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import dagger.Module
@@ -18,13 +19,13 @@ class AppModule(val app: App) {
     @Provides @Singleton fun provideApp() = app
 
     @Provides fun provideUserRepository() = UserRepository()
+    @Provides fun provideRatingRepository() = RatingRepository()
     @Provides fun provideChatMessageRepository() = ChatMessageRepository()
     @Provides fun provideFriendProfileRepository() = FriendRepository()
     @Provides fun provideChatsRepository() = ChatsRepository()
 
     @Provides fun providePrefsClass() = Prefs(app.applicationContext)
-    @Provides fun filterRepository(prefs: Prefs) =
-            FilterRepository(prefs)
+    @Provides fun filterRepository(prefs: Prefs) = FilterRepository(prefs)
 
-    @Provides fun provideSearchREpository() = SearchRepository()
+    @Provides fun provideSearchRepository() = SearchRepository()
 }

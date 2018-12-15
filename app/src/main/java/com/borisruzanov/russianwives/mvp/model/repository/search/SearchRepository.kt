@@ -30,8 +30,9 @@ class SearchRepository {
     fun getUsers(filterParams: List<SearchModel>, usersListCallback: UsersListCallback, page: Int) {
         var query: Query = reference
 
-        if (!filterParams.isEmpty()) {
+        if (filterParams.isNotEmpty() && isUserExist() ) {
             for ((key, value) in filterParams) {
+                Log.d("FilterDebug", "Key is $key and value is $value")
                 query = query.whereEqualTo(key, value)
             }
         }
@@ -57,6 +58,7 @@ class SearchRepository {
         val fsUserList = ArrayList<FsUser>()
         for (snapshot in task.result!!.documents) {
             if (isUserExist()) {
+                //Remove user from the list
                 if (snapshot.id != getUid()) {
                     fsUserList.add(snapshot.toObject(FsUser::class.java)!!)
                 }
@@ -65,14 +67,19 @@ class SearchRepository {
             }
         }
 
-        lastUserInPage = fsUserList[fsUserList.size - 1].name //todo: use .uid but it's not working this way
+        //todo: show "not find" photo by this filter params
+        if (fsUserList.isNotEmpty()) {
+            lastUserInPage = fsUserList[fsUserList.size - 1].name //todo: use .uid but it's not working this way
 
-        //fucking firebase have made me writing this shitty code
-        if (fsUserList.size == ITEMS_PER_PAGE) {
-            fsUserList.removeAt(fsUserList.size - 1)
-        } else if (fsUserList.size == ITEMS_PER_PAGE - 1 && isUserExist()) {
-            fsUserList.removeAt(fsUserList.size - 1)
+            //fucking firebase have made me writing this shitty code
+            if (fsUserList.size == ITEMS_PER_PAGE) {
+                fsUserList.removeAt(fsUserList.size - 1)
+            } else if (fsUserList.size == ITEMS_PER_PAGE - 1 && isUserExist()) {
+                fsUserList.removeAt(fsUserList.size - 1)
+            }
         }
+
+
 
 
         usersListCallback.setUsers(fsUserList)

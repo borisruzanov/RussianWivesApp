@@ -1386,10 +1386,10 @@ public final class R {
         public static final int path_password_eye_mask_strike_through = 0x7f0f0120;
         public static final int path_password_eye_mask_visible = 0x7f0f0121;
         public static final int path_password_strike_through = 0x7f0f0122;
-        public static final int search_menu_title = 0x7f0f0132;
-        public static final int status_bar_notification_info_overflow = 0x7f0f0147;
-        public static final int twitter_consumer_key = 0x7f0f014e;
-        public static final int twitter_consumer_secret = 0x7f0f014f;
+        public static final int search_menu_title = 0x7f0f0133;
+        public static final int status_bar_notification_info_overflow = 0x7f0f0148;
+        public static final int twitter_consumer_key = 0x7f0f014f;
+        public static final int twitter_consumer_secret = 0x7f0f0150;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat = 0x7f100000;

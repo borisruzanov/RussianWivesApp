@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
@@ -19,10 +20,15 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_AGE_RATING;
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_RELATIONSHIP_RATING;
+
 public class SliderRelationshipsStatusFragment extends Fragment {
     Button btnSave;
     RadioGroup radioGroup;
     RadioButton radioButton;
+
+    String result;
 
     public SliderRelationshipsStatusFragment() {
         // Required empty public constructor
@@ -44,6 +50,7 @@ public class SliderRelationshipsStatusFragment extends Fragment {
         btnSave = (Button) view.findViewById(R.id.fragment_slider_relationships_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser("relationship_status", value -> {
+            result = value;
             if (value != null && value.equals("Never married")){
                 radioGroup.check(R.id.fragment_slider_rbtn_never_married);
             } else if (value != null && value.equals("Currently separated")){
@@ -62,6 +69,8 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                 Map<String, Object> map = new HashMap<>();
                 map.put("relationship_status", radioButton.getText());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    //TODO fix adding value after multiple touching button
+                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_RELATIONSHIP_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();
                     }

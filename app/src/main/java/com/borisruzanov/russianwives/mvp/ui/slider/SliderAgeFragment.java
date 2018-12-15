@@ -14,12 +14,15 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_AGE_RATING;
 
 
 public class SliderAgeFragment extends MvpAppCompatFragment {
@@ -29,7 +32,7 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
     Button btnSave;
     RadioButton radioButton;
 
-//    String result;
+    String result;
 
     public static SliderAgeFragment newInstance() {
         SliderAgeFragment fragment = new SliderAgeFragment();
@@ -54,6 +57,7 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_age_radiogroup);
 
         new SliderRepository().getFieldFromCurrentUser("age", value -> {
+            result = value;
             if (value != null && value.equals("18-21")){
                 radioGroup.check(R.id.fragment_slider_age_18_21);
             } else if (value != null && value.equals("22-26")){
@@ -74,6 +78,7 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
                 Map<String, Object> map = new HashMap<>();
                 map.put("age", radioButton.getText());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_AGE_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();
                     }

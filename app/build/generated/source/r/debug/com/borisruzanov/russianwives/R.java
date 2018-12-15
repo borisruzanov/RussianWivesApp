@@ -2567,7 +2567,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
+     * <tr><td>direct</td><td>1</td><td></td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>
@@ -5650,82 +5650,83 @@ public final class R {
     public static final int path_password_strike_through=0x7f0f0122;
     public static final int photo_was_updated=0x7f0f0123;
     public static final int pick_image_intent_chooser_title=0x7f0f0124;
-    public static final int please_set_your_status=0x7f0f0125;
-    public static final int probably_not=0x7f0f0126;
-    public static final int profile_arrow_desc=0x7f0f0127;
-    public static final int profile_img_desc=0x7f0f0128;
-    public static final int project_id=0x7f0f0129;
-    public static final int register=0x7f0f012a;
-    public static final int regularly=0x7f0f012b;
-    public static final int relationship_status=0x7f0f012c;
-    public static final int relationship_was_updated=0x7f0f012d;
-    public static final int request_btn_accept_desc=0x7f0f012e;
-    public static final int request_btn_decline_desc=0x7f0f012f;
-    public static final int save=0x7f0f0130;
-    public static final int search_btn_like_desc=0x7f0f0131;
-    public static final int search_menu_title=0x7f0f0132;
-    public static final int search_title=0x7f0f0133;
-    public static final int select_your_gender=0x7f0f0134;
-    public static final int select_your_smoke_status=0x7f0f0135;
-    public static final int send=0x7f0f0136;
-    public static final int send_friend_request=0x7f0f0137;
-    public static final int send_friend_request_text=0x7f0f0138;
-    public static final int set_languages=0x7f0f0139;
-    public static final int set_status=0x7f0f013a;
-    public static final int set_the_answer=0x7f0f013b;
-    public static final int set_your_body_type=0x7f0f013c;
-    public static final int set_your_ethnicity=0x7f0f013d;
-    public static final int set_your_faith=0x7f0f013e;
-    public static final int set_your_height=0x7f0f013f;
-    public static final int sign_out=0x7f0f0140;
-    public static final int slender=0x7f0f0141;
-    public static final int slider_language_text=0x7f0f0142;
-    public static final int smoking_status=0x7f0f0143;
-    public static final int smoking_updated=0x7f0f0144;
-    public static final int social_drinker=0x7f0f0145;
-    public static final int someday=0x7f0f0146;
-    public static final int status_bar_notification_info_overflow=0x7f0f0147;
-    public static final int status_save_btn_text=0x7f0f0148;
-    public static final int stocky=0x7f0f0149;
-    public static final int there_is_an_error=0x7f0f014a;
-    public static final int time_of_message_text=0x7f0f014b;
-    public static final int title_text=0x7f0f014c;
-    public static final int total_friends_text=0x7f0f014d;
-    public static final int twitter_consumer_key=0x7f0f014e;
-    public static final int twitter_consumer_secret=0x7f0f014f;
-    public static final int unfriend=0x7f0f0150;
-    public static final int user_avatar=0x7f0f0151;
-    public static final int user_default_status=0x7f0f0152;
-    public static final int user_profile_text=0x7f0f0153;
-    public static final int user_single_online_desc=0x7f0f0154;
-    public static final int visitors=0x7f0f0155;
-    public static final int visits=0x7f0f0156;
-    public static final int what_is_your_bodytype=0x7f0f0157;
-    public static final int what_is_your_drink_status=0x7f0f0158;
-    public static final int what_is_your_ethnicity=0x7f0f0159;
-    public static final int what_is_your_faith=0x7f0f015a;
-    public static final int what_is_your_gender=0x7f0f015b;
-    public static final int what_is_your_height=0x7f0f015c;
-    public static final int what_is_your_relationship_status=0x7f0f015d;
-    public static final int what_is_your_smoke_status=0x7f0f015e;
-    public static final int where_do_you_live=0x7f0f015f;
-    public static final int which_best_ethnicities_best_describes_you=0x7f0f0160;
-    public static final int which_ethnicity_best_describe_you=0x7f0f0161;
-    public static final int white_caucasian=0x7f0f0162;
-    public static final int widow_widower=0x7f0f0163;
-    public static final int willing_kids_updated=0x7f0f0164;
-    public static final int yes=0x7f0f0165;
-    public static final int yes_but_trying_to_quit=0x7f0f0166;
-    public static final int yes_they_live_at_home=0x7f0f0167;
-    public static final int yes_they_live_away_from_home=0x7f0f0168;
-    public static final int yes_they_sometimes_live_at_home=0x7f0f0169;
-    public static final int you=0x7f0f016a;
-    public static final int you_may_also_like_them=0x7f0f016b;
-    public static final int your_body_type=0x7f0f016c;
-    public static final int your_gender=0x7f0f016d;
-    public static final int your_hobby=0x7f0f016e;
-    public static final int your_name_is_here=0x7f0f016f;
-    public static final int your_status_hint=0x7f0f0170;
+    public static final int please_register_to_start=0x7f0f0125;
+    public static final int please_set_your_status=0x7f0f0126;
+    public static final int probably_not=0x7f0f0127;
+    public static final int profile_arrow_desc=0x7f0f0128;
+    public static final int profile_img_desc=0x7f0f0129;
+    public static final int project_id=0x7f0f012a;
+    public static final int register=0x7f0f012b;
+    public static final int regularly=0x7f0f012c;
+    public static final int relationship_status=0x7f0f012d;
+    public static final int relationship_was_updated=0x7f0f012e;
+    public static final int request_btn_accept_desc=0x7f0f012f;
+    public static final int request_btn_decline_desc=0x7f0f0130;
+    public static final int save=0x7f0f0131;
+    public static final int search_btn_like_desc=0x7f0f0132;
+    public static final int search_menu_title=0x7f0f0133;
+    public static final int search_title=0x7f0f0134;
+    public static final int select_your_gender=0x7f0f0135;
+    public static final int select_your_smoke_status=0x7f0f0136;
+    public static final int send=0x7f0f0137;
+    public static final int send_friend_request=0x7f0f0138;
+    public static final int send_friend_request_text=0x7f0f0139;
+    public static final int set_languages=0x7f0f013a;
+    public static final int set_status=0x7f0f013b;
+    public static final int set_the_answer=0x7f0f013c;
+    public static final int set_your_body_type=0x7f0f013d;
+    public static final int set_your_ethnicity=0x7f0f013e;
+    public static final int set_your_faith=0x7f0f013f;
+    public static final int set_your_height=0x7f0f0140;
+    public static final int sign_out=0x7f0f0141;
+    public static final int slender=0x7f0f0142;
+    public static final int slider_language_text=0x7f0f0143;
+    public static final int smoking_status=0x7f0f0144;
+    public static final int smoking_updated=0x7f0f0145;
+    public static final int social_drinker=0x7f0f0146;
+    public static final int someday=0x7f0f0147;
+    public static final int status_bar_notification_info_overflow=0x7f0f0148;
+    public static final int status_save_btn_text=0x7f0f0149;
+    public static final int stocky=0x7f0f014a;
+    public static final int there_is_an_error=0x7f0f014b;
+    public static final int time_of_message_text=0x7f0f014c;
+    public static final int title_text=0x7f0f014d;
+    public static final int total_friends_text=0x7f0f014e;
+    public static final int twitter_consumer_key=0x7f0f014f;
+    public static final int twitter_consumer_secret=0x7f0f0150;
+    public static final int unfriend=0x7f0f0151;
+    public static final int user_avatar=0x7f0f0152;
+    public static final int user_default_status=0x7f0f0153;
+    public static final int user_profile_text=0x7f0f0154;
+    public static final int user_single_online_desc=0x7f0f0155;
+    public static final int visitors=0x7f0f0156;
+    public static final int visits=0x7f0f0157;
+    public static final int what_is_your_bodytype=0x7f0f0158;
+    public static final int what_is_your_drink_status=0x7f0f0159;
+    public static final int what_is_your_ethnicity=0x7f0f015a;
+    public static final int what_is_your_faith=0x7f0f015b;
+    public static final int what_is_your_gender=0x7f0f015c;
+    public static final int what_is_your_height=0x7f0f015d;
+    public static final int what_is_your_relationship_status=0x7f0f015e;
+    public static final int what_is_your_smoke_status=0x7f0f015f;
+    public static final int where_do_you_live=0x7f0f0160;
+    public static final int which_best_ethnicities_best_describes_you=0x7f0f0161;
+    public static final int which_ethnicity_best_describe_you=0x7f0f0162;
+    public static final int white_caucasian=0x7f0f0163;
+    public static final int widow_widower=0x7f0f0164;
+    public static final int willing_kids_updated=0x7f0f0165;
+    public static final int yes=0x7f0f0166;
+    public static final int yes_but_trying_to_quit=0x7f0f0167;
+    public static final int yes_they_live_at_home=0x7f0f0168;
+    public static final int yes_they_live_away_from_home=0x7f0f0169;
+    public static final int yes_they_sometimes_live_at_home=0x7f0f016a;
+    public static final int you=0x7f0f016b;
+    public static final int you_may_also_like_them=0x7f0f016c;
+    public static final int your_body_type=0x7f0f016d;
+    public static final int your_gender=0x7f0f016e;
+    public static final int your_hobby=0x7f0f016f;
+    public static final int your_name_is_here=0x7f0f0170;
+    public static final int your_status_hint=0x7f0f0171;
   }
   public static final class style {
     public static final int AlertDialog_AppCompat=0x7f100000;
@@ -11195,7 +11196,7 @@ public final class R {
      * <tr><td>barrier</td><td>2</td><td></td></tr>
      * <tr><td>chains</td><td>4</td><td></td></tr>
      * <tr><td>dimensions</td><td>8</td><td></td></tr>
-     * <tr><td>direct</td><td>1</td><td>direct, barriers, chains</td></tr>
+     * <tr><td>direct</td><td>1</td><td></td></tr>
      * <tr><td>groups</td><td>20</td><td></td></tr>
      * <tr><td>none</td><td>0</td><td></td></tr>
      * <tr><td>standard</td><td>7</td><td></td></tr>

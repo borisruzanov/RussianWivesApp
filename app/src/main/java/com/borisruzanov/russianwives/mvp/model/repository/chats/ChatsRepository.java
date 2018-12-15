@@ -107,21 +107,10 @@ public class ChatsRepository {
         final List<UserChat> userChatList = new ArrayList<>();
 
         getChatAndUidList((chatList, uidList) -> {
-
-            Log.d(Contract.CHAT_LIST, "UidList size in getChatAndUidList block is " + uidList.size());
-            Log.d(Contract.CHAT_LIST, "ChatList size in getChatAndUidList block is " + chatList.size());
-
             getRtUsersAndMessages(uidList, (rtUserList, messageList) -> {
-
                 getNeededUsers(users, uidList, userList -> {
-                    Log.d(Contract.CHAT_LIST, "UidList size in getNeededUsers block is " + uidList.size());
-                    Log.d(Contract.CHAT_LIST, "ChatList size in getNeededUsers block is " + chatList.size());
-                    Log.d(Contract.CHAT_LIST, "RtUserList size in getNeededUsers block is " + rtUserList.size());
-                    Log.d(Contract.CHAT_LIST, "MsgList size in getNeededUsers block is " + messageList.size());
-                    Log.d(Contract.CHAT_LIST, "UserList size in getNeededUsers block is " + userList.size());
-
                     if (!userList.isEmpty() && userChatList.isEmpty()) {
-                        for (int i = 0; i < messageList.size(); i++) {
+                        for (int i = 0; i < userList.size(); i++) {
                             String name = userList.get(i).getName();
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();

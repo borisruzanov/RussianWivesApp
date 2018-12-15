@@ -12,8 +12,8 @@ import java.util.List;
 public class FirebaseRequestManager {
 
     //TODO Maybe put in Firebase Repository?
-    public static HashMap<String, String> createNewUser(String displayName, String deviceToken, String uid){
-        HashMap<String, String> userMap = new HashMap<>();
+    public static HashMap<String, Object> createNewUser(String displayName, String deviceToken, String uid){
+        HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("name", displayName);
         userMap.put("age", "default");
         userMap.put("country", "default");
@@ -34,6 +34,8 @@ public class FirebaseRequestManager {
         userMap.put("want_children_or_not", "default");
         userMap.put("hobby", "default");
         userMap.put("uid", uid);
+        userMap.put("rating", 0);
+        //userMap.put("achievements", new String[]{});
         return userMap;
     }
 

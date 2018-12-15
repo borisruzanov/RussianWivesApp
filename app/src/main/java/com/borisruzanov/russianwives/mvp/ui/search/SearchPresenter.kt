@@ -21,8 +21,11 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     private val usersListCallback = UsersListCallback { userList ->
+        if(userList.isNotEmpty()) {
             fsUsers.addAll(userList)
             viewState.addUsers(userList)
+            userList.forEach { Log.d("FilterDebug", it.name) }
+        }
     }
 
     fun setProgressBar(isLoading: Boolean) {

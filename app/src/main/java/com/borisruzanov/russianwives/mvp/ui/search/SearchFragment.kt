@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -19,6 +20,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
+import com.borisruzanov.russianwives.R.id.*
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
@@ -39,7 +41,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     @ProvidePresenter
     fun providePresenter() = searchPresenter
 
-    private lateinit var layoutManager : GridLayoutManager
+    private lateinit var layoutManager: GridLayoutManager
 
     private val onItemChatCallback = { view: View, position: Int -> searchPresenter.openChat(position) }
     private val onItemLikeCallback = { view: View, position: Int -> searchPresenter.setFriendLiked(position) }
@@ -54,7 +56,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
 
     private val adapter = SearchAdapter(onItemClickCallback, onItemChatCallback, onItemLikeCallback)
 
-    private lateinit var onUserListScrollListener : FeedScrollListener
+    private lateinit var onUserListScrollListener: FeedScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         val application = requireActivity().application as App
@@ -71,7 +73,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
 
         layoutManager = GridLayoutManager(activity, 3)
 
-        onUserListScrollListener =  object : FeedScrollListener(layoutManager) {
+        onUserListScrollListener = object : FeedScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 searchPresenter.setProgressBar(true)
                 searchPresenter.getUserList(page)
@@ -100,9 +102,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
         //!important! when using FeedScrollListener we need manually tell it about the end of the list
         if (userList.size == 1) {
             onUserListScrollListener.setStopLoading(true)
-        } else {
-            adapter.addUsers(userList)
         }
+        adapter.addUsers(userList)
     }
 
     override fun setProgressBar(isLoading: Boolean) {

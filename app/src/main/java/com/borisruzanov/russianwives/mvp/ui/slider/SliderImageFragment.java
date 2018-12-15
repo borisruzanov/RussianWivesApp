@@ -80,6 +80,7 @@ public class SliderImageFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if(data != null) {
             Uri imageUri = data.getData();
             if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
                 Log.d(Contract.TAG, "Image URI " + imageUri);
@@ -88,6 +89,7 @@ public class SliderImageFragment extends Fragment {
                         .setMinCropWindowSize(500, 500)
                         .start(getContext(), this);
             }
+        }
 
             if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");

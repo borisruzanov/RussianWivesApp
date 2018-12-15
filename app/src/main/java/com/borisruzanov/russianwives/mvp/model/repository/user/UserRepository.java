@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionCountCallback;
 import com.borisruzanov.russianwives.utils.ActionItemCallback;
@@ -86,6 +87,7 @@ public class UserRepository {
         niMap.put(Consts.IMAGE, "default");
         niMap.put(Consts.NAME, name);
         niMap.put(Consts.RATING, 0);
+        niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
         niMap.put("online", ServerValue.TIMESTAMP);
         realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
     }

@@ -11,6 +11,10 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.TextureView
+import android.view.View
+import android.view.View.VISIBLE
+import android.widget.TextView
 
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -87,10 +91,12 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
         if (isUserExist) {
             Log.d("RegDebug", "In setAdapter reg")
+            toolbar.subtitle = ""
             mainPagerAdapter.addFragment(ChatsFragment(), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(ActionsFragment(), getString(R.string.actions_title))
         } else {
             Log.d("RegDebug", "In setAdapter unreg")
+            toolbar.subtitle = getString(R.string.please_register_to_start)
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
         }
@@ -174,18 +180,20 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == RC_SIGN_IN) {
             //for checking errors
-            val response = IdpResponse.fromResultIntent(data)
-            if (resultCode == Activity.RESULT_OK) {
-                Log.d("RegDebug", "OnActivityResult with ok result")
-                mainPresenter.saveUser()
-                reload()
-            } else {
-                //Sign in failed
-                if (response == null) {
+            if (data != null) {
+                val response = IdpResponse.fromResultIntent(data)
+                if (resultCode == Activity.RESULT_OK) {
+                    Log.d("RegDebug", "OnActivityResult with ok result")
+                    mainPresenter.saveUser()
+                    reload()
+                } else {
+                    //Sign in failed
+                    if (response == null) {
+                    }
                 }
             }
         }

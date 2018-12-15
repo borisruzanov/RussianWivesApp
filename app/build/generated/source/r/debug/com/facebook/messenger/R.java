@@ -120,7 +120,7 @@ public final class R {
     }
     public static final class string {
         public static final int messenger_send_button_text = 0x7f0f0104;
-        public static final int status_bar_notification_info_overflow = 0x7f0f0147;
+        public static final int status_bar_notification_info_overflow = 0x7f0f0148;
     }
     public static final class style {
         public static final int MessengerButton = 0x7f1000db;
