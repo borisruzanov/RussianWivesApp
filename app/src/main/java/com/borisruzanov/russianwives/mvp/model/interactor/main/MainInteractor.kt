@@ -16,7 +16,7 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun hasNecessaryInfo(callback: BoolCallback) = userRepository.hasNecessaryInfo(callback)
 
-    fun setNecessaryInfo(gender: String, age: String) = userRepository.setNecessaryInfo(gender, age)
+    fun setNecessaryInfo(image: String, gender: String, age: String) = userRepository.setNecessaryInfo(image, gender, age)
 
     fun hasAdditionalInfo(callback: StringsCallback) = userRepository.hasAdditionalInfo(callback)
 

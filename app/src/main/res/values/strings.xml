@@ -204,6 +204,9 @@
     <string name="hobby_updated">Hobby was updated</string>
     <string name="notification_channel_id">RW_CH</string>
     <string name="please_register_to_start">Please register to start</string>
+    <string name="photo_must_info">Photo is must info</string>
+    <string name="add_photo_text">+ Add photo to your profile</string>
+    <string name="select_image">Select image</string>
 
     <!-- Genders -->
     <string-array name="genders">

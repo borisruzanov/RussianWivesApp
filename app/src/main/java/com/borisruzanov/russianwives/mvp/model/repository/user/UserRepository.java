@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.model.repository.user;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -34,6 +35,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,6 +55,7 @@ public class UserRepository {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
+    private StorageReference filePath = FirebaseStorage.getInstance().getReference().child("profile_images");
 
     /**
      * Saving FsUser to data base
@@ -103,22 +108,35 @@ public class UserRepository {
             users.document(getUid()).get().addOnCompleteListener(task -> {
                 DocumentSnapshot snapshot = task.getResult();
                 if(snapshot.exists()) {
+                    String image = snapshot.getString(Consts.IMAGE);
                     String gender = snapshot.getString(Consts.GENDER);
                     String age = snapshot.getString(Consts.AGE);
-                    if ((gender.equals(Consts.DEFAULT) && age.equals(Consts.DEFAULT))) {
-                        callback.setInfo(gender, age);
-                    } else if (gender.equals(Consts.DEFAULT) || age.equals(Consts.DEFAULT)) {
-                        callback.setInfo(gender, age);
-                    }
+                    callback.setInfo(image, gender, age);
                 }
             });
     }
 
-    public void setNecessaryInfo(String gender, String age) {
+    public void setNecessaryInfo(String image, String gender, String age) {
         Map<String, Object> necessaryInfoMap = new HashMap<>();
+        if (!image.equals(Consts.DEFAULT)) {
+            pushPhoto(image);
+        }
         if (!gender.equals(Consts.DEFAULT)) necessaryInfoMap.put(Consts.GENDER, gender);
         if (!age.equals(Consts.DEFAULT)) necessaryInfoMap.put(Consts.AGE, age);
         if (!necessaryInfoMap.isEmpty()) users.document(getUid()).update(necessaryInfoMap);
+    }
+
+    private void pushPhoto(String image) {
+        Uri imageUri = Uri.parse(image);
+        filePath.child(getUid()).child("profile_photo").putFile(imageUri).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                String download_url = filePath.getDownloadUrl().toString();
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put(Consts.IMAGE, download_url);
+                users.document(getUid()).update(hashMap);
+                realtimeReference.child(Consts.USERS_DB).child(getUid()).updateChildren(hashMap);
+            }
+        });
     }
 
     public void hasNecessaryInfo(BoolCallback callback) {

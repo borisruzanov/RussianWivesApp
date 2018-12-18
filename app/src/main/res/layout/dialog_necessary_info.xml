@@ -5,7 +5,6 @@
     android:padding="@dimen/dp16"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <TextView
         android:id="@+id/header_ni_dialog"
         style="@style/AppTheme.Title"
@@ -13,11 +12,22 @@
         android:layout_height="wrap_content"
         android:text="@string/header_necessary_info" />
 
+    <Button
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@+id/photo_add_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp8"
+        android:text="@string/add_photo_text"
+        android:textColor="@color/blue_700"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_ni_dialog" />
+
     <RelativeLayout
-        android:id="@+id/gender_ni_rl"
+        android:id="@+id/gender_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/header_ni_dialog">
+        app:layout_constraintTop_toBottomOf="@id/photo_add_button">
 
         <TextView
             android:id="@+id/gender_text"
@@ -41,7 +51,7 @@
         android:id="@+id/age_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/gender_ni_rl">
+        app:layout_constraintTop_toBottomOf="@id/gender_layout">
 
         <TextView
             android:id="@+id/age_text"

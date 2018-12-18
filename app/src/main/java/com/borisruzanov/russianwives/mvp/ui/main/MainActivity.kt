@@ -103,9 +103,9 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         viewPager.adapter = mainPagerAdapter
     }
 
-    override fun showNecessaryInfoDialog(gender: String, age: String) {
+    override fun showNecessaryInfoDialog(image: String, gender: String, age: String) {
         supportFragmentManager.beginTransaction()
-                .add(NecessaryInfoDialogFragment.newInstance(gender, age), NecessaryInfoDialogFragment.TAG)
+                .add(NecessaryInfoDialogFragment.newInstance(image, gender, age), NecessaryInfoDialogFragment.TAG)
                 .commit()
     }
 
@@ -203,8 +203,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         searchFragment?.onUpdate()
     }
 
-    override fun setInfo(gender: String, age: String) {
-        mainPresenter.setNecessaryInfo(gender, age)
+    override fun setInfo(image: String, gender: String, age: String) {
+        mainPresenter.setNecessaryInfo(image, gender, age)
     }
 
     override fun onConfirm() {

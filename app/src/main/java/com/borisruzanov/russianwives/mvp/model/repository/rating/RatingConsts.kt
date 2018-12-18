@@ -5,7 +5,7 @@ import com.borisruzanov.russianwives.utils.Consts
 object Rating {
     const val ADD_GENDER_RATING = 1
     const val ADD_AGE_RATING = 1
-    const val ADD_PHOTO_RATING = 1
+    const val ADD_IMAGE_RATING = 1
     const val ADD_RELATIONSHIP_RATING = 1
     const val ADD_BODY_TYPE_RATING = 1
     const val ADD_ETHNICITY_RATING = 1
@@ -18,7 +18,7 @@ object Rating {
 }
 
 object Achievements {
-    val MUST_INFO_LIST = listOf(Consts.GENDER, Consts.AGE)
+    val MUST_INFO_LIST = listOf(Consts.IMAGE, Consts.GENDER, Consts.AGE)
     const val MUST_INFO_ACH: String = "must_info"
     const val FULL_PROFILE_ACH = true
 }
