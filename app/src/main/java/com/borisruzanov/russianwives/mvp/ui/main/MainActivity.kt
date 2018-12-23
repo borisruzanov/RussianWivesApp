@@ -19,8 +19,10 @@ import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
+import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
 import com.borisruzanov.russianwives.R
+import com.borisruzanov.russianwives.R.string.send
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment
@@ -40,6 +42,10 @@ import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.neccessaryinfo.NecessaryInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.utils.Consts
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
+import com.google.firebase.analytics.FirebaseAnalytics
+import durdinapps.rxfirebase2.RxFirebaseDatabase.setValue
 
 class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
         NecessaryInfoDialogFragment.NecessaryInfoListener, ConfirmDialogFragment.ConfirmListener {
@@ -60,14 +66,20 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     private var dialogFragment: DialogFragment? = null
     private var searchFragment: SearchFragment? = null
 
+    private lateinit var mTracker: Tracker
+
     @ProvidePresenter
     internal fun provideMainPresenter() = mainPresenter
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         dialogFragment = FilterDialogFragment()
         searchFragment = SearchFragment()
@@ -84,18 +96,35 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         mainPresenter.checkForUserExist()
         tabLayout.setupWithViewPager(viewPager)
 
+        mTracker = App().getTracker()
+        analytics()
+    }
+
+    private fun analytics() {
+        val tracker = App.AnalyticsTracker.sTracker
+        tracker.setScreenName("MAIN Activity")
+        tracker.send(HitBuilders.ScreenViewBuilder().build());
+
+        val params = Bundle()
+        params.putString("param_One", "First param")
+        params.putString("param_Two", "Second param")
+        firebaseAnalytics.logEvent("some_event_name", params)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "some_id")
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "some_name")
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "content_type")
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
+
     }
 
     override fun setAdapter(isUserExist: Boolean) {
-        Log.d("RegDebug", "In setAdapter")
         mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
         if (isUserExist) {
-            Log.d("RegDebug", "In setAdapter reg")
             toolbar.subtitle = ""
             mainPagerAdapter.addFragment(ChatsFragment(), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(ActionsFragment(), getString(R.string.actions_title))
         } else {
-            Log.d("RegDebug", "In setAdapter unreg")
             toolbar.subtitle = getString(R.string.please_register_to_start)
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
@@ -167,7 +196,17 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun callAuthWindow() {
-        Log.d("RegDebug", "In callAuthWindow()")
+        val eventTracker = App.AnalyticsTracker.sTracker
+        val eventBuilder = HitBuilders.EventBuilder()
+                .setCategory(getString(R.string.conversion_one))
+                .setAction(getString(R.string.registration_started))
+        eventTracker.send(eventBuilder.build())
+
+
+        val tracker = App.AnalyticsTracker.sTracker
+        tracker.setScreenName("AUTH Activity")
+        tracker.send(HitBuilders.ScreenViewBuilder().build());
+
         startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
@@ -182,13 +221,18 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        var s = getString(R.string.conversion_one)
         if (requestCode == RC_SIGN_IN) {
             //for checking errors
             if (data != null) {
                 val response = IdpResponse.fromResultIntent(data)
                 if (resultCode == Activity.RESULT_OK) {
-                    Log.d("RegDebug", "OnActivityResult with ok result")
+                    var s = getString(R.string.new_user_registered)
                     mainPresenter.saveUser()
+                    mTracker.send(HitBuilders.EventBuilder()
+                            .setCategory(getString(R.string.conversion_one))
+                            .setAction(getString(R.string.new_user_registered))
+                            .build())
                     reload()
                 } else {
                     //Sign in failed
@@ -217,5 +261,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         finish()
         startActivity(intent)
     }
+
 
 }

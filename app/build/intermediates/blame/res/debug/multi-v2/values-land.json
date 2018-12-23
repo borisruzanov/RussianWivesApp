@@ -4,7 +4,7 @@
             "outputFile": "D:\\nano\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\3d583b223b12231ed41a08cf07d4fee1\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\5c8cd574cb10033a557b977d5e9b1fbe\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\de3083b919e279d1728198b173946db2\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\13169a219803e5e387a8cf9316f656a5\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",

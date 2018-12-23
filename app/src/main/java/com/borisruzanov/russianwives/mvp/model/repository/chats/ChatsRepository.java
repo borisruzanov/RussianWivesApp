@@ -81,14 +81,12 @@ public class ChatsRepository {
             realtimeReference.child("Messages").child(getUid()).child(uid).limitToLast(1).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            String message;
-                            Long time;
+                            Message message;
                             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                time = Long.valueOf(snapshot.child("time").getValue().toString());
-                                message = snapshot.child("message").getValue().toString();
-                                Log.d(Contract.CHAT_FRAGMENT, "dataSnapshot ащк messageList time - " +
-                                        time + " message is - " + message);
-                                messages.add(new Message(message, time));
+                                message = snapshot.getValue(Message.class);
+                                Log.d(Contract.CHAT_FRAGMENT, "From Message seen value is " + message.isSeen() +
+                                        " from Snapshot seen value is " + snapshot.child("seen").getValue());
+                                messages.add(snapshot.getValue(Message.class));
                             }
                         }
 
@@ -99,6 +97,11 @@ public class ChatsRepository {
                     });
             Log.d(Contract.CHAT_LIST, "RtUserList size in getUsersAndMessages is " + rtUsers.size());
             Log.d(Contract.CHAT_LIST, "MsgList size in getUsersAndMessages is " + messages.size());
+
+            for (Message message: messages) {
+                Log.d(Contract.CHAT_FRAGMENT, "Iteration seen value is " + message.isSeen());
+            }
+
             callback.setRtUsersAndMessages(rtUsers, messages);
         }
     }
@@ -115,8 +118,10 @@ public class ChatsRepository {
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
 
-                            long timeStamp = chatList.get(i).getTimeStamp();
-                            boolean seen = chatList.get(i).getSeen();
+                            long timeStamp = messageList.get(i).getTime();
+                            boolean seen = messageList.get(i).isSeen();
+
+                            Log.d(Contract.CHAT_FRAGMENT, "Seen value in createChats() is " + seen);
 
                             String online = rtUserList.get(i).getOnline();
 

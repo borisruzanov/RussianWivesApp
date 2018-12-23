@@ -4,17 +4,7 @@
             "outputFile": "D:\\nano\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v24\\values-v24.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\de3083b919e279d1728198b173946db2\\res\\values-v24\\values-v24.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,212",
-                        "endColumns": "156,134",
-                        "endOffsets": "207,342"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\fac4585a31a73860c294e292deaac9cf\\res\\values-v24\\values-v24.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-media-compat-27.1.1.aar\\d24855a6ea47578dfdf7e17327b9bf06\\res\\values-v24\\values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -28,6 +18,16 @@
                         "startOffsets": "347,413,474,540",
                         "endColumns": "65,60,65,66",
                         "endOffsets": "408,469,535,602"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\13169a219803e5e387a8cf9316f656a5\\res\\values-v24\\values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
                     }
                 }
             ]

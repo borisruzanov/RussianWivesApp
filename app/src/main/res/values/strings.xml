@@ -123,7 +123,7 @@
     <string name="yes">Yes</string>
     <string name="likes">Likes</string>
     <string name="visits">Visits</string>
-    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5-016103d06330]]></string>
+    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5–016103d06330]]></string>
     <string name="chat_add_btn_desc">Button for sending images</string>
     <string name="chat_send_btn_desc">Button for sending message</string>
     <string name="enter_message_hint">Enter Message…</string>
@@ -204,6 +204,15 @@
     <string name="hobby_updated">Hobby was updated</string>
     <string name="notification_channel_id">RW_CH</string>
     <string name="please_register_to_start">Please register to start</string>
+    <string name="conversion_one">conversion one</string>
+    <string name="new_user_registered">New User Registered</string>
+    <string name="user_information_category">User Information</string>
+    <string name="conversion_two">Conversion two</string>
+    <string name="must_have_info_done">Must Have Info Done</string>
+    <string name="conversion_break">Conversion Break</string>
+    <string name="must_info_canceled">Must Info Canceled</string>
+    <string name="tracker_id">131196800</string>
+    <string name="registration_started">Registration Started</string>
 
     <!-- Genders -->
     <string-array name="genders">
@@ -301,7 +310,7 @@
         <item>Iraq</item>
         <item>Israel</item>
         <item>Italy</item>
-        <item>Ivory Coast (Cote d'Ivoire)</item>
+        <item>Ivory Coast (Cote d\'Ivoire)</item>
         <item>Jamaica</item>
         <item>Japan</item>
         <item>Jordan</item>
@@ -365,7 +374,7 @@
         <item>Rwanda</item>
         <item>Saint Kitts and Nevis</item>
         <item>Saint Lucia</item>
-        <item>Saint Vincent's &amp; Grenadines</item>
+        <item>Saint Vincent\'s &amp; Grenadines</item>
         <item>Samoa</item>
         <item>Sao Tome and Principe</item>
         <item>Saudi Arabia</item>

@@ -30,15 +30,16 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-import java.util.ArrayList
-
 import javax.inject.Inject
 
 import de.hdodenhof.circleimageview.CircleImageView
 
 import com.borisruzanov.russianwives.models.Contract.RC_PHOTO_PICKER
+import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
 import kotlinx.android.synthetic.main.activity_chat.*
+import java.util.*
+import kotlin.collections.HashMap
 
 class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
@@ -187,13 +188,13 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
      * Loading messages after swiping 2+ times
      */
     private fun loadMoreMessages() {
-
         val messageRef = mRootRef.child(mCurrentUserId).child(mChatUser)
         val messageQuery = messageRef.orderByKey().endAt(mLastKey).limitToLast(10)
         messageQuery.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
                 val message = dataSnapshot.getValue(Message::class.java)
                 val messageKey = dataSnapshot.key
+
                 if (mPrevKey != messageKey) {
                     messageList.add(itemPos++, message!!)
                 } else {
@@ -221,25 +222,31 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
      * Load messages only once
      */
     private fun loadMessages() {
-        Log.d("MessagesDebug", "on loadMessages")
         val messageRef = mRootRef.child(mCurrentUserId).child(mChatUser)
         val messageQuery = messageRef.limitToLast(TOTAL_ITEMS_TO_LOAD)
         messageQuery.addChildEventListener(object : ChildEventListener {
             override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                Log.d("MessagesDebug", "onChildAdded")
                 val message = dataSnapshot.getValue(Message::class.java)
+                val messageKey = dataSnapshot.key
+
+                //Set parameter seen true for all messages
+                if (messageKey != null) {
+                    Log.d("MessageDebug", "MessageKey is $messageKey")
+                    val messageMap = HashMap<String, Any>()
+                    messageMap["seen"] = true
+
+                    mRootRef.child(mCurrentUserId).child(mChatUser).child(messageKey).updateChildren(messageMap)
+                }
+                else Log.d("MessageDebug", "MessageKey is null!!!")
+
                 itemPos++
                 if (itemPos == 1) {
-                    val messageKey = dataSnapshot.key
                     mLastKey = messageKey.toString()
                     mPrevKey = messageKey.toString()
                 }
                 if(message != null) {
-                    Log.d("MessagesDebug", """Message is ${message.message}""")
                     messageList.add(message)
                 }
-                else Log.d("MessagesDebug", "Message is null")
-                Log.d("MessagesDebug", "in Activity timestamp " + message?.time.toString())
                 mAdapter.setData(messageList)
                 messages_list.scrollToPosition(messageList.size - 1)
                 mRefreshLayout.isRefreshing = false

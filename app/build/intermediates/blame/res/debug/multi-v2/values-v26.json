@@ -4,7 +4,7 @@
             "outputFile": "D:\\nano\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v26\\values-v26.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-4.2.1.aar\\9b429831ff5c1b05a2fa3cbef096b4e0\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-ui-auth-4.2.1.aar\\4ba1df639cfb4c6d79f12deed38731a5\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,6,10,14",
                         "startColumns": "4,4,4,4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\de3083b919e279d1728198b173946db2\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\13169a219803e5e387a8cf9316f656a5\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,3,4,8,12,16",
                         "startColumns": "4,4,4,4,4,4",
@@ -42,7 +42,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\3d583b223b12231ed41a08cf07d4fee1\\res\\values-v26\\values-v26.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\5c8cd574cb10033a557b977d5e9b1fbe\\res\\values-v26\\values-v26.xml",
                     "from": {
                         "startLines": "2,6",
                         "startColumns": "4,4",

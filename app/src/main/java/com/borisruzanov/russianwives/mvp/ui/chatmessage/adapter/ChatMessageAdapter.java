@@ -88,6 +88,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         Glide.with(viewHolder.profileImage.getContext()).load(friendsPhoto).into(viewHolder.profileImage);
         viewHolder.timeView.setText(time);
 
+
         // If we get message not from us
         if (!from_user.equals(new FirebaseRepository().getUid())) {
             viewHolder.displayName.setText(friendsName);

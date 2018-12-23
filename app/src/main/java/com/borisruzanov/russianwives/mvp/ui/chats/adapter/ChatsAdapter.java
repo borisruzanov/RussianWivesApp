@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.ui.chats.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -92,6 +93,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             }
             container.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
 
+            if (!model.getSeen()) container.setBackgroundColor(Color.parseColor("#e8e8e8"));
+            if (!model.getSeen()) Log.d("test", "seen " + model.getSeen());
             if(model.getOnline() != null){
             if (model.getOnline().equals("true")) online.setVisibility(View.VISIBLE);
             else {
