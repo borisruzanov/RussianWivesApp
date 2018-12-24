@@ -18,10 +18,6 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        //UserRepository().getTokens { value -> Log.d("TokensDebug", value)}
-
-        //UserRepository().addInfo()
-
         if (isUserExist()) {
             //RatingRepository().addRating(10)
             showNecessaryInfoDialog()

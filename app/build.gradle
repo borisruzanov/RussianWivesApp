@@ -95,6 +95,7 @@ android {
         def daggerVer = "2.12"
         kapt "com.google.dagger:dagger-compiler:$daggerVer"
         implementation "com.google.dagger:dagger:$daggerVer"
+
     }
 }
 repositories {

@@ -143,7 +143,8 @@ public class UserRepository {
             users.document(getUid()).get().addOnCompleteListener(task -> {
                 if (task.getResult().exists()) {
                 DocumentSnapshot snapshot = task.getResult();
-                    callback.setBool(!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) &&
+                    callback.setBool(!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
+                            !snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) &&
                             !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT));
                 }
             });
