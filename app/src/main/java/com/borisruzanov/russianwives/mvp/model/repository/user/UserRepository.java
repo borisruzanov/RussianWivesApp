@@ -1,14 +1,12 @@
 package com.borisruzanov.russianwives.mvp.model.repository.user;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
 import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
-import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
-import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionCountCallback;
 import com.borisruzanov.russianwives.utils.ActionItemCallback;
@@ -19,8 +17,6 @@ import com.borisruzanov.russianwives.utils.NecessaryInfoCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,15 +28,12 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getNeededUsers;
@@ -51,6 +44,12 @@ public class UserRepository {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
+
+    Prefs prefs;
+
+    public UserRepository(Prefs prefs) {
+        this.prefs = prefs;
+    }
 
     /**
      * Saving FsUser to data base
@@ -78,7 +77,7 @@ public class UserRepository {
         realtimeReference.child(Consts.USERS_DB).child(getUid()).updateChildren(ntMap);
     }
 
-    private void createNewUser(String name, String token, String uid){
+    private void createNewUser(String name, String token, String uid) {
         users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid));
 
         Map<String, Object> niMap = new HashMap<>();
@@ -99,11 +98,18 @@ public class UserRepository {
         });
     }
 
+    public void setFirstOpenDate(){
+        if (prefs.getFirstOpenDate().equals(Consts.DEFAULT)) {
+            prefs.setFirstOpenDate();
+        }
+    }
+
     public void getNecessaryInfo(NecessaryInfoCallback callback) {
-            users.document(getUid()).get().addOnCompleteListener(task -> {
-                DocumentSnapshot snapshot = task.getResult();
-                if(snapshot.exists()) {
-                    String gender = snapshot.getString(Consts.GENDER);
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            if (snapshot.exists()) {
+                String gender = snapshot.getString(Consts.GENDER);
+                if (!gender.equals(Consts.DEFAULT)) {
                     String age = snapshot.getString(Consts.AGE);
                     if ((gender.equals(Consts.DEFAULT) && age.equals(Consts.DEFAULT))) {
                         callback.setInfo(gender, age);
@@ -111,7 +117,8 @@ public class UserRepository {
                         callback.setInfo(gender, age);
                     }
                 }
-            });
+            }
+        });
     }
 
     public void setNecessaryInfo(String gender, String age) {
@@ -121,20 +128,33 @@ public class UserRepository {
         if (!necessaryInfoMap.isEmpty()) users.document(getUid()).update(necessaryInfoMap);
     }
 
-    public void hasNecessaryInfo(BoolCallback callback) {
-            users.document(getUid()).get().addOnCompleteListener(task -> {
-                if (task.getResult().exists()) {
-                DocumentSnapshot snapshot = task.getResult();
-                    callback.setBool(!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) &&
-                            !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT));
-                }
-            });
-        }
+    public boolean isGenderDefault() {
+        return prefs.getGender().equals(Consts.DEFAULT);
+    }
 
-    public void hasAdditionalInfo(StringsCallback callback){
+    public void setGender(String gender) {
+        Map<String, Object> genderMap = new HashMap<>();
+        if (!gender.equals(Consts.DEFAULT)) {
+            genderMap.put(Consts.GENDER, gender);
+            prefs.setGenderSearch(gender);
+            //if (isUserExist()) users.document(getUid()).update(genderMap);
+        }
+    }
+
+    public void hasNecessaryInfo(BoolCallback callback) {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            if (task.getResult().exists()) {
+                DocumentSnapshot snapshot = task.getResult();
+                callback.setBool(!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) &&
+                        !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT));
+            }
+        });
+    }
+
+    public void hasAdditionalInfo(StringsCallback callback) {
         users.document(getUid()).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
-            if (!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) && !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT)){
+            if (!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) && !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT)) {
                 callback.setStrings(getListOfDefaults(snapshot));
             }
         });
@@ -201,8 +221,8 @@ public class UserRepository {
 
     public void addUid() {
         users.get().addOnCompleteListener(task -> {
-            for(DocumentSnapshot snapshot: task.getResult().getDocuments()) {
-                if(snapshot.getString(Consts.UID) == null) {
+            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                if (snapshot.getString(Consts.UID) == null) {
                     Map<String, Object> uidMap = new HashMap<>();
                     uidMap.put(Consts.UID, snapshot.getId());
                     snapshot.getReference().update(uidMap);
@@ -213,7 +233,7 @@ public class UserRepository {
 
     public void addInfo() {
         users.get().addOnCompleteListener(task -> {
-            for(DocumentSnapshot snapshot: task.getResult().getDocuments()) {
+            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                 Map<String, Object> niMap = new HashMap<>();
                 niMap.put("created", "registered");
                 niMap.put("device_token", snapshot.getString("device_token"));

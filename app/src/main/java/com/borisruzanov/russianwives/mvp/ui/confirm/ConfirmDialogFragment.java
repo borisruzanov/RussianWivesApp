@@ -52,7 +52,7 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        View view = inflater.inflate(R.layout.dialog_configirm_fragment, container, false);
+        View view = inflater.inflate(R.layout.dialog_confirm_fragment, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

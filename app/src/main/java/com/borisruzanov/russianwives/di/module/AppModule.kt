@@ -18,13 +18,13 @@ import javax.inject.Singleton
 class AppModule(val app: App) {
     @Provides @Singleton fun provideApp() = app
 
-    @Provides fun provideUserRepository() = UserRepository()
     @Provides fun provideRatingRepository() = RatingRepository()
     @Provides fun provideChatMessageRepository() = ChatMessageRepository()
     @Provides fun provideFriendProfileRepository() = FriendRepository()
     @Provides fun provideChatsRepository() = ChatsRepository()
 
     @Provides fun providePrefsClass() = Prefs(app.applicationContext)
+    @Provides fun provideUserRepository(prefs: Prefs) = UserRepository(prefs)
     @Provides fun filterRepository(prefs: Prefs) = FilterRepository(prefs)
 
     @Provides fun provideSearchRepository() = SearchRepository()

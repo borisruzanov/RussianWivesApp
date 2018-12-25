@@ -5,7 +5,6 @@
     android:padding="@dimen/dp16"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <TextView
         android:id="@+id/header_ni_dialog"
         style="@style/AppTheme.Title"

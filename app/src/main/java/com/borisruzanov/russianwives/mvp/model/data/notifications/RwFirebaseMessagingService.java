@@ -7,6 +7,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity;
 import com.borisruzanov.russianwives.utils.Consts;
@@ -51,6 +52,6 @@ public class RwFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         Log.d("TokensDebug", "New token is " + s + " current token is " + getDeviceToken());
-        new UserRepository().updateToken();
+        new UserRepository(new Prefs(getApplicationContext())).updateToken();
     }
 }

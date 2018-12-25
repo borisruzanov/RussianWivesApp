@@ -6,49 +6,38 @@ import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.TextureView
-import android.view.View
-import android.view.View.VISIBLE
-import android.widget.TextView
-
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
-import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
 import com.borisruzanov.russianwives.R
-import com.borisruzanov.russianwives.R.string.send
 import com.borisruzanov.russianwives.di.component
+import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment
-import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
-import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
-import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
-import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
-import com.firebase.ui.auth.AuthUI
-import com.firebase.ui.auth.IdpResponse
-
-import java.util.Arrays
-
-import javax.inject.Inject
-
-import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
+import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
+import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment
+import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
+import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.neccessaryinfo.NecessaryInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
+import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
+import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
 import com.borisruzanov.russianwives.utils.Consts
+import com.firebase.ui.auth.AuthUI
+import com.firebase.ui.auth.IdpResponse
 import com.google.android.gms.analytics.HitBuilders
 import com.google.android.gms.analytics.Tracker
 import com.google.firebase.analytics.FirebaseAnalytics
-import durdinapps.rxfirebase2.RxFirebaseDatabase.setValue
+import java.util.*
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
-        NecessaryInfoDialogFragment.NecessaryInfoListener, ConfirmDialogFragment.ConfirmListener {
+        NecessaryInfoDialogFragment.NecessaryInfoListener, ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener {
 
     //MVP
     @Inject
@@ -130,6 +119,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
         }
         viewPager.adapter = mainPagerAdapter
+    }
+
+    override fun showGenderDialog() {
+        supportFragmentManager.beginTransaction().add(GenderDialogFragment(), GenderDialogFragment.TAG).commit()
     }
 
     override fun showNecessaryInfoDialog(gender: String, age: String) {
@@ -245,6 +238,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onUpdate() {
         searchFragment?.onUpdate()
+    }
+
+    override fun setGender(gender: String) {
+        mainPresenter.setGender(gender)
     }
 
     override fun setInfo(gender: String, age: String) {

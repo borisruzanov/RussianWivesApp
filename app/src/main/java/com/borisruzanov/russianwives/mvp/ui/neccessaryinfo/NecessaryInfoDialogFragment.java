@@ -29,7 +29,7 @@ import butterknife.OnClick;
 
 public class NecessaryInfoDialogFragment extends MvpAppCompatDialogFragment {
 
-    public static String TAG = "Neccessary info";
+    public static String TAG = "Necessary info";
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -37,10 +37,6 @@ public class NecessaryInfoDialogFragment extends MvpAppCompatDialogFragment {
     Spinner ageSpinner;
     @BindView(R.id.spinner_gender_ni)
     Spinner genderSpinner;
-    @BindView(R.id.confirm_button_ni)
-    Button confirmButton;
-    @BindView(R.id.cancel_button_ni)
-    Button cancelButton;
 
     NecessaryInfoListener listener;
 

@@ -1214,6 +1214,7 @@ id com_facebook_smart_instructions_or
 id com_facebook_tooltip_bubble_view_bottom_pointer
 id com_facebook_tooltip_bubble_view_text_body
 id com_facebook_tooltip_bubble_view_top_pointer
+id confirm_button_gender
 id confirm_button_ni
 id confirm_dialog_text
 id confirmation_code
@@ -1243,6 +1244,7 @@ id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
+id dialog_spinner_gender
 id dimensions
 id direct
 id disableHome
@@ -1385,6 +1387,7 @@ id friend_activity_tv_name
 id friends_fragment_recycler_activities
 id friends_fragment_recycler_chats
 id gender_ni_rl
+id gender_rl
 id gender_text
 id ghost_view
 id gone
@@ -1759,8 +1762,9 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
-layout dialog_configirm_fragment
+layout dialog_confirm_fragment
 layout dialog_filters
+layout dialog_gender
 layout dialog_necessary_info
 layout fragment_fragment_user_info_input
 layout fragment_main_tab_activities

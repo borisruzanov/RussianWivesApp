@@ -3,15 +3,38 @@ package com.borisruzanov.russianwives.mvp.model.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.utils.Consts;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Prefs {
 
     private SharedPreferences prefs;
-    private String PREFS_FILE_NAME = "russian_wives_app";
+    private Context context;
 
     public Prefs(Context context) {
+        this.context = context;
+        String PREFS_FILE_NAME = "russian_wives_app";
         prefs = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
+    }
+
+    public void setFirstOpenDate() {
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        setValue(Consts.FIRST_OPEN_DATE, date);
+    }
+
+    public String getFirstOpenDate() {
+        return getValue(Consts.FIRST_OPEN_DATE);
+    }
+
+    public void setGenderSearch(String gender) {
+        String genderSearch = "";
+        if (gender.equals(context.getString(R.string.male_option))) genderSearch = context.getString(R.string.female_option);
+        else if (gender.equals(context.getString(R.string.female_option))) genderSearch = context.getString(R.string.male_option);
+        setValue(Consts.GENDER, genderSearch);
     }
 
     public String getGender() {
@@ -110,8 +133,8 @@ public class Prefs {
         setValue(Consts.HOBBY, value);
     }
 
-    public String getValue(String key) {
-        return prefs.getString(key, "default");
+    private String getValue(String key) {
+        return prefs.getString(key, Consts.DEFAULT);
     }
 
     public void setValue(String key, String value) {

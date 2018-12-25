@@ -12,6 +12,12 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun saveUser() = userRepository.saveUser()
 
+    fun setFirstOpenDate () = userRepository.setFirstOpenDate()
+
+    fun isGenderDefault() = userRepository.isGenderDefault
+
+    fun setGender(gender: String) = userRepository.setGender(gender)
+
     fun getNecessaryInfo(callback: NecessaryInfoCallback) = userRepository.getNecessaryInfo(callback)
 
     fun hasNecessaryInfo(callback: BoolCallback) = userRepository.hasNecessaryInfo(callback)

@@ -17,12 +17,10 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
 
-        //UserRepository().getTokens { value -> Log.d("TokensDebug", value)}
-
-        //UserRepository().addInfo()
+        showGenderDialog()
+        mainInteractor.setFirstOpenDate()
 
         if(isUserExist()) {
-            //RatingRepository().addRating(10)
             showNecessaryInfoDialog()
             showAdditionalInfoDialog()
         }
@@ -34,6 +32,10 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     fun saveUser() = mainInteractor.saveUser()
 
+    fun setGender(gender: String) {
+        mainInteractor.setGender(gender)
+    }
+
     fun setNecessaryInfo(gender: String, age: String) {
         if (gender != Consts.DEFAULT) RatingRepository().addRating(ADD_GENDER_RATING)
         if (age != Consts.DEFAULT) RatingRepository().addRating(ADD_AGE_RATING)
@@ -43,6 +45,12 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     fun openSliderWithDefaults() {
         mainInteractor.hasAdditionalInfo(callback = StringsCallback { strings -> viewState.openSlider(ArrayList<String>(strings)) })
+    }
+
+    private fun showGenderDialog() {
+        if (mainInteractor.isGenderDefault()) {
+            viewState.showGenderDialog()
+        }
     }
 
     private fun showNecessaryInfoDialog() {

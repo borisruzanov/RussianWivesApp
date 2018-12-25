@@ -30,7 +30,7 @@ class SearchRepository {
     fun getUsers(filterParams: List<SearchModel>, usersListCallback: UsersListCallback, page: Int) {
         var query: Query = reference
 
-        if (filterParams.isNotEmpty() && isUserExist() ) {
+        if (filterParams.isNotEmpty()) {
             for ((key, value) in filterParams) {
                 Log.d("FilterDebug", "Key is $key and value is $value")
                 query = query.whereEqualTo(key, value)
