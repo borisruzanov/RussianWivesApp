@@ -24,9 +24,11 @@ import com.borisruzanov.russianwives.R.id.*
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
+import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
+import com.borisruzanov.russianwives.utils.Consts
 import kotlinx.android.synthetic.main.fragment_main_tab_search.*
 import java.util.Objects
 
@@ -128,6 +130,10 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
         startActivity(chatIntent)
     }
 
+    override fun showRegistrationDialog() {
+        activity?.supportFragmentManager?.beginTransaction()?.add(ConfirmDialogFragment.newInstance(Consts.ACTION_MODULE),
+                ConfirmDialogFragment.TAG)?.commit()
+    }
 
     //Updating results of the filtration
     override fun onUpdate() {

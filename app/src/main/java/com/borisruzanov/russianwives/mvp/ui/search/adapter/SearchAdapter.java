@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist;
 
 //todo: rename to UsersAdapter
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHolder>{
@@ -163,8 +164,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             } else {
                 animationView.setProgress(0f);
             }
-
-
         }
     }
 

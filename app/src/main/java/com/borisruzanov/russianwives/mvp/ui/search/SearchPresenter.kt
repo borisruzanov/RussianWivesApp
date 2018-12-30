@@ -7,6 +7,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor
+import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
 import com.borisruzanov.russianwives.utils.UsersListCallback
 
 import java.util.ArrayList
@@ -17,12 +18,14 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     private val fsUsers = ArrayList<FsUser>()
 
     fun getUserList(page: Int) {
+        // if(fsUsers.isEmpty() || (fsUsers.isNotEmpty() && page != 0))
         searchInteractor.getFilteredUserList(usersListCallback, page)
     }
 
     private val usersListCallback = UsersListCallback { userList ->
-        if(userList.isNotEmpty()) {
+        if (userList.isNotEmpty()) {
             fsUsers.addAll(userList)
+            //if(fsUsers.isEmpty() || fsUsers != userList)
             viewState.addUsers(userList)
             userList.forEach { Log.d("FilterDebug", it.name) }
         }
@@ -50,7 +53,8 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         //            } else {
         //                animationView.setProgress(0f);
         //            }
-        searchInteractor.setFriendLiked(fsUsers[position].uid)
+        if (isUserExist()) searchInteractor.setFriendLiked(fsUsers[position].uid)
+        else viewState.showRegistrationDialog()
     }
 
 
@@ -59,7 +63,8 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun openChat(position: Int) {
-        viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
+        if (isUserExist()) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
+        else viewState.showRegistrationDialog()
     }
 
 }

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity;
+import com.borisruzanov.russianwives.mvp.ui.main.MainActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 
 import butterknife.BindView;
@@ -62,7 +63,7 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
         super.onActivityCreated(savedInstanceState);
 
         switch (getArguments().getString(Consts.MODULE)){
-            case Consts.REG_MODULE:
+            case Consts.REG_MODULE: case Consts.ACTION_MODULE:
                 headerTv.setText(R.string.confirm_dialog_reg_header);
                 break;
             case Consts.SLIDER_MODULE:
@@ -77,6 +78,9 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
         switch (getArguments().getString(Consts.MODULE)){
             case Consts.REG_MODULE:
                 ((FriendProfileActivity) getActivity()).callAuthWindow();
+                break;
+            case Consts.ACTION_MODULE:
+                ((MainActivity) getActivity()).callAuthWindow();
                 break;
             case Consts.SLIDER_MODULE:
                 listener.onConfirm();
