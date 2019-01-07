@@ -3,11 +3,26 @@
     android:layout_height="match_parent"
     android:id="@+id/search_root_container"
     android:background="@android:color/white">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <Button
+        android:id="@+id/users_filte_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@android:color/white"
+        android:paddingLeft="@dimen/friend_btn_padding"
+        android:paddingRight="@dimen/friend_btn_padding"
+        android:text="@string/change_filter"
+        android:textColor="@color/colorAccent" />
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/users_swipe_refresh"
+        android:layout_below="@id/users_filte_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/users_recycler_view"
@@ -23,6 +38,6 @@
             android:layout_gravity="center"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
+    </RelativeLayout>
 
 </FrameLayout>

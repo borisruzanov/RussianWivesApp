@@ -213,6 +213,9 @@
     <string name="must_info_canceled">Must Info Canceled</string>
     <string name="tracker_id">131196800</string>
     <string name="registration_started">Registration Started</string>
+    <string name="change_filter">Change Filter</string>
+    <string name="message">Message</string>
+    <string name="like">Like</string>
 
     <!-- Genders -->
     <string-array name="genders">

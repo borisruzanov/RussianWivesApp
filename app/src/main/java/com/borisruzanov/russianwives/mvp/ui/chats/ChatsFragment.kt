@@ -41,7 +41,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
     private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { view, position ->
         Log.d(Contract.TAG, "In onCLICK")
-        chatsPresenter.openChat(position)
+        //chatsPresenter.openChat(position)
     }
 
 

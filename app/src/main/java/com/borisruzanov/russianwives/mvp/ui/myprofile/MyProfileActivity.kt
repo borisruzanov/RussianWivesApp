@@ -127,4 +127,8 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
     private fun setOnItemClickCallback(): OnItemClickListener.OnItemClickCallback {
         return OnItemClickListener.OnItemClickCallback { view, position -> }
     }
+
+    override fun onRestart() {
+        super.onRestart()
+    }
 }

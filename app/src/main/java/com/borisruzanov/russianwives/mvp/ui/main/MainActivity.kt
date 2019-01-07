@@ -259,5 +259,4 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         startActivity(intent)
     }
 
-
 }

@@ -4,6 +4,7 @@ package com.borisruzanov.russianwives.mvp.ui.search
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewCompat
@@ -13,7 +14,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -25,6 +28,7 @@ import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
+import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
@@ -44,6 +48,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     fun providePresenter() = searchPresenter
 
     private lateinit var layoutManager: GridLayoutManager
+    private var dialogFragment: DialogFragment? = null
 
     private val onItemChatCallback = { view: View, position: Int -> searchPresenter.openChat(position) }
     private val onItemLikeCallback = { view: View, position: Int -> searchPresenter.setFriendLiked(position) }
@@ -63,11 +68,21 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     override fun onCreate(savedInstanceState: Bundle?) {
         val application = requireActivity().application as App
         application.component.inject(this)
+
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_main_tab_search, container, false)
+        val view= inflater!!.inflate(R.layout.fragment_main_tab_search, container, false)
+
+        val filterBtn = view.findViewById<Button>(R.id.users_filte_btn)
+        dialogFragment = FilterDialogFragment()
+
+        filterBtn.setOnClickListener {
+            Log.d("qwe", "show filter dialog")
+            dialogFragment?.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
+        }
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

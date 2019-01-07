@@ -34,7 +34,10 @@ class FilterDialogFragment : MvpAppCompatDialogFragment(), FilterView {
 
 
     //not working without @JvmSuppressWildcards:  can't use kotlin List<> for BindViews
-    @BindViews(R.id.spinner_gender_ni, R.id.spinner_age_ni, R.id.spinner_country, R.id.spinner_relationship_statuses, R.id.spinner_body_types, R.id.spinner_ethnicities, R.id.spinner_faith_types, R.id.spinner_smoke_statuses, R.id.spinner_drink_statuses, R.id.spinner_have_kids_statuses, R.id.spinner_want_kids_statuses)
+    @BindViews(R.id.spinner_gender_ni, R.id.spinner_age_ni, R.id.spinner_country,
+            R.id.spinner_relationship_statuses, R.id.spinner_body_types, R.id.spinner_ethnicities,
+            R.id.spinner_faith_types, R.id.spinner_smoke_statuses, R.id.spinner_drink_statuses,
+            R.id.spinner_have_kids_statuses, R.id.spinner_want_kids_statuses)
     lateinit var spinners: List<@JvmSuppressWildcards Spinner>
 
 

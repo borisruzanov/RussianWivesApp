@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.arellomobile.mvp.MvpAppCompatFragment
@@ -31,7 +33,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     private lateinit var recyclerActivitiesList: RecyclerView
 
-    private lateinit var emptyText: TextView
+    private lateinit var emptyText: RelativeLayout
 
     private val onItemClickCallback
             = OnItemClickListener.OnItemClickCallback{ view: View, position: Int -> actionsPresenter.openFriendProfile(position) }

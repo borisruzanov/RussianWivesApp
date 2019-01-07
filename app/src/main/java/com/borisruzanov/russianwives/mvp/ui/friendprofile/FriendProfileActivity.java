@@ -22,6 +22,7 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
+import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity;
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter;
 import com.borisruzanov.russianwives.mvp.ui.main.MainActivity;
@@ -49,7 +50,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     FloatingActionButton fab;
 
     TextView nameText, ageText, countryText;
-    ImageView imageView;
+    ImageView imageView, messageIv, likeIv;
 
     Button btnAddFriend, btnStartChat;
 
@@ -57,6 +58,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     UserDescriptionListAdapter userDescriptionListAdapter;
 
     private boolean reload = false;
+    private String friendUid;
 
     @Inject
     @InjectPresenter
@@ -89,19 +91,29 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+        likeIv = findViewById(R.id.friend_activity_like_img);
+        messageIv = findViewById(R.id.friend_activity_message_img);
 
-        String friendUid = getIntent().getStringExtra("uid");
+        friendUid = getIntent().getStringExtra("uid");
 
         fab = findViewById(R.id.friend_activity_fab);
         fab.setOnClickListener(v -> {
-            presenter.setFriendLiked(friendUid);
+
             //TODO Make sure user can make only 1 like
         });
 
-        btnAddFriend = findViewById(R.id.friend_activity_btn_add_friend);
-        btnAddFriend.setOnClickListener(v -> {
-
+        // listeners for action buttons
+        likeIv.setOnClickListener(v -> {
+            Log.d("ClickedImg", "Image Like was clicked");
+            presenter.setFriendLiked(friendUid);
         });
+        messageIv.setOnClickListener(v -> {
+            Log.d("ClickedImg", "Image Message was clicked");
+            presenter.openChatMessage(friendUid);
+        });
+
+        btnAddFriend = findViewById(R.id.friend_activity_btn_add_friend);
+        btnAddFriend.setOnClickListener(v -> presenter.setFriendLiked(friendUid));
         btnStartChat = findViewById(R.id.friend_activity_btn_start_chat);
 
         recyclerView = findViewById(R.id.recycler_list_friendDescription);
@@ -219,6 +231,15 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
             finish();
             startActivity(intent);
         } else super.onBackPressed();
+    }
+
+    @Override
+    public void openChatMessage(String name, String image) {
+        Intent chatMessageIntent = new Intent(this, ChatMessageActivity.class);
+        chatMessageIntent.putExtra(Consts.UID, friendUid);
+        chatMessageIntent.putExtra(Consts.NAME, name);
+        chatMessageIntent.putExtra("photo_url", image);
+        startActivity(chatMessageIntent);
     }
 
     @Override

@@ -691,6 +691,8 @@ color switch_thumb_material_dark
 color switch_thumb_material_light
 color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
+color test_one
+color test_two
 color tooltip_background_dark
 color tooltip_background_light
 color user_item_bg
@@ -1076,6 +1078,7 @@ drawable fui_idp_button_background_twitter
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
 drawable heart_outline
+drawable heart_outline_48
 drawable ic_account_circle_black_24dp
 drawable ic_add_black_24dp
 drawable ic_check_black_24dp
@@ -1090,8 +1093,10 @@ drawable ic_launcher_foreground
 drawable ic_person_add
 drawable ic_send_black_24dp
 drawable ic_widget
+drawable inbox
 drawable message
 drawable message_outline
+drawable message_outline_48
 drawable message_text_background
 drawable message_text_background_user
 drawable messenger_bubble_large_blue
@@ -1374,6 +1379,10 @@ id fragment_slider_willingkids_rbtn_probably
 id fragment_slider_willingkids_rbtn_someday
 id fragment_slider_willingkids_tv_question
 id fragment_tv_user_info_input
+id friend_activity_block_left_message
+id friend_activity_block_message_like
+id friend_activity_block_message_like_linear
+id friend_activity_block_right_like
 id friend_activity_btn_add_friend
 id friend_activity_btn_start_chat
 id friend_activity_cardview_about
@@ -1381,6 +1390,10 @@ id friend_activity_cardview_buttons_block
 id friend_activity_cardview_list
 id friend_activity_fab
 id friend_activity_image
+id friend_activity_like_img
+id friend_activity_like_tv
+id friend_activity_message_img
+id friend_activity_message_tv
 id friend_activity_tv_age
 id friend_activity_tv_country
 id friend_activity_tv_name
@@ -1662,6 +1675,7 @@ id user_single_online_icon
 id user_status
 id users_appBar
 id users_empty_text
+id users_filte_btn
 id users_list
 id users_recycler_view
 id users_swipe_refresh
@@ -1913,6 +1927,7 @@ string buddist
 string cancel
 string cancel_friend_request
 string change
+string change_filter
 string character_counter_pattern
 string chat_add_btn_desc
 string chat_send_btn_desc
@@ -2106,10 +2121,12 @@ string image_message_link
 string languages_you_can_speak
 string last_seen_text
 string latino_hispanic
+string like
 string likes
 string log_out
 string login
 string male_option
+string message
 string message_image_layout_desc
 string message_text
 string messenger_send_button_text

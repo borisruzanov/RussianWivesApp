@@ -4,6 +4,7 @@ package com.borisruzanov.russianwives.mvp.ui.slider;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,18 +56,20 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
 
         btnSave = view.findViewById(R.id.fragment_slider_age_btn_save);
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_age_radiogroup);
+        Log.d("qwe", "onCreateView " );
 
         new SliderRepository().getFieldFromCurrentUser("age", value -> {
             result = value;
-            if (value != null && value.equals("18-21")){
+            Log.d("qwe", "value " + result);
+            if (value != null && value.equals(getString(R.string.age_18_21))){
                 radioGroup.check(R.id.fragment_slider_age_18_21);
-            } else if (value != null && value.equals("22-26")){
+            } else if (value != null && value.equals(getString(R.string.age_22_26))){
                 radioGroup.check(R.id.fragment_slider_age_22_26);
-            } else if (value != null && value.equals("26-35")){
+            } else if (value != null && value.equals(getString(R.string.age_26_35))){
                 radioGroup.check(R.id.fragment_slider_age_26_35);
-            }else if (value != null && value.equals("36-45")){
+            }else if (value != null && value.equals(getString(R.string.age_36_45))){
                 radioGroup.check(R.id.fragment_slider_age_36_45);
-            }else if (value != null && value.equals("45+")){
+            }else if (value != null && value.equals(getString(R.string.age_45_plus))){
                 radioGroup.check(R.id.fragment_slider_age_45_plus);
             }
         });

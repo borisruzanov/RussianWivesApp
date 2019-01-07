@@ -202,7 +202,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/my_profile_cardview_about"
-                android:layout_marginBottom="@dimen/dp8">
+                android:layout_marginBottom="@dimen/dp8"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
