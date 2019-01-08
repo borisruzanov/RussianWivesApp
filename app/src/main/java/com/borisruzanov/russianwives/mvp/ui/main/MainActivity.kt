@@ -242,6 +242,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun setGender(gender: String) {
         mainPresenter.setGender(gender)
+        onUpdate()
     }
 
     override fun setInfo(gender: String, age: String) {

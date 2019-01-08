@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.utils.Consts;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,8 +60,11 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
 
     @OnClick(R.id.confirm_button_gender)
     public void onConfirmClicked() {
-        listener.setGender(genderSpinner.getSelectedItem().toString());
-        dismiss();
+        if (!genderSpinner.getSelectedItem().toString().equals(Consts.DEFAULT)) {
+            listener.setGender(genderSpinner.getSelectedItem().toString());
+            dismiss();
+        }
+        else Toast.makeText(getContext(), getString(R.string.order_gender), Toast.LENGTH_SHORT).show();
     }
 
     @Override

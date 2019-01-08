@@ -216,6 +216,7 @@
     <string name="change_filter">Change Filter</string>
     <string name="message">Message</string>
     <string name="like">Like</string>
+    <string name="order_gender">Order your gender</string>
 
     <!-- Genders -->
     <string-array name="genders">
