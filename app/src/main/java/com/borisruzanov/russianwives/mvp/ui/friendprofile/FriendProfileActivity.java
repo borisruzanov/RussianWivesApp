@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.ui.friendprofile;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter;
 import com.borisruzanov.russianwives.mvp.ui.main.MainActivity;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.load.DataSource;
@@ -35,6 +37,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 
 import java.util.Arrays;
 import java.util.List;
@@ -60,6 +65,8 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     private boolean reload = false;
     private String friendUid;
 
+    private UpdateCallback callback;
+
     @Inject
     @InjectPresenter
     FriendProfilePresenter presenter;
@@ -71,6 +78,10 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (getApplicationContext() instanceof UpdateCallback) {
+            callback = (UpdateCallback) getApplicationContext();
+        }
 
         App application = (App)getApplication();
         application.getComponent().inject(this);
@@ -127,6 +138,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         countryText = findViewById(R.id.friend_activity_tv_country);
 
         presenter.setAllInfo(friendUid);
+
     }
 
     @Override
@@ -224,15 +236,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         };
     }
 
-    private void onBack() {
-        if (reload) {
-            Intent intent = new Intent(this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            finish();
-            startActivity(intent);
-        } else super.onBackPressed();
-    }
-
     @Override
     public void openChatMessage(String name, String image) {
         Intent chatMessageIntent = new Intent(this, ChatMessageActivity.class);
@@ -242,8 +245,13 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         startActivity(chatMessageIntent);
     }
 
+    private void onBack() {
+        super.onBackPressed();
+        MainActivity.Companion.onActionsUpdate();
+    }
+
     @Override
     public void onBackPressed() {
-        onBack();
+       onBack();
     }
 }

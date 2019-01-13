@@ -23,7 +23,11 @@ class ActionsPresenter @Inject constructor(private val interactor: ActionsIntera
             else Log.d("ActionList", "Actions list is empty " + actionList.isEmpty())
             viewState.showUserActions(actionItems)
         })
+    }
 
+    fun reloadList() {
+        actionItems.clear()
+        setActionsList()
     }
 
     fun openFriendProfile(position: Int) {

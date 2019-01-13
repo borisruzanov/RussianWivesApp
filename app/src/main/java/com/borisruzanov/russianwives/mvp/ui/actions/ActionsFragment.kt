@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,12 @@ import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.ActionItem
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
+import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
+import com.borisruzanov.russianwives.utils.UpdateCallback
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 
 import javax.inject.Inject
 
@@ -48,7 +55,6 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         super.onCreate(savedInstanceState)
     }
 
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -66,6 +72,24 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         emptyText = view.findViewById(R.id.activities_empty_text)
 
         actionsPresenter.setActionsList()
+
+       /* FirebaseDatabase.getInstance().reference.child("Likes").child(getUid())
+                .addChildEventListener(object : ChildEventListener {
+            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                Log.d("ActionsBack", "in onChildAdded")
+            }
+
+            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                Log.d("ActionsBack", "in onChildChanged")
+            }
+
+            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                Log.d("ActionsBack", "in onChildRemoved")
+            }
+
+            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })*/
 
         // Inflate the layout for this fragment
         return view
@@ -87,4 +111,8 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         startActivity(friendProfileIntent)
     }
 
+    public fun onUpdate() {
+        Log.d("ActionsBack", "In actions onUpdate()")
+        actionsPresenter.reloadList()
+    }
 }

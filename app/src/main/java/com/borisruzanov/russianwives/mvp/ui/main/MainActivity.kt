@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -54,6 +55,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     //Fragments
     private var dialogFragment: DialogFragment? = null
     private var searchFragment: SearchFragment? = null
+    private var actionsFragment: ActionsFragment? = null
 
     private lateinit var mTracker: Tracker
 
@@ -72,6 +74,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
         dialogFragment = FilterDialogFragment()
         searchFragment = SearchFragment()
+        actionsFragment = ActionsFragment()
 
         //UI
         toolbar = findViewById(R.id.toolbar)
@@ -112,7 +115,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         if (isUserExist) {
             toolbar.subtitle = ""
             mainPagerAdapter.addFragment(ChatsFragment(), getString(R.string.chats_title))
-            mainPagerAdapter.addFragment(ActionsFragment(), getString(R.string.actions_title))
+            mainPagerAdapter.addFragment(actionsFragment, getString(R.string.actions_title))
         } else {
             toolbar.subtitle = getString(R.string.please_register_to_start)
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
@@ -233,6 +236,13 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                     }
                 }
             }
+        }
+    }
+
+    companion object {
+        var actionsFragment: ActionsFragment? = null
+        fun onActionsUpdate() {
+            actionsFragment?.onUpdate()
         }
     }
 

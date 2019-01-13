@@ -20,6 +20,9 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getNeededUsers;
@@ -136,7 +139,9 @@ public class ChatsRepository {
                                     message, messageTimestamp));
 
                         }
-                        userChatListCallback.setUserChatList(userChatList);
+
+
+                        userChatListCallback.setUserChatList(sortByDate(userChatList));
                     }
                 });
             });
@@ -144,5 +149,15 @@ public class ChatsRepository {
         });
     }
 
+    private List<UserChat> sortByDate(List<UserChat> userChats) {
+        //sort list by date
+        Collections.sort(userChats, (t1, t2) -> {
+            Date date1 = new Date(t1.getMessageTimestamp() * 1000);
+            Date date2 = new Date(t2.getMessageTimestamp() * 1000);
+            return date2.compareTo(date1);
+        });
+
+        return userChats;
+    }
 
 }
