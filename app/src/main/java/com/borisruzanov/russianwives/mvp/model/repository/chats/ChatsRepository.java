@@ -154,12 +154,10 @@ public class ChatsRepository {
 
                             String online = rtUserList.get(i).getOnline();
 
-//                            String message = "test message";
                             String message = messageList.get(i).getMessage();
-//                            long messageTimestamp = 235235234234L;
                             long messageTimestamp = messageList.get(i).getTime();
 
-                            Log.d(Contract.CHAT_LIST, "User name is " + name);
+                            Log.d(Contract.CHAT_LIST, "User name is " + name + " and online status is " + online.equals("true"));
 
                             userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
                                     message, messageTimestamp));

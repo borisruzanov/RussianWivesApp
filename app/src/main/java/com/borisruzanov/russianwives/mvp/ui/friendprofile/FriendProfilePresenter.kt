@@ -33,9 +33,13 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
     }
 
     fun openChatMessage(friendUid: String) {
-        interactor.getFriendData(friendUid, UserCallback { fsUser ->
-            viewState.openChatMessage(fsUser.name, fsUser.image)
-        })
+        if (interactor.isUserExist()) {
+            interactor.getFriendData(friendUid, UserCallback { fsUser ->
+                viewState.openChatMessage(fsUser.name, fsUser.image)
+            })
+        } else {
+            viewState.openRegDialog()
+        }
     }
 
     private fun setFriendData(friendUid: String) {
