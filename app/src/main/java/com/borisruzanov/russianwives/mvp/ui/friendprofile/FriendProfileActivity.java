@@ -247,7 +247,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     private void onBack() {
         super.onBackPressed();
-        MainActivity.Companion.onActionsUpdate();
     }
 
     @Override

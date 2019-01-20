@@ -26,8 +26,10 @@ class ActionsPresenter @Inject constructor(private val interactor: ActionsIntera
     }
 
     fun reloadList() {
-        actionItems.clear()
-        setActionsList()
+        if (actionItems.isNotEmpty()) {
+            actionItems.clear()
+            setActionsList()
+        }
     }
 
     fun openFriendProfile(position: Int) {

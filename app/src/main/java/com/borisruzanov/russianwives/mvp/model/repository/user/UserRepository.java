@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.model.repository.user;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
@@ -88,6 +89,7 @@ public class UserRepository {
         niMap.put(Consts.RATING, 0);
         niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
         niMap.put("online", ServerValue.TIMESTAMP);
+        niMap.put(Consts.UID, uid);
         realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
     }
 
@@ -220,7 +222,24 @@ public class UserRepository {
     }
 
     public void addUid() {
-        users.get().addOnCompleteListener(task -> {
+        realtimeReference.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String uid = snapshot.getKey();
+                    Log.d("RDUpdate", "Uid is " + uid);
+                    Map<String, Object> uidMap = new HashMap<>();
+                    uidMap.put(Consts.UID, uid);
+                    snapshot.getRef().updateChildren(uidMap);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("RDUpdate", "Error message is " + databaseError.getMessage());
+            }
+        });
+        /*users.get().addOnCompleteListener(task -> {
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                 if (snapshot.getString(Consts.UID) == null) {
                     Map<String, Object> uidMap = new HashMap<>();
@@ -228,7 +247,7 @@ public class UserRepository {
                     snapshot.getReference().update(uidMap);
                 }
             }
-        });
+        });*/
     }
 
     public void addInfo() {

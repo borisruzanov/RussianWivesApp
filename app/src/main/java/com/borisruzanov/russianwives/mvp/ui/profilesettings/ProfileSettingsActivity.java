@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.profilesettings.adapter.UserDescriptionEditListAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
@@ -81,5 +82,12 @@ public class ProfileSettingsActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent profileIntent = new Intent(this, MyProfileActivity.class);
+        startActivity(profileIntent);
     }
 }

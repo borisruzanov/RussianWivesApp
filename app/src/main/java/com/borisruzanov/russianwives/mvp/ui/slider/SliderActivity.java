@@ -27,7 +27,7 @@ public class SliderActivity extends MvpAppCompatActivity {
     Toolbar toolbar;
     Button buttonNext;
 
-    final List<Fragment> fragmentList = new ArrayList<>();;
+    final List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

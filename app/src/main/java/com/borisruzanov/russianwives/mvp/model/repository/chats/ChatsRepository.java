@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.model.repository.chats;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.models.Chat;
@@ -7,8 +8,10 @@ import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.models.RtUser;
 import com.borisruzanov.russianwives.models.UserChat;
+import com.borisruzanov.russianwives.models.UserRt;
 import com.borisruzanov.russianwives.utils.ChatAndUidCallback;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.borisruzanov.russianwives.utils.RealtimeUsersCallback;
 import com.borisruzanov.russianwives.utils.RtUsersAndMessagesCallback;
 import com.borisruzanov.russianwives.utils.UserChatListCallback;
 import com.google.firebase.database.DataSnapshot;
@@ -21,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -72,8 +74,8 @@ public class ChatsRepository {
             realtimeReference.child("Users").child(uid).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-//                    String online = dataSnapshot.child("online").getValue().toString();
-                    String online = "true";
+                    String online = dataSnapshot.child("online").getValue().toString();
+                    //String online = "true";
                     rtUsers.add(new RtUser(online));
                 }
 
@@ -109,6 +111,30 @@ public class ChatsRepository {
         }
     }
 
+    // IN-PROGRESS
+    // Method for getting user data from Realtime Database instead of Firestore
+    // it will replace getNeededUsers soon
+    private void getUsers(List<String> uidList, RealtimeUsersCallback callback){
+        realtimeReference.child("Users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<UserRt> userRtList = new ArrayList<>();
+                for (String uid: uidList) {
+                    UserRt userRt = dataSnapshot.child(uid).getValue(UserRt.class);
+                    userRtList.add(userRt);
+                    Log.d("RealtimeDebug", "User name is" + userRt.getName());
+                }
+                if (userRtList.isEmpty())Log.d("RealtimeDebug", "List is empty");
+                callback.setUsers(userRtList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void createUserChats(UserChatListCallback userChatListCallback) {
         final List<UserChat> userChatList = new ArrayList<>();
 
@@ -137,9 +163,7 @@ public class ChatsRepository {
 
                             userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
                                     message, messageTimestamp));
-
                         }
-
 
                         userChatListCallback.setUserChatList(sortByDate(userChatList));
                     }

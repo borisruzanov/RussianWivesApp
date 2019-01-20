@@ -239,13 +239,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         }
     }
 
-    companion object {
-        var actionsFragment: ActionsFragment? = null
-        fun onActionsUpdate() {
-            actionsFragment?.onUpdate()
-        }
-    }
-
     override fun onUpdate() {
         searchFragment?.onUpdate()
     }

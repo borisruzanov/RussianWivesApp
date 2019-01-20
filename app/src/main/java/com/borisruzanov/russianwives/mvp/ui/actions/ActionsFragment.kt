@@ -111,7 +111,13 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         startActivity(friendProfileIntent)
     }
 
-    public fun onUpdate() {
+    override fun onResume() {
+        super.onResume()
+
+        //onUpdate()
+    }
+
+    fun onUpdate() {
         Log.d("ActionsBack", "In actions onUpdate()")
         actionsPresenter.reloadList()
     }

@@ -21,7 +21,7 @@ import java.util.List;
 
 public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.ActivitiesAdapterViewHolder> {
 
-    private List<ActionItem> activitiesList = new ArrayList<>();
+    private List<ActionItem> actionItems = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private Context context;
 
@@ -29,8 +29,14 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public void setData(List<ActionItem> activitiesList) {
-        this.activitiesList = activitiesList;
+    public void setData(List<ActionItem> actionItems) {
+        this.actionItems = actionItems;
+        notifyDataSetChanged();
+    }
+
+    public void clearAndUpdateData(List<ActionItem> newActionItems) {
+        actionItems.clear();
+        actionItems = newActionItems;
         notifyDataSetChanged();
     }
 
@@ -45,13 +51,13 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
 
     @Override
     public void onBindViewHolder(@NonNull ActionsAdapter.ActivitiesAdapterViewHolder holder, int position) {
-        ActionItem model = activitiesList.get(position);
+        ActionItem model = actionItems.get(position);
         holder.bind(model, position);
     }
 
     @Override
     public int getItemCount() {
-        return activitiesList.size();
+        return actionItems.size();
     }
 
     class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder {

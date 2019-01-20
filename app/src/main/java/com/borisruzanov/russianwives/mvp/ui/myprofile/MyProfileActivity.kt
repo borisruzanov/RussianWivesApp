@@ -77,9 +77,10 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         recyclerView.adapter = userDescriptionListAdapter
 
         fab = findViewById(R.id.fab_id)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val settingsProfile = Intent(this@MyProfileActivity, ProfileSettingsActivity::class.java)
             startActivity(settingsProfile)
+            finish()
         }
 
         imageView = findViewById(R.id.my_profile_image)

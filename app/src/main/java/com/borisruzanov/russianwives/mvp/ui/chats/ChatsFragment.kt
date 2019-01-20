@@ -21,6 +21,10 @@ import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
+import com.google.firebase.database.ChildEventListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
 
 class ChatsFragment : MvpAppCompatFragment(), ChatsView {
@@ -39,7 +43,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
     @ProvidePresenter fun provideChatsPresenter()= chatsPresenter
 
-    private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { view, position ->
+    private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { _, position ->
         Log.d(Contract.TAG, "In onCLICK")
         chatsPresenter.openChat(position)
     }
@@ -65,6 +69,25 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         recyclerChatsList.adapter = chatsAdapter
 
         chatsPresenter.getUserChatList()
+
+       /* FirebaseDatabase.getInstance().reference.child("Chats")
+                .addChildEventListener(object : ChildEventListener {
+                    override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
+                        Log.d("ChatsEventDebug", "In onChildAdded")
+                    }
+
+                    override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
+                        Log.d("ChatsEventDebug", "In onChildChanged")
+                    }
+
+                    override fun onChildRemoved(dataSnapshot: DataSnapshot) {
+                        Log.d("ChatsEventDebug", "In onChildRemoved")
+                    }
+
+                    override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
+                    override fun onCancelled(databaseError: DatabaseError) {}
+                })*/
+
         return mMainView
     }
 
@@ -98,4 +121,8 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         startActivity(chatIntent)
     }
 
+    override fun onResume() {
+        super.onResume()
+        //chatsPresenter.reloadList()
+    }
 }

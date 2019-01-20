@@ -30,6 +30,13 @@ class ChatsPresenter @Inject constructor(private val interactor: ChatsInteractor
         })
     }
 
+    fun reloadList() {
+        if (userChats.isNotEmpty()) {
+            userChats.clear()
+            getUserChatList()
+        }
+    }
+
     fun openChat(position: Int) {
         if (userChats.isEmpty()) {
             Log.d(Contract.TAG, "List in ChatPresenter is empty")

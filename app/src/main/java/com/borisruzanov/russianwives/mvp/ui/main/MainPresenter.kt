@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MU
 import com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_AGE_RATING
 import com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_GENDER_RATING
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
+import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.*
 import javax.inject.Inject
 
