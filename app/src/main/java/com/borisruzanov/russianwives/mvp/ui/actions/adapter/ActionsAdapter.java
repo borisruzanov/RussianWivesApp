@@ -17,6 +17,7 @@ import com.borisruzanov.russianwives.models.ActionItem;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.ActivitiesAdapterViewHolder> {
@@ -88,7 +89,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
             }
             actionContainer.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
 
-            if (model.getAction().equals("like")){
+            if (model.getAction().equals("like")) {
                 type_like.setVisibility(View.VISIBLE);
                 type_visit.setVisibility(View.INVISIBLE);
             } else {

@@ -10,9 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.RelativeLayout
-import android.widget.TextView
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -23,12 +21,6 @@ import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.ActionItem
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
-import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
-import com.borisruzanov.russianwives.utils.UpdateCallback
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 
 import javax.inject.Inject
 
@@ -43,7 +35,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
     private lateinit var emptyText: RelativeLayout
 
     private val onItemClickCallback
-            = OnItemClickListener.OnItemClickCallback{ view: View, position: Int -> actionsPresenter.openFriendProfile(position) }
+            = OnItemClickListener.OnItemClickCallback{ _: View, position: Int -> actionsPresenter.openFriendProfile(position) }
 
     private val actionsAdapter = ActionsAdapter(onItemClickCallback)
 
@@ -105,6 +97,16 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         }
     }
 
+    override fun updateUserActions(newActionItems: List<ActionItem>) {
+        if (newActionItems.isNotEmpty()) {
+            emptyText.visibility = View.GONE
+            recyclerActivitiesList.post { actionsAdapter.clearAndUpdateData(newActionItems) }
+        } else {
+            recyclerActivitiesList.visibility = View.GONE
+            emptyText.visibility = View.VISIBLE
+        }
+    }
+
     override fun openFriendProfile(friendUid: String) {
         val friendProfileIntent = Intent(activity, FriendProfileActivity::class.java)
         friendProfileIntent.putExtra("uid", friendUid)
@@ -113,12 +115,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     override fun onResume() {
         super.onResume()
-
-        //onUpdate()
+        actionsPresenter.updateActionsList()
     }
 
-    fun onUpdate() {
-        Log.d("ActionsBack", "In actions onUpdate()")
-        actionsPresenter.reloadList()
-    }
 }

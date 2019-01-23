@@ -28,6 +28,8 @@ public class RwFirebaseMessagingService extends FirebaseMessagingService {
         String messageIcon = remoteMessage.getNotification().getIcon();
         String fromUid = remoteMessage.getData().get("fromUid");
 
+        Log.d("NotificationDebug", "FromUid is " + fromUid);
+
         Intent resultIntent = new Intent(this, ChatMessageActivity.class);
         resultIntent.putExtra(Consts.UID, fromUid);
 
@@ -39,6 +41,7 @@ public class RwFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentTitle(messageTitle)
                 .setContentText(messageBody)
                 .setSmallIcon(R.drawable.default_avatar)
+                .setAutoCancel(true)
                 .setContentIntent(resultPendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -46,6 +49,7 @@ public class RwFirebaseMessagingService extends FirebaseMessagingService {
         notificationManager.notify(notificationID, notificationBuilder.build());
 
     }
+
 
 
     @Override

@@ -18,6 +18,7 @@ import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
+import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
@@ -70,6 +71,14 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (intent.extras != null) {
+            if (intent.extras.get("fromUid") != null) {
+                val resultIntent = Intent(this, ChatMessageActivity::class.java)
+                resultIntent.putExtra(Consts.UID, intent.extras.get("fromUid").toString())
+            }
+        }
+
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         dialogFragment = FilterDialogFragment()

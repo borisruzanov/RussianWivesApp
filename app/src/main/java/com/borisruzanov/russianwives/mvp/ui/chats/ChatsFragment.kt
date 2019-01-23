@@ -123,6 +123,6 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
     override fun onResume() {
         super.onResume()
-        //chatsPresenter.reloadList()
+        //chatsPresenter.updateActionsList()
     }
 }
