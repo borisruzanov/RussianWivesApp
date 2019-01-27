@@ -1,4 +1,4 @@
-#Thu Jan 24 01:42:41 EET 2019
+#Sun Jan 27 11:22:34 GMT-05:00 2019
 path.3=classes2.dex
 path.2=classes.dex
 path.1=classes.dex
@@ -7,7 +7,7 @@ renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
-base.3=D\:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
-base.2=D\:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
-base.1=D\:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
-base.0=D\:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.3=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
+base.2=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+base.1=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
+base.0=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3

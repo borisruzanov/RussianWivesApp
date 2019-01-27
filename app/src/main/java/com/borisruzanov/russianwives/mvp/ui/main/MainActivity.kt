@@ -82,6 +82,11 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
 
         dialogFragment = FilterDialogFragment()
+        viewPager = findViewById(R.id.main_view_pager)
+        tabLayout = findViewById(R.id.main_tabs)
+
+        mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
+
         searchFragment = SearchFragment()
         actionsFragment = ActionsFragment()
 
@@ -89,12 +94,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        viewPager = findViewById(R.id.main_view_pager)
-        tabLayout = findViewById(R.id.main_tabs)
-
-        mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
-
         mainPresenter.checkForUserExist()
+        viewPager.offscreenPageLimit = 3
         tabLayout.setupWithViewPager(viewPager)
 
         mTracker = App().getTracker()
