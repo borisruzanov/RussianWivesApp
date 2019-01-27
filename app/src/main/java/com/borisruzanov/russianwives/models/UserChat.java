@@ -3,14 +3,13 @@ package com.borisruzanov.russianwives.models;
 public class UserChat {
 
     private String name, image, userId, online, message;
-    private long chatTimestamp, messageTimestamp;
+    private long messageTimestamp;
     private boolean seen;
 
-    public UserChat(String name, String image, long chatTimestamp, boolean seen, String userId,
+    public UserChat(String name, String image, boolean seen, String userId,
                     String online, String message, long messageTimestamp) {
         this.name = name;
         this.image = image;
-        this.chatTimestamp = chatTimestamp;
         this.seen = seen;
         this.userId = userId;
         this.online = online;
@@ -40,14 +39,6 @@ public class UserChat {
 
     public void setImage(String image) {
         this.image = image;
-    }
-
-    public long getChatTimestamp() {
-        return chatTimestamp;
-    }
-
-    public void setChatTimestamp(long chatTimestamp) {
-        this.chatTimestamp = chatTimestamp;
     }
 
     public boolean getSeen() {

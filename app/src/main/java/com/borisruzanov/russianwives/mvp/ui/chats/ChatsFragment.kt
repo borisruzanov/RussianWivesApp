@@ -19,8 +19,10 @@ import com.borisruzanov.russianwives.OnItemClickListener
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract
+import com.borisruzanov.russianwives.models.Message
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
+import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -69,24 +71,6 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         recyclerChatsList.adapter = chatsAdapter
 
         chatsPresenter.getUserChatList()
-
-       /* FirebaseDatabase.getInstance().reference.child("Chats")
-                .addChildEventListener(object : ChildEventListener {
-                    override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                        Log.d("ChatsEventDebug", "In onChildAdded")
-                    }
-
-                    override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-                        Log.d("ChatsEventDebug", "In onChildChanged")
-                    }
-
-                    override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                        Log.d("ChatsEventDebug", "In onChildRemoved")
-                    }
-
-                    override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-                    override fun onCancelled(databaseError: DatabaseError) {}
-                })*/
 
         return mMainView
     }

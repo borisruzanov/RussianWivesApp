@@ -63,7 +63,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
         emptyText = view.findViewById(R.id.activities_empty_text)
 
-        actionsPresenter.setActionsList()
+        //actionsPresenter.setActionsList()
 
        /* FirebaseDatabase.getInstance().reference.child("Likes").child(getUid())
                 .addChildEventListener(object : ChildEventListener {
@@ -115,6 +115,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     override fun onResume() {
         super.onResume()
+
         actionsPresenter.updateActionsList()
     }
 

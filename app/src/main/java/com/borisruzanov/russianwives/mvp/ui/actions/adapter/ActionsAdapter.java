@@ -37,7 +37,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
 
     public void clearAndUpdateData(List<ActionItem> newActionItems) {
         actionItems.clear();
-        actionItems = newActionItems;
+        actionItems.addAll(newActionItems);
         notifyDataSetChanged();
     }
 

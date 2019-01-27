@@ -30,6 +30,7 @@ class ChatsPresenter @Inject constructor(private val interactor: ChatsInteractor
         })
     }
 
+
     fun reloadList() {
         if (userChats.isNotEmpty()) {
             userChats.clear()

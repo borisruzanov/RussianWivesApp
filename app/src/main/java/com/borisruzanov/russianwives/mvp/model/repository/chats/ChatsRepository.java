@@ -122,10 +122,55 @@ public class ChatsRepository {
                 for (String uid: uidList) {
                     UserRt userRt = dataSnapshot.child(uid).getValue(UserRt.class);
                     userRtList.add(userRt);
-                    Log.d("RealtimeDebug", "User name is" + userRt.getName());
+                    Log.d("RealtimeDebug", "User name is " + userRt.getName());
                 }
                 if (userRtList.isEmpty())Log.d("RealtimeDebug", "List is empty");
                 callback.setUsers(userRtList);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void getChats(UserChatListCallback userChatListCallback) {
+        realtimeReference.child("Messages").child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                List<String> uidList =  new ArrayList<>();
+                List<Message> messageList = new ArrayList<>();
+                List<UserChat> userChatList = new ArrayList<>();
+
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String key = snapshot.getKey();
+                    uidList.add(key);
+                    Log.d("RealtimeChats", "Message is " + key);
+                    for (DataSnapshot messageSnapshot: snapshot.getChildren()) {
+                        Message message = messageSnapshot.getValue(Message.class);
+                        //Log.d("RealtimeChats", "Message is " + message.getMessage());
+                        messageList.add(message);
+                    }
+                }
+
+                getUsers(uidList, userList -> {
+                        for (int i = 0; i < userList.size(); i++) {
+                            String name = userList.get(i).getName();
+                            String image = userList.get(i).getImage();
+                            String userId = userList.get(i).getUid();
+
+                            boolean seen = messageList.get(i).isSeen();
+
+                            String online = String.valueOf(userList.get(i).getOnline());
+
+                            String message = messageList.get(i).getMessage();
+                            long messageTimestamp = messageList.get(i).getTime();
+
+                            userChatList.add(new UserChat(name, image, seen, userId, online, message, messageTimestamp));
+                    }
+                    userChatListCallback.setUserChatList(sortByDate(userChatList));
+                });
             }
 
             @Override
@@ -147,7 +192,6 @@ public class ChatsRepository {
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
 
-                            long timeStamp = messageList.get(i).getTime();
                             boolean seen = messageList.get(i).isSeen();
 
                             Log.d(Contract.CHAT_FRAGMENT, "Seen value in createChats() is " + seen);
@@ -159,7 +203,7 @@ public class ChatsRepository {
 
                             Log.d(Contract.CHAT_LIST, "User name is " + name + " and online status is " + online.equals("true"));
 
-                            userChatList.add(new UserChat(name, image, timeStamp, seen, userId, online,
+                            userChatList.add(new UserChat(name, image, seen, userId, online,
                                     message, messageTimestamp));
                         }
 

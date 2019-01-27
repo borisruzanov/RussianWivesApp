@@ -7,7 +7,9 @@ import javax.inject.Inject
 class ChatsInteractor @Inject constructor(private val repository: ChatsRepository) {
 
     fun getUsersChats(callback: UserChatListCallback) {
-        repository.createUserChats(callback)
+        repository.getChats(callback)
     }
+
+    //fun getChats() = repository.getChats()
 
 }
