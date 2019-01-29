@@ -67,7 +67,10 @@ public class UserRepository {
 
             if (!uidList.contains(getUid())) {
                 createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid());
+            } else {
+                updateToken();
             }
+
         });
     }
 

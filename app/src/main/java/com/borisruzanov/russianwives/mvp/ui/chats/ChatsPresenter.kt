@@ -7,6 +7,7 @@ import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.model.interactor.chats.ChatsInteractor
+import com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository
 import com.borisruzanov.russianwives.utils.UserChatListCallback
 
 import java.util.ArrayList
@@ -17,6 +18,7 @@ class ChatsPresenter @Inject constructor(private val interactor: ChatsInteractor
     private val userChats = ArrayList<UserChat>()
 
     fun getUserChatList() {
+        ChatsRepository().updateChats()
         interactor.getUsersChats(UserChatListCallback {userChatList ->
             if (userChatList.isEmpty())
                 Log.d(Contract.CHAT_LIST, "List is empty, bye")

@@ -18,16 +18,14 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     private val fsUsers = ArrayList<FsUser>()
 
     fun getUserList(page: Int) {
-        // if(fsUsers.isEmpty() || (fsUsers.isNotEmpty() && page != 0))
+        Log.d("UsersListDebug", "in getUserList")
         searchInteractor.getFilteredUserList(usersListCallback, page)
     }
 
     private val usersListCallback = UsersListCallback { userList ->
         if (userList.isNotEmpty()) {
             fsUsers.addAll(userList)
-            //if(fsUsers.isEmpty() || fsUsers != userList)
             viewState.addUsers(userList)
-            userList.forEach { Log.d("FilterDebug", it.name) }
         }
     }
 
@@ -36,6 +34,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun onUpdate() {
+        fsUsers.clear()
         viewState.onUpdate()
     }
 

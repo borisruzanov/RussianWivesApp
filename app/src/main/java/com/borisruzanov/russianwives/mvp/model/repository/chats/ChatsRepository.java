@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.model.repository.chats;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.models.Chat;
@@ -14,6 +15,7 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.RealtimeUsersCallback;
 import com.borisruzanov.russianwives.utils.RtUsersAndMessagesCallback;
 import com.borisruzanov.russianwives.utils.UserChatListCallback;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -135,6 +137,51 @@ public class ChatsRepository {
         });
     }
 
+    public void updateChats() {
+        realtimeReference.child("Messages").child(getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d("ChatsUpdate", "onChildAdded");
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d("ChatsUpdate", "onChildChanged");
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    //String key = snapshot.getKey();
+                    //uidList.add(key);
+
+                    snapshot.getRef().limitToLast(1).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                Message message = snapshot.getValue(Message.class);
+                                Log.d("ChatsUpdate", "Message is " + message.getMessage());
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) { }
+                    });
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     public void getChats(UserChatListCallback userChatListCallback) {
         realtimeReference.child("Messages").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -146,12 +193,17 @@ public class ChatsRepository {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String key = snapshot.getKey();
                     uidList.add(key);
-                    Log.d("RealtimeChats", "Message is " + key);
-                    for (DataSnapshot messageSnapshot: snapshot.getChildren()) {
-                        Message message = messageSnapshot.getValue(Message.class);
-                        //Log.d("RealtimeChats", "Message is " + message.getMessage());
-                        messageList.add(message);
-                    }
+
+                    snapshot.getRef().limitToLast(1).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                messageList.add(snapshot.getValue(Message.class));
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) { }
+                    });
                 }
 
                 getUsers(uidList, userList -> {
@@ -159,13 +211,11 @@ public class ChatsRepository {
                             String name = userList.get(i).getName();
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
-
-                            boolean seen = messageList.get(i).isSeen();
-
                             String online = String.valueOf(userList.get(i).getOnline());
 
-                            String message = messageList.get(i).getMessage();
+                            boolean seen = messageList.get(i).isSeen();
                             long messageTimestamp = messageList.get(i).getTime();
+                            String message = messageList.get(i).getMessage();
 
                             userChatList.add(new UserChat(name, image, seen, userId, online, message, messageTimestamp));
                     }
@@ -174,9 +224,7 @@ public class ChatsRepository {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
