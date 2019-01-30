@@ -5,13 +5,13 @@ public class UserRt {
     private String uid;
     private String name;
     private String image;
-    private long online;
+    private String online;
     private String deviceToken;
 
     public UserRt() {
     }
 
-    public UserRt(String uid, String name, String image, long online, String deviceToken) {
+    public UserRt(String uid, String name, String image, String online, String deviceToken) {
         this.uid = uid;
         this.name = name;
         this.image = image;
@@ -43,11 +43,11 @@ public class UserRt {
         this.image = image;
     }
 
-    public long getOnline() {
+    public String getOnline() {
         return online;
     }
 
-    public void setOnline(long online) {
+    public void setOnline(String online) {
         this.online = online;
     }
 

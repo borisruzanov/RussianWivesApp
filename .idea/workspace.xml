@@ -6,7 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="ChatsUpdate" />
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="RealtimeChats" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
@@ -17,446 +17,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eaf5dd9-4554-4d44-bfc5-13e992407937" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/resourceHashesCache.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/classAnalysis.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/jarAnalysis.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/javaCompile.lock" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskHistory.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/javaCompile/taskJars.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_2_6_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_airbnb_android_lottie_2_6_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_6_1.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_gifdecoder_4_6_1.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_javawriter_2_1_1_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_squareup_picasso_picasso_2_5_2_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__javax_inject_javax_inject_1_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__junit_junit_4_12_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_core_1_3_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_integration_1_3_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_hamcrest_hamcrest_library_1_3_jar.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/debug.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-af.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-af.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-am.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-am.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ar.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ar.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-az.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-az.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-b+es+419.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-b+es+419.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-b+sr+Latn.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-b+sr+Latn.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-be.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-be.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-bg.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-bg.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-bn.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-bn.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-bs.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-bs.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ca.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ca.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-cs.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-cs.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-da.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-da.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-de-rAT.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-de-rAT.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-de-rCH.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-de-rCH.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-de.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-de.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-el.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-el.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rAU.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rAU.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rCA.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rCA.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rGB.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rGB.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rIE.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rIE.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rIN.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rIN.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rSG.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rSG.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rXC.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rXC.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rZA.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-en-rZA.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rAR.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rAR.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rBO.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rBO.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rCL.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rCL.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rCO.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rCO.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rCR.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rCR.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rDO.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rDO.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rEC.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rEC.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rES.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rES.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rGT.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rGT.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rHN.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rHN.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rMX.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rMX.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rNI.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rNI.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPA.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPA.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPE.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPE.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPR.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPR.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPY.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rPY.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rSV.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rSV.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rUS.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rUS.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rUY.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rUY.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rVE.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es-rVE.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-es.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-et.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-et.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-eu.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-eu.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fa.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fa.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fi.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fil.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fil.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fr-rCA.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fr-rCA.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fr-rCH.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fr-rCH.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fr.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-fr.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-gl.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-gl.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-gsw.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-gsw.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-gu.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-gu.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-h720dp-v13.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-h720dp-v13.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hdpi-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hdpi-v4.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hi.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hr.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hr.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hu.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hu.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hy.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-hy.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-id.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-id.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-in.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-in.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-is.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-is.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-it.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-it.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-iw.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-iw.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ja.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ja.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ka.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ka.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-kk.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-kk.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-km.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-km.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-kn.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-kn.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ko.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ko.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ky.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ky.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-land.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-land.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-large-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-large-v4.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ldltr-v21.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ldltr-v21.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ln.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ln.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-lo.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-lo.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-lt.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-lt.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-lv.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-lv.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mk.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mk.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ml.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ml.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mn.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mn.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mo.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mo.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mr.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-mr.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ms.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ms.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-my.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-my.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-nb.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-nb.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ne.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ne.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-night-v8.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-night-v8.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-nl.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-nl.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-no.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-no.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pa.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pa.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pl.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pl.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-port.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-port.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pt-rBR.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pt-rBR.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pt-rPT.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pt-rPT.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pt.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-pt.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ro.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ro.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ru-rRU.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ru-rRU.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ru.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ru.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-si.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-si.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sk.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sk.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sl.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sl.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sq.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sq.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sr.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sr.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sv.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sv.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sw.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sw.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sw360dp-v13.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sw360dp-v13.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sw600dp-v13.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-sw600dp-v13.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ta.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ta.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-te.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-te.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-th.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-th.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-tl.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-tl.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-tr.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-tr.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-uk.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-uk.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ur.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-ur.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-uz.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-uz.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v16.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v16.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v17.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v17.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v18.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v18.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v21.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v21.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v22.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v22.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v23.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v23.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v24.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v24.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v25.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v25.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v26.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-v26.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-vi.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-vi.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-watch-v20.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-watch-v20.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-xlarge-v4.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-xlarge-v4.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh-rCN.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh-rCN.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh-rHK.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh-rHK.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh-rTW.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh-rTW.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zh.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zu.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values-zu.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/multi-v2/values.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" afterPath="$PROJECT_DIR$/app/build/intermediates/blame/res/debug/single/debug.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/merge-state" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJavaRes/merge-state" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJniLibs/merge-state" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/debug-mergeJniLibs/merge-state" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugAssets/merger.xml" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/compile-file-map.properties" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merger.xml" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugShaders/merger.xml" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" afterPath="$PROJECT_DIR$/app/build/intermediates/incremental/packageDebug/tmp/debug/dex-renamer-state.txt" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable-v24_ic_launcher_foreground.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable-v24_ic_launcher_foreground.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_arrow_right.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_arrow_right.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_avatar.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_avatar.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_cards_heart_red.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_cards_heart_red.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_default_avatar.jpg.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_default_avatar.jpg.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_heart_outline.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_heart_outline.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_ic_add_black_24dp.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_ic_add_black_24dp.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_ic_send_black_24dp.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_ic_send_black_24dp.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message_outline.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message_outline.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message_text_background.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message_text_background.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message_text_background_user.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_message_text_background_user.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_online_icon.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/drawable_online_icon.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_chat.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_chat.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_chat_udacity.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_chat_udacity.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_edit_user_info.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_edit_user_info.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_friend.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_friend.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_main.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_main.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_my_profile.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_my_profile.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_profile.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_profile.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_appearance.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_appearance.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_backgorund.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_backgorund.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_basics.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_basics.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_life_style.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_settings_profile_life_style.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_slider.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_slider.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_status.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_status.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_user_info_view_pager.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_user_info_view_pager.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_users.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_activity_users.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_app_bar_layout.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_app_bar_layout.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_chat_custom_bar.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_chat_custom_bar.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_dialog_filters.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_dialog_filters.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_fragment_user_info_input.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_fragment_user_info_input.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_main_tab_activities.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_main_tab_activities.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_main_tab_friends.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_main_tab_friends.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_main_tab_search.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_main_tab_search.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_age.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_age.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_bodytype.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_bodytype.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_countries.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_countries.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_drink_status.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_drink_status.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_ethnicity.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_ethnicity.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_faith.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_faith.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_gender.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_gender.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_height.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_height.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_hobby.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_hobby.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_image.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_image.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_languages.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_languages.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_name.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_name.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_number_of_kids.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_number_of_kids.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_relationships_status.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_relationships_status.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_smoking_status.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_smoking_status.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_willing_kids.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_fragment_slider_willing_kids.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_action.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_action.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_country.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_country.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_list_chat.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_list_chat.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_message.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_message.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_request.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_request.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_user.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_user.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_user_description_edit_item.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_user_description_edit_item.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_user_description_item.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_item_user_description_item.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_loading_item.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_loading_item.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_message_single_layout.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_message_single_layout.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_users_single_layout.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_users_single_layout.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_viewpager_item.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_viewpager_item.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_widget_action.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/layout_widget_action.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/menu_main_menu.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/menu_main_menu.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-anydpi-v26_ic_launcher_round.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_round.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-hdpi_ic_launcher_round.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-mdpi_ic_launcher_round.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher_round.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xhdpi_ic_launcher_round.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_round.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxhdpi_ic_launcher_round.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/mipmap-xxxhdpi_ic_launcher_round.png.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-af_values-af.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-af_values-af.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-am_values-am.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-am_values-am.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ar_values-ar.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ar_values-ar.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-az_values-az.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-az_values-az.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-b+es+419_values-b+es+419.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-b+es+419_values-b+es+419.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-b+sr+Latn_values-b+sr+Latn.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-b+sr+Latn_values-b+sr+Latn.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-be_values-be.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-be_values-be.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-bg_values-bg.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-bg_values-bg.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-bn_values-bn.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-bn_values-bn.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-bs_values-bs.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-bs_values-bs.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ca_values-ca.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ca_values-ca.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-cs_values-cs.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-cs_values-cs.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-da_values-da.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-da_values-da.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-de-rAT_values-de-rAT.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-de-rAT_values-de-rAT.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-de-rCH_values-de-rCH.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-de-rCH_values-de-rCH.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-de_values-de.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-de_values-de.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-el_values-el.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-el_values-el.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rAU_values-en-rAU.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rAU_values-en-rAU.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rCA_values-en-rCA.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rCA_values-en-rCA.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rGB_values-en-rGB.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rGB_values-en-rGB.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rIE_values-en-rIE.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rIE_values-en-rIE.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rIN_values-en-rIN.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rIN_values-en-rIN.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rSG_values-en-rSG.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rSG_values-en-rSG.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rXC_values-en-rXC.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rXC_values-en-rXC.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rZA_values-en-rZA.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-en-rZA_values-en-rZA.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rAR_values-es-rAR.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rAR_values-es-rAR.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rBO_values-es-rBO.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rBO_values-es-rBO.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rCL_values-es-rCL.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rCL_values-es-rCL.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rCO_values-es-rCO.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rCO_values-es-rCO.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rCR_values-es-rCR.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rCR_values-es-rCR.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rDO_values-es-rDO.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rDO_values-es-rDO.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rEC_values-es-rEC.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rEC_values-es-rEC.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rES_values-es-rES.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rES_values-es-rES.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rGT_values-es-rGT.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rGT_values-es-rGT.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rHN_values-es-rHN.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rHN_values-es-rHN.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rMX_values-es-rMX.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rMX_values-es-rMX.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rNI_values-es-rNI.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rNI_values-es-rNI.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPA_values-es-rPA.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPA_values-es-rPA.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPE_values-es-rPE.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPE_values-es-rPE.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPR_values-es-rPR.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPR_values-es-rPR.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPY_values-es-rPY.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rPY_values-es-rPY.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rSV_values-es-rSV.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rSV_values-es-rSV.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rUS_values-es-rUS.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rUS_values-es-rUS.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rUY_values-es-rUY.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rUY_values-es-rUY.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rVE_values-es-rVE.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es-rVE_values-es-rVE.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es_values-es.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-es_values-es.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-et_values-et.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-et_values-et.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-eu_values-eu.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-eu_values-eu.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fa_values-fa.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fa_values-fa.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fi_values-fi.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fi_values-fi.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fil_values-fil.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fil_values-fil.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fr-rCA_values-fr-rCA.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fr-rCA_values-fr-rCA.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fr-rCH_values-fr-rCH.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fr-rCH_values-fr-rCH.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fr_values-fr.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-fr_values-fr.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-gl_values-gl.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-gl_values-gl.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-gsw_values-gsw.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-gsw_values-gsw.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-gu_values-gu.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-gu_values-gu.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-h720dp-v13_values-h720dp-v13.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-h720dp-v13_values-h720dp-v13.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hdpi-v4_values-hdpi-v4.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hdpi-v4_values-hdpi-v4.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hi_values-hi.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hi_values-hi.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hr_values-hr.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hr_values-hr.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hu_values-hu.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hu_values-hu.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hy_values-hy.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-hy_values-hy.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-id_values-id.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-id_values-id.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-in_values-in.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-in_values-in.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-is_values-is.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-is_values-is.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-it_values-it.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-it_values-it.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-iw_values-iw.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-iw_values-iw.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ja_values-ja.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ja_values-ja.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ka_values-ka.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ka_values-ka.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-kk_values-kk.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-kk_values-kk.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-km_values-km.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-km_values-km.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-kn_values-kn.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-kn_values-kn.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ko_values-ko.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ko_values-ko.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ky_values-ky.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ky_values-ky.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-land_values-land.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-land_values-land.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-large-v4_values-large-v4.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-large-v4_values-large-v4.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ldltr-v21_values-ldltr-v21.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ldltr-v21_values-ldltr-v21.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ln_values-ln.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ln_values-ln.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-lo_values-lo.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-lo_values-lo.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-lt_values-lt.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-lt_values-lt.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-lv_values-lv.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-lv_values-lv.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mk_values-mk.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mk_values-mk.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ml_values-ml.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ml_values-ml.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mn_values-mn.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mn_values-mn.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mo_values-mo.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mo_values-mo.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mr_values-mr.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-mr_values-mr.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ms_values-ms.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ms_values-ms.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-my_values-my.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-my_values-my.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-nb_values-nb.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-nb_values-nb.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ne_values-ne.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ne_values-ne.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-night-v8_values-night-v8.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-night-v8_values-night-v8.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-nl_values-nl.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-nl_values-nl.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-no_values-no.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-no_values-no.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pa_values-pa.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pa_values-pa.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pl_values-pl.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pl_values-pl.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-port_values-port.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-port_values-port.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pt-rBR_values-pt-rBR.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pt-rBR_values-pt-rBR.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pt-rPT_values-pt-rPT.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pt-rPT_values-pt-rPT.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pt_values-pt.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-pt_values-pt.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ro_values-ro.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ro_values-ro.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ru-rRU_values-ru-rRU.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ru-rRU_values-ru-rRU.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ru_values-ru.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ru_values-ru.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-si_values-si.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-si_values-si.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sk_values-sk.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sk_values-sk.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sl_values-sl.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sl_values-sl.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sq_values-sq.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sq_values-sq.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sr_values-sr.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sr_values-sr.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sv_values-sv.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sv_values-sv.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sw360dp-v13_values-sw360dp-v13.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sw360dp-v13_values-sw360dp-v13.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sw600dp-v13_values-sw600dp-v13.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sw600dp-v13_values-sw600dp-v13.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sw_values-sw.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-sw_values-sw.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ta_values-ta.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ta_values-ta.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-te_values-te.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-te_values-te.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-th_values-th.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-th_values-th.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-tl_values-tl.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-tl_values-tl.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-tr_values-tr.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-tr_values-tr.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-uk_values-uk.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-uk_values-uk.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ur_values-ur.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-ur_values-ur.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-uz_values-uz.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-uz_values-uz.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v16_values-v16.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v16_values-v16.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v17_values-v17.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v17_values-v17.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v18_values-v18.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v18_values-v18.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v21_values-v21.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v21_values-v21.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v22_values-v22.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v22_values-v22.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v23_values-v23.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v23_values-v23.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v24_values-v24.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v24_values-v24.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v25_values-v25.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v25_values-v25.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v26_values-v26.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-v26_values-v26.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-vi_values-vi.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-vi_values-vi.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-watch-v20_values-watch-v20.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-watch-v20_values-watch-v20.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-xlarge-v4_values-xlarge-v4.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-xlarge-v4_values-xlarge-v4.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rCN_values-zh-rCN.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rCN_values-zh-rCN.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rHK_values-zh-rHK.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rHK_values-zh-rHK.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rTW_values-zh-rTW.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh-rTW_values-zh-rTW.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh_values-zh.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zh_values-zh.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zu_values-zu.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values-zu_values-zu.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/values_values.arsc.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/xml_action_widget_info.xml.flat" afterPath="$PROJECT_DIR$/app/build/intermediates/res/merged/debug/xml_action_widget_info.xml.flat" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/26.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/26.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/27.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/27.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/28.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/28.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/29.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/29.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/3.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/3.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/32.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/32.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/33.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/33.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/36.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/36.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/37.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/37.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/38.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/38.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/39.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/39.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/40.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/40.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/41.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/41.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/48.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/48.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/49.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/49.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/55.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/55.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/56.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/56.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/57.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/57.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/60.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/60.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/61.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/61.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/62.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/62.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/63.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/63.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/65.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/65.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/66.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/66.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/67.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/67.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/78.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/78.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/8.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/8.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/85.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/85.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/86.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/86.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/87.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/87.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/93.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/93.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/94.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/94.jar" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexBuilder/debug/__content__.json" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/0/classes.dex" />
       <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/1/classes.dex" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/1/classes.dex" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/__content__.json" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/dexMerger/debug/__content__.json" />
-      <change beforePath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar" afterPath="$PROJECT_DIR$/app/build/intermediates/transforms/mergeJavaRes/debug/0.jar" />
       <change beforePath="$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk" afterPath="$PROJECT_DIR$/app/build/outputs/apk/debug/app-debug.apk" />
-      <change beforePath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" afterPath="$PROJECT_DIR$/app/build/outputs/logs/manifest-merger-debug-report.txt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chats/ChatsInteractor.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chats/ChatsInteractor.kt" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chats/ChatsRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chats/ChatsRepository.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsPresenter.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsPresenter.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchFragment.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchFragment.kt" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchPresenter.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchPresenter.kt" />
-      <change beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/adapter/ChatsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/adapter/ChatsAdapter.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -479,11 +52,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ChatMessageActivity.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt">
+      <file leaf-file-name="ChatMessagePresenter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessagePresenter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="87" column="12" lean-forward="false" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="12" />
+            <state relative-caret-position="221">
+              <caret line="19" column="85" lean-forward="false" selection-start-line="19" selection-start-column="85" selection-end-line="19" selection-end-column="85" />
               <folding />
             </state>
           </provider>
@@ -492,130 +65,113 @@
       <file leaf-file-name="ChatsRepository.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chats/ChatsRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="185" column="34" lean-forward="false" selection-start-line="185" selection-start-column="34" selection-end-line="185" selection-end-column="34" />
+            <state relative-caret-position="238">
+              <caret line="101" column="63" lean-forward="false" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
               <folding>
-                <element signature="e#1588#1618#0" expanded="true" />
-                <element signature="e#1588#1633#0" expanded="true" />
-                <element signature="e#1675#1706#0" expanded="true" />
-                <element signature="e#1811#1893#1" expanded="true" />
-                <element signature="e#1883#1891#0" expanded="true" />
-                <element signature="e#2093#2133#1" expanded="true" />
-                <element signature="e#2115#2132#0" expanded="true" />
-                <element signature="e#2158#2199#1" expanded="true" />
-                <element signature="e#2181#2198#0" expanded="true" />
-                <element signature="e#2273#2294#0" expanded="true" />
-                <element signature="e#2297#2323#0" expanded="true" />
-                <element signature="e#2425#2442#0" expanded="true" />
-                <element signature="e#2473#2554#1" expanded="true" />
-                <element signature="e#2503#2541#0" expanded="true" />
-                <element signature="e#2583#2652#1" expanded="true" />
-                <element signature="e#3299#3325#0" expanded="true" />
-                <element signature="e#3494#3535#1" expanded="true" />
-                <element signature="e#3517#3534#0" expanded="true" />
-                <element signature="e#3544#3587#1" expanded="true" />
-                <element signature="e#3569#3586#0" expanded="true" />
-                <element signature="e#3602#3612#0" expanded="true" />
-                <element signature="e#3847#3914#1" expanded="true" />
-                <element signature="e#3863#3902#0" expanded="true" />
-                <element signature="e#4218#4226#0" expanded="true" />
-                <element signature="e#4493#4514#0" expanded="true" />
-                <element signature="e#4517#4543#0" expanded="true" />
-                <element signature="e#4717#4733#0" expanded="true" />
-                <element signature="e#4810#4843#0" expanded="true" />
-                <element signature="e#5178#5204#0" expanded="true" />
-                <element signature="e#5477#5492#0" expanded="true" />
-                <element signature="e#5581#5597#0" expanded="true" />
-                <element signature="e#6121#6165#1" expanded="true" />
-                <element signature="e#6147#6164#0" expanded="true" />
-                <element signature="e#6187#6197#0" expanded="true" />
-                <element signature="e#6230#6293#1" expanded="true" />
-                <element signature="e#6399#6415#0" expanded="true" />
-                <element signature="e#6456#6476#0" expanded="true" />
-                <element signature="e#6794#6802#0" expanded="true" />
-                <element signature="e#7235#7256#0" expanded="true" />
-                <element signature="e#7258#7284#0" expanded="true" />
-                <element signature="e#7403#7420#0" expanded="true" />
-                <element signature="e#7639#7660#0" expanded="true" />
-                <element signature="e#7663#7689#0" expanded="true" />
-                <element signature="e#7725#7776#1" expanded="true" />
-                <element signature="e#7830#7866#0" expanded="true" />
-                <element signature="e#7846#7866#0" expanded="true" />
-                <element signature="e#7830#7866#0" expanded="true" />
-                <element signature="e#8606#8614#0" expanded="true" />
-                <element signature="e#8778#8820#1" expanded="true" />
-                <element signature="e#8802#8819#0" expanded="true" />
-                <element signature="e#8837#8883#1" expanded="true" />
-                <element signature="e#8865#8882#0" expanded="true" />
-                <element signature="e#8900#8948#1" expanded="true" />
-                <element signature="e#8930#8947#0" expanded="true" />
-                <element signature="e#8971#8992#0" expanded="true" />
-                <element signature="e#8994#9020#0" expanded="true" />
-                <element signature="e#9044#9075#1" expanded="true" />
-                <element signature="e#9057#9074#0" expanded="true" />
-                <element signature="e#9096#9112#0" expanded="true" />
-                <element signature="e#9096#9112#0" expanded="true" />
-                <element signature="e#9135#9152#0" expanded="true" />
-                <element signature="e#9371#9392#0" expanded="true" />
-                <element signature="e#9395#9421#0" expanded="true" />
-                <element signature="e#9808#9818#1" expanded="true" />
-                <element signature="e#9875#9915#1" expanded="true" />
-                <element signature="e#9889#9914#0" expanded="true" />
-                <element signature="e#9944#9986#1" expanded="true" />
-                <element signature="e#9959#9985#0" expanded="true" />
-                <element signature="e#10015#10056#1" expanded="true" />
-                <element signature="e#10031#10055#0" expanded="true" />
-                <element signature="e#10085#10145#1" expanded="true" />
-                <element signature="e#10116#10143#0" expanded="true" />
-                <element signature="e#10175#10218#1" expanded="true" />
-                <element signature="e#10190#10217#0" expanded="true" />
-                <element signature="e#10247#10300#1" expanded="true" />
-                <element signature="e#10271#10299#0" expanded="true" />
-                <element signature="e#10329#10378#1" expanded="true" />
-                <element signature="e#10346#10377#0" expanded="true" />
-                <element signature="e#10846#10900#1" expanded="true" />
-                <element signature="e#10882#10899#0" expanded="true" />
-                <element signature="e#11113#11131#0" expanded="true" />
-                <element signature="e#11135#11157#0" expanded="true" />
-                <element signature="e#11190#11200#1" expanded="true" />
-                <element signature="e#11257#11297#1" expanded="true" />
-                <element signature="e#11271#11296#0" expanded="true" />
-                <element signature="e#11326#11368#1" expanded="true" />
-                <element signature="e#11341#11367#0" expanded="true" />
-                <element signature="e#11397#11438#1" expanded="true" />
-                <element signature="e#11413#11437#0" expanded="true" />
-                <element signature="e#11468#11511#1" expanded="true" />
-                <element signature="e#11483#11510#0" expanded="true" />
-                <element signature="e#11643#11689#1" expanded="true" />
-                <element signature="e#11659#11688#0" expanded="true" />
-                <element signature="e#11719#11768#1" expanded="true" />
-                <element signature="e#11736#11767#0" expanded="true" />
-                <element signature="e#11797#11850#1" expanded="true" />
-                <element signature="e#11821#11849#0" expanded="true" />
-                <element signature="e#12490#12545#1" expanded="true" />
-                <element signature="e#12512#12536#0" expanded="true" />
-                <element signature="e#12558#12613#1" expanded="true" />
-                <element signature="e#12580#12604#0" expanded="true" />
+                <element signature="e#1636#1666#0" expanded="true" />
+                <element signature="e#1636#1681#0" expanded="true" />
+                <element signature="e#1976#2020#1" expanded="true" />
+                <element signature="e#2002#2019#0" expanded="true" />
+                <element signature="e#2037#2575#0" expanded="true" />
+                <element signature="e#2042#2052#0" expanded="true" />
+                <element signature="e#2037#2575#0" expanded="true" />
+                <element signature="e#2085#2133#1" expanded="true" />
+                <element signature="e#2154#2556#0" expanded="true" />
+                <element signature="e#2420#2455#0" expanded="true" />
+                <element signature="e#2154#2556#0" expanded="true" />
+                <element signature="e#2592#2657#0" expanded="true" />
+                <element signature="e#2596#2616#0" expanded="true" />
+                <element signature="e#2592#2657#0" expanded="true" />
+                <element signature="e#2674#2703#0" expanded="true" />
+                <element signature="e#2674#2703#0" expanded="true" />
+                <element signature="e#2958#2966#0" expanded="true" />
+                <element signature="e#3130#3172#1" expanded="true" />
+                <element signature="e#3154#3171#0" expanded="true" />
+                <element signature="e#3189#3235#1" expanded="true" />
+                <element signature="e#3217#3234#0" expanded="true" />
+                <element signature="e#3252#3300#1" expanded="true" />
+                <element signature="e#3282#3299#0" expanded="true" />
+                <element signature="e#3317#3369#1" expanded="true" />
+                <element signature="e#3387#4150#0" expanded="true" />
+                <element signature="e#3392#3413#0" expanded="true" />
+                <element signature="e#3415#3441#0" expanded="true" />
+                <element signature="e#3387#4150#0" expanded="true" />
+                <element signature="e#3465#3496#1" expanded="true" />
+                <element signature="e#3478#3495#0" expanded="true" />
+                <element signature="e#3517#3533#0" expanded="true" />
+                <element signature="e#3517#3533#0" expanded="true" />
+                <element signature="e#3556#3573#0" expanded="true" />
+                <element signature="e#3787#3958#0" expanded="true" />
+                <element signature="e#3792#3813#0" expanded="true" />
+                <element signature="e#3816#3842#0" expanded="true" />
+                <element signature="e#3787#3958#0" expanded="true" />
+                <element signature="e#3878#3927#0" expanded="true" />
+                <element signature="e#3878#3927#0" expanded="true" />
+                <element signature="e#4224#4935#0" expanded="true" />
+                <element signature="e#4229#4239#1" expanded="true" />
+                <element signature="e#4224#4935#0" expanded="true" />
+                <element signature="e#4224#4935#0" expanded="true" />
+                <element signature="e#4224#4935#0" expanded="true" />
+                <element signature="e#4224#4935#0" expanded="true" />
+                <element signature="e#4296#4336#1" expanded="true" />
+                <element signature="e#4310#4325#0" expanded="true" />
+                <element signature="e#4310#4325#0" expanded="true" />
+                <element signature="e#4310#4335#0" expanded="true" />
+                <element signature="e#4365#4407#1" expanded="true" />
+                <element signature="e#4380#4395#0" expanded="true" />
+                <element signature="e#4380#4395#0" expanded="true" />
+                <element signature="e#4380#4406#0" expanded="true" />
+                <element signature="e#4436#4477#1" expanded="true" />
+                <element signature="e#4452#4467#0" expanded="true" />
+                <element signature="e#4452#4467#0" expanded="true" />
+                <element signature="e#4452#4476#0" expanded="true" />
+                <element signature="e#4506#4550#1" expanded="true" />
+                <element signature="e#4522#4537#0" expanded="true" />
+                <element signature="e#4522#4537#0" expanded="true" />
+                <element signature="e#4522#4549#0" expanded="true" />
+                <element signature="e#4580#4623#1" expanded="true" />
+                <element signature="e#4595#4613#0" expanded="true" />
+                <element signature="e#4595#4613#0" expanded="true" />
+                <element signature="e#4595#4622#0" expanded="true" />
+                <element signature="e#4652#4705#1" expanded="true" />
+                <element signature="e#4676#4694#0" expanded="true" />
+                <element signature="e#4676#4694#0" expanded="true" />
+                <element signature="e#4676#4704#0" expanded="true" />
+                <element signature="e#4734#4783#1" expanded="true" />
+                <element signature="e#4751#4769#0" expanded="true" />
+                <element signature="e#4751#4769#0" expanded="true" />
+                <element signature="e#4751#4782#0" expanded="true" />
+                <element signature="e#4813#4912#0" expanded="true" />
+                <element signature="e#4813#4912#0" expanded="true" />
+                <element signature="e#4813#4912#0" expanded="true" />
+                <element signature="e#5020#5061#0" expanded="true" />
+                <element signature="e#5020#5061#0" expanded="true" />
+                <element signature="e#5084#5146#0" expanded="true" />
+                <element signature="e#5084#5146#0" expanded="true" />
+                <element signature="e#5457#5512#1" expanded="true" />
+                <element signature="e#5479#5503#0" expanded="true" />
+                <element signature="e#5525#5580#1" expanded="true" />
+                <element signature="e#5547#5571#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatsInteractor.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chats/ChatsInteractor.kt">
+      <file leaf-file-name="UserRt.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+            <state relative-caret-position="238">
+              <caret line="14" column="23" lean-forward="false" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChatsPresenter.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsPresenter.kt">
+      <file leaf-file-name="FsUser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/FsUser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="697">
-              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+            <state relative-caret-position="102">
+              <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -624,8 +180,18 @@
       <file leaf-file-name="ChatsFragment.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+            <state relative-caret-position="1173">
+              <caret line="96" column="17" lean-forward="false" selection-start-line="96" selection-start-column="17" selection-end-line="96" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ChatsPresenter.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsPresenter.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -650,6 +216,7 @@
       <find>snap</find>
       <find>male or</find>
       <find>Actions</find>
+      <find>setEmpty</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -3016,7 +2583,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/utils/RealtimeUsersCallback.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/main/MainInteractor.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainPresenter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/profilesettings/ProfileSettingsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/myprofile/MyProfileActivity.kt" />
@@ -3029,9 +2595,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/adapter/ActionsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/ActionsFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/ActionsPresenter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserChat.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chats/ChatsInteractor.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsPresenter.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chats/ChatsRepository.java" />
       </list>
@@ -3059,9 +2627,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -3080,11 +2647,19 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="russianwives" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RussianWivesSocNetwork" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="russianwives" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scratches" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3248,6 +2823,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -3256,11 +2832,10 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22680691" sideWeight="0.5020384" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48293516" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.5102389" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.49796155" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3282,8 +2857,45 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="3163" y="84" width="593" height="1892" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22680691" sideWeight="0.5020384" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48293516" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Assistant" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298274" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27133107" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="1.0" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.49796155" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44030285" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="true" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" x="3163" y="84" width="593" height="1892" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24962178" sideWeight="0.49796155" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21482602" sideWeight="0.4956319" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3298274" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22680691" sideWeight="0.50436807" order="6" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -3293,50 +2905,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/myprofile/MyProfilePresenter.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/item_user.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="93" column="20" lean-forward="false" selection-start-line="93" selection-start-column="20" selection-end-line="99" selection-end-column="66" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/message_outline.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40">
-          <caret line="2" column="46" lean-forward="false" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/heart_outline.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_profile.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="176" column="28" lean-forward="false" selection-start-line="176" selection-start-column="28" selection-end-line="179" selection-end-column="79" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main_tab_activities.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3418,13 +2986,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/Exmpl.kt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.kt" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/FsUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="181" column="9" lean-forward="false" selection-start-line="181" selection-start-column="9" selection-end-line="181" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/utils/RealtimeUsersCallback.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -3464,14 +3025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="379">
           <caret line="69" column="70" lean-forward="true" selection-start-line="69" selection-start-column="70" selection-end-line="69" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
         </state>
       </provider>
     </entry>
@@ -3486,14 +3039,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="29" column="58" lean-forward="true" selection-start-line="29" selection-start-column="58" selection-end-line="29" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/Contract.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3525,13 +3070,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/adapter/ChatsAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1241">
-          <caret line="95" column="70" lean-forward="false" selection-start-line="95" selection-start-column="70" selection-end-line="95" selection-end-column="70" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/adapter/ActionsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
@@ -3554,6 +3092,9 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="203">
           <caret line="79" column="71" lean-forward="false" selection-start-line="79" selection-start-column="71" selection-end-line="79" selection-end-column="71" />
@@ -3562,15 +3103,11 @@
           </folding>
         </state>
       </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="271" column="0" lean-forward="false" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3581,7 +3118,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="475">
           <caret line="32" column="45" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3589,7 +3125,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="30" column="0" lean-forward="false" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3597,7 +3132,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
           <caret line="70" column="31" lean-forward="false" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3605,7 +3139,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="83" column="71" lean-forward="false" selection-start-line="83" selection-start-column="71" selection-end-line="83" selection-end-column="71" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3613,15 +3146,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="33" column="51" lean-forward="false" selection-start-line="32" selection-start-column="8" selection-end-line="33" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="87" column="12" lean-forward="false" selection-start-line="87" selection-start-column="12" selection-end-line="87" selection-end-column="12" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -3629,10 +3153,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="28" column="35" lean-forward="false" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
-          <folding>
-            <element signature="e#721#722#0" expanded="false" />
-            <element signature="e#768#769#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3640,140 +3160,202 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="29" column="16" lean-forward="false" selection-start-line="29" selection-start-column="16" selection-end-line="29" selection-end-column="16" />
-          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Users/Public/.gradle/caches/transforms-1/files-1.1/firebase-database-16.0.5.aar/3300716c4434efdbec0cb23ee60bebee/jars/classes.jar!/com/google/firebase/database/core/utilities/encoding/CustomClassMapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="372" column="0" lean-forward="false" selection-start-line="372" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chats/ChatsInteractor.kt">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" column="9" lean-forward="false" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Users/Public/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.2.71/2e8041d08283cbbb58ad131617486fc6449f6c85/kotlin-stdlib-1.2.71-sources.jar!/kotlin/Unit.kt">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
-          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <caret line="21" column="14" lean-forward="false" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="141" column="14" lean-forward="false" selection-start-line="141" selection-start-column="14" selection-end-line="141" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessagePresenter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="85" lean-forward="false" selection-start-line="19" selection-start-column="85" selection-end-line="19" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chatmessage/ChatMessageInteractor.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="23" lean-forward="false" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chatmessage/ChatMessageRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="317">
+          <caret line="80" column="25" lean-forward="false" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/adapter/ChatsAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="36" column="27" lean-forward="false" selection-start-line="36" selection-start-column="27" selection-end-line="36" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/Contract.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="31" lean-forward="false" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/FsUser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="24" lean-forward="false" selection-start-line="6" selection-start-column="24" selection-end-line="6" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/models/UserRt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="23" lean-forward="false" selection-start-line="14" selection-start-column="23" selection-end-line="14" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="112" column="0" lean-forward="false" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+        <state relative-caret-position="1173">
+          <caret line="96" column="17" lean-forward="false" selection-start-line="96" selection-start-column="17" selection-end-line="96" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsPresenter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="697">
-          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        <state relative-caret-position="255">
+          <caret line="26" column="17" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chats/ChatsRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="185" column="34" lean-forward="false" selection-start-line="185" selection-start-column="34" selection-end-line="185" selection-end-column="34" />
+        <state relative-caret-position="238">
+          <caret line="101" column="63" lean-forward="false" selection-start-line="101" selection-start-column="63" selection-end-line="101" selection-end-column="63" />
           <folding>
-            <element signature="e#1588#1618#0" expanded="true" />
-            <element signature="e#1588#1633#0" expanded="true" />
-            <element signature="e#1675#1706#0" expanded="true" />
-            <element signature="e#1811#1893#1" expanded="true" />
-            <element signature="e#1883#1891#0" expanded="true" />
-            <element signature="e#2093#2133#1" expanded="true" />
-            <element signature="e#2115#2132#0" expanded="true" />
-            <element signature="e#2158#2199#1" expanded="true" />
-            <element signature="e#2181#2198#0" expanded="true" />
-            <element signature="e#2273#2294#0" expanded="true" />
-            <element signature="e#2297#2323#0" expanded="true" />
-            <element signature="e#2425#2442#0" expanded="true" />
-            <element signature="e#2473#2554#1" expanded="true" />
-            <element signature="e#2503#2541#0" expanded="true" />
-            <element signature="e#2583#2652#1" expanded="true" />
-            <element signature="e#3299#3325#0" expanded="true" />
-            <element signature="e#3494#3535#1" expanded="true" />
-            <element signature="e#3517#3534#0" expanded="true" />
-            <element signature="e#3544#3587#1" expanded="true" />
-            <element signature="e#3569#3586#0" expanded="true" />
-            <element signature="e#3602#3612#0" expanded="true" />
-            <element signature="e#3847#3914#1" expanded="true" />
-            <element signature="e#3863#3902#0" expanded="true" />
-            <element signature="e#4218#4226#0" expanded="true" />
-            <element signature="e#4493#4514#0" expanded="true" />
-            <element signature="e#4517#4543#0" expanded="true" />
-            <element signature="e#4717#4733#0" expanded="true" />
-            <element signature="e#4810#4843#0" expanded="true" />
-            <element signature="e#5178#5204#0" expanded="true" />
-            <element signature="e#5477#5492#0" expanded="true" />
-            <element signature="e#5581#5597#0" expanded="true" />
-            <element signature="e#6121#6165#1" expanded="true" />
-            <element signature="e#6147#6164#0" expanded="true" />
-            <element signature="e#6187#6197#0" expanded="true" />
-            <element signature="e#6230#6293#1" expanded="true" />
-            <element signature="e#6399#6415#0" expanded="true" />
-            <element signature="e#6456#6476#0" expanded="true" />
-            <element signature="e#6794#6802#0" expanded="true" />
-            <element signature="e#7235#7256#0" expanded="true" />
-            <element signature="e#7258#7284#0" expanded="true" />
-            <element signature="e#7403#7420#0" expanded="true" />
-            <element signature="e#7639#7660#0" expanded="true" />
-            <element signature="e#7663#7689#0" expanded="true" />
-            <element signature="e#7725#7776#1" expanded="true" />
-            <element signature="e#7830#7866#0" expanded="true" />
-            <element signature="e#7846#7866#0" expanded="true" />
-            <element signature="e#7830#7866#0" expanded="true" />
-            <element signature="e#8606#8614#0" expanded="true" />
-            <element signature="e#8778#8820#1" expanded="true" />
-            <element signature="e#8802#8819#0" expanded="true" />
-            <element signature="e#8837#8883#1" expanded="true" />
-            <element signature="e#8865#8882#0" expanded="true" />
-            <element signature="e#8900#8948#1" expanded="true" />
-            <element signature="e#8930#8947#0" expanded="true" />
-            <element signature="e#8971#8992#0" expanded="true" />
-            <element signature="e#8994#9020#0" expanded="true" />
-            <element signature="e#9044#9075#1" expanded="true" />
-            <element signature="e#9057#9074#0" expanded="true" />
-            <element signature="e#9096#9112#0" expanded="true" />
-            <element signature="e#9096#9112#0" expanded="true" />
-            <element signature="e#9135#9152#0" expanded="true" />
-            <element signature="e#9371#9392#0" expanded="true" />
-            <element signature="e#9395#9421#0" expanded="true" />
-            <element signature="e#9808#9818#1" expanded="true" />
-            <element signature="e#9875#9915#1" expanded="true" />
-            <element signature="e#9889#9914#0" expanded="true" />
-            <element signature="e#9944#9986#1" expanded="true" />
-            <element signature="e#9959#9985#0" expanded="true" />
-            <element signature="e#10015#10056#1" expanded="true" />
-            <element signature="e#10031#10055#0" expanded="true" />
-            <element signature="e#10085#10145#1" expanded="true" />
-            <element signature="e#10116#10143#0" expanded="true" />
-            <element signature="e#10175#10218#1" expanded="true" />
-            <element signature="e#10190#10217#0" expanded="true" />
-            <element signature="e#10247#10300#1" expanded="true" />
-            <element signature="e#10271#10299#0" expanded="true" />
-            <element signature="e#10329#10378#1" expanded="true" />
-            <element signature="e#10346#10377#0" expanded="true" />
-            <element signature="e#10846#10900#1" expanded="true" />
-            <element signature="e#10882#10899#0" expanded="true" />
-            <element signature="e#11113#11131#0" expanded="true" />
-            <element signature="e#11135#11157#0" expanded="true" />
-            <element signature="e#11190#11200#1" expanded="true" />
-            <element signature="e#11257#11297#1" expanded="true" />
-            <element signature="e#11271#11296#0" expanded="true" />
-            <element signature="e#11326#11368#1" expanded="true" />
-            <element signature="e#11341#11367#0" expanded="true" />
-            <element signature="e#11397#11438#1" expanded="true" />
-            <element signature="e#11413#11437#0" expanded="true" />
-            <element signature="e#11468#11511#1" expanded="true" />
-            <element signature="e#11483#11510#0" expanded="true" />
-            <element signature="e#11643#11689#1" expanded="true" />
-            <element signature="e#11659#11688#0" expanded="true" />
-            <element signature="e#11719#11768#1" expanded="true" />
-            <element signature="e#11736#11767#0" expanded="true" />
-            <element signature="e#11797#11850#1" expanded="true" />
-            <element signature="e#11821#11849#0" expanded="true" />
-            <element signature="e#12490#12545#1" expanded="true" />
-            <element signature="e#12512#12536#0" expanded="true" />
-            <element signature="e#12558#12613#1" expanded="true" />
-            <element signature="e#12580#12604#0" expanded="true" />
+            <element signature="e#1636#1666#0" expanded="true" />
+            <element signature="e#1636#1681#0" expanded="true" />
+            <element signature="e#1976#2020#1" expanded="true" />
+            <element signature="e#2002#2019#0" expanded="true" />
+            <element signature="e#2037#2575#0" expanded="true" />
+            <element signature="e#2042#2052#0" expanded="true" />
+            <element signature="e#2037#2575#0" expanded="true" />
+            <element signature="e#2085#2133#1" expanded="true" />
+            <element signature="e#2154#2556#0" expanded="true" />
+            <element signature="e#2420#2455#0" expanded="true" />
+            <element signature="e#2154#2556#0" expanded="true" />
+            <element signature="e#2592#2657#0" expanded="true" />
+            <element signature="e#2596#2616#0" expanded="true" />
+            <element signature="e#2592#2657#0" expanded="true" />
+            <element signature="e#2674#2703#0" expanded="true" />
+            <element signature="e#2674#2703#0" expanded="true" />
+            <element signature="e#2958#2966#0" expanded="true" />
+            <element signature="e#3130#3172#1" expanded="true" />
+            <element signature="e#3154#3171#0" expanded="true" />
+            <element signature="e#3189#3235#1" expanded="true" />
+            <element signature="e#3217#3234#0" expanded="true" />
+            <element signature="e#3252#3300#1" expanded="true" />
+            <element signature="e#3282#3299#0" expanded="true" />
+            <element signature="e#3317#3369#1" expanded="true" />
+            <element signature="e#3387#4150#0" expanded="true" />
+            <element signature="e#3392#3413#0" expanded="true" />
+            <element signature="e#3415#3441#0" expanded="true" />
+            <element signature="e#3387#4150#0" expanded="true" />
+            <element signature="e#3465#3496#1" expanded="true" />
+            <element signature="e#3478#3495#0" expanded="true" />
+            <element signature="e#3517#3533#0" expanded="true" />
+            <element signature="e#3517#3533#0" expanded="true" />
+            <element signature="e#3556#3573#0" expanded="true" />
+            <element signature="e#3787#3958#0" expanded="true" />
+            <element signature="e#3792#3813#0" expanded="true" />
+            <element signature="e#3816#3842#0" expanded="true" />
+            <element signature="e#3787#3958#0" expanded="true" />
+            <element signature="e#3878#3927#0" expanded="true" />
+            <element signature="e#3878#3927#0" expanded="true" />
+            <element signature="e#4224#4935#0" expanded="true" />
+            <element signature="e#4229#4239#1" expanded="true" />
+            <element signature="e#4224#4935#0" expanded="true" />
+            <element signature="e#4224#4935#0" expanded="true" />
+            <element signature="e#4224#4935#0" expanded="true" />
+            <element signature="e#4224#4935#0" expanded="true" />
+            <element signature="e#4296#4336#1" expanded="true" />
+            <element signature="e#4310#4325#0" expanded="true" />
+            <element signature="e#4310#4325#0" expanded="true" />
+            <element signature="e#4310#4335#0" expanded="true" />
+            <element signature="e#4365#4407#1" expanded="true" />
+            <element signature="e#4380#4395#0" expanded="true" />
+            <element signature="e#4380#4395#0" expanded="true" />
+            <element signature="e#4380#4406#0" expanded="true" />
+            <element signature="e#4436#4477#1" expanded="true" />
+            <element signature="e#4452#4467#0" expanded="true" />
+            <element signature="e#4452#4467#0" expanded="true" />
+            <element signature="e#4452#4476#0" expanded="true" />
+            <element signature="e#4506#4550#1" expanded="true" />
+            <element signature="e#4522#4537#0" expanded="true" />
+            <element signature="e#4522#4537#0" expanded="true" />
+            <element signature="e#4522#4549#0" expanded="true" />
+            <element signature="e#4580#4623#1" expanded="true" />
+            <element signature="e#4595#4613#0" expanded="true" />
+            <element signature="e#4595#4613#0" expanded="true" />
+            <element signature="e#4595#4622#0" expanded="true" />
+            <element signature="e#4652#4705#1" expanded="true" />
+            <element signature="e#4676#4694#0" expanded="true" />
+            <element signature="e#4676#4694#0" expanded="true" />
+            <element signature="e#4676#4704#0" expanded="true" />
+            <element signature="e#4734#4783#1" expanded="true" />
+            <element signature="e#4751#4769#0" expanded="true" />
+            <element signature="e#4751#4769#0" expanded="true" />
+            <element signature="e#4751#4782#0" expanded="true" />
+            <element signature="e#4813#4912#0" expanded="true" />
+            <element signature="e#4813#4912#0" expanded="true" />
+            <element signature="e#4813#4912#0" expanded="true" />
+            <element signature="e#5020#5061#0" expanded="true" />
+            <element signature="e#5020#5061#0" expanded="true" />
+            <element signature="e#5084#5146#0" expanded="true" />
+            <element signature="e#5084#5146#0" expanded="true" />
+            <element signature="e#5457#5512#1" expanded="true" />
+            <element signature="e#5479#5503#0" expanded="true" />
+            <element signature="e#5525#5580#1" expanded="true" />
+            <element signature="e#5547#5571#0" expanded="true" />
           </folding>
         </state>
       </provider>

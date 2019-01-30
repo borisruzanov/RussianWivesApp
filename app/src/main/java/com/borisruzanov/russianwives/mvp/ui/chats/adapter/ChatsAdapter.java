@@ -28,12 +28,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private Context context;
 
-
     public ChatsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
     }
 
     public void setData(List<UserChat> recipesList){
+        //userChatList.clear();
         this.userChatList = recipesList;
         notifyDataSetChanged();
     }

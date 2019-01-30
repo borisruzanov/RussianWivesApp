@@ -139,7 +139,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         }
 
         mChatSendBtn.setOnClickListener {
-            presenter.initChat(mChatUser)
+            //presenter.initChat(mChatUser)
             presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
         }
     }

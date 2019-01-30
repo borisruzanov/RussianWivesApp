@@ -27,7 +27,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getNeededUsers;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
@@ -35,150 +37,26 @@ import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 public class ChatsRepository {
 
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
-    private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
 
-    private void getChatAndUidList(ChatAndUidCallback callback) {
-        DatabaseReference mConvDatabase = realtimeReference.child("Chat").child(getUid());
-        mConvDatabase.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<Chat> chatList = new ArrayList<>();
-                        List<String> uidList = new ArrayList<>();
-
-                        //Inflate UID List
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            //This is list of chats UID's
-                            uidList.add(snapshot.getKey());
-                            long timeStamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
-                            boolean seen = Boolean.getBoolean(snapshot.child("seen").toString());
-                            //This is list of Chats Objects
-                            chatList.add(new Chat(timeStamp, seen));
-                        }
-
-                        Log.d(Contract.CHAT_LIST, "ChatList size in getChatAndUidList is " + chatList.size());
-                        Log.d(Contract.CHAT_LIST, "UidList size in getChatAndUidList is " + uidList.size());
-                        callback.setChatsAndUid(chatList, uidList);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.d(Contract.CHAT_LIST, "getChatAndUidList()" + databaseError.getMessage());
-                    }
-                }
-        );
-    }
-
-    private void getRtUsersAndMessages(List<String> uidList, RtUsersAndMessagesCallback callback) {
-        List<RtUser> rtUsers = new ArrayList<>();
-        List<Message> messages = new ArrayList<>();
-
-        for (String uid : uidList) {
-            realtimeReference.child("Users").child(uid).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String online = dataSnapshot.child("online").getValue().toString();
-                    //String online = "true";
-                    rtUsers.add(new RtUser(online));
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                }
-            });
-            realtimeReference.child("Messages").child(getUid()).child(uid).limitToLast(1).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            Message message;
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                message = snapshot.getValue(Message.class);
-                                Log.d(Contract.CHAT_FRAGMENT, "From Message seen value is " + message.isSeen() +
-                                        " from Snapshot seen value is " + snapshot.child("seen").getValue());
-                                messages.add(snapshot.getValue(Message.class));
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.d(Contract.CHAT_LIST, "getRtUsersAndMessages()" + databaseError.getMessage());
-                        }
-                    });
-            Log.d(Contract.CHAT_LIST, "RtUserList size in getUsersAndMessages is " + rtUsers.size());
-            Log.d(Contract.CHAT_LIST, "MsgList size in getUsersAndMessages is " + messages.size());
-
-            for (Message message: messages) {
-                Log.d(Contract.CHAT_FRAGMENT, "Iteration seen value is " + message.isSeen());
-            }
-
-            callback.setRtUsersAndMessages(rtUsers, messages);
-        }
-    }
-
-    // IN-PROGRESS
-    // Method for getting user data from Realtime Database instead of Firestore
-    // it will replace getNeededUsers soon
     private void getUsers(List<String> uidList, RealtimeUsersCallback callback){
-        realtimeReference.child("Users").addValueEventListener(new ValueEventListener() {
+        realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<UserRt> userRtList = new ArrayList<>();
                 for (String uid: uidList) {
-                    UserRt userRt = dataSnapshot.child(uid).getValue(UserRt.class);
-                    userRtList.add(userRt);
-                    Log.d("RealtimeDebug", "User name is " + userRt.getName());
+                    DataSnapshot snapshot = dataSnapshot.child(uid);
+                    userRtList.add(new UserRt(snapshot.child(Consts.UID).getValue(String.class),
+                            snapshot.child(Consts.NAME).getValue(String.class),
+                            snapshot.child(Consts.IMAGE).getValue(String.class),
+                            snapshot.child("online").getValue().toString(),
+                            snapshot.child(Consts.DEVICE_TOKEN).getValue(String.class)));
                 }
                 if (userRtList.isEmpty())Log.d("RealtimeDebug", "List is empty");
                 callback.setUsers(userRtList);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void updateChats() {
-        realtimeReference.child("Messages").child(getUid()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("ChatsUpdate", "onChildAdded");
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("ChatsUpdate", "onChildChanged");
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    //String key = snapshot.getKey();
-                    //uidList.add(key);
-
-                    snapshot.getRef().limitToLast(1).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                Message message = snapshot.getValue(Message.class);
-                                Log.d("ChatsUpdate", "Message is " + message.getMessage());
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) { }
-                    });
-                }
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
         });
     }
 
@@ -189,6 +67,7 @@ public class ChatsRepository {
                 List<String> uidList =  new ArrayList<>();
                 List<Message> messageList = new ArrayList<>();
                 List<UserChat> userChatList = new ArrayList<>();
+                Map<String, UserChat> userChatMap = new HashMap<>();
 
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
                     String key = snapshot.getKey();
@@ -211,55 +90,22 @@ public class ChatsRepository {
                             String name = userList.get(i).getName();
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
-                            String online = String.valueOf(userList.get(i).getOnline());
+                            String online = userList.get(i).getOnline();
 
                             boolean seen = messageList.get(i).isSeen();
                             long messageTimestamp = messageList.get(i).getTime();
                             String message = messageList.get(i).getMessage();
 
-                            userChatList.add(new UserChat(name, image, seen, userId, online, message, messageTimestamp));
+                            userChatMap.put(userId, new UserChat(name, image, seen, userId, online, message, messageTimestamp));
                     }
+                    Log.d("RealtimeChats", "Updating now ...");
+                    userChatList.addAll(userChatMap.values());\
                     userChatListCallback.setUserChatList(sortByDate(userChatList));
                 });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
-
-    public void createUserChats(UserChatListCallback userChatListCallback) {
-        final List<UserChat> userChatList = new ArrayList<>();
-
-        getChatAndUidList((chatList, uidList) -> {
-            getRtUsersAndMessages(uidList, (rtUserList, messageList) -> {
-                getNeededUsers(users, uidList, userList -> {
-                    if (!userList.isEmpty() && userChatList.isEmpty()) {
-                        for (int i = 0; i < userList.size(); i++) {
-                            String name = userList.get(i).getName();
-                            String image = userList.get(i).getImage();
-                            String userId = userList.get(i).getUid();
-
-                            boolean seen = messageList.get(i).isSeen();
-
-                            Log.d(Contract.CHAT_FRAGMENT, "Seen value in createChats() is " + seen);
-
-                            String online = rtUserList.get(i).getOnline();
-
-                            String message = messageList.get(i).getMessage();
-                            long messageTimestamp = messageList.get(i).getTime();
-
-                            Log.d(Contract.CHAT_LIST, "User name is " + name + " and online status is " + online.equals("true"));
-
-                            userChatList.add(new UserChat(name, image, seen, userId, online,
-                                    message, messageTimestamp));
-                        }
-
-                        userChatListCallback.setUserChatList(sortByDate(userChatList));
-                    }
-                });
-            });
-
         });
     }
 

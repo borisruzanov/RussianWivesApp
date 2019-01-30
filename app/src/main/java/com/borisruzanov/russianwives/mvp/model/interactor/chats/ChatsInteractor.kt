@@ -10,6 +10,4 @@ class ChatsInteractor @Inject constructor(private val repository: ChatsRepositor
         repository.getChats(callback)
     }
 
-    //fun getChats() = repository.getChats()
-
 }

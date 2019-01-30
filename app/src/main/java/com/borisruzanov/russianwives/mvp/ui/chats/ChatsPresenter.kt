@@ -18,26 +18,20 @@ class ChatsPresenter @Inject constructor(private val interactor: ChatsInteractor
     private val userChats = ArrayList<UserChat>()
 
     fun getUserChatList() {
-        ChatsRepository().updateChats()
         interactor.getUsersChats(UserChatListCallback {userChatList ->
-            if (userChatList.isEmpty())
+            if (userChatList.isEmpty()) {
                 Log.d(Contract.CHAT_LIST, "List is empty, bye")
-            else {
+            } else {
                 for (userChat in userChatList) {
-                    Log.d(Contract.CHAT_LIST, "User name is" + userChat.name)
+                    Log.d(Contract.CHAT_LIST, "User name is " + userChat.name)
                 }
+                Log.d("RealtimeChats", "UserChatList size is ${userChatList.size}")
+                userChats.clear()
+                userChats.addAll(userChatList)
+                Log.d("RealtimeChats", "UserChats size is ${userChats.size}")
             }
-            userChats.addAll(userChatList)
-            viewState.showUserChats(userChatList)
+            viewState.showUserChats(userChats)
         })
-    }
-
-
-    fun reloadList() {
-        if (userChats.isNotEmpty()) {
-            userChats.clear()
-            getUserChatList()
-        }
     }
 
     fun openChat(position: Int) {

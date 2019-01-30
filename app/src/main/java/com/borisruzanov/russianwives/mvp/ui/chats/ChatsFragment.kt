@@ -43,7 +43,8 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
     @InjectPresenter
     lateinit var chatsPresenter: ChatsPresenter
 
-    @ProvidePresenter fun provideChatsPresenter()= chatsPresenter
+    @ProvidePresenter
+    fun provideChatsPresenter() = chatsPresenter
 
     private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { _, position ->
         Log.d(Contract.TAG, "In onCLICK")
@@ -102,11 +103,8 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         chatIntent.putExtra("uid", uid)
         chatIntent.putExtra("name", name)
         chatIntent.putExtra("photo_url", image)
+
         startActivity(chatIntent)
     }
 
-    override fun onResume() {
-        super.onResume()
-        //chatsPresenter.updateActionsList()
-    }
 }
