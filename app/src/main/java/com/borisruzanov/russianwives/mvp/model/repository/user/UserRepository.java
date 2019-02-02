@@ -30,10 +30,15 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
@@ -46,7 +51,7 @@ public class UserRepository {
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
 
-    Prefs prefs;
+    private Prefs prefs;
 
     public UserRepository(Prefs prefs) {
         this.prefs = prefs;
@@ -72,6 +77,27 @@ public class UserRepository {
             }
 
         });
+    }
+
+    private boolean isOneDayGone() {
+        float days = 0f;
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+            if (!prefs.getDialogOpenDate().equals("+")) {
+                Date date1 = dateFormat.parse(prefs.getDialogOpenDate());
+                Date date2 = Calendar.getInstance().getTime();
+                long diff = date2.getTime() - date1.getTime();
+                days = (diff / (1000*60*60*24));
+                Log.d("TimerDebug", "Num of days is" + String.valueOf(days) + " date is " + prefs.getDialogOpenDate());
+            }
+        } catch (ParseException e) {
+            Log.d("TimerDebug", "In catch");
+            e.printStackTrace();
+        }
+        Log.d("TimerDebug", "Prefs value is " + String.valueOf(prefs.getDialogOpenDate().equals("")));
+        Log.d("TimerDebug", "Prefs value is " + String.valueOf(days >= 1));
+        Log.d("TimerDebug", "Value of exp is" + String.valueOf(prefs.getDialogOpenDate().equals("") || days >= 1));
+        return prefs.getDialogOpenDate().equals("") || days >= 1;
     }
 
     public void updateToken() {
@@ -134,7 +160,7 @@ public class UserRepository {
     }
 
     public boolean isGenderDefault() {
-        return prefs.getGender().equals(Consts.DEFAULT);
+        return prefs.getGenderSearch().equals(Consts.DEFAULT);
     }
 
     public void setGender(String gender) {

@@ -218,6 +218,9 @@
     <string name="like">Like</string>
     <string name="order_gender">Order your gender</string>
 
+    <string name="privacy_policy">By clicking OK you are confirming that you are over the age of 18 and allow this app
+        to use your information in accordance with <a href="https://policies.google.com/privacy?hl=en">privacy policy</a></string>
+
     <!-- Genders -->
     <string-array name="genders">
         <item>default</item>

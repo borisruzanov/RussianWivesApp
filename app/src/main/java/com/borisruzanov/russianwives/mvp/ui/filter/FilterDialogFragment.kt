@@ -32,7 +32,6 @@ class FilterDialogFragment : MvpAppCompatDialogFragment(), FilterView {
 
     @ProvidePresenter fun provideFilterDialogPresenter() = presenter
 
-
     //not working without @JvmSuppressWildcards:  can't use kotlin List<> for BindViews
     @BindViews(R.id.spinner_gender_ni, R.id.spinner_age_ni, R.id.spinner_country,
             R.id.spinner_relationship_statuses, R.id.spinner_body_types, R.id.spinner_ethnicities,

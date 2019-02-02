@@ -13,6 +13,7 @@ public interface SearchView extends MvpView {
     void setProgressBar(boolean isLoading);
     void showEmpty(boolean show);
     void addUsers(List<FsUser> usersList);
+    void clearUsers();
     void onUpdate();
     void showError();
     void openFriend(String uid, String transitionName, Bundle args);

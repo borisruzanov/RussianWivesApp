@@ -5,10 +5,12 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
@@ -25,6 +27,9 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
 
     @BindView(R.id.dialog_spinner_gender)
     Spinner genderSpinner;
+
+    @BindView(R.id.policy_tv)
+    TextView policyTv;
 
     public interface GenderListener {
         void setGender(String gender);
@@ -55,6 +60,7 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
         View view = inflater.inflate(R.layout.dialog_gender, container, false);
         ButterKnife.bind(this, view);
 
+        policyTv.setMovementMethod(LinkMovementMethod.getInstance());
         return view;
     }
 

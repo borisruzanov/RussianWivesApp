@@ -22,19 +22,39 @@ public class Prefs {
     }
 
     public void setFirstOpenDate() {
-        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        setValue(Consts.FIRST_OPEN_DATE, date);
+        setDate(Consts.FIRST_OPEN_DATE);
     }
 
     public String getFirstOpenDate() {
         return getValue(Consts.FIRST_OPEN_DATE);
     }
 
+    public void setDialogOpenDate() {
+        setDate(Consts.DIALOG_OPEN_DATE);
+    }
+
+    public void setDialogOpenDate(String value) {
+        setValue(Consts.DIALOG_OPEN_DATE, value);
+    }
+
+    public String getDialogOpenDate() {
+        return getValue(Consts.DIALOG_OPEN_DATE);
+    }
+
+    public void clearDialogOpenDate() {
+        setValue(Consts.DIALOG_OPEN_DATE, "");
+    }
+
     public void setGenderSearch(String gender) {
         String genderSearch = "";
         if (gender.equals(context.getString(R.string.male_option))) genderSearch = context.getString(R.string.female_option);
         else if (gender.equals(context.getString(R.string.female_option))) genderSearch = context.getString(R.string.male_option);
-        setValue(Consts.GENDER, genderSearch);
+        setValue(Consts.GENDER_SEARCH, genderSearch);
+        setGender(genderSearch);
+    }
+
+    public String getGenderSearch() {
+        return getValue(Consts.GENDER_SEARCH);
     }
 
     public String getGender() {
@@ -131,6 +151,11 @@ public class Prefs {
 
     public void setHobby(String value) {
         setValue(Consts.HOBBY, value);
+    }
+
+    private void setDate(String key) {
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        setValue(key, date);
     }
 
     private String getValue(String key) {

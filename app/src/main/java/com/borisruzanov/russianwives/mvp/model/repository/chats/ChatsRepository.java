@@ -99,7 +99,7 @@ public class ChatsRepository {
                             userChatMap.put(userId, new UserChat(name, image, seen, userId, online, message, messageTimestamp));
                     }
                     Log.d("RealtimeChats", "Updating now ...");
-                    userChatList.addAll(userChatMap.values());\
+                    userChatList.addAll(userChatMap.values());
                     userChatListCallback.setUserChatList(sortByDate(userChatList));
                 });
             }

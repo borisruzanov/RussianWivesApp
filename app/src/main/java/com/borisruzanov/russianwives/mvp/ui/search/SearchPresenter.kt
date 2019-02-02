@@ -25,7 +25,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     private val usersListCallback = UsersListCallback { userList ->
         if (userList.isNotEmpty()) {
             fsUsers.addAll(userList)
-            viewState.addUsers(userList)
+            viewState.addUsers(fsUsers)
         }
     }
 
@@ -35,7 +35,8 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
 
     fun onUpdate() {
         fsUsers.clear()
-        viewState.onUpdate()
+        viewState.clearUsers()
+        getUserList(0)
     }
 
     fun setFriendLiked(position: Int) {

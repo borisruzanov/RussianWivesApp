@@ -6,7 +6,6 @@ import java.util.List;
 public final class Consts {
     //TODO rename to USERS_FS and add USERS_RT
     public static final String USERS_DB = "Users";
-    public static final String ACTIONS_DB = "Actions";
 
     public static final String NAME = "name";
     public static final String BODY_TYPE = "body_type";
@@ -27,6 +26,8 @@ public final class Consts {
     public static final String UID  = "uid";
 
     public static final String FIRST_OPEN_DATE  = "first open date";
+    public static final String DIALOG_OPEN_DATE  = "dialog open date";
+    public static final String GENDER_SEARCH  = "gender search";
 
     public static final String RATING  = "rating";
     public static final String ACTION_MODULE = "action_module";

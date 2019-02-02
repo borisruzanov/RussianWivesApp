@@ -51,8 +51,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     private lateinit var layoutManager: GridLayoutManager
     private var dialogFragment: DialogFragment? = null
 
-    private val onItemChatCallback = { view: View, position: Int -> searchPresenter.openChat(position) }
-    private val onItemLikeCallback = { view: View, position: Int -> searchPresenter.setFriendLiked(position) }
+    private val onItemChatCallback = { _: View, position: Int -> searchPresenter.openChat(position) }
+    private val onItemLikeCallback = { _: View, position: Int -> searchPresenter.setFriendLiked(position) }
 
     private val onItemClickCallback = { view: View, position: Int ->
         val sharedImageView = view as ImageView
@@ -163,10 +163,11 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
                 ConfirmDialogFragment.TAG)?.commit()
     }
 
+    override fun clearUsers() = adapter.clearData()
+
     //Updating results of the filtration
     override fun onUpdate() {
-        adapter.clearData()
-        searchPresenter.getUserList(0)
+        searchPresenter.onUpdate()
     }
 
 
