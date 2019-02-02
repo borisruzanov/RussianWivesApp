@@ -37,6 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import com.borisruzanov.russianwives.models.Contract.RC_PHOTO_PICKER
 import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.*
 import kotlin.collections.HashMap
@@ -48,6 +49,8 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
     private lateinit var mLastSeenView: TextView
     private lateinit var mChatMessageView: EditText
     private lateinit var mRefreshLayout: SwipeRefreshLayout
+
+    private lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private var sp: String? = null
 
@@ -79,7 +82,9 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
-        mChatUser = intent.getStringExtra("uid")
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+
+        mChatUser = intent.getStringExtra(Consts.UID)
         mCurrentUserId = getUid()
 
         Log.d("MessagesDebug", """Uid of mChatUser is ${intent.getStringExtra("uid")}""")
@@ -98,7 +103,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         actionBar?.customView = actionBarView
         //Custom Action bar Items
         val mTitleView = findViewById<TextView>(R.id.custom_bar_title)
-        mTitleView.text = intent.getStringExtra("name")
+        mTitleView.text = intent.getStringExtra(Consts.NAME)
         val mProfileImage = findViewById<CircleImageView>(R.id.custom_bar_image)
         Glide.with(this).load(intent.getStringExtra("photo_url")).into(mProfileImage)
 
@@ -139,7 +144,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         }
 
         mChatSendBtn.setOnClickListener {
-            //presenter.initChat(mChatUser)
+            firebaseAnalytics.logEvent("message_sent", null)
             presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
         }
     }

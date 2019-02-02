@@ -37,6 +37,7 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,8 +66,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     private boolean reload = false;
     private String friendUid;
 
-    private UpdateCallback callback;
-
     @Inject
     @InjectPresenter
     FriendProfilePresenter presenter;
@@ -76,18 +75,18 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         return presenter;
     }
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        if (getApplicationContext() instanceof UpdateCallback) {
-            callback = (UpdateCallback) getApplicationContext();
-        }
-
         App application = (App)getApplication();
         application.getComponent().inject(this);
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
         //Transition
         //supportPostponeEnterTransition();
         imageView = findViewById(R.id.friend_activity_image);
@@ -115,10 +114,12 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
         // listeners for action buttons
         likeIv.setOnClickListener(v -> {
+            mFirebaseAnalytics.logEvent("like_from_friend_activity", null);
             Log.d("ClickedImg", "Image Like was clicked");
             presenter.setFriendLiked(friendUid);
         });
         messageIv.setOnClickListener(v -> {
+            mFirebaseAnalytics.logEvent("start_chat_from_friend_activity", null);
             Log.d("ClickedImg", "Image Message was clicked");
             presenter.openChatMessage(friendUid);
         });

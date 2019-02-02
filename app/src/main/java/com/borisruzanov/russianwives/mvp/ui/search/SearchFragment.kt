@@ -34,6 +34,7 @@ import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
 import com.borisruzanov.russianwives.utils.Consts
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_main_tab_search.*
 import java.util.Objects
 
@@ -51,8 +52,15 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     private lateinit var layoutManager: GridLayoutManager
     private var dialogFragment: DialogFragment? = null
 
-    private val onItemChatCallback = { _: View, position: Int -> searchPresenter.openChat(position) }
-    private val onItemLikeCallback = { _: View, position: Int -> searchPresenter.setFriendLiked(position) }
+    private val onItemChatCallback = { _: View, position: Int ->
+        firebaseAnalytics.logEvent("start_chat_from_main_search", null)
+        searchPresenter.openChat(position)
+    }
+
+    private val onItemLikeCallback = { _: View, position: Int ->
+        firebaseAnalytics.logEvent("like_from_main_search", null)
+        searchPresenter.setFriendLiked(position)
+    }
 
     private val onItemClickCallback = { view: View, position: Int ->
         val sharedImageView = view as ImageView
@@ -61,6 +69,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
 
         searchPresenter.openFriend(position, Objects.requireNonNull<Bundle>(options.toBundle()))
     }
+
+    lateinit var firebaseAnalytics: FirebaseAnalytics
 
     private val adapter = SearchAdapter(onItemClickCallback, onItemChatCallback, onItemLikeCallback)
 
@@ -74,8 +84,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
        // retainInstance = true
         val application = requireActivity().application as App
         application.component.inject(this)
-
         super.onCreate(savedInstanceState)
+        firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

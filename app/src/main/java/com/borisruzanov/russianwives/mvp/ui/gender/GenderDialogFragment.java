@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +32,8 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
     @BindView(R.id.policy_tv)
     TextView policyTv;
 
+    private FirebaseAnalytics mFirebaseAnalytics;
+
     public interface GenderListener {
         void setGender(String gender);
     }
@@ -40,6 +43,8 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         if (context instanceof GenderListener) {
             listener = (GenderListener) context;
@@ -68,6 +73,11 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
     public void onConfirmClicked() {
         if (!genderSpinner.getSelectedItem().toString().equals(Consts.DEFAULT)) {
             listener.setGender(genderSpinner.getSelectedItem().toString());
+            if (genderSpinner.getSelectedItem().toString()!= null) {
+                Bundle bundle = new Bundle();
+                bundle.putString(Consts.GENDER, genderSpinner.getSelectedItem().toString());
+                mFirebaseAnalytics.logEvent("dialog_gender", bundle);
+            }
             dismiss();
         }
         else Toast.makeText(getContext(), getString(R.string.order_gender), Toast.LENGTH_SHORT).show();

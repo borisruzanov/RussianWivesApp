@@ -58,7 +58,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     private var searchFragment: SearchFragment? = null
     private var actionsFragment: ActionsFragment? = null
 
-    private lateinit var mTracker: Tracker
 
     @ProvidePresenter
     internal fun provideMainPresenter() = mainPresenter
@@ -98,19 +97,16 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         viewPager.offscreenPageLimit = 3
         tabLayout.setupWithViewPager(viewPager)
 
-        mTracker = App().getTracker()
         analytics()
     }
 
     private fun analytics() {
         val tracker = App.AnalyticsTracker.sTracker
-        tracker.setScreenName("MAIN Activity")
-        tracker.send(HitBuilders.ScreenViewBuilder().build());
 
-        val params = Bundle()
+       /* val params = Bundle()
         params.putString("param_One", "First param")
         params.putString("param_Two", "Second param")
-        firebaseAnalytics.logEvent("some_event_name", params)
+        firebaseAnalytics.logEvent("some_event_name", params)*/
 
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "some_id")
@@ -179,6 +175,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.sign_out_menu -> {
+                val params = Bundle()
+                firebaseAnalytics.logEvent("sign_out", params)
                 AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
                 return true
             }
@@ -235,10 +233,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                 if (resultCode == Activity.RESULT_OK) {
                     var s = getString(R.string.new_user_registered)
                     mainPresenter.saveUser()
-                    mTracker.send(HitBuilders.EventBuilder()
-                            .setCategory(getString(R.string.conversion_one))
-                            .setAction(getString(R.string.new_user_registered))
-                            .build())
+
                     reload()
                 } else {
                     //Sign in failed
