@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
@@ -19,11 +20,15 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_WILL_OF_KIDS_RATING;
+
 public class SliderWillingKidsFragment extends Fragment {
 
     Button btnSave;
     RadioGroup radioGroup;
     RadioButton radioButton;
+
+    String result;
 
     public SliderWillingKidsFragment() {
         // Required empty public constructor
@@ -46,6 +51,7 @@ public class SliderWillingKidsFragment extends Fragment {
         btnSave = (Button) view.findViewById(R.id.fragment_slider_willingkids_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser("want_children_or_not", value -> {
+            result = value;
             if (value != null && value.equals("Definitely")){
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_definitely);
             } else if (value != null && value.equals("Someday")){
@@ -67,14 +73,12 @@ public class SliderWillingKidsFragment extends Fragment {
             if(radioButton.getText() != null){
                 Map<String, Object> map = new HashMap<>();
                 map.put("want_children_or_not", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                    @Override
-                    public void onUpdate() {
-                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                            getActivity().onBackPressed();
-                        }
-                        Toast.makeText(getActivity(), R.string.willing_kids_updated, Toast.LENGTH_LONG).show();
+                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_WILL_OF_KIDS_RATING);
+                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                        getActivity().onBackPressed();
                     }
+                    Toast.makeText(getActivity(), R.string.willing_kids_updated, Toast.LENGTH_LONG).show();
                 });
             }
         });

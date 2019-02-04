@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionCountCallback;
 import com.borisruzanov.russianwives.utils.ActionItemCallback;
@@ -41,9 +42,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getNeededUsers;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
 
 public class UserRepository {
 
@@ -79,25 +82,25 @@ public class UserRepository {
         });
     }
 
+    public void setDialogLastOpenDate() {
+        prefs.setDialogOpenDate();
+    }
+
     private boolean isOneDayGone() {
         float days = 0f;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            if (!prefs.getDialogOpenDate().equals("+")) {
                 Date date1 = dateFormat.parse(prefs.getDialogOpenDate());
                 Date date2 = Calendar.getInstance().getTime();
                 long diff = date2.getTime() - date1.getTime();
                 days = (diff / (1000*60*60*24));
                 Log.d("TimerDebug", "Num of days is" + String.valueOf(days) + " date is " + prefs.getDialogOpenDate());
-            }
         } catch (ParseException e) {
             Log.d("TimerDebug", "In catch");
             e.printStackTrace();
         }
-        Log.d("TimerDebug", "Prefs value is " + String.valueOf(prefs.getDialogOpenDate().equals("")));
-        Log.d("TimerDebug", "Prefs value is " + String.valueOf(days >= 1));
-        Log.d("TimerDebug", "Value of exp is" + String.valueOf(prefs.getDialogOpenDate().equals("") || days >= 1));
-        return prefs.getDialogOpenDate().equals("") || days >= 1;
+        Log.d("TimerDebug", "Exp is" + String.valueOf(prefs.getDialogOpenDate().equals(Consts.DEFAULT) || days >= 1));
+        return prefs.getDialogOpenDate().equals(Consts.DEFAULT) || (days >= 1 && !prefs.getDialogOpenDate().equals(""));
     }
 
     public void updateToken() {
@@ -108,14 +111,14 @@ public class UserRepository {
     }
 
     private void createNewUser(String name, String token, String uid) {
-        users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid));
+        users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid, prefs.getUserGender()));
 
         Map<String, Object> niMap = new HashMap<>();
         niMap.put("created", "registered");
         niMap.put("device_token", token);
         niMap.put(Consts.IMAGE, "default");
         niMap.put(Consts.NAME, name);
-        niMap.put(Consts.RATING, 0);
+        niMap.put(Consts.RATING, 1);
         niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
         niMap.put("online", ServerValue.TIMESTAMP);
         niMap.put(Consts.UID, uid);
@@ -135,6 +138,7 @@ public class UserRepository {
         }
     }
 
+    //
     public void getNecessaryInfo(NecessaryInfoCallback callback) {
         users.document(getUid()).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
@@ -152,6 +156,7 @@ public class UserRepository {
         });
     }
 
+    //
     public void setNecessaryInfo(String gender, String age) {
         Map<String, Object> necessaryInfoMap = new HashMap<>();
         if (!gender.equals(Consts.DEFAULT)) necessaryInfoMap.put(Consts.GENDER, gender);
@@ -168,7 +173,6 @@ public class UserRepository {
         if (!gender.equals(Consts.DEFAULT)) {
             genderMap.put(Consts.GENDER, gender);
             prefs.setGenderSearch(gender);
-            //if (isUserExist()) users.document(getUid()).update(genderMap);
         }
     }
 
@@ -176,18 +180,21 @@ public class UserRepository {
         users.document(getUid()).get().addOnCompleteListener(task -> {
             if (task.getResult().exists()) {
                 DocumentSnapshot snapshot = task.getResult();
-                callback.setBool(!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) &&
-                        !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT));
+                new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
+                    if (flag) {
+                        prefs.setDialogOpenDate("");
+                        callback.setBool(false);
+                    }
+                    else callback.setBool(isOneDayGone() && !snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT));
+                });
             }
         });
     }
 
-    public void hasAdditionalInfo(StringsCallback callback) {
+    public void getDefaultList(StringsCallback callback) {
         users.document(getUid()).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
-            if (!snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT) && !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT)) {
-                callback.setStrings(getListOfDefaults(snapshot));
-            }
+            callback.setStrings(getListOfDefaults(snapshot));
         });
     }
 
@@ -213,7 +220,8 @@ public class UserRepository {
             for (ActionModel model : actionModels) {
                 uidList.add(model.getUid());
             }
-            getNeededUsers(users, uidList, fsUserList -> {
+
+            getUsers(uidList, fsUserList -> {
                 for (int i = 0; i < fsUserList.size(); i++) {
                     actionItems.add(new ActionItem(actionModels.get(i).getUid(), fsUserList.get(i).getName(),
                             fsUserList.get(i).getImage(), actionModels.get(i).getType(),
@@ -291,6 +299,13 @@ public class UserRepository {
                 realtimeReference.child("Users").child(snapshot.getId()).setValue(niMap);
             }
         });
+    }
+
+    public void makeDialogOpenDateDefault () {
+        prefs.setDialogOpenDate(Consts.DEFAULT);
+    }
+    public void clearDialogOpenDate() {
+        prefs.clearDialogOpenDate();
     }
 
     private void getVisits(ActionCallback callback) {

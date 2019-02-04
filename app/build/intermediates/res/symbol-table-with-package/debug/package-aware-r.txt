@@ -584,6 +584,7 @@ color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
+color chat_item_bg
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
@@ -696,6 +697,7 @@ color test_two
 color tooltip_background_dark
 color tooltip_background_light
 color user_item_bg
+color white
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
 dimen abc_action_bar_default_height_material
@@ -1085,6 +1087,7 @@ drawable ic_check_black_24dp
 drawable ic_close_black_24dp
 drawable ic_edit_black_24dp
 drawable ic_favorite
+drawable ic_favorite_48
 drawable ic_favorite_black_24dp
 drawable ic_keyboard_arrow_right_black_24dp
 drawable ic_keyboard_backspace_black_24dp
@@ -1122,6 +1125,7 @@ drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
 drawable online_icon
+drawable tab_background_selected
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
 id ALT
@@ -2097,6 +2101,7 @@ string fui_welcome_back_email_header
 string fui_welcome_back_idp_header
 string fui_welcome_back_idp_prompt
 string fui_welcome_back_password_prompt_body
+string full_profile_message
 string gcm_defaultSenderId
 string gender_updated
 string github_client_id

@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.model.repository.rating
 
 import android.util.Log
+import com.borisruzanov.russianwives.utils.BoolCallback
 
 import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.RatingAchievementsCallback
@@ -25,10 +26,22 @@ class RatingRepository {
     private val usersRef = FirebaseDatabase.getInstance().reference.child(Consts.USERS_DB)
     private val users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB)
 
-    object Achievments {
-        val ADDED_PHOTO_RATING = 1
-        val ADDED_ETHNICITY_RATING = 1
-        val ADDED_RELIGION_RATING = 1
+    fun isAchievementExist(achievement: String, callback: BoolCallback) {
+        usersRef.child(getUid()).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var flag = false
+                if (dataSnapshot.child(Consts.ACHIEVEMENTS).exists()) {
+                    val achievementsMap = dataSnapshot.child(Consts.ACHIEVEMENTS).value as MutableMap<String, Any>
+                    val achievements = achievementsMap.keys
+                    if (achievements.contains(achievement)) {
+                        flag = true
+                    }
+                }
+                callback.setBool(flag)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
     }
 
     fun addRating(addPoint: Int) {
@@ -68,7 +81,9 @@ class RatingRepository {
         }
     }
 
-    private fun addAchievement(achievement: String) {
+
+
+    fun addAchievement(achievement: String) {
         usersRef.child(getUid()).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 var achMap: MutableMap<String, Any> = HashMap()

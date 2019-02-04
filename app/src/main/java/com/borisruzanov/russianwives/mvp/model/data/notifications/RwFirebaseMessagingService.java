@@ -16,6 +16,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 
 public class RwFirebaseMessagingService extends FirebaseMessagingService {
 
@@ -56,6 +57,6 @@ public class RwFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         Log.d("TokensDebug", "New token is " + s + " current token is " + getDeviceToken());
-        new UserRepository(new Prefs(getApplicationContext())).updateToken();
+        if (getUid() != null) new UserRepository(new Prefs(getApplicationContext())).updateToken();
     }
 }

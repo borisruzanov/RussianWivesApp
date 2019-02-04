@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
@@ -19,11 +20,15 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_BODY_TYPE_RATING;
+
 public class SliderBodytypeFragment extends MvpAppCompatFragment {
 
     Button btnSave;
     RadioGroup radioGroup;
     RadioButton radioButton;
+
+    String result;
 
 
     public SliderBodytypeFragment() {
@@ -48,6 +53,7 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
         btnSave = view.findViewById(R.id.fragment_slider_bodytype_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser("body_type", value -> {
+            result = value;
             if (value != null && value.equals("Slender")) {
                 radioGroup.check(R.id.fragment_slider_bodytype_rbtn_slender);
             } else if (value != null && value.equals("About average")) {
@@ -70,6 +76,7 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
                 Map<String, Object> map = new HashMap<>();
                 map.put("body_type", radioButton.getText());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_BODY_TYPE_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();
                     }

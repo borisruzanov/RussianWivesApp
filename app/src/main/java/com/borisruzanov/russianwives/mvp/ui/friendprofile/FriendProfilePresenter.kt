@@ -3,12 +3,11 @@ package com.borisruzanov.russianwives.mvp.ui.friendprofile
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.UserProfileItemsList
-import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.models.UserDescriptionModel
 import com.borisruzanov.russianwives.mvp.model.interactor.friendprofile.FriendProfileInteractor
+import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.UserCallback
-
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 @InjectViewState
@@ -20,9 +19,18 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
         if (interactor.isUserExist()) interactor.setFriendVisited(friendUid)
     }
 
+    fun setLikeHighlighted(friendUid: String) {
+        interactor.isLiked(friendUid, callback = BoolCallback {isLiked -> if (isLiked) viewState.setLikeHighlighted() })
+    }
+
     fun setFriendLiked(friendUid: String) {
         if (interactor.isUserExist()) {
-            interactor.setFriendLiked(friendUid)
+            interactor.isLiked(friendUid, callback = BoolCallback { isLiked ->
+                if (!isLiked) {
+                    interactor.setFriendLiked(friendUid)
+                    viewState.setLikeHighlighted()
+                }
+            })
         } else {
             viewState.openRegDialog()
         }
@@ -34,9 +42,15 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
 
     fun openChatMessage(friendUid: String) {
         if (interactor.isUserExist()) {
-            interactor.getFriendData(friendUid, UserCallback { fsUser ->
-                viewState.openChatMessage(fsUser.name, fsUser.image)
+            interactor.checkFullProfileAchieve(callback = BoolCallback { hasAchieve ->
+                if (hasAchieve) {
+                    interactor.getFriendData(friendUid, UserCallback { fsUser ->
+                        viewState.openChatMessage(fsUser.name, fsUser.image)
+                    })
+                }
+                else viewState.showFullProfileMessage()
             })
+
         } else {
             viewState.openRegDialog()
         }

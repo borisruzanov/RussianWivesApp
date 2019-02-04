@@ -12,7 +12,7 @@
     <dimen name="friend_btn_padding">25dp</dimen>
     <dimen name="large_text_size">24sp</dimen>
     <dimen name="profile_action_layout_size">200dp</dimen>
-    <dimen name="profile_action_text_size">34sp</dimen>
+    <dimen name="profile_action_text_size">24sp</dimen>
     <dimen name="action_tv_margin">24dp</dimen>
     <dimen name="dp4">4dp</dimen>
     <dimen name="profile_img_size">220dp</dimen>

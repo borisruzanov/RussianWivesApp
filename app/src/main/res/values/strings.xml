@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Russian Wives</string>
+    <string name="app_name">RusWives</string>
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -220,6 +220,7 @@
 
     <string name="privacy_policy">By clicking OK you are confirming that you are over the age of 18 and allow this app
         to use your information in accordance with <a href="https://policies.google.com/privacy?hl=en">privacy policy</a></string>
+    <string name="full_profile_message">You can\'t write to another user until you fill out your profile completely</string>
 
     <!-- Genders -->
     <string-array name="genders">

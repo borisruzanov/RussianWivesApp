@@ -7,6 +7,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor
+import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
 import com.borisruzanov.russianwives.utils.UsersListCallback
 
@@ -63,7 +64,13 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun openChat(position: Int) {
-        if (isUserExist()) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
+        if (isUserExist()){
+            searchInteractor.checkFullProfileAchieve(callback = BoolCallback { hasAchieve ->
+                if (hasAchieve
+            ) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
+                else viewState.showFullProfileMessage()
+            })
+        }
         else viewState.showRegistrationDialog()
     }
 

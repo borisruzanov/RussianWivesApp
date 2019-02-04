@@ -18,9 +18,11 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.mvp.model.interactor.slider.SliderInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
@@ -31,12 +33,12 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_IMAGE_RATING;
 
 public class SliderImageFragment extends Fragment {
 
     Button btnChangeImage;
-//    Button btnClose;
-//    Button btnNext;
+    String result;
 
     private StorageReference storageReference;
 
@@ -63,7 +65,10 @@ public class SliderImageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new SliderRepository()));
-        btnChangeImage = (Button) view.findViewById(R.id.fragment_slider_image_btn_save);
+
+        new SliderRepository().getFieldFromCurrentUser("image", value -> result = value);
+
+        btnChangeImage = view.findViewById(R.id.fragment_slider_image_btn_save);
         btnChangeImage.setOnClickListener(view1 -> {
             Intent galleryIntent = new Intent();
             galleryIntent.setType("image/*");
@@ -110,14 +115,22 @@ public class SliderImageFragment extends Fragment {
                     FirebaseRepository firebaseRepository = new FirebaseRepository();
                     StorageReference filePath = storageReference.child("profile_images").child(firebaseRepository.getUid()).child("profile_photo");
                     // <-------------SAVING IMAGE-------------->
-                    filePath.putFile(resultUri).addOnCompleteListener(task -> {
+
+                    filePath.putFile(resultUri).continueWithTask(task -> {
+                        if (!task.isSuccessful()) {
+                            throw task.getException();
+                        }
+                        // Continue with the task to get the download URL
+                        return filePath.getDownloadUrl();
+                    }).addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getActivity(), R.string.photo_was_updated, Toast.LENGTH_LONG).show();
-                            String download_url = filePath.getDownloadUrl().toString();
+                            String download_url = task.getResult().toString();
+                            Log.d("ImageDebug", "Image path is " + download_url);
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put(Consts.IMAGE, download_url);
 
                             new SliderRepository().updateFieldFromCurrentUser(hashMap, () -> {
+                                if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_IMAGE_RATING);
                                 if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                                     getActivity().onBackPressed();
                                 }
@@ -127,9 +140,7 @@ public class SliderImageFragment extends Fragment {
                             progressDialog.dismiss();
                             Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
                         }
-
                     });
-
 
                 } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                     Exception error = result.getError();

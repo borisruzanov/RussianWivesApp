@@ -1,9 +1,12 @@
 package com.borisruzanov.russianwives.mvp.model.repository.friend;
 
 import android.util.Log;
+import android.view.View;
 
+import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.google.firebase.database.DataSnapshot;
@@ -15,7 +18,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
@@ -35,7 +40,7 @@ public class FriendRepository {
         });
     }
 
-    public void setUserVisited(String friendUid){
+    public void setUserVisited(String friendUid) {
         Map<String, Object> visitAddMap = new HashMap<>();
         visitAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
         visitAddMap.put("fromUid", getUid());
@@ -44,21 +49,22 @@ public class FriendRepository {
         activityDb.updateChildren(visitAddMap);
 
         activityDb.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        activityDb.setValue(visitAddMap, (databaseError, databaseReference) -> {
-                            if (databaseError != null) {
-                                Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage());
-                            }
-                        });
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                activityDb.setValue(visitAddMap, (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage());
                     }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {}
                 });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
     }
 
-    public void setFriendLiked(String friendUid){
+    public void setFriendLiked(String friendUid) {
         //Map Likes -> FrUid -> uid
         DatabaseReference userLikePush = realtimeReference.child("Likes").child(friendUid).child(getUid());
 
@@ -79,7 +85,23 @@ public class FriendRepository {
                 Log.d("CHAT_LOG", databaseError.getMessage());
             }
         });
-
     }
 
+    public void isLiked(String friendUid, BoolCallback callback) {
+        realtimeReference.child("Liked").child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> likedList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    likedList.add(snapshot.getKey());
+                }
+                callback.setBool(likedList.contains(friendUid));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

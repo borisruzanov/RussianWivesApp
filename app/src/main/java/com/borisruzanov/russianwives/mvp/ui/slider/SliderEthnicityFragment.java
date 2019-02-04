@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
@@ -19,12 +20,15 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_ETHNICITY_RATING;
+
 public class SliderEthnicityFragment extends Fragment {
 
     Button btnSave;
     RadioGroup radioGroup;
     RadioButton radioButton;
 
+    String result;
 
 
     public SliderEthnicityFragment() {
@@ -49,6 +53,7 @@ public class SliderEthnicityFragment extends Fragment {
         btnSave = (Button) view.findViewById(R.id.fragment_slider_ethnicity_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser("ethnicity", value -> {
+            result = value;
             if (value != null && value.equals("Asian")){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_asian);
             } else if (value != null && value.equals("Black / African descent")){
@@ -73,6 +78,7 @@ public class SliderEthnicityFragment extends Fragment {
                 Map<String, Object> map = new HashMap<>();
                 map.put("ethnicity", radioButton.getText());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_ETHNICITY_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();
                     }

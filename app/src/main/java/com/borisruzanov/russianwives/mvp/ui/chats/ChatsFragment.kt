@@ -22,6 +22,7 @@ import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.Message
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
+import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
 import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
@@ -88,6 +89,10 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
             recyclerChatsList.visibility = View.GONE
             emptyText.visibility = View.VISIBLE
         }
+    }
+
+    override fun highlightChats(messageSeen: Boolean) {
+        (activity as MainActivity).highlightChats(messageSeen)
     }
 
     //TODO uncomment addUserActivity

@@ -18,5 +18,6 @@ public interface SearchView extends MvpView {
     void showError();
     void openFriend(String uid, String transitionName, Bundle args);
     void openChat(String uid, String name, String image);
+    void showFullProfileMessage();
     void showRegistrationDialog();
 }

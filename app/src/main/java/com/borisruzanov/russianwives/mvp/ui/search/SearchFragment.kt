@@ -18,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -180,6 +181,9 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
         searchPresenter.onUpdate()
     }
 
+    override fun showFullProfileMessage() {
+        Toast.makeText(context, getString(R.string.full_profile_message), Toast.LENGTH_LONG).show()
+    }
 
     override fun showEmpty(show: Boolean) {
         if (show) {

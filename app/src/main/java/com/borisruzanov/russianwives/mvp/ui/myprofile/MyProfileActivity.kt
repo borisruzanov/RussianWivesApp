@@ -65,8 +65,8 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         collapsingToolbarLayout.isTitleEnabled = false
 
         setSupportActionBar(toolbar)
-        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-        toolbar.background.alpha = 125
+        //toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+        //toolbar.background.alpha = 125
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 

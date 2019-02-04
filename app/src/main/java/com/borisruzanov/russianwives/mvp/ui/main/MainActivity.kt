@@ -1,22 +1,33 @@
 package com.borisruzanov.russianwives.mvp.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.TabLayout
+import android.support.v4.app.ActivityCompat.invalidateOptionsMenu
+import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.DialogFragment
+import android.support.v4.content.ContextCompat
+import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View.GONE
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
+import com.borisruzanov.russianwives.R.id.toolbar
+import com.borisruzanov.russianwives.R.string.finish
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
+import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment
@@ -93,8 +104,11 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        //tabLayout.getTabAt(1)?.customView?.background = ContextCompat.getDrawable(this, R.drawable.tab_background_selected)
+
         mainPresenter.checkForUserExist()
         viewPager.offscreenPageLimit = 3
+
         tabLayout.setupWithViewPager(viewPager)
 
         analytics()
@@ -261,7 +275,13 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         mainPresenter.openSliderWithDefaults()
     }
 
+    fun highlightChats(messageSeen: Boolean) {
+        if (messageSeen) Log.d("RealtimeChats", "Message was seen, background is white")
+        else Log.d("RealtimeChats", "Message wasn`t seen, background is highlighted")
+    }
+
     private fun reload() {
+        mainPresenter.makeDialogOpenDateDefault()
         val intent = Intent(this, MainActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NO_ANIMATION
         finish()

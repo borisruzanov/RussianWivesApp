@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-it\\values-it.xml",
+            "outputFile": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-it\\values-it.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-login-4.29.0.aar\\a89024d29f15ace44a552604b7dd881d\\res\\values-it\\values-it.xml",

@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.interactor.slider.SliderInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
@@ -20,12 +21,14 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_HOBBY_RATING;
+
 public class SliderHobbyFragment extends MvpAppCompatFragment{
 
     SliderFragmentsPresenter sliderFragmentsPresenter;
     EditText answer;
     Button btnSave;
-    String result;
+    String result, previousResult;
 
     public SliderHobbyFragment() {
         // Required empty public constructor
@@ -52,6 +55,7 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
         answer = (EditText) view.findViewById(R.id.fragment_slider_hobby_et_answer);
 
         new SliderRepository().getFieldFromCurrentUser("hobby", value -> {
+            previousResult = value;
             if (value != null && !value.equals(Consts.DEFAULT)) {
                 answer.setText(value);
                 answer.setSelection(answer.getText().length());
@@ -65,6 +69,7 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
                 Map<String, Object> map = new HashMap<>();
                 map.put("hobby", answer.getText().toString());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (previousResult.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_HOBBY_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();
                     }

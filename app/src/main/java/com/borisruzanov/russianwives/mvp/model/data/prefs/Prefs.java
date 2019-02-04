@@ -45,10 +45,12 @@ public class Prefs {
         setValue(Consts.DIALOG_OPEN_DATE, "");
     }
 
+    public String getUserGender() {
+        return reverseGender(getGenderSearch());
+    }
+
     public void setGenderSearch(String gender) {
-        String genderSearch = "";
-        if (gender.equals(context.getString(R.string.male_option))) genderSearch = context.getString(R.string.female_option);
-        else if (gender.equals(context.getString(R.string.female_option))) genderSearch = context.getString(R.string.male_option);
+        String genderSearch = reverseGender(gender);
         setValue(Consts.GENDER_SEARCH, genderSearch);
         setGender(genderSearch);
     }
@@ -156,6 +158,16 @@ public class Prefs {
     private void setDate(String key) {
         String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
         setValue(key, date);
+    }
+
+    private String reverseGender(String gender) {
+        String reverseGender = "";
+        if (gender.equals(context.getString(R.string.male_option))) {
+            reverseGender = context.getString(R.string.female_option);
+        } else if (gender.equals(context.getString(R.string.female_option))) {
+            reverseGender = context.getString(R.string.male_option);
+        }
+        return reverseGender;
     }
 
     private String getValue(String key) {

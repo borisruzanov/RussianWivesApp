@@ -10,6 +10,7 @@ public interface FriendProfileView  extends MvpView{
     void setFriendData(String name, String age, String country, String image);
     void setList(List<UserDescriptionModel> userDescriptionList);
     void openRegDialog();
+    void setLikeHighlighted();
     void openChatMessage(String name, String image);
-
+    void showFullProfileMessage();
 }

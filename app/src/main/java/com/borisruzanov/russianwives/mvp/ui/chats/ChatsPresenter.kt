@@ -19,18 +19,22 @@ class ChatsPresenter @Inject constructor(private val interactor: ChatsInteractor
 
     fun getUserChatList() {
         interactor.getUsersChats(UserChatListCallback {userChatList ->
+            var seen = true
             if (userChatList.isEmpty()) {
                 Log.d(Contract.CHAT_LIST, "List is empty, bye")
             } else {
-                for (userChat in userChatList) {
-                    Log.d(Contract.CHAT_LIST, "User name is " + userChat.name)
-                }
-                Log.d("RealtimeChats", "UserChatList size is ${userChatList.size}")
                 userChats.clear()
+                for (userChat in userChatList) {
+                    if (!userChat.seen) {
+                        seen = false
+                        break
+                    }
+                }
+                if (!seen) Log.d("RealtimeChats", "Show me a highlighted tab")
+                viewState.highlightChats(seen)
                 userChats.addAll(userChatList)
-                Log.d("RealtimeChats", "UserChats size is ${userChats.size}")
             }
-            viewState.showUserChats(userChats)
+            viewState.showUserChats(userChatList)
         })
     }
 

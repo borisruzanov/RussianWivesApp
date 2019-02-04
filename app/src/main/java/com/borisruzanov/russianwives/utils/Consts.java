@@ -55,8 +55,8 @@ public final class Consts {
     public static List<String> keyList = Arrays.asList(GENDER, AGE, COUNTRY, RELATIONSHIP_STATUS,
             BODY_TYPE, ETHNICITY, FAITH, SMOKING_STATUS, DRINK_STATUS, NUMBER_OF_KIDS, WANT_CHILDREN_OR_NOT);
 
-    public static List<String> fieldKeyList = Arrays.asList(Consts.BODY_TYPE, Consts.DRINK_STATUS, Consts.ETHNICITY,Consts.GENDER,
-            Consts.HOBBY, Consts.FAITH, Consts.IMAGE, Consts.LANGUAGES, Consts.SMOKING_STATUS,
+    public static List<String> fieldKeyList = Arrays.asList(Consts.BODY_TYPE, Consts.AGE, Consts.DRINK_STATUS,
+            Consts.ETHNICITY,Consts.GENDER, Consts.HOBBY, Consts.FAITH, Consts.IMAGE, Consts.SMOKING_STATUS,
             Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT);
 
     public static final String DEFAULT  = "default";

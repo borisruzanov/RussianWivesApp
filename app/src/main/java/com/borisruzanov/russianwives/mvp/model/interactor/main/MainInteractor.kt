@@ -12,6 +12,8 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun saveUser() = userRepository.saveUser()
 
+    fun makeDialogOpenDateDefault() = userRepository.makeDialogOpenDateDefault()
+
     fun setFirstOpenDate () = userRepository.setFirstOpenDate()
 
     fun isGenderDefault() = userRepository.isGenderDefault
@@ -24,6 +26,8 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun setNecessaryInfo(gender: String, age: String) = userRepository.setNecessaryInfo(gender, age)
 
-    fun hasAdditionalInfo(callback: StringsCallback) = userRepository.hasAdditionalInfo(callback)
+    fun setDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
+
+    fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 
 }

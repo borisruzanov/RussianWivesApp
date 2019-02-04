@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.ui.chats.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,9 +33,8 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public void setData(List<UserChat> recipesList){
-        //userChatList.clear();
-        this.userChatList = recipesList;
+    public void setData(List<UserChat> userChatList){
+        this.userChatList = userChatList;
         notifyDataSetChanged();
     }
 
@@ -93,8 +93,9 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             }
             container.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
 
-            if (!model.getSeen()) container.setBackgroundColor(Color.parseColor("#e8e8e8"));
-            if (!model.getSeen()) Log.d("test", "seen " + model.getSeen());
+            if (!model.getSeen()) container.setBackgroundColor(ContextCompat.getColor(context, R.color.chat_item_bg));
+            else container.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
+
             if(model.getOnline() != null){
             if (model.getOnline().equals("true")) online.setVisibility(View.VISIBLE);
             else {

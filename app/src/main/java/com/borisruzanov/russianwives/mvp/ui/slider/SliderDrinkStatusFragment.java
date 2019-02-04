@@ -12,12 +12,15 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_DRINK_STATUS_RATING;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +30,8 @@ public class SliderDrinkStatusFragment extends Fragment {
     Button btnSave;
     RadioGroup radioGroup;
     RadioButton radioButton;
+
+    String result;
 
     public SliderDrinkStatusFragment() {
         // Required empty public constructor
@@ -49,6 +54,7 @@ public class SliderDrinkStatusFragment extends Fragment {
         btnSave = (Button) view.findViewById(R.id.fragment_slider_drinkstatus_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser("drink_status", value -> {
+            result = value;
             if (value != null && value.equals("Never")){
                 radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
             } else if (value != null && value.equals("Only with friends")){
@@ -67,6 +73,7 @@ public class SliderDrinkStatusFragment extends Fragment {
                 Map<String, Object> map = new HashMap<>();
                 map.put("drink_status", radioButton.getText());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_DRINK_STATUS_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();
                     }

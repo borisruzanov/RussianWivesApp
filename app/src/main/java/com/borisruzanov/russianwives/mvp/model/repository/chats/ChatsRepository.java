@@ -28,37 +28,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getNeededUsers;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
 
 public class ChatsRepository {
 
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
-
-    private void getUsers(List<String> uidList, RealtimeUsersCallback callback){
-        realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<UserRt> userRtList = new ArrayList<>();
-                for (String uid: uidList) {
-                    DataSnapshot snapshot = dataSnapshot.child(uid);
-                    userRtList.add(new UserRt(snapshot.child(Consts.UID).getValue(String.class),
-                            snapshot.child(Consts.NAME).getValue(String.class),
-                            snapshot.child(Consts.IMAGE).getValue(String.class),
-                            snapshot.child("online").getValue().toString(),
-                            snapshot.child(Consts.DEVICE_TOKEN).getValue(String.class)));
-                }
-                if (userRtList.isEmpty())Log.d("RealtimeDebug", "List is empty");
-                callback.setUsers(userRtList);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
-    }
 
     public void getChats(UserChatListCallback userChatListCallback) {
         realtimeReference.child("Messages").child(getUid()).addValueEventListener(new ValueEventListener() {
@@ -67,11 +48,9 @@ public class ChatsRepository {
                 List<String> uidList =  new ArrayList<>();
                 List<Message> messageList = new ArrayList<>();
                 List<UserChat> userChatList = new ArrayList<>();
-                Map<String, UserChat> userChatMap = new HashMap<>();
 
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    String key = snapshot.getKey();
-                    uidList.add(key);
+                    uidList.add(snapshot.getKey());
 
                     snapshot.getRef().limitToLast(1).addValueEventListener(new ValueEventListener() {
                         @Override
@@ -87,19 +66,21 @@ public class ChatsRepository {
 
                 getUsers(uidList, userList -> {
                         for (int i = 0; i < userList.size(); i++) {
+                            userChatList.clear();
+
                             String name = userList.get(i).getName();
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
                             String online = userList.get(i).getOnline();
 
                             boolean seen = messageList.get(i).isSeen();
+
                             long messageTimestamp = messageList.get(i).getTime();
                             String message = messageList.get(i).getMessage();
 
-                            userChatMap.put(userId, new UserChat(name, image, seen, userId, online, message, messageTimestamp));
+                            userChatList.add(new UserChat(name, image, seen, userId, online, message, messageTimestamp));
                     }
-                    Log.d("RealtimeChats", "Updating now ...");
-                    userChatList.addAll(userChatMap.values());
+
                     userChatListCallback.setUserChatList(sortByDate(userChatList));
                 });
             }

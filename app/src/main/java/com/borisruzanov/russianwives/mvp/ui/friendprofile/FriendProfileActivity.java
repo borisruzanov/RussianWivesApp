@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +16,7 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.arellomobile.mvp.presenter.InjectPresenter;
@@ -53,6 +56,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     //TODO change view initializations to ButterKnife binds
     Toolbar toolbar;
+    CollapsingToolbarLayout collapsingToolbarLayout;
     FloatingActionButton fab;
 
     TextView nameText, ageText, countryText;
@@ -96,21 +100,23 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
             imageView.setTransitionName(imageTransitionName);
         }*/
 
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar_layout);
+        collapsingToolbarLayout.setCollapsedTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.darkColor));
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+
         likeIv = findViewById(R.id.friend_activity_like_img);
         messageIv = findViewById(R.id.friend_activity_message_img);
 
         friendUid = getIntent().getStringExtra("uid");
+        presenter.setLikeHighlighted(friendUid);
 
         fab = findViewById(R.id.friend_activity_fab);
-        fab.setOnClickListener(v -> {
-
-            //TODO Make sure user can make only 1 like
-        });
 
         // listeners for action buttons
         likeIv.setOnClickListener(v -> {
@@ -154,6 +160,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     public void setFriendData(String name, String age, String country, String image) {
+        collapsingToolbarLayout.setTitle(name);
         nameText.setText(name);
         ageText.setText(age);
         countryText.setText(country);
@@ -169,6 +176,11 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         }
         //Setting data to the adapter
         userDescriptionListAdapter.setData(userDescriptionList);
+    }
+
+    @Override
+    public void setLikeHighlighted() {
+        likeIv.setImageResource(R.drawable.ic_favorite_48);
     }
 
     @Override
@@ -233,8 +245,12 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     }
 
     private OnItemClickListener.OnItemClickCallback setOnItemClickCallback() {
-        return (view, position) -> {
-        };
+        return (view, position) -> {};
+    }
+
+    @Override
+    public void showFullProfileMessage() {
+        Toast.makeText(getApplicationContext(), getString(R.string.full_profile_message), Toast.LENGTH_LONG).show();
     }
 
     @Override
