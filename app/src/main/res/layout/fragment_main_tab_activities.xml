@@ -12,26 +12,29 @@
         android:layout_alignParentStart="true" />
 
     <RelativeLayout
-        android:id="@+id/activities_empty_text"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/actions_empty_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
 
         <ImageView
-            android:id="@+id/image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:src="@drawable/inbox"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/text"
-            android:layout_below="@+id/image"
+            android:id="@+id/actions_empty_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp8"
-            android:layout_marginBottom="@dimen/dp8"
-            android:text="Nothing to show yet..."
-            android:textSize="@dimen/profile_action_text_size" />
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp16"
+            android:src="@drawable/actions_empty" />
+
+        <TextView
+            android:id="@+id/actions_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp8"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/actions_empty_img"
+            android:text="@string/emptyText_actions"
+            android:textSize="@dimen/empty_text_size"/>
+
     </RelativeLayout>
 </RelativeLayout>

@@ -4,13 +4,32 @@
     android:layout_height="match_parent"
     tools:context=".mvp.ui.chats.ChatsFragment">
 
-    <TextView
-        android:id="@+id/chats_empty_text"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/chats_empty_rl"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/emptyText"
-        android:gravity="center"
-        android:visibility="gone"/>
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/chats_empty_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp16"
+            android:layout_marginStart="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp16"
+            android:src="@drawable/chats_empty" />
+
+        <TextView
+            android:id="@+id/chats_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp8"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/chats_empty_img"
+            android:text="@string/emptyText_chats"
+            android:textSize="@dimen/empty_text_size"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/friends_fragment_recycler_chats"

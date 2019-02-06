@@ -24,7 +24,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp8"
-            android:text="@string/what_is_your_gender"/>
+            android:text="@string/what_gender"/>
 
         <Spinner
             android:id="@+id/spinner_gender_ni"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dp8"
-            android:text="@string/how_old_are_you"/>
+            android:text="@string/what_age"/>
 
         <Spinner
             android:id="@+id/spinner_age_ni"

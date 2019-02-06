@@ -15,9 +15,12 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 
 public class SliderNameFragment extends MvpAppCompatFragment {
 
@@ -61,7 +64,10 @@ public class SliderNameFragment extends MvpAppCompatFragment {
         btnSave.setOnClickListener(view1 -> {
             if (!answer.getText().toString().trim().isEmpty()) {
                 Map<String, Object> map = new HashMap<>();
-                map.put("name", answer.getText().toString());
+                String name = answer.getText().toString();
+                map.put("name", name);
+                FirebaseDatabase.getInstance().getReference()
+                        .child(Consts.USERS_DB).child(getUid()).child(Consts.NAME).setValue(name);
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         getActivity().onBackPressed();

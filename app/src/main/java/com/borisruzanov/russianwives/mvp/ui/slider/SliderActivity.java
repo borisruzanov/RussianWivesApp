@@ -77,7 +77,7 @@ public class SliderActivity extends MvpAppCompatActivity {
                     fragmentList.add(SliderEthnicityFragment.newInstance());
                     break;
                 case "Faith":
-                    fragmentList.add(new SliderFaithFragment());
+                    fragmentList.add(new SliderFaithFragment().newInstance());
                     break;
                 case "Smoke Status":
                     fragmentList.add(SliderSmokingStatusFragment.newInstance());
@@ -91,7 +91,7 @@ public class SliderActivity extends MvpAppCompatActivity {
                 case "Do You Want Kids":
                     fragmentList.add(SliderWillingKidsFragment.newInstance());
                     break;
-                case "Hobby":
+                case "Looking for":
                     fragmentList.add(SliderHobbyFragment.newInstance());
                     break;
             }

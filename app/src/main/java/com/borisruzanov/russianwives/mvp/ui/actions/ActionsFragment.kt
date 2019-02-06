@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     private lateinit var recyclerActivitiesList: RecyclerView
 
-    private lateinit var emptyText: RelativeLayout
+    private lateinit var emptyLayout: RelativeLayout
 
     private val onItemClickCallback
             = OnItemClickListener.OnItemClickCallback{ _: View, position: Int -> actionsPresenter.openFriendProfile(position) }
@@ -61,7 +60,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
         recyclerActivitiesList.adapter = actionsAdapter
 
-        emptyText = view.findViewById(R.id.activities_empty_text)
+        emptyLayout = view.findViewById(R.id.actions_empty_rl)
 
         //actionsPresenter.setActionsList()
 
@@ -89,21 +88,21 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     override fun showUserActions(actionItems: List<ActionItem>) {
         if (actionItems.isNotEmpty()) {
-            emptyText.visibility = View.GONE
+            emptyLayout.visibility = View.GONE
             recyclerActivitiesList.post { actionsAdapter.setData(actionItems) }
         } else {
             recyclerActivitiesList.visibility = View.GONE
-            emptyText.visibility = View.VISIBLE
+            emptyLayout.visibility = View.VISIBLE
         }
     }
 
     override fun updateUserActions(newActionItems: List<ActionItem>) {
         if (newActionItems.isNotEmpty()) {
-            emptyText.visibility = View.GONE
+            emptyLayout.visibility = View.GONE
             recyclerActivitiesList.post { actionsAdapter.clearAndUpdateData(newActionItems) }
         } else {
             recyclerActivitiesList.visibility = View.GONE
-            emptyText.visibility = View.VISIBLE
+            emptyLayout.visibility = View.VISIBLE
         }
     }
 

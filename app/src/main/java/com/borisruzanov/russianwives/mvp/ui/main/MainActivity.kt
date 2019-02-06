@@ -104,7 +104,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        //tabLayout.getTabAt(1)?.customView?.background = ContextCompat.getDrawable(this, R.drawable.tab_background_selected)
+        //tabLayout.getTabAt(1)?.customView?.setBackgroundColor()
 
         mainPresenter.checkForUserExist()
         viewPager.offscreenPageLimit = 3
@@ -173,12 +173,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         } else {
             menu.findItem(R.id.sign_out_menu).isVisible = false
             menu.findItem(R.id.menu_my_profile).isVisible = false
-            menu.findItem(R.id.menu_filter).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater = menuInflater
@@ -197,12 +195,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             R.id.menu_my_profile -> {
                 val settingsIntent = Intent(this@MainActivity, MyProfileActivity::class.java)
                 startActivity(settingsIntent)
-                return true
-            }
-            R.id.menu_filter -> {
-                if (viewPager.currentItem == 0) {
-                    dialogFragment?.show(supportFragmentManager, FilterDialogFragment.TAG)
-                }
                 return true
             }
             R.id.login -> {

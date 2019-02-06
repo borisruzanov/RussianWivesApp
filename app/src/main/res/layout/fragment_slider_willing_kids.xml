@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp16"
-        android:text="@string/do_you_want_children"
+        android:text="@string/do_you_willing_kids"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/large_text_size" />
 

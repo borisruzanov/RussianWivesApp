@@ -25,7 +25,6 @@ import com.borisruzanov.russianwives.di.component
 
 class FilterDialogFragment : MvpAppCompatDialogFragment(), FilterView {
 
-
     @Inject
     @InjectPresenter
     lateinit var presenter: FilterDialogPresenter

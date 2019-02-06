@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
 
 import com.arellomobile.mvp.MvpAppCompatFragment
@@ -19,15 +20,9 @@ import com.borisruzanov.russianwives.OnItemClickListener
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract
-import com.borisruzanov.russianwives.models.Message
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
-import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
 
 class ChatsFragment : MvpAppCompatFragment(), ChatsView {
@@ -36,7 +31,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
     lateinit var recyclerChatsList: RecyclerView
     lateinit var chatsAdapter: ChatsAdapter
 
-    lateinit var emptyText: TextView
+    lateinit var emptyLayout: RelativeLayout
 
     private lateinit var mMainView: View
 
@@ -52,7 +47,6 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         chatsPresenter.openChat(position)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         requireActivity().component.inject(this)
         super.onCreate(savedInstanceState)
@@ -63,7 +57,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false)
 
-        emptyText = mMainView.findViewById(R.id.chats_empty_text)
+        emptyLayout = mMainView.findViewById(R.id.chats_empty_rl)
 
         recyclerChatsList = mMainView.findViewById(R.id.friends_fragment_recycler_chats)
         recyclerChatsList.layoutManager = LinearLayoutManager(activity)
@@ -83,11 +77,11 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
      */
     override fun showUserChats(userChats: List<UserChat>) {
         if (!userChats.isEmpty()) {
-            emptyText.visibility = View.GONE
+            emptyLayout.visibility = View.GONE
             recyclerChatsList.post { chatsAdapter.setData(userChats) }
         } else {
             recyclerChatsList.visibility = View.GONE
-            emptyText.visibility = View.VISIBLE
+            emptyLayout.visibility = View.VISIBLE
         }
     }
 

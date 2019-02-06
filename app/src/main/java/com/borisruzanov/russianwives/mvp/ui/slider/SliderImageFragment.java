@@ -25,6 +25,7 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 
 import static android.app.Activity.RESULT_OK;
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_IMAGE_RATING;
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 
 public class SliderImageFragment extends Fragment {
 
@@ -128,6 +130,9 @@ public class SliderImageFragment extends Fragment {
                             Log.d("ImageDebug", "Image path is " + download_url);
                             HashMap<String, Object> hashMap = new HashMap<>();
                             hashMap.put(Consts.IMAGE, download_url);
+
+                            FirebaseDatabase.getInstance().getReference().child("Users")
+                                    .child(getUid()).child(Consts.IMAGE).setValue(download_url);
 
                             new SliderRepository().updateFieldFromCurrentUser(hashMap, () -> {
                                 if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_IMAGE_RATING);

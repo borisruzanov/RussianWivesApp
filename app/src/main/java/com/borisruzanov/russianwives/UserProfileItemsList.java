@@ -23,7 +23,7 @@ public class UserProfileItemsList {
                 new UserDescriptionModel("How Often Do You Drink Alcohol", fsUser.getDrink_status()),
                 new UserDescriptionModel("Number Of Kids You Have", fsUser.getNumber_of_kids()),
                 new UserDescriptionModel("Do You Want Kids", fsUser.getWant_children_or_not()),
-                new UserDescriptionModel("Hobby", fsUser.getHobby())
+                new UserDescriptionModel("Looking for", fsUser.getHobby())
         );
 
     }

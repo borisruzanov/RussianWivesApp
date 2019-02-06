@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_gender"/>
+                    android:text="@string/who_are_you_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_gender_ni"
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/how_old_are_you"/>
+                    android:text="@string/what_age_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_age_ni"
@@ -77,7 +77,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/where_do_you_live"/>
+                    android:text="@string/what_country_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_country"
@@ -99,7 +99,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_relationship_status"/>
+                    android:text="@string/what_relationships_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_relationship_statuses"
@@ -121,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_bodytype"/>
+                    android:text="@string/what_bodytype_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_body_types"
@@ -143,7 +143,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_ethnicity"/>
+                    android:text="@string/what_ethnicity_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_ethnicities"
@@ -164,7 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_faith"/>
+                    android:text="@string/what_faith_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_faith_types"
@@ -185,7 +185,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_smoke_status"/>
+                    android:text="@string/what_smoke_status_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_smoke_statuses"
@@ -206,7 +206,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/what_is_your_drink_status"/>
+                    android:text="@string/what_drink_status_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_drink_statuses"
@@ -227,7 +227,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/do_you_have_any_kids"/>
+                    android:text="@string/looking_for_kids"/>
 
                 <Spinner
                     android:id="@+id/spinner_have_kids_statuses"
@@ -248,7 +248,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp8"
-                    android:text="@string/do_you_want_children"/>
+                    android:text="@string/willing_kids_status_looking_for"/>
 
                 <Spinner
                     android:id="@+id/spinner_want_kids_statuses"
