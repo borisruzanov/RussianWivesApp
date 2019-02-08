@@ -156,7 +156,7 @@ public class CountriesList {
             countries.add(new Country("Puerto Rico"));
             countries.add(new Country("Qatar"));
             countries.add(new Country("Romania"));
-            countries.add(new Country("Russian Federation"));
+            countries.add(new Country("Russia"));
             countries.add(new Country("Rwanda"));
             countries.add(new Country("Saint Kitts and Nevis"));
             countries.add(new Country("Saint Lucia"));

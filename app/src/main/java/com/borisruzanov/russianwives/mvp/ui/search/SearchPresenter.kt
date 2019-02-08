@@ -17,6 +17,7 @@ import javax.inject.Inject
 @InjectViewState
 class SearchPresenter @Inject constructor(private val searchInteractor: SearchInteractor) : MvpPresenter<SearchView>() {
     private val fsUsers = ArrayList<FsUser>()
+    private var canLoad = false
 
     fun getUserList(page: Int) {
         Log.d("UsersListDebug", "in getUserList")
@@ -25,9 +26,16 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
 
     private val usersListCallback = UsersListCallback { userList ->
         if (userList.isNotEmpty()) {
-            fsUsers.addAll(userList)
-            viewState.addUsers(fsUsers)
+            if (!fsUsers.containsAll(userList)) {
+                fsUsers.addAll(userList)
+                Log.d("UsersListDebug", "Add users to fsUsers and fsUsers size is " + fsUsers.size)
+            }
+            viewState.addUsers(userList)
         }
+    }
+
+    fun setLoading(isLoading: Boolean) {
+        this.canLoad = isLoading
     }
 
     fun setProgressBar(isLoading: Boolean) {
@@ -35,27 +43,23 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun onUpdate() {
+        canLoad = true
         fsUsers.clear()
         viewState.clearUsers()
         getUserList(0)
     }
 
     fun setFriendLiked(position: Int) {
-        //            ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500);
-        //            animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-        //                @Override
-        //                public void onAnimationUpdate(ValueAnimator valueAnimator) {
-        //                    animationView.setProgress((Float) valueAnimator.getAnimatedValue());
-        //                }
-        //            });
-        //
-        //            if (animationView.getProgress() == 0f) {
-        //                animator.start();
-        //            } else {
-        //                animationView.setProgress(0f);
-        //            }
-        if (isUserExist()) searchInteractor.setFriendLiked(fsUsers[position].uid)
-        else viewState.showRegistrationDialog()
+        Log.d("LikedDebug", "Liked Position is $position")
+        if (isUserExist()) {
+            searchInteractor.isFriendLiked(fsUsers[position].uid, callback = BoolCallback { hasLiked ->
+                if (!hasLiked) {
+                    searchInteractor.setFriendLiked(fsUsers[position].uid)
+                    Log.d("LikedDebug", "${fsUsers[position].name} was liked")
+                }
+                else Log.d("LikedDebug", "${fsUsers[position].name} WAS NOT liked")
+            })
+        } else viewState.showRegistrationDialog()
     }
 
 

@@ -4,20 +4,15 @@ package com.borisruzanov.russianwives.mvp.ui.search
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.FragmentActivity
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewCompat
-import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
@@ -25,9 +20,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
-import com.borisruzanov.russianwives.R.id.*
 import com.borisruzanov.russianwives.models.FsUser
-import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
@@ -51,7 +44,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     fun providePresenter() = searchPresenter
 
     private lateinit var layoutManager: GridLayoutManager
-    private var dialogFragment: DialogFragment? = null
+    private var dialogFragment = FilterDialogFragment()
 
     private val onItemChatCallback = { _: View, position: Int ->
         firebaseAnalytics.logEvent("start_chat_from_main_search", null)
@@ -75,10 +68,6 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
 
     private val adapter = SearchAdapter(onItemClickCallback, onItemChatCallback, onItemLikeCallback)
 
-    private lateinit var usersRecyclerView: RecyclerView
-    private lateinit var emptyTextView: TextView
-    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-
     private lateinit var onUserListScrollListener: FeedScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,17 +79,14 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view= inflater.inflate(R.layout.fragment_main_tab_search, container, false)
+        return inflater.inflate(R.layout.fragment_main_tab_search, container, false)
+    }
 
-        val filterBtn: Button = view.findViewById(R.id.users_filte_btn)
-        dialogFragment = FilterDialogFragment()
-        usersRecyclerView = view.findViewById(R.id.users_recycler_view)
-        emptyTextView = view.findViewById(R.id.users_empty_text)
-        swipeRefreshLayout = view.findViewById(R.id.users_swipe_refresh)
-
-        filterBtn.setOnClickListener {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        users_filter_btn.setOnClickListener {
             Log.d("qwe", "show filter dialog")
-            dialogFragment?.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
+            dialogFragment.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
         }
 
         layoutManager = GridLayoutManager(activity, 3)
@@ -113,15 +99,15 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
             }
         }
 
-        if (usersRecyclerView.layoutManager == null) {
-            usersRecyclerView.layoutManager = layoutManager
+        if (users_recycler_view.layoutManager == null) {
+            users_recycler_view.layoutManager = layoutManager
         }
 
-        usersRecyclerView.setHasFixedSize(true)
-        usersRecyclerView.adapter = adapter
-        usersRecyclerView.addOnScrollListener(onUserListScrollListener)
+        users_recycler_view.setHasFixedSize(true)
+        users_recycler_view.adapter = adapter
+        users_recycler_view.addOnScrollListener(onUserListScrollListener)
 
-        swipeRefreshLayout.setOnRefreshListener {
+        users_swipe_refresh.setOnRefreshListener {
             Log.d("UsersListDebug", "refreshing ...")
             searchPresenter.onUpdate()
             onUserListScrollListener.resetState()
@@ -129,13 +115,6 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
 
         searchPresenter.setProgressBar(true)
         searchPresenter.getUserList(0)
-
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        Log.d("UsersListDebug", "in onActivityCreated")
     }
 
     override fun addUsers(userList: List<FsUser>) {
@@ -143,12 +122,15 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
         //!important! when using FeedScrollListener we need manually tell it about the end of the list
         if (userList.size == 1) {
             onUserListScrollListener.setStopLoading(true)
+            searchPresenter.setLoading(false)
         }
-        else adapter.addUsers(userList)
+        //else {
+            adapter.addUsers(userList)
+       // }
     }
 
     override fun setProgressBar(isLoading: Boolean) {
-        swipeRefreshLayout.isRefreshing = isLoading
+        users_swipe_refresh.isRefreshing = isLoading
     }
 
     override fun showError() {}
@@ -187,11 +169,11 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
 
     override fun showEmpty(show: Boolean) {
         if (show) {
-            usersRecyclerView.visibility = View.GONE
-            emptyTextView.visibility = View.VISIBLE
+            users_recycler_view.visibility = View.GONE
+            users_empty_text.visibility = View.VISIBLE
         } else {
-            usersRecyclerView.visibility = View.VISIBLE
-            emptyTextView.visibility = View.GONE
+            users_recycler_view.visibility = View.VISIBLE
+            users_empty_text.visibility = View.GONE
         }
     }
 

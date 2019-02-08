@@ -18,6 +18,7 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.models.UserRt;
 import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.utils.FirebaseUtils;
 import com.bumptech.glide.Glide;
@@ -60,7 +61,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
     }
 
     public void clearData(){
-        fsUserList = new ArrayList<>();
+        fsUserList.clear();
         notifyDataSetChanged();
     }
 
@@ -124,6 +125,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                                 likedList.add(snapshot.getKey());
                             }
                             if (likedList.contains(fsUser.getUid())) {
+                                Log.d("LikedDebug", "User name is " + fsUserList.get(position).getName());
+
                                 like.setImageResource(R.drawable.ic_favorite);
                                 animationView.setVisibility(View.VISIBLE);
                             }

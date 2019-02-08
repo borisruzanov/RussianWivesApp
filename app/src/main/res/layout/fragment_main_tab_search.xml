@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <Button
-        android:id="@+id/users_filte_btn"
+        android:id="@+id/users_filter_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -19,7 +19,7 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/users_swipe_refresh"
-        android:layout_below="@id/users_filte_btn"
+        android:layout_below="@id/users_filter_btn"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

@@ -18,6 +18,8 @@ class SearchInteractor @Inject constructor(private val searchRepository: SearchR
         friendRepository.setFriendLiked(friendUid)
     }
 
+    fun isFriendLiked(friendUid: String, callback: BoolCallback) = friendRepository.isLiked(friendUid, callback)
+
     fun getFilteredUserList(usersListCallback: UsersListCallback, page: Int) {
         searchRepository.getUsers(filterRepository.filteredSearchResult, usersListCallback, page)
     }
