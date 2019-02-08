@@ -12,11 +12,13 @@ import android.support.v4.app.DialogFragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
+import android.widget.LinearLayout
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -69,7 +71,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     private var searchFragment: SearchFragment? = null
     private var actionsFragment: ActionsFragment? = null
 
-
     @ProvidePresenter
     internal fun provideMainPresenter() = mainPresenter
 
@@ -104,12 +105,15 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        //tabLayout.getTabAt(1)?.customView?.setBackgroundColor()
-
         mainPresenter.checkForUserExist()
         viewPager.offscreenPageLimit = 3
 
         tabLayout.setupWithViewPager(viewPager)
+
+        val ll = tabLayout.getChildAt(1) as LinearLayout?
+        ll?.getChildAt(1)?.setBackgroundColor(Color.parseColor("#f44336"))
+
+        mainPagerAdapter.notifyDataSetChanged()
 
         analytics()
     }

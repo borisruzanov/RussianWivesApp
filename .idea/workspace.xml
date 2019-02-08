@@ -6,8 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="LikedDebug" />
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="debug" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="error" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="No Filters" />
   </component>
   <component name="BookmarkManager">
@@ -308,11 +307,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchPresenter.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SearchPresenter.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchPresenter.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
+            <state relative-caret-position="460">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivity.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+              <folding>
+                <element signature="e#5476#5508#1" expanded="true" />
+                <element signature="e#5629#5660#1" expanded="true" />
+                <element signature="e#5720#5753#1" expanded="true" />
+                <element signature="e#5803#5847#0" expanded="true" />
+                <element signature="e#5942#5973#1" expanded="true" />
+                <element signature="e#6071#6104#1" expanded="true" />
+                <element signature="e#8623#8657#1" expanded="true" />
+                <element signature="e#8686#8726#1" expanded="true" />
+                <element signature="e#9601#9635#0" expanded="true" />
+                <element signature="e#9893#9932#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="37" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -331,27 +360,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="195">
               <caret line="20" column="39" selection-start-line="20" selection-start-column="39" selection-end-line="20" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fragment_main_tab_search.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_main_tab_search.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CountriesList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/CountriesList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="156" column="41" selection-start-line="156" selection-start-column="41" selection-end-line="156" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -2799,7 +2807,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/myprofile/MyProfileActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_filters.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/UserProfileItemsListForEdit.java" />
@@ -2823,6 +2830,7 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchPresenter.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt" />
       </list>
     </option>
   </component>
@@ -2924,7 +2932,7 @@
     <property name="DEBUGGABLE_PROCESS" value="com.borisruzanov.russianwives" />
     <property name="DEBUGGER_ID" value="Auto" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="FriendRepos&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository&#10;SearchPre&#9;null&#9;null&#10;Faith&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.slider.SliderFaithFragment&#10;Actions&#9;null&#9;null&#10;ChatMessage&#9;null&#9;null&#10;color&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;strings&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/res/values/strings.xml&#10;Gender&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment&#10;FriendAc&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity" />
+    <property name="SearchEverywhereHistoryKey" value="colors.x&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;FriendRepos&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository&#10;SearchPre&#9;null&#9;null&#10;Faith&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.slider.SliderFaithFragment&#10;Actions&#9;null&#9;null&#10;ChatMessage&#9;null&#9;null&#10;color&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;strings&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/res/values/strings.xml&#10;Gender&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment&#10;FriendAc&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -3082,7 +3090,7 @@
       <window_info anchor="bottom" id="Logcat" order="8" weight="0.50666666" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="4" />
-      <window_info active="true" anchor="right" id="Assistant" order="4" visible="true" weight="0.32950708" />
+      <window_info anchor="right" id="Assistant" order="4" weight="0.32950708" />
       <window_info anchor="bottom" id="Build" order="10" weight="0.2711111" />
       <window_info id="Structure" order="1" sideWeight="0.49796155" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="9" side_tool="true" weight="0.32950708" />
@@ -3157,13 +3165,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chatmessage/ChatMessageRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessagePresenter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
@@ -3314,13 +3315,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
           <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="136" column="49" selection-start-line="136" selection-start-column="49" selection-end-line="136" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -3562,8 +3556,34 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/search/SearchPresenter.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        <state relative-caret-position="460">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="37" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
+          <folding>
+            <element signature="e#5476#5508#1" expanded="true" />
+            <element signature="e#5629#5660#1" expanded="true" />
+            <element signature="e#5720#5753#1" expanded="true" />
+            <element signature="e#5803#5847#0" expanded="true" />
+            <element signature="e#5942#5973#1" expanded="true" />
+            <element signature="e#6071#6104#1" expanded="true" />
+            <element signature="e#8623#8657#1" expanded="true" />
+            <element signature="e#8686#8726#1" expanded="true" />
+            <element signature="e#9601#9635#0" expanded="true" />
+            <element signature="e#9893#9932#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
