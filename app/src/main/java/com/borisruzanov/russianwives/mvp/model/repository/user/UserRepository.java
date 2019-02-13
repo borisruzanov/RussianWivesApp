@@ -355,7 +355,7 @@ public class UserRepository {
         List<String> valuesList = new ArrayList<>();
         for (String field : Consts.fieldKeyList) {
             String value = document.getString(field);
-            if (value.toLowerCase().trim().equals(Consts.DEFAULT)) {
+            if (value != null && value.toLowerCase().trim().equals(Consts.DEFAULT)) {
                 valuesList.add(field);
             }
         }

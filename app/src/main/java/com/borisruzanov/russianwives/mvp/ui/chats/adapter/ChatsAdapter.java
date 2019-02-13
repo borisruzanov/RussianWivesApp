@@ -86,6 +86,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
             message.setText(model.getMessage());
+
             if(model.getImage().equals("default")){
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
             }else {

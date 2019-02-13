@@ -107,7 +107,6 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         val mProfileImage = findViewById<CircleImageView>(R.id.custom_bar_image)
         Glide.with(this).load(intent.getStringExtra("photo_url")).into(mProfileImage)
 
-
         //List of Message
         mLinearLayout = LinearLayoutManager(this)
         mAdapter = ChatMessageAdapter(intent.getStringExtra("photo_url"), intent.getStringExtra("name"))
@@ -176,16 +175,16 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_PHOTO_PICKER && resultCode == Activity.RESULT_OK) {
-            Log.d(Contract.CHAT_LIST, "inside if")
+        if (requestCode == GALLERY_PICK && resultCode == Activity.RESULT_OK) {
+            Log.d("ImageDebug", "inside if")
             val selectedImageUri = data.data
-            Log.d(Contract.CHAT_LIST, "Uri is " + selectedImageUri!!)
+            Log.d("ImageDebug", "Uri is " + selectedImageUri!!)
             presenter.sendImage(mChatUser, selectedImageUri)
         } else if (resultCode == Activity.RESULT_CANCELED) {
-            Log.d(Contract.CHAT_LIST, "inside RESULT_CANCELED")
+            Log.d("ImageDebug", "inside RESULT_CANCELED")
             finish()
         } else {
-            Log.d(Contract.CHAT_LIST, "inside bbbbbbbdfdfgdfgdfgdfg")
+            Log.d("ImageDebug", "inside else")
         }
     }
 

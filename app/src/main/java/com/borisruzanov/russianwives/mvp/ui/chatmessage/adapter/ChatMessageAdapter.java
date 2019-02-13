@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.mvp.ui.chatmessage.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -37,7 +38,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         this.friendsName = friendsName;
     }
 
-    public void setData(List<Message> mMessageList){
+    public void setData(List<Message> mMessageList) {
         this.mMessageList = mMessageList;
         notifyDataSetChanged();
     }
@@ -106,12 +107,10 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         //Проверка на текст или картинку
         if (message_type.equals("text")) {
             viewHolder.messageText.setText(currentMessage.getMessage());
-            viewHolder.messageImage.setVisibility(View.INVISIBLE);
+            viewHolder.messageImage.setVisibility(View.GONE);
         } else {
-            viewHolder.messageText.setVisibility(View.INVISIBLE);
-            Picasso.with(viewHolder.profileImage.getContext())
-                    .load(context.getString(R.string.image_message_link))
-                    .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
+            viewHolder.messageText.setVisibility(View.GONE);
+            Picasso.with(context).load(currentMessage.getMessage()).into(viewHolder.messageImage);
 
         }
     }

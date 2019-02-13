@@ -99,10 +99,10 @@ public class ChatMessageRepository {
     }
 
     public void sendImage(String friendUid, Uri imageUri, UpdateCallback callback){
-        final String current_user_ref = "Message/" + getUid() + "/" + friendUid;
-        final String chat_user_ref = "Message/" + friendUid + "/" + getUid();
+        final String current_user_ref = "Messages/" + getUid() + "/" + friendUid;
+        final String chat_user_ref = "Messages/" + friendUid + "/" + getUid();
         // Пушим Message -> Token -> FrUid
-        DatabaseReference user_message_push = realtimeReference.child("Message")
+        DatabaseReference user_message_push = realtimeReference.child("Messages")
                 .child(getDeviceToken())
                 .child(friendUid)
                 .push();

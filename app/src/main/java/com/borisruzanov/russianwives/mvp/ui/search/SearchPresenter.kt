@@ -27,6 +27,9 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     private val usersListCallback = UsersListCallback { userList ->
         if (userList.isNotEmpty()) {
             if (!fsUsers.containsAll(userList)) {
+                if (fsUsers.isNotEmpty() && fsUsers.last().uid == userList.last().uid){
+                    userList.remove(userList.last())
+                }
                 fsUsers.addAll(userList)
                 Log.d("UsersListDebug", "Add users to fsUsers and fsUsers size is " + fsUsers.size)
             }
@@ -52,6 +55,10 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     fun setFriendLiked(position: Int) {
         Log.d("LikedDebug", "Liked Position is $position")
         if (isUserExist()) {
+            val friendModel = fsUsers[position]
+            if (fsUsers.contains(friendModel)) {
+                Log.d("LikeDebug", "Friend name is ${friendModel.name} and fsUsers ")
+            }
             searchInteractor.isFriendLiked(fsUsers[position].uid, callback = BoolCallback { hasLiked ->
                 if (!hasLiked) {
                     searchInteractor.setFriendLiked(fsUsers[position].uid)

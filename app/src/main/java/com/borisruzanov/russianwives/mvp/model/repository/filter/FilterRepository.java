@@ -23,6 +23,9 @@ public class FilterRepository {
             if (isNotDefault(model.getValue())) searchModels.add(model);
         }
 
+        /**@important add filter to show users with full profile*/
+        searchModels.add(new SearchModel(Consts.FULL_PROFILE, "true"));
+
         return searchModels;
     }
 

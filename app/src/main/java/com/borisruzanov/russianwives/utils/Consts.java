@@ -15,6 +15,7 @@ public final class Consts {
     public static final String COUNTRY = "country";
     public static final String HOBBY  = "hobby";
     public static final String FAITH  = "faith";
+    public static final String FULL_PROFILE  = "full_profile";
     public static final String HOW_TALL  = "how_tall";
     public static final String IMAGE  = "image";
     public static final String LANGUAGES  = "languages";

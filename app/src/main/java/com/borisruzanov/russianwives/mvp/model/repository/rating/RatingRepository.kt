@@ -26,6 +26,24 @@ class RatingRepository {
     private val usersRef = FirebaseDatabase.getInstance().reference.child(Consts.USERS_DB)
     private val users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB)
 
+    fun isAchExist(uid: String, achievement: String, callback: BoolCallback) {
+        usersRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                var flag = false
+                if (dataSnapshot.child(Consts.ACHIEVEMENTS).exists()) {
+                    val achievementsMap = dataSnapshot.child(Consts.ACHIEVEMENTS).value as MutableMap<String, Any>
+                    val achievements = achievementsMap.keys
+                    if (achievements.contains(achievement)) {
+                        flag = true
+                    }
+                }
+                callback.setBool(flag)
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {}
+        })
+    }
+
     fun isAchievementExist(achievement: String, callback: BoolCallback) {
         usersRef.child(getUid()).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
