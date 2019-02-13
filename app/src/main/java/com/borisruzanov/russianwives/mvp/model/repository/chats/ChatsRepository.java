@@ -65,9 +65,8 @@ public class ChatsRepository {
                 }
 
                 getUsers(uidList, userList -> {
+                    userChatList.clear();
                         for (int i = 0; i < userList.size(); i++) {
-                            userChatList.clear();
-
                             String name = userList.get(i).getName();
                             String image = userList.get(i).getImage();
                             String userId = userList.get(i).getUid();
