@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -84,6 +85,22 @@ public class FriendRepository {
             if (databaseError != null) {
                 Log.d("CHAT_LOG", databaseError.getMessage());
             }
+        });
+    }
+
+    public void getLikedFriends(StringsCallback callback) {
+        realtimeReference.child("Liked").child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> likedList = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    likedList.add(snapshot.getKey());
+                }
+                callback.setStrings(likedList);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
     }
 

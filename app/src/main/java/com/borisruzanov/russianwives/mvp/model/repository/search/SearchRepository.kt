@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.model.repository.search
 import android.util.Log
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.models.SearchModel
+import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository
 import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.UsersListCallback
 import com.google.android.gms.tasks.Task

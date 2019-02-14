@@ -124,9 +124,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
             onUserListScrollListener.setStopLoading(true)
             searchPresenter.setLoading(false)
         }
-        //else {
-            adapter.addUsers(userList)
-       // }
+        adapter.addUsers(userList)
     }
 
     override fun setProgressBar(isLoading: Boolean) {

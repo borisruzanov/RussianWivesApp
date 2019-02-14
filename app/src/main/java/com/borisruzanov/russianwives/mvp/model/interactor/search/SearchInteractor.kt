@@ -6,6 +6,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FU
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
+import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UsersListCallback
 import javax.inject.Inject
 
@@ -17,6 +18,8 @@ class SearchInteractor @Inject constructor(private val searchRepository: SearchR
     fun setFriendLiked(friendUid: String) {
         friendRepository.setFriendLiked(friendUid)
     }
+
+    fun areFriendsLiked(callback: StringsCallback) = friendRepository.getLikedFriends(callback)
 
     fun isFriendLiked(friendUid: String, callback: BoolCallback) = friendRepository.isLiked(friendUid, callback)
 
