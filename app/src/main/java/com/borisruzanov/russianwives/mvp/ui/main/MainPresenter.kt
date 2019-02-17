@@ -22,6 +22,8 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         showGenderDialog()
         mainInteractor.setFirstOpenDate()
 
+//        mainInteractor.addFullProfileUsers()
+
         if(isUserExist()) {
             showAdditionalInfoDialog()
             checkAchieve()
@@ -38,7 +40,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         mainInteractor.setGender(gender)
     }
 
-    //
+    //TODO delete unused dialog method
     fun setNecessaryInfo(gender: String, age: String) {
         if (gender != Consts.DEFAULT) RatingRepository().addRating(ADD_GENDER_RATING)
         if (age != Consts.DEFAULT) RatingRepository().addRating(ADD_AGE_RATING)
@@ -53,7 +55,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
             viewState.openSlider(ArrayList<String>(strings)) })
     }
 
-    fun checkAchieve () {
+    private fun checkAchieve () {
         RatingRepository().isAchievementExist(FULL_PROFILE_ACH, callback = BoolCallback {
             if (it) Log.d("AchDebug", "User can write msgs")
             else Log.d("AchDebug", "USER CAN'T WRITE")
@@ -65,13 +67,6 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
             viewState.showGenderDialog()
         }
     }
-
-    //
-    private fun showNecessaryInfoDialog() {
-            mainInteractor.getNecessaryInfo(callback = NecessaryInfoCallback { gender, age ->
-                viewState.showNecessaryInfoDialog(gender, age)
-            })
-        }
 
     private fun showAdditionalInfoDialog() {
         mainInteractor.hasNecessaryInfo(callback = BoolCallback { flag ->

@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.Rating;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionCountCallback;
@@ -19,6 +20,8 @@ import com.borisruzanov.russianwives.utils.NecessaryInfoCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -82,25 +86,64 @@ public class UserRepository {
         });
     }
 
+    public void addFullProfileUsers() {
+        users.get().addOnCompleteListener(task -> {
+            for (DocumentSnapshot snapshot: task.getResult().getDocuments()) {
+                if (getListOfDefaults(snapshot).isEmpty()) {
+                    String uid = snapshot.getId();
+                    Log.d("FpDebug", "User with full profile uid is " + uid);
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put(FULL_PROFILE_ACH, "true");
+                    users.document(uid).update(fpMap);
+                    new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+            }
+        });
+/*        realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    String uid = snapshot.getKey();
+                    Log.d("FpDebug", "User uid is " + uid);
+                    new RatingRepository().isAchExist(uid, FULL_PROFILE_ACH, flag -> {
+                        if (flag) {
+                            Log.d("FpDebug", "User with full profile uid is " + uid);
+                            Map<String, Object> fpMap = new HashMap<>();
+                            fpMap.put(FULL_PROFILE_ACH, "true");
+                            users.document(uid).update(fpMap);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {}
+        });*/
+    }
+
     public void setDialogLastOpenDate() {
         prefs.setDialogOpenDate();
     }
 
-    private boolean isOneDayGone() {
+    public void setFPDialogLastOpenDate() {
+        prefs.setFPOpenDate();
+    }
+
+    private boolean isOneDayGone(String key) {
         float days = 0f;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                Date date1 = dateFormat.parse(prefs.getDialogOpenDate());
+                Date date1 = dateFormat.parse(prefs.getValue(key));
                 Date date2 = Calendar.getInstance().getTime();
                 long diff = date2.getTime() - date1.getTime();
                 days = (diff / (1000*60*60*24));
-                Log.d("TimerDebug", "Num of days is" + String.valueOf(days) + " date is " + prefs.getDialogOpenDate());
+                Log.d("TimerDebug", "Num of days is" + String.valueOf(days) + " date is " + prefs.getValue(key));
         } catch (ParseException e) {
             Log.d("TimerDebug", "In catch");
             e.printStackTrace();
         }
-        Log.d("TimerDebug", "Exp is" + String.valueOf(prefs.getDialogOpenDate().equals(Consts.DEFAULT) || days >= 1));
-        return prefs.getDialogOpenDate().equals(Consts.DEFAULT) || (days >= 1 && !prefs.getDialogOpenDate().equals(""));
+        Log.d("TimerDebug", "Exp is" + String.valueOf(prefs.getValue(key).equals(Consts.DEFAULT) || days >= 1));
+        return prefs.getValue(key).equals(Consts.DEFAULT) || (days >= 1 && !prefs.getValue(key).equals(""));
     }
 
     public void updateToken() {
@@ -138,25 +181,7 @@ public class UserRepository {
         }
     }
 
-    //
-    public void getNecessaryInfo(NecessaryInfoCallback callback) {
-        users.document(getUid()).get().addOnCompleteListener(task -> {
-            DocumentSnapshot snapshot = task.getResult();
-            if (snapshot.exists()) {
-                String gender = snapshot.getString(Consts.GENDER);
-                if (!gender.equals(Consts.DEFAULT)) {
-                    String age = snapshot.getString(Consts.AGE);
-                    if ((gender.equals(Consts.DEFAULT) && age.equals(Consts.DEFAULT))) {
-                        callback.setInfo(gender, age);
-                    } else if (gender.equals(Consts.DEFAULT) || age.equals(Consts.DEFAULT)) {
-                        callback.setInfo(gender, age);
-                    }
-                }
-            }
-        });
-    }
-
-    //
+    //TODO delete it is unused
     public void setNecessaryInfo(String gender, String age) {
         Map<String, Object> necessaryInfoMap = new HashMap<>();
         if (!gender.equals(Consts.DEFAULT)) necessaryInfoMap.put(Consts.GENDER, gender);
@@ -176,19 +201,36 @@ public class UserRepository {
         }
     }
 
+    public void hasFullProfileInfo(BoolCallback callback) {
+        new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
+            if (flag) {
+                prefs.clearValue(Consts.FP_OPEN_DATE);
+                callback.setBool(false);
+            }
+            else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
+        });
+    }
+
     public void hasNecessaryInfo(BoolCallback callback) {
         users.document(getUid()).get().addOnCompleteListener(task -> {
             if (task.getResult().exists()) {
                 DocumentSnapshot snapshot = task.getResult();
                 new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
                     if (flag) {
-                        prefs.setDialogOpenDate("");
+                        prefs.clearValue(Consts.DIALOG_OPEN_DATE);
                         callback.setBool(false);
                     }
-                    else callback.setBool(isOneDayGone() && !snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT));
+                    else callback.setBool(isOneDayGone(Consts.DIALOG_OPEN_DATE) &&
+                            !snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT));
                 });
             }
         });
+    }
+
+    public void setFullProfile() {
+        Map<String, Object> fpMap = new HashMap<>();
+        fpMap.put(FULL_PROFILE_ACH, "true");
+        users.document(getUid()).update(fpMap);
     }
 
     public void getDefaultList(StringsCallback callback) {
@@ -305,7 +347,7 @@ public class UserRepository {
         prefs.setDialogOpenDate(Consts.DEFAULT);
     }
     public void clearDialogOpenDate() {
-        prefs.clearDialogOpenDate();
+        prefs.clearValue(Consts.DIALOG_OPEN_DATE);
     }
 
     private void getVisits(ActionCallback callback) {

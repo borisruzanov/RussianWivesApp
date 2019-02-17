@@ -13,7 +13,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -27,14 +26,16 @@ import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
+import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
 import com.borisruzanov.russianwives.utils.Consts
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_main_tab_search.*
+import java.util.ArrayList
 import java.util.Objects
 
 import javax.inject.Inject
 
-class SearchFragment : MvpAppCompatFragment(), SearchView {
+class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment.ConfirmListener {
 
     @Inject
     @InjectPresenter
@@ -71,7 +72,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
     private lateinit var onUserListScrollListener: FeedScrollListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
-       // retainInstance = true
+        // retainInstance = true
         val application = requireActivity().application as App
         application.component.inject(this)
         super.onCreate(savedInstanceState)
@@ -161,8 +162,20 @@ class SearchFragment : MvpAppCompatFragment(), SearchView {
         searchPresenter.onUpdate()
     }
 
-    override fun showFullProfileMessage() {
-        Toast.makeText(context, getString(R.string.full_profile_message), Toast.LENGTH_LONG).show()
+    override fun showFullProfileDialog() {
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.add(ConfirmDialogFragment.newInstance(Consts.FP_MODULE), ConfirmDialogFragment.TAG)
+                ?.commit()
+    }
+
+    override fun openSlider(sliderList: ArrayList<String>) {
+        val intent = Intent(context, SliderActivity::class.java)
+        intent.putStringArrayListExtra(Consts.DEFAULT_LIST, sliderList)
+        startActivity(intent)
+    }
+
+    override fun onConfirm() {
+        searchPresenter.openSliderWithDefaults()
     }
 
     override fun showEmpty(show: Boolean) {

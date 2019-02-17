@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
@@ -26,6 +27,12 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
 
     @BindView(R.id.confirm_dialog_text)
     TextView headerTv;
+
+    @BindView(R.id.confirm_button)
+    Button confirmButton;
+
+    @BindView(R.id.cancel_button)
+    Button cancelButton;
 
     private ConfirmListener listener;
 
@@ -69,11 +76,16 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
             case Consts.SLIDER_MODULE:
                 headerTv.setText(R.string.confirm_dialog_slider_header);
                 break;
+            case Consts.FP_MODULE:
+                headerTv.setText(R.string.full_profile_header);
+                confirmButton.setText(R.string.now);
+                cancelButton.setText(R.string.later);
+                break;
         }
 
     }
 
-    @OnClick(R.id.reg_confirm_button)
+    @OnClick(R.id.confirm_button)
     public void onConfirmClicked() {
         switch (getArguments().getString(Consts.MODULE)){
             case Consts.REG_MODULE:
@@ -82,14 +94,14 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
             case Consts.ACTION_MODULE:
                 ((MainActivity) getActivity()).callAuthWindow();
                 break;
-            case Consts.SLIDER_MODULE:
+            case Consts.SLIDER_MODULE: case Consts.FP_MODULE:
                 listener.onConfirm();
                 break;
         }
         dismiss();
     }
 
-    @OnClick(R.id.reg_cancel_button)
+    @OnClick(R.id.cancel_button)
     public void onCancelClicked() {
         dismiss();
     }

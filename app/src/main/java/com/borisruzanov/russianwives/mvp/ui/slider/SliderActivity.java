@@ -47,6 +47,8 @@ public class SliderActivity extends MvpAppCompatActivity {
         viewPager = findViewById(R.id.view_pager_add_info);
         buttonNext = findViewById(R.id.slider_button);
 
+        Log.d("SliderDebug", "In onCreate");
+
         if (getIntent().getStringArrayListExtra(Consts.DEFAULT_LIST) != null) {
             addFragments();
         }
@@ -77,7 +79,7 @@ public class SliderActivity extends MvpAppCompatActivity {
                     fragmentList.add(SliderEthnicityFragment.newInstance());
                     break;
                 case "Faith":
-                    fragmentList.add(new SliderFaithFragment().newInstance());
+                    fragmentList.add(SliderFaithFragment.newInstance());
                     break;
                 case "Smoke Status":
                     fragmentList.add(SliderSmokingStatusFragment.newInstance());
@@ -199,16 +201,36 @@ public class SliderActivity extends MvpAppCompatActivity {
         if(position + 1 == fragmentList.size()) {
             //close the survey
             finish();
-            UserRepository userRepository = new UserRepository(new Prefs(getApplicationContext()));
-            userRepository.getDefaultList(stringList -> {
-                Log.d("TimerDebug", "String list emptiness is " + stringList.isEmpty());
-                if (stringList.isEmpty()) {
-                    userRepository.clearDialogOpenDate();
-                    //add full profile achieve
-                    new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-            });
+            addFullProfileAchieve();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        addFPAchieveIfNeeded();
+    }
+
+    private void addFPAchieveIfNeeded() {
+        new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
+            if (!flag) {
+                Log.d("SliderDebug", "Add achievement");
+                addFullProfileAchieve();
+            }
+            else Log.d("SliderDebug", "Already exist");
+        });
+    }
+
+    private void addFullProfileAchieve() {
+        UserRepository userRepository = new UserRepository(new Prefs(getApplicationContext()));
+        userRepository.getDefaultList(stringList -> {
+            Log.d("TimerDebug", "String list emptiness is " + stringList.isEmpty());
+            if (stringList.isEmpty()) {
+                userRepository.clearDialogOpenDate();
+                userRepository.setFullProfile();
+                new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+            }
+        });
     }
 
 }

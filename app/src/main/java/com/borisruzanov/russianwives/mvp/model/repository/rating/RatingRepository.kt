@@ -22,7 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class RatingRepository {
 
-
     private val usersRef = FirebaseDatabase.getInstance().reference.child(Consts.USERS_DB)
     private val users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB)
 
@@ -99,8 +98,6 @@ class RatingRepository {
         }
     }
 
-
-
     fun addAchievement(achievement: String) {
         usersRef.child(getUid()).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -147,15 +144,6 @@ class RatingRepository {
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
-    }
-
-
-    companion object {
-
-
-        val ADDED_PHOTO_ACHIEVE = "true"
-        val ADDED_ETHNICITY_ACHIEVE = "true"
-        val ADDED_RELIGION_ACHIEVE = "true"
     }
 
 }

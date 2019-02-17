@@ -107,8 +107,10 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         //Проверка на текст или картинку
         if (message_type.equals("text")) {
             viewHolder.messageText.setText(currentMessage.getMessage());
+            viewHolder.messageText.setVisibility(View.VISIBLE);
             viewHolder.messageImage.setVisibility(View.GONE);
         } else {
+            viewHolder.messageImage.setVisibility(View.VISIBLE);
             viewHolder.messageText.setVisibility(View.GONE);
             Picasso.with(context).load(currentMessage.getMessage()).into(viewHolder.messageImage);
 

@@ -56,6 +56,11 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         getUserList(0)
     }
 
+    fun openSliderWithDefaults() {
+        searchInteractor.getDefaultList(callback = StringsCallback { strings ->
+            viewState.openSlider(ArrayList<String>(strings)) })
+    }
+
     fun setFriendLiked(position: Int) {
         Log.d("LikeDebug", "Liked Position is $position")
         if (isUserExist()) {
@@ -73,7 +78,6 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         } else viewState.showRegistrationDialog()
     }
 
-
     fun openFriend(position: Int, args: Bundle) {
         viewState.openFriend(fsUsers[position].uid, fsUsers[position].name, args)
     }
@@ -81,9 +85,8 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     fun openChat(position: Int) {
         if (isUserExist()){
             searchInteractor.checkFullProfileAchieve(callback = BoolCallback { hasAchieve ->
-                if (hasAchieve
-            ) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
-                else viewState.showFullProfileMessage()
+                if (hasAchieve) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
+                else viewState.showFullProfileDialog()
             })
         }
         else viewState.showRegistrationDialog()

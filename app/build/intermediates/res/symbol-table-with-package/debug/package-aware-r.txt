@@ -669,6 +669,7 @@ color material_grey_850
 color material_grey_900
 color messageBackground
 color message_text_color
+color msg_photo_color
 color notification_action_color_filter
 color notification_icon_bg_color
 color notification_material_background_media_default_color
@@ -853,6 +854,7 @@ dimen dp40
 dimen dp48
 dimen dp64
 dimen dp8
+dimen empty_img_size
 dimen empty_text_size
 dimen fastscroll_default_thickness
 dimen fastscroll_margin
@@ -1229,6 +1231,7 @@ id com_facebook_smart_instructions_or
 id com_facebook_tooltip_bubble_view_bottom_pointer
 id com_facebook_tooltip_bubble_view_text_body
 id com_facebook_tooltip_bubble_view_top_pointer
+id confirm_button
 id confirm_button_gender
 id confirm_button_ni
 id confirm_dialog_text
@@ -1564,8 +1567,6 @@ id radio
 id rectangle
 id recycler_list_friendDescription
 id recycler_list_userDescription
-id reg_cancel_button
-id reg_confirm_button
 id register_button
 id register_tv
 id relationship_status_text
@@ -1871,6 +1872,7 @@ layout widget_action
 menu crop_image_menu
 menu main_menu
 mipmap ic_launcher
+mipmap ic_launcher_foreground
 mipmap ic_launcher_round
 plurals fui_error_weak_password
 string a_few_extra_pounds
@@ -2028,6 +2030,7 @@ string email
 string emptyText
 string emptyText_actions
 string emptyText_chats
+string empty_chats_img
 string enter_message_hint
 string enter_your_name
 string error_in_changes
@@ -2110,7 +2113,7 @@ string fui_welcome_back_email_header
 string fui_welcome_back_idp_header
 string fui_welcome_back_idp_prompt
 string fui_welcome_back_password_prompt_body
-string full_profile_message
+string full_profile_header
 string gcm_defaultSenderId
 string gender_updated
 string github_client_id
@@ -2133,6 +2136,7 @@ string how_tall_are_you
 string image_message_link
 string languages_you_can_speak
 string last_seen_text
+string later
 string latino_hispanic
 string like
 string likes
@@ -2165,6 +2169,7 @@ string no_but_its_ok_if_partner_has_kids
 string no_way
 string not_sure
 string notification_channel_id
+string now
 string number_of_kids_updated
 string number_of_likes_default
 string number_of_visitors_default
@@ -2178,6 +2183,7 @@ string path_password_eye
 string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
+string photo
 string photo_was_updated
 string pick_image_intent_chooser_title
 string please_register_to_start

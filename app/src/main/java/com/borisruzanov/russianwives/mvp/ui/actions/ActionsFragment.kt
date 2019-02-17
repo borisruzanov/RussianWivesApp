@@ -62,26 +62,6 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
         emptyLayout = view.findViewById(R.id.actions_empty_rl)
 
-        //actionsPresenter.setActionsList()
-
-       /* FirebaseDatabase.getInstance().reference.child("Likes").child(getUid())
-                .addChildEventListener(object : ChildEventListener {
-            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-                Log.d("ActionsBack", "in onChildAdded")
-            }
-
-            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {
-                Log.d("ActionsBack", "in onChildChanged")
-            }
-
-            override fun onChildRemoved(dataSnapshot: DataSnapshot) {
-                Log.d("ActionsBack", "in onChildRemoved")
-            }
-
-            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-            override fun onCancelled(databaseError: DatabaseError) {}
-        })*/
-
         // Inflate the layout for this fragment
         return view
     }

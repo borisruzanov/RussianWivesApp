@@ -1064,6 +1064,10 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-xhdpi-v4\\abc_ic_star_black_16dp.png"
     },
     {
+        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher_foreground.png.flat",
+        "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_foreground.png"
+    },
+    {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-xxhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
@@ -1364,12 +1368,12 @@
         "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\drawable\\actions_empty.png"
     },
     {
-        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_star_black_48dp.png.flat",
-        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
-    },
-    {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_textfield_search_default_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-hdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_star_black_48dp.png.flat",
+        "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-hdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable_message_outline_48.png.flat",
@@ -2140,6 +2144,10 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\2feb988b6611eead7ff7facaa2d7c4a0\\res\\drawable-xxxhdpi-v4\\design_ic_visibility_off.png"
     },
     {
+        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher_foreground.png.flat",
+        "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_foreground.png"
+    },
+    {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable_com_facebook_button_like_background.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\facebook-common-4.29.0.aar\\7954b385eca6187fcd5589cfc120f310\\res\\drawable\\com_facebook_button_like_background.xml"
     },
@@ -2408,6 +2416,10 @@
         "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\layout\\item_request.xml"
     },
     {
+        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher_foreground.png.flat",
+        "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_foreground.png"
+    },
+    {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\layout_crop_image_view.xml.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\android-image-cropper-2.6.0.aar\\8c4efac10d2eedd2c66edd6212d26436\\res\\layout\\crop_image_view.xml"
     },
@@ -2530,6 +2542,10 @@
     {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_design_ic_visibility.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-27.1.1.aar\\2feb988b6611eead7ff7facaa2d7c4a0\\res\\drawable-hdpi-v4\\design_ic_visibility.png"
+    },
+    {
+        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher_foreground.png.flat",
+        "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_list_selector_disabled_holo_light.9.png.flat",
@@ -2702,6 +2718,10 @@
     {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-xxxhdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
+    },
+    {
+        "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher_foreground.png.flat",
+        "source": "D:\\dev\\RussianWivesSocNetwork\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher_foreground.png"
     },
     {
         "merged": "D:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_media_action.xml.flat",

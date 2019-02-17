@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.ui.friendprofile;
 import com.arellomobile.mvp.MvpView;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface FriendProfileView  extends MvpView{
@@ -12,5 +13,6 @@ public interface FriendProfileView  extends MvpView{
     void openRegDialog();
     void setLikeHighlighted();
     void openChatMessage(String name, String image);
-    void showFullProfileMessage();
+    void showFullProfileDialog();
+    void openSlider(ArrayList<String> sliderList);
 }

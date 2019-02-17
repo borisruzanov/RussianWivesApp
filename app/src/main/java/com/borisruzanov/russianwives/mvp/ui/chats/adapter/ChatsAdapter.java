@@ -1,7 +1,6 @@
 package com.borisruzanov.russianwives.mvp.ui.chats.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +17,7 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.GetTimeAgo;
+import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -85,7 +85,13 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             Log.d("TimestampDebug", "Timestamp is " + model.getMessageTimestamp());
             String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
-            message.setText(model.getMessage());
+
+            if (model.getMessage().contains(Consts.IMAGE_STORAGE)) {
+               message.setText(context.getString(R.string.photo));
+               message.setTextColor(ContextCompat.getColor(context, R.color.msg_photo_color));
+            } else {
+                message.setText(model.getMessage());
+            }
 
             if(model.getImage().equals("default")){
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);

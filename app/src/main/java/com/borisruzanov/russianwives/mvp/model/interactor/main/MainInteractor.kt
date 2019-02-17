@@ -20,13 +20,13 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun setGender(gender: String) = userRepository.setGender(gender)
 
-    fun getNecessaryInfo(callback: NecessaryInfoCallback) = userRepository.getNecessaryInfo(callback)
-
     fun hasNecessaryInfo(callback: BoolCallback) = userRepository.hasNecessaryInfo(callback)
 
     fun setNecessaryInfo(gender: String, age: String) = userRepository.setNecessaryInfo(gender, age)
 
     fun setDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
+
+    fun addFullProfileUsers() = userRepository.addFullProfileUsers()
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 

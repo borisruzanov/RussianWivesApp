@@ -28,6 +28,7 @@ public final class Consts {
 
     public static final String FIRST_OPEN_DATE  = "first open date";
     public static final String DIALOG_OPEN_DATE  = "dialog open date";
+    public static final String FP_OPEN_DATE  = "full profile open date";
     public static final String GENDER_SEARCH  = "gender search";
 
     public static final String RATING  = "rating";
@@ -44,6 +45,8 @@ public final class Consts {
     public static String MODULE = "module";
     public static final String REG_MODULE = "reg_module";
     public static final String SLIDER_MODULE = "slider_module";
+    public static final String FP_MODULE = "full_profile_module";
+
     public static final String DEFAULT_LIST = "default_list";
 
     public static String REG_TAB_NAME = "reg_tab_name";
@@ -61,4 +64,5 @@ public final class Consts {
             Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT);
 
     public static final String DEFAULT  = "default";
+    public static final String IMAGE_STORAGE  = "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/";
 }

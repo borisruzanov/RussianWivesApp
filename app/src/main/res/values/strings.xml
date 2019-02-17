@@ -125,6 +125,7 @@
     <string name="yes">Yes</string>
     <string name="likes">Likes</string>
     <string name="visits">Visits</string>
+    <string name="photo">Photo</string>
     <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5–016103d06330]]></string>
     <string name="chat_add_btn_desc">Button for sending images</string>
     <string name="chat_send_btn_desc">Button for sending message</string>
@@ -221,8 +222,10 @@
     <string name="order_gender">Order your gender</string>
 
     <string name="privacy_policy">By clicking OK you are confirming that you are over the age of 18 and allow this app
-        to use your information in accordance with <a href="https://policies.google.com/privacy?hl=en">privacy policy</a></string>
-    <string name="full_profile_message">You can\'t write to another user until you fill out your profile completely</string>
+        to use your information in accordance with <a href="http://ruswives.com/terms-and-privacy/">privacy policy</a></string>
+    <string name="full_profile_header">You can\'t write to another user until you fill out your profile</string>
+    <string name="now">Now</string>
+    <string name="later">Later</string>
 
     <string name="who_are_you_looking_for">Who are you looking for?</string>
     <string name="what_age_looking_for">What age are you looking for?</string>
@@ -235,6 +238,7 @@
     <string name="what_drink_status_looking_for">What drink status are you looking for?</string>
     <string name="looking_for_kids">Are you looking for partner with kids?</string>
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
+    <string name="empty_chats_img">Image for empty chats</string>
 
 
     <!-- Genders -->
@@ -393,7 +397,7 @@
         <item>Puerto Rico</item>
         <item>Qatar</item>
         <item>Romania</item>
-        <item>Russian Federation</item>
+        <item>Russia</item>
         <item>Rwanda</item>
         <item>Saint Kitts and Nevis</item>
         <item>Saint Lucia</item>
@@ -434,7 +438,7 @@
         <item>Uganda</item>
         <item>Ukraine</item>
         <item>United Arab Emirates</item>
-        <item>United States of America (USA)</item>
+        <item>USA</item>
         <item>Uruguay</item>
         <item>Uzbekistan</item>
         <item>Venezuela</item>

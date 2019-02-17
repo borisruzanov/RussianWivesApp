@@ -5,8 +5,8 @@ import android.os.Bundle;
 import com.arellomobile.mvp.MvpView;
 import com.borisruzanov.russianwives.models.FsUser;
 
+import java.util.ArrayList;
 import java.util.List;
-
 
 public interface SearchView extends MvpView {
 
@@ -18,6 +18,7 @@ public interface SearchView extends MvpView {
     void showError();
     void openFriend(String uid, String transitionName, Bundle args);
     void openChat(String uid, String name, String image);
-    void showFullProfileMessage();
+    void showFullProfileDialog();
+    void openSlider(ArrayList<String> sliderList);
     void showRegistrationDialog();
 }

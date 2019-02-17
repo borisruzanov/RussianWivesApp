@@ -274,11 +274,9 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     fun highlightChats(messageSeen: Boolean) {
         if (messageSeen) {
-            Log.d("RealtimeChats", "Message was seen, background is white")
             val viewGroup = tabLayout.getChildAt(0) as ViewGroup
             viewGroup.getChildAt(1).setBackgroundColor(ContextCompat.getColor(this, R.color.white))
         } else {
-            Log.d("RealtimeChats", "Message wasn`t seen, background is highlighted")
             val viewGroup = tabLayout.getChildAt(0) as ViewGroup
             viewGroup.getChildAt(1).setBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent))
         }

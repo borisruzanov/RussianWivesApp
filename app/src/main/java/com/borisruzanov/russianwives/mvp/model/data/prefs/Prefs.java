@@ -37,12 +37,12 @@ public class Prefs {
         setValue(Consts.DIALOG_OPEN_DATE, value);
     }
 
-    public String getDialogOpenDate() {
-        return getValue(Consts.DIALOG_OPEN_DATE);
+    public void clearValue(String key) {
+        setValue(key, "");
     }
 
-    public void clearDialogOpenDate() {
-        setValue(Consts.DIALOG_OPEN_DATE, "");
+    public void setFPOpenDate() {
+        setDate(Consts.FP_OPEN_DATE);
     }
 
     public String getUserGender() {
@@ -170,7 +170,7 @@ public class Prefs {
         return reverseGender;
     }
 
-    private String getValue(String key) {
+    public String getValue(String key) {
         return prefs.getString(key, Consts.DEFAULT);
     }
 

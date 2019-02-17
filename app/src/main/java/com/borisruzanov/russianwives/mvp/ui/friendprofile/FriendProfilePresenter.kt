@@ -6,6 +6,8 @@ import com.borisruzanov.russianwives.UserProfileItemsList
 import com.borisruzanov.russianwives.models.UserDescriptionModel
 import com.borisruzanov.russianwives.mvp.model.interactor.friendprofile.FriendProfileInteractor
 import com.borisruzanov.russianwives.utils.BoolCallback
+import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
+import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UserCallback
 import java.util.*
 import javax.inject.Inject
@@ -20,7 +22,9 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
     }
 
     fun setLikeHighlighted(friendUid: String) {
-        interactor.isLiked(friendUid, callback = BoolCallback {isLiked -> if (isLiked) viewState.setLikeHighlighted() })
+        if (isUserExist()) {
+            interactor.isLiked(friendUid, callback = BoolCallback {isLiked -> if (isLiked) viewState.setLikeHighlighted()})
+        }
     }
 
     fun setFriendLiked(friendUid: String) {
@@ -48,12 +52,17 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
                         viewState.openChatMessage(fsUser.name, fsUser.image)
                     })
                 }
-                else viewState.showFullProfileMessage()
+                else viewState.showFullProfileDialog()
             })
 
         } else {
             viewState.openRegDialog()
         }
+    }
+
+    fun openSliderWithDefaults() {
+        interactor.getDefaultList(callback = StringsCallback { strings ->
+            viewState.openSlider(ArrayList<String>(strings)) })
     }
 
     private fun setFriendData(friendUid: String) {

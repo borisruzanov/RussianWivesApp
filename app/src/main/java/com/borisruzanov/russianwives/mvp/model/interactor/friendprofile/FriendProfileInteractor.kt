@@ -5,6 +5,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
+import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UserCallback
 import javax.inject.Inject
 
@@ -23,6 +24,8 @@ class FriendProfileInteractor @Inject constructor(private val repository: Friend
     fun isUserExist(): Boolean = userRepository.isUserExist
 
     fun saveUser() = userRepository.saveUser()
+
+    fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 
     fun isLiked(friendUid: String, callback: BoolCallback) = repository.isLiked(friendUid, callback)
 

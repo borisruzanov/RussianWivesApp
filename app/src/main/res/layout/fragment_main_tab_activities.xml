@@ -13,28 +13,30 @@
 
     <RelativeLayout
         android:id="@+id/actions_empty_rl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="gone">
 
         <ImageView
             android:id="@+id/actions_empty_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp16"
-            android:layout_marginStart="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp16"
+            android:layout_width="@dimen/empty_img_size"
+            android:layout_height="@dimen/empty_img_size"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/empty_chats_img"
             android:src="@drawable/actions_empty" />
 
         <TextView
             android:id="@+id/actions_empty_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/actions_empty_img"
+            android:layout_centerHorizontal="true"
             android:layout_margin="@dimen/dp8"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/actions_empty_img"
             android:text="@string/emptyText_actions"
-            android:textSize="@dimen/empty_text_size"/>
+            android:textSize="@dimen/empty_text_size"
+            android:textStyle="bold" />
 
     </RelativeLayout>
+
 </RelativeLayout>

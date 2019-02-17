@@ -30,4 +30,5 @@
     <dimen name="user_cv_height">180dp</dimen>
     <dimen name="user_rl_width">160dp</dimen>
     <dimen name="user_rl_height">140dp</dimen>
+    <dimen name="empty_img_size">128dp</dimen>
 </resources>
