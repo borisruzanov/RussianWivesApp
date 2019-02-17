@@ -157,6 +157,9 @@ public class SliderActivity extends MvpAppCompatActivity {
                 case Consts.DRINK_STATUS:
                     fragmentList.add(new SliderDrinkStatusFragment());
                     break;
+                case Consts.COUNTRY:
+                    fragmentList.add(new SliderCountriesFragment());
+                    break;
                 case Consts.ETHNICITY:
                     fragmentList.add(new SliderEthnicityFragment());
                     break;

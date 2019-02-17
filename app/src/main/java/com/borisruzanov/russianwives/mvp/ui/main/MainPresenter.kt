@@ -22,8 +22,6 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         showGenderDialog()
         mainInteractor.setFirstOpenDate()
 
-//        mainInteractor.addFullProfileUsers()
-
         if(isUserExist()) {
             showAdditionalInfoDialog()
             checkAchieve()
@@ -38,14 +36,6 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     fun setGender(gender: String) {
         mainInteractor.setGender(gender)
-    }
-
-    //TODO delete unused dialog method
-    fun setNecessaryInfo(gender: String, age: String) {
-        if (gender != Consts.DEFAULT) RatingRepository().addRating(ADD_GENDER_RATING)
-        if (age != Consts.DEFAULT) RatingRepository().addRating(ADD_AGE_RATING)
-        mainInteractor.setNecessaryInfo(gender, age)
-        RatingRepository().checkForAchieve(MUST_INFO_LIST, MUST_INFO_ACH)
     }
 
     fun makeDialogOpenDateDefault() = mainInteractor.makeDialogOpenDateDefault()

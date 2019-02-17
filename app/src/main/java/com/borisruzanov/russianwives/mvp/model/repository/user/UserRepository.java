@@ -3,12 +3,11 @@ package com.borisruzanov.russianwives.mvp.model.repository.user;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.borisruzanov.russianwives.Refactor.FirebaseRequestManager;
+import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
-import com.borisruzanov.russianwives.mvp.model.repository.rating.Rating;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.utils.ActionCallback;
 import com.borisruzanov.russianwives.utils.ActionCountCallback;
@@ -16,12 +15,8 @@ import com.borisruzanov.russianwives.utils.ActionItemCallback;
 import com.borisruzanov.russianwives.utils.ActionsCountInfoCallback;
 import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.NecessaryInfoCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
-import com.borisruzanov.russianwives.utils.ValueCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +28,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,7 +42,6 @@ import java.util.Map;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
-import static com.borisruzanov.russianwives.utils.FirebaseUtils.getNeededUsers;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
 
@@ -67,7 +60,6 @@ public class UserRepository {
     /**
      * Saving FsUser to data base
      */
-    //TODO поменять название баз данных на RtUsers / FsUsers
     public void saveUser() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         users.get().addOnCompleteListener(task -> {
@@ -137,12 +129,9 @@ public class UserRepository {
                 Date date2 = Calendar.getInstance().getTime();
                 long diff = date2.getTime() - date1.getTime();
                 days = (diff / (1000*60*60*24));
-                Log.d("TimerDebug", "Num of days is" + String.valueOf(days) + " date is " + prefs.getValue(key));
         } catch (ParseException e) {
-            Log.d("TimerDebug", "In catch");
             e.printStackTrace();
         }
-        Log.d("TimerDebug", "Exp is" + String.valueOf(prefs.getValue(key).equals(Consts.DEFAULT) || days >= 1));
         return prefs.getValue(key).equals(Consts.DEFAULT) || (days >= 1 && !prefs.getValue(key).equals(""));
     }
 
@@ -158,21 +147,14 @@ public class UserRepository {
 
         Map<String, Object> niMap = new HashMap<>();
         niMap.put("created", "registered");
-        niMap.put("device_token", token);
+        niMap.put(Consts.DEVICE_TOKEN, token);
         niMap.put(Consts.IMAGE, "default");
         niMap.put(Consts.NAME, name);
         niMap.put(Consts.RATING, 1);
         niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
-        niMap.put("online", ServerValue.TIMESTAMP);
+        niMap.put(Consts.ONLINE, ServerValue.TIMESTAMP);
         niMap.put(Consts.UID, uid);
         realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
-    }
-
-    public void getTokens(ValueCallback callback) {
-        users.document(getUid()).get().addOnCompleteListener(task -> {
-            String fsToken = task.getResult().getString("device_token");
-            callback.setValue("Firestore token is " + fsToken + " \n current token is " + getDeviceToken());
-        });
     }
 
     public void setFirstOpenDate(){
@@ -181,22 +163,12 @@ public class UserRepository {
         }
     }
 
-    //TODO delete it is unused
-    public void setNecessaryInfo(String gender, String age) {
-        Map<String, Object> necessaryInfoMap = new HashMap<>();
-        if (!gender.equals(Consts.DEFAULT)) necessaryInfoMap.put(Consts.GENDER, gender);
-        if (!age.equals(Consts.DEFAULT)) necessaryInfoMap.put(Consts.AGE, age);
-        if (!necessaryInfoMap.isEmpty()) users.document(getUid()).update(necessaryInfoMap);
-    }
-
     public boolean isGenderDefault() {
         return prefs.getGenderSearch().equals(Consts.DEFAULT);
     }
 
     public void setGender(String gender) {
-        Map<String, Object> genderMap = new HashMap<>();
         if (!gender.equals(Consts.DEFAULT)) {
-            genderMap.put(Consts.GENDER, gender);
             prefs.setGenderSearch(gender);
         }
     }

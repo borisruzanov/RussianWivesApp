@@ -35,13 +35,13 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
     @BindView(R.id.recycler_list_userDescription)
     lateinit var recyclerView: RecyclerView
     lateinit var toolbar: Toolbar
-    lateinit var fab: FloatingActionButton
-    lateinit var nameText: TextView
-    lateinit var ageText: TextView
-    lateinit var countryText: TextView
-    lateinit var numberOfLikes: TextView
-    lateinit var numberOfVisits: TextView
-    lateinit var imageView: ImageView
+    private lateinit var fab: FloatingActionButton
+    private lateinit var nameText: TextView
+    private lateinit var ageText: TextView
+    private lateinit var countryText: TextView
+    private lateinit var numberOfLikes: TextView
+    private lateinit var numberOfVisits: TextView
+    private lateinit var imageView: ImageView
 
     lateinit var userDescriptionListAdapter: UserDescriptionListAdapter
 

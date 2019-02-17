@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,18 +16,12 @@ import android.widget.Toast;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.mvp.model.interactor.slider.SliderInteractor;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.UpdateCallback;
-import com.google.android.gms.tasks.Continuation;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.HashMap;
@@ -113,9 +106,7 @@ public class SliderImageFragment extends Fragment {
                     Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
 
                     // <-------------SAVING IMAGE-------------->
-                    //TODO REFACTOR TO REPOSITORY
-                    FirebaseRepository firebaseRepository = new FirebaseRepository();
-                    StorageReference filePath = storageReference.child("profile_images").child(firebaseRepository.getUid()).child("profile_photo");
+                    StorageReference filePath = storageReference.child("profile_images").child(getUid()).child("profile_photo");
                     // <-------------SAVING IMAGE-------------->
 
                     filePath.putFile(resultUri).continueWithTask(task -> {

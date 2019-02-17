@@ -585,6 +585,8 @@ color cardview_light_background
 color cardview_shadow_end_color
 color cardview_shadow_start_color
 color chat_item_bg
+color chat_msg_photo
+color chat_msg_text
 color colorAccent
 color colorPrimary
 color colorPrimaryDark
@@ -669,7 +671,6 @@ color material_grey_850
 color material_grey_900
 color messageBackground
 color message_text_color
-color msg_photo_color
 color notification_action_color_filter
 color notification_icon_bg_color
 color notification_material_background_media_default_color
@@ -1613,6 +1614,7 @@ id showHome
 id showTitle
 id sign_out_menu
 id slider_button
+id slider_countries_tv_question
 id small
 id smallLabel
 id smoke_status_text
@@ -1946,6 +1948,7 @@ string chat_send_btn_desc
 string chats_title
 string check_your_search_parameters
 string choose_languages_you_can_talk
+string choose_your_country
 string christian_catholic
 string cigar_aficionado
 string com_crashlytics_android_build_id

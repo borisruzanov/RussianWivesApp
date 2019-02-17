@@ -15,7 +15,6 @@ public final class Consts {
     public static final String COUNTRY = "country";
     public static final String HOBBY  = "hobby";
     public static final String FAITH  = "faith";
-    public static final String FULL_PROFILE  = "full_profile";
     public static final String HOW_TALL  = "how_tall";
     public static final String IMAGE  = "image";
     public static final String LANGUAGES  = "languages";
@@ -25,6 +24,7 @@ public final class Consts {
     public static final String NUMBER_OF_KIDS  = "number_of_kids";
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
     public static final String UID  = "uid";
+    public static final String FULL_PROFILE  = "full_profile";
 
     public static final String FIRST_OPEN_DATE  = "first open date";
     public static final String DIALOG_OPEN_DATE  = "dialog open date";
@@ -36,6 +36,7 @@ public final class Consts {
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";
+    public static final String ONLINE = "online";
 
     public static String ACTION = "action";
     public static String VISIT = "visit";
@@ -59,9 +60,9 @@ public final class Consts {
     public static List<String> keyList = Arrays.asList(GENDER, AGE, COUNTRY, RELATIONSHIP_STATUS,
             BODY_TYPE, ETHNICITY, FAITH, SMOKING_STATUS, DRINK_STATUS, NUMBER_OF_KIDS, WANT_CHILDREN_OR_NOT);
 
-    public static List<String> fieldKeyList = Arrays.asList(Consts.BODY_TYPE, Consts.AGE, Consts.DRINK_STATUS,
-            Consts.ETHNICITY,Consts.GENDER, Consts.HOBBY, Consts.FAITH, Consts.IMAGE, Consts.SMOKING_STATUS,
-            Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT);
+    public static List<String> fieldKeyList = Arrays.asList(GENDER, IMAGE, AGE, COUNTRY, RELATIONSHIP_STATUS,
+            BODY_TYPE, ETHNICITY, FAITH, SMOKING_STATUS, DRINK_STATUS, NUMBER_OF_KIDS, WANT_CHILDREN_OR_NOT, HOBBY);
+
 
     public static final String DEFAULT  = "default";
     public static final String IMAGE_STORAGE  = "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/";

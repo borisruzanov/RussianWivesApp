@@ -88,9 +88,10 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
 
             if (model.getMessage().contains(Consts.IMAGE_STORAGE)) {
                message.setText(context.getString(R.string.photo));
-               message.setTextColor(ContextCompat.getColor(context, R.color.msg_photo_color));
+               message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_photo));
             } else {
                 message.setText(model.getMessage());
+                message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_text));
             }
 
             if(model.getImage().equals("default")){

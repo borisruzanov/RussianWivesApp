@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,25 +16,13 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.FsUser;
-import com.borisruzanov.russianwives.models.UserRt;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository;
-import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.FirebaseUtils;
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
-import static com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist;
 
 //todo: rename to UsersAdapter
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHolder>{

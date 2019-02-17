@@ -1,17 +1,9 @@
-package com.borisruzanov.russianwives.Refactor;
+package com.borisruzanov.russianwives.utils;
 
-import android.support.annotation.NonNull;
-
-import com.borisruzanov.russianwives.utils.Consts;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 public class FirebaseRequestManager {
 
-    //TODO Maybe put in Firebase Repository?
     public static HashMap<String, Object> createNewUser(String displayName, String deviceToken, String uid, String gender){
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("name", displayName);
@@ -34,8 +26,8 @@ public class FirebaseRequestManager {
         userMap.put("want_children_or_not", "default");
         userMap.put("hobby", "default");
         userMap.put("uid", uid);
+        userMap.put("full_profile", "false");
         userMap.put("rating", 1);
-        //userMap.put("achievements", new String[]{});
         return userMap;
     }
 

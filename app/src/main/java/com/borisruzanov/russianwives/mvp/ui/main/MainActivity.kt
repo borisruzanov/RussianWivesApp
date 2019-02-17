@@ -39,7 +39,6 @@ import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
-import com.borisruzanov.russianwives.mvp.ui.neccessaryinfo.NecessaryInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
@@ -53,7 +52,7 @@ import java.util.*
 import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
-        NecessaryInfoDialogFragment.NecessaryInfoListener, ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener {
+        ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener {
 
     //MVP
     @Inject
@@ -151,12 +150,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun showGenderDialog() {
         supportFragmentManager.beginTransaction().add(GenderDialogFragment(), GenderDialogFragment.TAG).commit()
-    }
-
-    override fun showNecessaryInfoDialog(gender: String, age: String) {
-        supportFragmentManager.beginTransaction()
-                .add(NecessaryInfoDialogFragment.newInstance(gender, age), NecessaryInfoDialogFragment.TAG)
-                .commit()
     }
 
     override fun showAdditionalInfoDialog() {
@@ -262,10 +255,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     override fun setGender(gender: String) {
         mainPresenter.setGender(gender)
         onUpdate()
-    }
-
-    override fun setInfo(gender: String, age: String) {
-        mainPresenter.setNecessaryInfo(gender, age)
     }
 
     override fun onConfirm() {

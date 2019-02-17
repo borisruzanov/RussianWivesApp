@@ -2,7 +2,6 @@ package com.borisruzanov.russianwives.mvp.ui.chatmessage.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.GetTimeAgo;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
@@ -24,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.MessageViewHolder> {
 
@@ -91,7 +91,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
 
         // If we get message not from us
-        if (!from_user.equals(new FirebaseRepository().getUid())) {
+        if (!from_user.equals(getUid())) {
             viewHolder.displayName.setText(friendsName);
             viewHolder.messageText.setBackgroundColor(Color.WHITE);
             viewHolder.messageText.setTextColor(Color.BLACK);

@@ -77,9 +77,12 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
      */
     override fun showUserChats(userChats: List<UserChat>) {
         if (!userChats.isEmpty()) {
+            Log.d("ChatsDebug", "Chats is not empty")
+            recyclerChatsList.visibility = View.VISIBLE
             emptyLayout.visibility = View.GONE
             recyclerChatsList.post { chatsAdapter.setData(userChats) }
         } else {
+            Log.d("ChatsDebug", "Chats is empty")
             recyclerChatsList.visibility = View.GONE
             emptyLayout.visibility = View.VISIBLE
         }
