@@ -45,24 +45,7 @@ public class FriendRepository {
         Map<String, Object> visitAddMap = new HashMap<>();
         visitAddMap.put(Consts.TIMESTAMP, ServerValue.TIMESTAMP);
         visitAddMap.put("fromUid", getUid());
-
-        DatabaseReference activityDb = realtimeReference.child("Visits").child(friendUid).push();
-        activityDb.updateChildren(visitAddMap);
-
-        activityDb.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                activityDb.setValue(visitAddMap, (databaseError, databaseReference) -> {
-                    if (databaseError != null) {
-                        Log.d(Contract.TAG, "initializeChat Error is " + databaseError.getMessage());
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+        realtimeReference.child("Visits").child(friendUid).push().updateChildren(visitAddMap);
     }
 
     public void setFriendLiked(String friendUid) {

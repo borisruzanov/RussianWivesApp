@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class Consts {
-    //TODO rename to USERS_FS and add USERS_RT
     public static final String USERS_DB = "Users";
 
     public static final String NAME = "name";

@@ -41,6 +41,7 @@ import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
+import com.borisruzanov.russianwives.mvp.ui.shop.ShopActivity
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
 import com.borisruzanov.russianwives.utils.Consts
 import com.firebase.ui.auth.AuthUI
@@ -75,7 +76,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     internal fun provideMainPresenter() = mainPresenter
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         component.inject(this)
@@ -171,6 +171,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         } else {
             menu.findItem(R.id.sign_out_menu).isVisible = false
             menu.findItem(R.id.menu_my_profile).isVisible = false
+            menu.findItem(R.id.menu_shop).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
@@ -197,6 +198,11 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             }
             R.id.login -> {
                 callAuthWindow()
+                return true
+            }
+            R.id.menu_shop -> {
+                val shopIntent = Intent(this@MainActivity, ShopActivity::class.java)
+                startActivity(shopIntent)
                 return true
             }
             else -> return super.onOptionsItemSelected(item)

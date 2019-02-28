@@ -272,6 +272,26 @@ public class UserRepository {
         });
     }
 
+    private void getVisits(ActionCallback callback) {
+        realtimeReference.child("Visits").child(getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<ActionModel> actionModels = new ArrayList<>();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    Long timestamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
+                    String fromUid = snapshot.child("fromUid").getValue().toString();
+                    actionModels.add(new ActionModel(timestamp, fromUid, "visit"));
+                }
+                callback.setActionList(actionModels);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("ActionList", "getVisits" + databaseError.getMessage());
+            }
+        });
+    }
+
     public void addUid() {
         realtimeReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
@@ -320,26 +340,6 @@ public class UserRepository {
     }
     public void clearDialogOpenDate() {
         prefs.clearValue(Consts.DIALOG_OPEN_DATE);
-    }
-
-    private void getVisits(ActionCallback callback) {
-        realtimeReference.child("Visits").child(getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<ActionModel> actionModels = new ArrayList<>();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Long timestamp = Long.valueOf(snapshot.child("timestamp").getValue().toString());
-                    String fromUid = snapshot.child("fromUid").getValue().toString();
-                    actionModels.add(new ActionModel(timestamp, fromUid, "visit"));
-                }
-                callback.setActionList(actionModels);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d("ActionList", "getVisits" + databaseError.getMessage());
-            }
-        });
     }
 
     private void getMergedActions(ActionCallback callback) {

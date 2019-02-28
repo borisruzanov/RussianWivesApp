@@ -17,7 +17,9 @@ class FriendProfileInteractor @Inject constructor(private val repository: Friend
         repository.getFriendData(friendUid, userCallback)
     }
 
-    fun setFriendVisited(friendUid: String) = repository.setUserVisited(friendUid)
+    fun setFriendVisited(friendUid: String) {
+        repository.setUserVisited(friendUid)
+    }
 
     fun setFriendLiked(friendUid: String) = repository.setFriendLiked(friendUid)
 

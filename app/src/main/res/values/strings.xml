@@ -13,8 +13,6 @@
     <string name="chats_title">Chats</string>
     <string name="actions_title">Actions</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_status">Default status</string>
 
     <string name="facebook_application_id" translatable="false">382050188909546</string>
@@ -240,6 +238,7 @@
     <string name="looking_for_kids">Are you looking for partner with kids?</string>
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
+    <string name="shop">Shop</string>
 
 
     <!-- Genders -->

@@ -21,6 +21,7 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.adapter.ChatMessageAdapter
 import com.borisruzanov.russianwives.R
+import com.borisruzanov.russianwives.R.id.messages_list
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.Message
 import com.bumptech.glide.Glide

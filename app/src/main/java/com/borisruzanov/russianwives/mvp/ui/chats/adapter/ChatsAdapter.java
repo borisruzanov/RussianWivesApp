@@ -65,7 +65,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
         ImageView image;
         ImageView online;
 
-        public ChatsAdapterViewHolder(View itemView) {
+        ChatsAdapterViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.item_list_chat_name);
             container = itemView.findViewById(R.id.item_list_chat_container);
