@@ -10,10 +10,10 @@
         android:title="@string/my_profile"
         app:showAsAction="never"/>
 
-    <item
+    <!--<item
         android:id="@+id/menu_shop"
         android:title="@string/shop"
-        app:showAsAction="never"/>
+        app:showAsAction="never"/>-->
 
     <item
         android:id="@+id/login"

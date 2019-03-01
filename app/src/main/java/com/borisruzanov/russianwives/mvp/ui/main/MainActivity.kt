@@ -171,7 +171,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         } else {
             menu.findItem(R.id.sign_out_menu).isVisible = false
             menu.findItem(R.id.menu_my_profile).isVisible = false
-            menu.findItem(R.id.menu_shop).isVisible = false
+            //menu.findItem(R.id.menu_shop).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
@@ -200,11 +200,11 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                 callAuthWindow()
                 return true
             }
-            R.id.menu_shop -> {
+            /*R.id.menu_shop -> {
                 val shopIntent = Intent(this@MainActivity, ShopActivity::class.java)
                 startActivity(shopIntent)
                 return true
-            }
+            }*/
             else -> return super.onOptionsItemSelected(item)
         }
     }

@@ -253,11 +253,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FriendRepository.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FriendRepository.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/friend/FriendRepository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+            <state relative-caret-position="124">
+              <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="140">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -2710,13 +2719,13 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/shop/ShopActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_shop.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/friendprofile/FriendProfileInteractor.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/friend/FriendRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/adapter/ChatsAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
       </list>
     </option>
   </component>
@@ -2787,6 +2796,10 @@
               <item name="repository" type="462c0819:PsiDirectoryNode" />
               <item name="friend" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="RussianWivesSocNetwork" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -2803,7 +2816,7 @@
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="Main&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt&#10;MyProfileAc&#9;null&#9;null&#10;dimens&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/dimens.xml&#10;ChatsPre&#9;null&#9;null&#10;colo&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;ChatsAda&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.chats.adapter.ChatsAdapter&#10;Dialog&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment&#10;FriendAc&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity&#10;ActionsF&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/ActionsFragment.kt&#10;ChatsFra&#9;null&#9;null&#10;lik&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/assets/like.json&#10;ChatsRe&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository&#10;ChatMessa&#9;null&#9;null&#10;Consts&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.utils.Consts&#10;SearchRe&#9;null&#9;null&#10;MainPre&#9;null&#9;null&#10;MainInteractor&#9;null&#9;null&#10;colors.x&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;FriendRepos&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository&#10;SearchPre&#9;null&#9;null&#10;Faith&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.slider.SliderFaithFragment&#10;Actions&#9;null&#9;null&#10;ChatMessage&#9;null&#9;null&#10;color&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;strings&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/res/values/strings.xml&#10;Gender&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment" />
+    <property name="SearchEverywhereHistoryKey" value="menu&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/menu/main_menu.xml&#10;Main&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt&#10;MyProfileAc&#9;null&#9;null&#10;dimens&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/dimens.xml&#10;ChatsPre&#9;null&#9;null&#10;colo&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;ChatsAda&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.chats.adapter.ChatsAdapter&#10;Dialog&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment&#10;FriendAc&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity&#10;ActionsF&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/ActionsFragment.kt&#10;ChatsFra&#9;null&#9;null&#10;lik&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/assets/like.json&#10;ChatsRe&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository&#10;ChatMessa&#9;null&#9;null&#10;Consts&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.utils.Consts&#10;SearchRe&#9;null&#9;null&#10;MainPre&#9;null&#9;null&#10;MainInteractor&#9;null&#9;null&#10;colors.x&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;FriendRepos&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository&#10;SearchPre&#9;null&#9;null&#10;Faith&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.slider.SliderFaithFragment&#10;Actions&#9;null&#9;null&#10;ChatMessage&#9;null&#9;null&#10;color&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;strings&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/res/values/strings.xml&#10;Gender&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -2972,8 +2985,8 @@
       <window_info id="Captures" order="2" weight="0.25" />
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2498312" />
-      <window_info active="true" anchor="bottom" id="Build" visible="true" weight="0.32988167" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2498312" />
+      <window_info anchor="bottom" id="Build" visible="true" weight="0.32988167" />
       <window_info anchor="right" id="Gradle" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Theme Preview" />
@@ -3351,13 +3364,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="42" column="60" lean-forward="true" selection-start-line="42" selection-start-column="60" selection-end-line="42" selection-end-column="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_shop.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3447,8 +3453,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/friend/FriendRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="41" column="5" lean-forward="true" selection-start-line="41" selection-start-column="5" selection-end-line="41" selection-end-column="5" />
+        <state relative-caret-position="124">
+          <caret line="35" column="43" selection-start-line="35" selection-start-column="43" selection-end-line="35" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="140">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
         </state>
       </provider>
     </entry>
