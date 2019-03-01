@@ -1483,6 +1483,7 @@ id main_view_pager
 id masked
 id media_actions
 id menu_my_profile
+id menu_shop
 id message
 id messageTextView
 id message_image_layout
