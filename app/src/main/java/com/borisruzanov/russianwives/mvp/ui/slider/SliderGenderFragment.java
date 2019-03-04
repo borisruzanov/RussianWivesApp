@@ -47,33 +47,32 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_gender, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_gender_radiogroup);
+        radioGroup = view.findViewById(R.id.fragment_slider_gender_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_gender_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("gender", value -> {
-            if (value != null && value.equals("Female")){
+        new SliderRepository().getFieldFromCurrentUser(Consts.GENDER, value -> {
+            if (value != null && value.equals(getString(R.string.female_option))) {
                 radioGroup.check(R.id.fragment_slider_gender_radiobutton_female);
-            } else if (value != null && value.equals("Male")){
+            } else if (value != null && value.equals(getString(R.string.male_option))) {
                 radioGroup.check(R.id.fragment_slider_gender_radiobutton_male);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("gender", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, new UpdateCallback() {
-                    @Override
-                    public void onUpdate() {
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.GENDER, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                            getActivity().onBackPressed();
+                            if (getActivity() != null) getActivity().onBackPressed();
                         }
                         Toast.makeText(getActivity(), R.string.gender_updated, Toast.LENGTH_LONG).show();
 
-                    }
-                });
+                    });
+                }
             }
         });
         return view;

@@ -52,38 +52,41 @@ public class SliderEthnicityFragment extends Fragment {
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_ethnicity_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_ethnicity_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("ethnicity", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.ETHNICITY, value -> {
             result = value;
-            if (value != null && value.equals("Asian")){
+            if (value != null && value.equals(getString(R.string.asian))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_asian);
-            } else if (value != null && value.equals("Black / African descent")){
+            } else if (value != null && value.equals(getString(R.string.black_african_descent))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_black);
-            } else if (value != null && value.equals("East Indian")){
+            } else if (value != null && value.equals(getString(R.string.east_indian))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_indian);
-            }else if (value != null && value.equals("Latino / Hispanic")){
+            }else if (value != null && value.equals(getString(R.string.latino_hispanic))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_latino);
-            }else if (value != null && value.equals("Native American")){
+            }else if (value != null && value.equals(getString(R.string.native_american))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_native);
-            }else if (value != null && value.equals("White / Caucasian")){
+            }else if (value != null && value.equals(getString(R.string.white_caucasian))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_white);
-            }else if (value != null && value.equals("Other")){
+            }else if (value != null && value.equals(getString(R.string.other))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_other);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("ethnicity", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_ETHNICITY_RATING);
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.ethnicity_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.ETHNICITY, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (result.equals(Consts.DEFAULT))
+                            new RatingRepository().addRating(ADD_ETHNICITY_RATING);
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), R.string.ethnicity_updated, Toast.LENGTH_LONG).show();
+                    });
+                }
             }
         });
 

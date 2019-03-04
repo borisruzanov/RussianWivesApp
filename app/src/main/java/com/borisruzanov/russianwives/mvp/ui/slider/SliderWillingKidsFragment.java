@@ -47,41 +47,45 @@ public class SliderWillingKidsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_willing_kids, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_willingkids_radiogroup);
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_willingkids_btn_save);
+        radioGroup = view.findViewById(R.id.fragment_slider_willingkids_radiogroup);
+        btnSave = view.findViewById(R.id.fragment_slider_willingkids_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("want_children_or_not", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.WANT_CHILDREN_OR_NOT, value -> {
             result = value;
-            if (value != null && value.equals("Definitely")){
+            if (value != null && value.equals(getString(R.string.definitely))) {
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_definitely);
-            } else if (value != null && value.equals("Someday")){
+            } else if (value != null && value.equals(getString(R.string.someday))) {
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_someday);
-            } else if (value != null && value.equals("Not sure")){
+            } else if (value != null && value.equals(getString(R.string.not_sure))) {
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_not_sure);
-            }else if (value != null && value.equals("Probably not")){
+            } else if (value != null && value.equals(getString(R.string.probably_not))) {
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_probably);
-            }else if (value != null && value.equals("No")){
-                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no);
-            }else if (value != null && value.equals("No, but its ok if partner has kids")){
+            } else if (value != null && value.equals(getString(R.string.no_but_its_ok_if_partner_has_kids))) {
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no_but_ok);
+            } else if (value != null && value.equals(getString(R.string.no))) {
+                radioGroup.check(R.id.fragment_slider_willingkids_rbtn_no);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("want_children_or_not", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_WILL_OF_KIDS_RATING);
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.willing_kids_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.WANT_CHILDREN_OR_NOT, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (result.equals(Consts.DEFAULT))
+                            new RatingRepository().addRating(ADD_WILL_OF_KIDS_RATING);
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), R.string.willing_kids_updated, Toast.LENGTH_LONG).show();
+                    });
+                }
             }
         });
-        return view;    }
+        return view;
+    }
 
 }

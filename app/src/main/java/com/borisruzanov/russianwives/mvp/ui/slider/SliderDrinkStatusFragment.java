@@ -50,37 +50,41 @@ public class SliderDrinkStatusFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_drink_status, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_drink_status_radiogroup);
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_drinkstatus_btn_save);
+        radioGroup = view.findViewById(R.id.fragment_slider_drink_status_radiogroup);
+        btnSave = view.findViewById(R.id.fragment_slider_drinkstatus_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("drink_status", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.DRINK_STATUS, value -> {
             result = value;
-            if (value != null && value.equals("Never")){
+            if (value != null && value.equals(getString(R.string.never))) {
                 radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
-            } else if (value != null && value.equals("Only with friends")){
+            } else if (value != null && value.equals(getString(R.string.only_with_friends))) {
                 radioGroup.check(R.id.fragment_slider_drink_status_rbtn_friends);
-            } else if (value != null && value.equals("Moderately")){
+            } else if (value != null && value.equals(getString(R.string.moderately))) {
                 radioGroup.check(R.id.fragment_slider_drink_status_rbtn_moderaely);
-            }else if (value != null && value.equals("Regularly")){
+            } else if (value != null && value.equals(getString(R.string.regularly))) {
                 radioGroup.check(R.id.fragment_slider_drink_status_rbtn_regularly);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("drink_status", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_DRINK_STATUS_RATING);
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.drink_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.DRINK_STATUS, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (result.equals(Consts.DEFAULT))
+                            new RatingRepository().addRating(ADD_DRINK_STATUS_RATING);
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), R.string.drink_updated, Toast.LENGTH_LONG).show();
+                    });
+                }
             }
         });
-        return view;    }
+        return view;
+    }
 
 }

@@ -128,7 +128,7 @@ public class SliderImageFragment extends Fragment {
                             new SliderRepository().updateFieldFromCurrentUser(hashMap, () -> {
                                 if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_IMAGE_RATING);
                                 if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                                    getActivity().onBackPressed();
+                                    if(getActivity() != null) getActivity().onBackPressed();
                                 }
                             });
                             progressDialog.dismiss();

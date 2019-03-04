@@ -44,35 +44,38 @@ public class SliderHaveKidsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_number_of_kids, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_number_of_kids_radiogroup);
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_numberofkids_btn_save);
+        radioGroup = view.findViewById(R.id.fragment_slider_number_of_kids_radiogroup);
+        btnSave = view.findViewById(R.id.fragment_slider_numberofkids_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("number_of_kids", value -> {
-            if (value != null && value.equals("No")){
+        new SliderRepository().getFieldFromCurrentUser(Consts.NUMBER_OF_KIDS, value -> {
+            if (value != null && value.equals(getString(R.string.no))){
                 radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_no);
-            } else if (value != null && value.equals("Yes, they sometimes live at home")){
+            } else if (value != null && value.equals(getString(R.string.yes_they_sometimes_live_at_home))){
                 radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_sometimes_at_home);
-            } else if (value != null && value.equals("Yes, they live away from home")){
+            } else if (value != null && value.equals(getString(R.string.yes_they_live_away_from_home))){
                 radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_away);
-            }else if (value != null && value.equals("Yes, they live at home")){
+            }else if (value != null && value.equals(getString(R.string.yes_they_live_at_home))){
                 radioGroup.check(R.id.fragment_slider_number_of_kids_rbtn_at_home);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("number_of_kids", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.number_of_kids_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("number_of_kids", radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), R.string.number_of_kids_updated, Toast.LENGTH_LONG).show();
+                    });
+                }
             }
         });
-        return view;    }
+        return view;
+    }
 
 }

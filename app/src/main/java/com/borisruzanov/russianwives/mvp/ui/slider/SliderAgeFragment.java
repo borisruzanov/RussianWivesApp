@@ -55,10 +55,10 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_slider_age, container, false);
 
         btnSave = view.findViewById(R.id.fragment_slider_age_btn_save);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_age_radiogroup);
+        radioGroup = view.findViewById(R.id.fragment_slider_age_radiogroup);
         Log.d("qwe", "onCreateView " );
 
-        new SliderRepository().getFieldFromCurrentUser("age", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.AGE, value -> {
             result = value;
             Log.d("qwe", "value " + result);
             if (value != null && value.equals(getString(R.string.age_18_21))){
@@ -76,19 +76,21 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = view.findViewById(selectedId);
-            if (radioButton.getText() != null) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("age", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_AGE_RATING);
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.age_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.AGE, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (result.equals(Consts.DEFAULT))
+                            new RatingRepository().addRating(ADD_AGE_RATING);
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), R.string.age_updated, Toast.LENGTH_LONG).show();
+                    });
+                }
             }
-
         });
 
         return view;

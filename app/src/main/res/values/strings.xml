@@ -72,10 +72,10 @@
     <string name="native_american">Native American</string>
     <string name="white_caucasian">White / Caucasian</string>
     <string name="other">Other</string>
-    <string name="christian_catholic">Christian</string>
+    <string name="christian">Christian</string>
     <string name="muslim">Muslim</string>
     <string name="atheist">Atheist</string>
-    <string name="buddist">Buddhist</string>
+    <string name="buddhist">Buddhist</string>
     <string name="adventist">Adventist</string>
     <string name="never">Never</string>
     <string name="social_drinker">Social drinker</string>
