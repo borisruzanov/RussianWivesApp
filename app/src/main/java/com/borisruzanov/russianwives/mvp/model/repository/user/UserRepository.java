@@ -113,6 +113,19 @@ public class UserRepository {
         });*/
     }
 
+    public void hasMustInfo(BoolCallback callback) {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            if (task.getResult().exists()) {
+                DocumentSnapshot snapshot = task.getResult();
+                String image = snapshot.getString(Consts.IMAGE);
+                String age = snapshot.getString(Consts.AGE);
+                String country = snapshot.getString(Consts.COUNTRY);
+                boolean value = !image.equals(Consts.DEFAULT) &&  !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT);
+                callback.setBool(value);
+            }
+        });
+    }
+
     public void setDialogLastOpenDate() {
         prefs.setDialogOpenDate();
     }

@@ -112,6 +112,7 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="header_filters">Filter</string>
+    <string name="header_must_info">Fill your info</string>
     <string name="what_ethnicity">What is your ethnicity?</string>
     <string name="what_smoke_status">What is your smoke status?</string>
     <string name="what_drink_status">What is your drink status?</string>
