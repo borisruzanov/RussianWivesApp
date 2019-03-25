@@ -19,6 +19,7 @@ import com.borisruzanov.russianwives.mvp.model.interactor.slider.SliderInteracto
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -35,7 +36,8 @@ public class SliderImageFragment extends Fragment {
     Button btnChangeImage;
     String result;
 
-    private StorageReference storageReference;
+    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+    ;
 
     SliderFragmentsPresenter sliderFragmentsPresenter;
     private static final int GALLERY_PICK = 1;
@@ -68,11 +70,8 @@ public class SliderImageFragment extends Fragment {
             Intent galleryIntent = new Intent();
             galleryIntent.setType("image/*");
             galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK);
+            startActivityForResult(Intent.createChooser(galleryIntent, getString(R.string.add_your_photo)), GALLERY_PICK);
         });
-
-        //TODO REFACTOR TO REPOSITORY
-        storageReference = FirebaseStorage.getInstance().getReference();
 
         return view;
     }
@@ -80,7 +79,7 @@ public class SliderImageFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data != null) {
+        if (data != null) {
             Uri imageUri = data.getData();
             if (requestCode == GALLERY_PICK && resultCode == RESULT_OK) {
                 Log.d(Contract.TAG, "Image URI " + imageUri);
@@ -91,62 +90,38 @@ public class SliderImageFragment extends Fragment {
             }
         }
 
-            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
-                CropImage.ActivityResult result = CropImage.getActivityResult(data);
-                if (resultCode == RESULT_OK) {
-                    Log.d(Contract.TAG, "resultCode == RESULT_OK");
-                    progressDialog = new ProgressDialog(getActivity());
-                    progressDialog.setTitle("Uploading Image");
-                    progressDialog.setMessage("Please Wait...");
-                    progressDialog.show();
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
+            if (resultCode == RESULT_OK) {
+                Log.d(Contract.TAG, "resultCode == RESULT_OK");
+                progressDialog = new ProgressDialog(getActivity());
+                progressDialog.setTitle(getString(R.string.uploading_image));
+                progressDialog.setMessage(getString(R.string.please_wait));
+                progressDialog.show();
 
 
-                    Uri resultUri = result.getUri();
-                    Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
+                Uri resultUri = CropImage.getActivityResult(data).getUri();
+                Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
 
-                    // <-------------SAVING IMAGE-------------->
-                    StorageReference filePath = storageReference.child("profile_images").child(getUid()).child("profile_photo");
-                    // <-------------SAVING IMAGE-------------->
-
-                    filePath.putFile(resultUri).continueWithTask(task -> {
-                        if (!task.isSuccessful()) {
-                            throw task.getException();
-                        }
-                        // Continue with the task to get the download URL
-                        return filePath.getDownloadUrl();
-                    }).addOnCompleteListener(task -> {
-                        if (task.isSuccessful()) {
-                            String download_url = task.getResult().toString();
-                            Log.d("ImageDebug", "Image path is " + download_url);
-                            HashMap<String, Object> hashMap = new HashMap<>();
-                            hashMap.put(Consts.IMAGE, download_url);
-
-                            FirebaseDatabase.getInstance().getReference().child("Users")
-                                    .child(getUid()).child(Consts.IMAGE).setValue(download_url);
-
-                            new SliderRepository().updateFieldFromCurrentUser(hashMap, () -> {
-                                if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_IMAGE_RATING);
-                                if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                                    if(getActivity() != null) getActivity().onBackPressed();
-                                }
-                            });
-                            progressDialog.dismiss();
-                        } else {
-                            progressDialog.dismiss();
-                            Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
-                        }
-                    });
-
-                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                    Exception error = result.getError();
-                    Log.d(Contract.TAG, "resultCode == CropImage.ERROR");
-
-                }
-                Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in ELSE");
-
+                new SliderRepository().uploadUserPhoto(resultUri, () -> {
+                    if (result.equals(Consts.DEFAULT))
+                        new RatingRepository().addRating(ADD_IMAGE_RATING);
+                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                        if (getActivity() != null) getActivity().onBackPressed();
+                    }
+                });
+            } else {
+                Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
             }
+            progressDialog.dismiss();
 
+        } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+            Exception error = CropImage.getActivityResult(data).getError();
+            Log.d(Contract.TAG, "resultCode == CropImage.ERROR");
+
+        }
+        Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in ELSE");
 
     }
+
 }

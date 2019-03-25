@@ -21,9 +21,16 @@
   <component name="ChangeListManager">
     <list default="true" id="c8b8b617-a93c-45ef-94b1-05c07c9aeb08" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogFragment.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogFragment.kt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chatmessage/ChatMessageRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chatmessage/ChatMessageRepository.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/slider/SliderRepository.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/slider/SliderRepository.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogPresenter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogPresenter.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogView.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/must_info_dialog.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/dialog_must_info.xml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,34 +53,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UserRepository.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java">
+      <file leaf-file-name="MustInfoInteractor.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/mustinfo/MustInfoInteractor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="217" column="34" lean-forward="false" selection-start-line="217" selection-start-column="34" selection-end-line="217" selection-end-column="34" />
+            <state relative-caret-position="408">
+              <caret line="27" column="64" lean-forward="true" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
               <folding>
-                <element signature="e#8901#8909#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#676#710#0" expanded="true" />
+                <element signature="e#676#710#0" expanded="true" />
+                <element signature="e#676#710#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilterDialogFragment.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogFragment.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="94" column="51" lean-forward="true" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FilterDialogPresenter.kt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogPresenter.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="30" column="44" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="44" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -81,18 +71,81 @@
       <file leaf-file-name="MustInfoDialogFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="96">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="374">
+              <caret line="48" column="27" lean-forward="true" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
               <folding>
-                <element signature="e#907#908#0" expanded="true" />
-                <element signature="e#939#940#0" expanded="true" />
-                <element signature="e#1239#1250#0" expanded="true" />
-                <element signature="e#1239#1262#0" expanded="true" />
-                <element signature="e#1312#1386#1" expanded="true" />
-                <element signature="e#1599#1652#1" expanded="true" />
-                <element signature="e#1612#1640#0" expanded="true" />
-                <element signature="e#1661#1722#1" expanded="true" />
-                <element signature="e#1678#1710#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#1289#1290#0" expanded="true" />
+                <element signature="e#1321#1322#0" expanded="true" />
+                <element signature="e#1813#1826#0" expanded="true" />
+                <element signature="e#2050#2082#0" expanded="true" />
+                <element signature="e#2463#2497#0" expanded="true" />
+                <element signature="e#2720#3009#0" expanded="true" />
+                <element signature="e#2720#3009#0" expanded="true" />
+                <element signature="e#2826#2840#0" expanded="true" />
+                <element signature="e#3022#3771#0" expanded="true" />
+                <element signature="e#3022#3771#0" expanded="true" />
+                <element signature="e#3190#3757#0" expanded="true" />
+                <element signature="e#3190#3757#0" expanded="true" />
+                <element signature="e#3286#3344#1" expanded="true" />
+                <element signature="e#3301#3343#0" expanded="true" />
+                <element signature="e#3492#3559#1" expanded="true" />
+                <element signature="e#3514#3558#0" expanded="true" />
+                <element signature="e#3708#3737#0" expanded="true" />
+                <element signature="e#3844#3904#0" expanded="true" />
+                <element signature="e#3868#3903#0" expanded="true" />
+                <element signature="e#3844#3904#0" expanded="true" />
+                <element signature="e#3914#3972#0" expanded="true" />
+                <element signature="e#3940#3971#0" expanded="true" />
+                <element signature="e#3914#3972#0" expanded="true" />
+                <element signature="e#4057#4058#0" expanded="true" />
+                <element signature="e#4097#4098#0" expanded="true" />
+                <element signature="e#4178#4191#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SliderImageFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="105" column="42" lean-forward="false" selection-start-line="105" selection-start-column="42" selection-end-line="105" selection-end-column="42" />
+              <folding>
+                <element signature="e#1442#1471#0" expanded="true" />
+                <element signature="e#1442#1486#0" expanded="true" />
+                <element signature="e#2859#2893#0" expanded="true" />
+                <element signature="e#3165#3179#0" expanded="true" />
+                <element signature="e#3193#3529#0" expanded="true" />
+                <element signature="e#3193#3529#0" expanded="true" />
+                <element signature="e#3549#5082#0" expanded="true" />
+                <element signature="e#3549#5082#0" expanded="true" />
+                <element signature="e#3726#4806#0" expanded="true" />
+                <element signature="e#3726#4806#0" expanded="true" />
+                <element signature="e#3873#3886#0" expanded="true" />
+                <element signature="e#3905#3965#0" expanded="true" />
+                <element signature="e#3929#3964#0" expanded="true" />
+                <element signature="e#3905#3965#0" expanded="true" />
+                <element signature="e#3983#4041#0" expanded="true" />
+                <element signature="e#4009#4040#0" expanded="true" />
+                <element signature="e#3983#4041#0" expanded="true" />
+                <element signature="e#4116#4158#0" expanded="true" />
+                <element signature="e#4332#4442#0" expanded="true" />
+                <element signature="e#4336#4365#0" expanded="true" />
+                <element signature="e#4336#4365#0" expanded="true" />
+                <element signature="e#4332#4442#0" expanded="true" />
+                <element signature="e#4463#4650#0" expanded="true" />
+                <element signature="e#4467#4481#0" expanded="true" />
+                <element signature="e#4493#4507#0" expanded="true" />
+                <element signature="e#4463#4650#0" expanded="true" />
+                <element signature="e#4571#4628#0" expanded="true" />
+                <element signature="e#4575#4588#0" expanded="true" />
+                <element signature="e#4571#4628#0" expanded="true" />
+                <element signature="e#4598#4611#0" expanded="true" />
+                <element signature="e#4738#4764#0" expanded="true" />
+                <element signature="e#4861#5082#0" expanded="true" />
+                <element signature="e#4861#5082#0" expanded="true" />
+                <element signature="e#4960#5004#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -101,23 +154,33 @@
       <file leaf-file-name="MustInfoDialogPresenter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogPresenter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="0">
+              <caret line="2" column="23" lean-forward="true" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+              <folding>
+                <element signature="e#493#494#0" expanded="true" />
+                <element signature="e#537#538#0" expanded="true" />
+                <element signature="e#619#989#0" expanded="true" />
+                <element signature="e#623#650#0" expanded="true" />
+                <element signature="e#623#650#0" expanded="true" />
+                <element signature="e#623#650#0" expanded="true" />
+                <element signature="e#654#685#0" expanded="true" />
+                <element signature="e#654#685#0" expanded="true" />
+                <element signature="e#654#685#0" expanded="true" />
+                <element signature="e#689#718#0" expanded="true" />
+                <element signature="e#689#718#0" expanded="true" />
+                <element signature="e#689#718#0" expanded="true" />
+                <element signature="e#619#989#0" expanded="true" />
+                <element signature="e#792#989#0" expanded="true" />
+                <element signature="e#796#824#0" expanded="true" />
+                <element signature="e#796#824#0" expanded="true" />
+                <element signature="e#792#989#0" expanded="true" />
+                <element signature="e#840#854#0" expanded="true" />
+                <element signature="e#867#893#0" expanded="true" />
+                <element signature="e#925#939#0" expanded="true" />
+                <element signature="e#952#977#0" expanded="true" />
+                <element signature="e#1088#1102#0" expanded="true" />
+              </folding>
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="must_info_dialog.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/must_info_dialog.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="81" column="41" lean-forward="false" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer2">
-            <state />
           </provider>
         </entry>
       </file>
@@ -135,8 +198,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Messages</find>
-      <find>like</find>
       <find>onBack</find>
       <find>goog</find>
       <find>confirm</find>
@@ -156,7 +217,6 @@
       <find>users</find>
       <find>users.</find>
       <find>Russ</find>
-      <find>photo</find>
       <find>manager</find>
       <find>scroll</find>
       <find>24</find>
@@ -165,6 +225,9 @@
       <find>Visit</find>
       <find>getLikes</find>
       <find>fragment_slider</find>
+      <find>setValue</find>
+      <find>image</find>
+      <find>photo</find>
     </findStrings>
   </component>
   <component name="GenerateSignedApkSettings">
@@ -2542,12 +2605,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/friendprofile/FriendProfilePresenter.kt" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/data/notifications/RwFirebaseMessagingService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/item_list_chat.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_slider_ethnicity.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_slider_countries.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/ChatsFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/myprofile/MyProfileActivity.kt" />
@@ -2568,9 +2625,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/friendprofile/FriendProfileInteractor.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/friend/FriendRepository.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chats/adapter/ChatsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderEthnicityFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderFaithFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderDrinkStatusFragment.java" />
@@ -2585,12 +2640,20 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderWillingKidsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderHobbyFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/must_info_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogFragment.kt" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDilaog.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoPresenter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/dialog_must_info.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chatmessage/ChatMessageRepository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/slider/SliderRepository.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogView.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/mustinfo/MustInfoInteractor.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogPresenter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogFragment.java" />
       </list>
@@ -2618,8 +2681,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2659,7 +2720,8 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="russianwives" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RussianWivesSocNetwork" type="1abcf292:AndroidViewProjectNode" />
@@ -2667,8 +2729,8 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="russianwives" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="RussianWivesSocNetwork" type="1abcf292:AndroidViewProjectNode" />
@@ -2676,8 +2738,14 @@
               <item name="java" type="edd41e36:AndroidSourceTypeNode" />
               <item name="russianwives" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="mvp" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="mustinfo" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+              <item name="repository" type="462c0819:PsiDirectoryNode" />
+              <item name="slider" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="RussianWivesSocNetwork" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
             </path>
             <path>
               <item name="RussianWivesSocNetwork" type="1abcf292:AndroidViewProjectNode" />
@@ -2687,8 +2755,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2701,7 +2771,7 @@
     <property name="ExportApk.SignV1" value="true" />
     <property name="ExportApk.SignV2" value="true" />
     <property name="SHOW_ALL_PROCESSES" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="R.class&#9;FILE&#9;jar://D:/SDKAndroidStudio/platforms/android-28/android.jar!/android/R.class&#10;menu&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/menu/main_menu.xml&#10;Main&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt&#10;MyProfileAc&#9;null&#9;null&#10;dimens&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/dimens.xml&#10;ChatsPre&#9;null&#9;null&#10;colo&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;ChatsAda&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.chats.adapter.ChatsAdapter&#10;Dialog&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment&#10;FriendAc&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity&#10;ActionsF&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/ActionsFragment.kt&#10;ChatsFra&#9;null&#9;null&#10;lik&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/assets/like.json&#10;ChatsRe&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository&#10;ChatMessa&#9;null&#9;null&#10;Consts&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.utils.Consts&#10;SearchRe&#9;null&#9;null&#10;MainPre&#9;null&#9;null&#10;MainInteractor&#9;null&#9;null&#10;colors.x&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;FriendRepos&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository&#10;SearchPre&#9;null&#9;null&#10;Faith&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.slider.SliderFaithFragment&#10;Actions&#9;null&#9;null&#10;ChatMessage&#9;null&#9;null&#10;color&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;strings&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/res/values/strings.xml&#10;Gender&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment" />
+    <property name="SearchEverywhereHistoryKey" value="ChatMessage&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt&#10;R.class&#9;FILE&#9;jar://D:/SDKAndroidStudio/platforms/android-28/android.jar!/android/R.class&#10;menu&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/menu/main_menu.xml&#10;Main&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt&#10;MyProfileAc&#9;null&#9;null&#10;dimens&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/dimens.xml&#10;ChatsPre&#9;null&#9;null&#10;colo&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;ChatsAda&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.chats.adapter.ChatsAdapter&#10;Dialog&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment&#10;FriendAc&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity&#10;ActionsF&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/actions/ActionsFragment.kt&#10;ChatsFra&#9;null&#9;null&#10;lik&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/assets/like.json&#10;ChatsRe&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository&#10;ChatMessa&#9;null&#9;null&#10;Consts&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.utils.Consts&#10;SearchRe&#9;null&#9;null&#10;MainPre&#9;null&#9;null&#10;MainInteractor&#9;null&#9;null&#10;colors.x&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;FriendRepos&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository&#10;SearchPre&#9;null&#9;null&#10;Faith&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.slider.SliderFaithFragment&#10;Actions&#9;null&#9;null&#10;color&#9;FILE&#9;file://D:/dev/RussianWivesSocNetwork/app/src/main/res/values/colors.xml&#10;strings&#9;FILE&#9;file://D:/AndroidProjects/RussianWivesSocNetwork/app/src/main/res/values/strings.xml&#10;Gender&#9;PSI&#9;JAVA://com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment" />
     <property name="android.project.structure.last.selected" value="app" />
     <property name="android.project.structure.proportion" value="0.15" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
@@ -2882,8 +2952,8 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964474" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Logcat" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.48464164" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.49796155" order="5" side_tool="false" content_ui="tabs" />
@@ -2895,8 +2965,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.49796155" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32980332" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44030285" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22680691" sideWeight="0.50436807" order="6" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44030285" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2920,51 +2990,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/build/generated/source/kapt/debug/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogFragment_ViewBinding.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/main_menu.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_shop.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="9" column="36" lean-forward="false" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/main/MainActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/actions/ActionsInteractor.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/friendprofile/FriendProfilePresenter.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -2997,13 +3022,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1380">
           <caret line="93" column="30" lean-forward="false" selection-start-line="93" selection-start-column="30" selection-end-line="93" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="124" column="51" lean-forward="true" selection-start-line="124" selection-start-column="51" selection-end-line="124" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -3110,13 +3128,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderHobbyFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="213">
@@ -3180,14 +3191,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="39" column="64" lean-forward="true" selection-start-line="39" selection-start-column="64" selection-end-line="39" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_slider_countries.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-18">
@@ -3204,7 +3207,7 @@
         <state relative-caret-position="340">
           <caret line="20" column="51" lean-forward="true" selection-start-line="17" selection-start-column="8" selection-end-line="20" selection-end-column="51" />
           <folding>
-            <element signature="e#855#873#0" expanded="true" />
+            <element signature="e#855#873#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3212,24 +3215,16 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="114" column="50" lean-forward="false" selection-start-line="114" selection-start-column="50" selection-end-line="114" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_filters.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="273" column="74" lean-forward="true" selection-start-line="273" selection-start-column="20" selection-end-line="273" selection-end-column="74" />
           <folding>
-            <element signature="e#510#534#0" expanded="true" />
-            <element signature="e#1258#1270#0" expanded="true" />
-            <element signature="e#1304#1337#0" expanded="true" />
-            <element signature="e#3050#3084#0" expanded="true" />
-            <element signature="e#11847#11862#0" expanded="true" />
+            <element signature="e#510#534#0" expanded="false" />
+            <element signature="e#1258#1270#0" expanded="false" />
+            <element signature="e#1304#1337#0" expanded="false" />
+            <element signature="e#3050#3084#0" expanded="false" />
+            <element signature="e#11847#11862#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -3241,7 +3236,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
           <caret line="35" column="59" lean-forward="false" selection-start-line="35" selection-start-column="20" selection-end-line="35" selection-end-column="59" />
-          <folding />
         </state>
       </provider>
       <provider editor-type-id="android-designer2">
@@ -3259,48 +3253,17 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/must_info_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="81" column="41" lean-forward="false" selection-start-line="81" selection-start-column="41" selection-end-line="81" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
     <entry file="jar://C:/Users/Public/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.2.71/ff62b6a76e3200cac3d7df0859d7665fe6d54955/kotlin-stdlib-common-1.2.71-sources.jar!/kotlin/collections/Collections.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="158" column="53" lean-forward="false" selection-start-line="158" selection-start-column="53" selection-end-line="158" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="217" column="34" lean-forward="false" selection-start-line="217" selection-start-column="34" selection-end-line="217" selection-end-column="34" />
-          <folding>
-            <element signature="e#8901#8909#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="17" lean-forward="true" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/filter/FilterDialogFragment.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="94" column="51" lean-forward="true" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
-          <folding />
+        <state relative-caret-position="1241">
+          <caret line="94" column="51" lean-forward="false" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
         </state>
       </provider>
     </entry>
@@ -3308,32 +3271,229 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
           <caret line="30" column="44" lean-forward="false" selection-start-line="30" selection-start-column="36" selection-end-line="30" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="17" lean-forward="false" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="312">
+          <caret line="38" column="47" lean-forward="false" selection-start-line="38" selection-start-column="47" selection-end-line="38" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/user/UserRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="119" column="35" lean-forward="false" selection-start-line="119" selection-start-column="34" selection-end-line="119" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/dialog_must_info.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="37" column="36" lean-forward="false" selection-start-line="37" selection-start-column="36" selection-end-line="37" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="248" column="44" lean-forward="false" selection-start-line="248" selection-start-column="44" selection-end-line="248" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessagePresenter.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/chatmessage/ChatMessageInteractor.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/chatmessage/ChatMessageActivity.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="181" column="63" lean-forward="true" selection-start-line="181" selection-start-column="63" selection-end-line="181" selection-end-column="63" />
+          <folding>
+            <element signature="e#6530#6562#1" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/chatmessage/ChatMessageRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="93" column="44" lean-forward="true" selection-start-line="93" selection-start-column="44" selection-end-line="93" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/repository/slider/SliderRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="55" column="28" lean-forward="false" selection-start-line="55" selection-start-column="28" selection-end-line="55" selection-end-column="28" />
+          <folding>
+            <element signature="e#1022#1052#0" expanded="true" />
+            <element signature="e#1022#1067#0" expanded="true" />
+            <element signature="e#1140#1169#0" expanded="true" />
+            <element signature="e#1140#1184#0" expanded="true" />
+            <element signature="e#2318#2337#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/model/interactor/mustinfo/MustInfoInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="27" column="64" lean-forward="true" selection-start-line="27" selection-start-column="64" selection-end-line="27" selection-end-column="64" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#676#710#0" expanded="true" />
+            <element signature="e#676#710#0" expanded="true" />
+            <element signature="e#676#710#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/slider/SliderImageFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="105" column="42" lean-forward="false" selection-start-line="105" selection-start-column="42" selection-end-line="105" selection-end-column="42" />
+          <folding>
+            <element signature="e#1442#1471#0" expanded="true" />
+            <element signature="e#1442#1486#0" expanded="true" />
+            <element signature="e#2859#2893#0" expanded="true" />
+            <element signature="e#3165#3179#0" expanded="true" />
+            <element signature="e#3193#3529#0" expanded="true" />
+            <element signature="e#3193#3529#0" expanded="true" />
+            <element signature="e#3549#5082#0" expanded="true" />
+            <element signature="e#3549#5082#0" expanded="true" />
+            <element signature="e#3726#4806#0" expanded="true" />
+            <element signature="e#3726#4806#0" expanded="true" />
+            <element signature="e#3873#3886#0" expanded="true" />
+            <element signature="e#3905#3965#0" expanded="true" />
+            <element signature="e#3929#3964#0" expanded="true" />
+            <element signature="e#3905#3965#0" expanded="true" />
+            <element signature="e#3983#4041#0" expanded="true" />
+            <element signature="e#4009#4040#0" expanded="true" />
+            <element signature="e#3983#4041#0" expanded="true" />
+            <element signature="e#4116#4158#0" expanded="true" />
+            <element signature="e#4332#4442#0" expanded="true" />
+            <element signature="e#4336#4365#0" expanded="true" />
+            <element signature="e#4336#4365#0" expanded="true" />
+            <element signature="e#4332#4442#0" expanded="true" />
+            <element signature="e#4463#4650#0" expanded="true" />
+            <element signature="e#4467#4481#0" expanded="true" />
+            <element signature="e#4493#4507#0" expanded="true" />
+            <element signature="e#4463#4650#0" expanded="true" />
+            <element signature="e#4571#4628#0" expanded="true" />
+            <element signature="e#4575#4588#0" expanded="true" />
+            <element signature="e#4571#4628#0" expanded="true" />
+            <element signature="e#4598#4611#0" expanded="true" />
+            <element signature="e#4738#4764#0" expanded="true" />
+            <element signature="e#4861#5082#0" expanded="true" />
+            <element signature="e#4861#5082#0" expanded="true" />
+            <element signature="e#4960#5004#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogPresenter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="0">
+          <caret line="2" column="23" lean-forward="true" selection-start-line="2" selection-start-column="23" selection-end-line="2" selection-end-column="23" />
+          <folding>
+            <element signature="e#493#494#0" expanded="true" />
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#619#989#0" expanded="true" />
+            <element signature="e#623#650#0" expanded="true" />
+            <element signature="e#623#650#0" expanded="true" />
+            <element signature="e#623#650#0" expanded="true" />
+            <element signature="e#654#685#0" expanded="true" />
+            <element signature="e#654#685#0" expanded="true" />
+            <element signature="e#654#685#0" expanded="true" />
+            <element signature="e#689#718#0" expanded="true" />
+            <element signature="e#689#718#0" expanded="true" />
+            <element signature="e#689#718#0" expanded="true" />
+            <element signature="e#619#989#0" expanded="true" />
+            <element signature="e#792#989#0" expanded="true" />
+            <element signature="e#796#824#0" expanded="true" />
+            <element signature="e#796#824#0" expanded="true" />
+            <element signature="e#792#989#0" expanded="true" />
+            <element signature="e#840#854#0" expanded="true" />
+            <element signature="e#867#893#0" expanded="true" />
+            <element signature="e#925#939#0" expanded="true" />
+            <element signature="e#952#977#0" expanded="true" />
+            <element signature="e#1088#1102#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/borisruzanov/russianwives/mvp/ui/mustinfo/MustInfoDialogFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state relative-caret-position="374">
+          <caret line="48" column="27" lean-forward="true" selection-start-line="48" selection-start-column="27" selection-end-line="48" selection-end-column="27" />
           <folding>
-            <element signature="e#907#908#0" expanded="true" />
-            <element signature="e#939#940#0" expanded="true" />
-            <element signature="e#1239#1250#0" expanded="true" />
-            <element signature="e#1239#1262#0" expanded="true" />
-            <element signature="e#1312#1386#1" expanded="true" />
-            <element signature="e#1599#1652#1" expanded="true" />
-            <element signature="e#1612#1640#0" expanded="true" />
-            <element signature="e#1661#1722#1" expanded="true" />
-            <element signature="e#1678#1710#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#1289#1290#0" expanded="true" />
+            <element signature="e#1321#1322#0" expanded="true" />
+            <element signature="e#1813#1826#0" expanded="true" />
+            <element signature="e#2050#2082#0" expanded="true" />
+            <element signature="e#2463#2497#0" expanded="true" />
+            <element signature="e#2720#3009#0" expanded="true" />
+            <element signature="e#2720#3009#0" expanded="true" />
+            <element signature="e#2826#2840#0" expanded="true" />
+            <element signature="e#3022#3771#0" expanded="true" />
+            <element signature="e#3022#3771#0" expanded="true" />
+            <element signature="e#3190#3757#0" expanded="true" />
+            <element signature="e#3190#3757#0" expanded="true" />
+            <element signature="e#3286#3344#1" expanded="true" />
+            <element signature="e#3301#3343#0" expanded="true" />
+            <element signature="e#3492#3559#1" expanded="true" />
+            <element signature="e#3514#3558#0" expanded="true" />
+            <element signature="e#3708#3737#0" expanded="true" />
+            <element signature="e#3844#3904#0" expanded="true" />
+            <element signature="e#3868#3903#0" expanded="true" />
+            <element signature="e#3844#3904#0" expanded="true" />
+            <element signature="e#3914#3972#0" expanded="true" />
+            <element signature="e#3940#3971#0" expanded="true" />
+            <element signature="e#3914#3972#0" expanded="true" />
+            <element signature="e#4057#4058#0" expanded="true" />
+            <element signature="e#4097#4098#0" expanded="true" />
+            <element signature="e#4178#4191#0" expanded="true" />
           </folding>
         </state>
       </provider>

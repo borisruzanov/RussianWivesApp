@@ -240,7 +240,16 @@
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
     <string name="shop">Shop</string>
-
+    <string name="add_your_photo">Add your photo</string>
+    <string name="where_are_you_from">Where are you from?</string>
+    <string name="how_old_are_you">How old are you?</string>
+    
+    <string name="add_your_photo_mi">Add your photo to continue</string>
+    <string name="add_your_info_mi">Please, fill all fields</string>
+    <string name="select_image">Select image</string>
+    <string name="uploading_image">Uploading Image</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="something_went_wrong">Something went wrong. Try again!</string>
 
     <!-- Genders -->
     <string-array name="genders">
