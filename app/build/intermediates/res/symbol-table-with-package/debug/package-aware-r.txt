@@ -1167,9 +1167,11 @@ id actions_empty_text
 id actions_reg_layout
 id activity_chooser_view_content
 id add
+id add_photo_btn_mi
 id adjust_height
 id adjust_width
 id age_text
+id age_text_mi
 id alertTitle
 id all
 id always
@@ -1198,6 +1200,7 @@ id button_cancel
 id button_create
 id button_done
 id button_next
+id button_ok_mi
 id button_search
 id cancel_action
 id cancel_button
@@ -1241,6 +1244,7 @@ id contentPanel
 id coordinator
 id country_list
 id country_text
+id country_text_mi
 id cropImageView
 id crop_image_menu_crop
 id crop_image_menu_flip
@@ -1493,6 +1497,7 @@ id message_text_layout
 id messages_list
 id messenger_send_button
 id meta_bar
+id mi_header
 id middle
 id mini
 id multiply
@@ -1611,9 +1616,11 @@ id snackbar_action
 id snackbar_text
 id snap
 id spacer
+id spinner_age_mi
 id spinner_age_ni
 id spinner_body_types
 id spinner_country
+id spinner_country_mi
 id spinner_drink_statuses
 id spinner_ethnicities
 id spinner_faith_types
@@ -1777,6 +1784,7 @@ layout design_text_input_password_icon
 layout dialog_confirm_fragment
 layout dialog_filters
 layout dialog_gender
+layout dialog_must_info
 layout fragment_main_tab_activities
 layout fragment_main_tab_friends
 layout fragment_main_tab_search
@@ -1898,6 +1906,9 @@ string action_type_visit_text
 string actions_title
 string add
 string add_photo
+string add_your_info_mi
+string add_your_photo
+string add_your_photo_mi
 string adventist
 string age_18_21
 string age_22_26
@@ -1920,7 +1931,7 @@ string black_african_descent
 string bottom_sheet_behavior
 string btn_add_friend_text
 string btn_start_chat_text
-string buddist
+string buddhist
 string cancel
 string cancel_friend_request
 string change
@@ -1932,7 +1943,7 @@ string chats_title
 string check_your_search_parameters
 string choose_languages_you_can_talk
 string choose_your_country
-string christian_catholic
+string christian
 string cigar_aficionado
 string com_crashlytics_android_build_id
 string com_facebook_device_auth_instructions
@@ -2109,6 +2120,7 @@ string google_app_id
 string google_crash_reporting_api_key
 string google_storage_bucket
 string header_filters
+string header_must_info
 string header_necessary_info
 string heavyset
 string height_cm_text
@@ -2117,6 +2129,7 @@ string height_updated
 string hobby_updated
 string how_many_kids_you_have
 string how_often_do_you_drink
+string how_old_are_you
 string how_tall_are_you
 string image_message_link
 string languages_you_can_speak
@@ -2173,6 +2186,7 @@ string photo_was_updated
 string pick_image_intent_chooser_title
 string please_register_to_start
 string please_set_your_status
+string please_wait
 string privacy_policy
 string probably_not
 string profile_arrow_desc
@@ -2189,6 +2203,7 @@ string save
 string search_btn_like_desc
 string search_menu_title
 string search_title
+string select_image
 string select_your_gender
 string select_your_smoke_status
 string send
@@ -2209,6 +2224,7 @@ string smoking_status
 string smoking_updated
 string social_drinker
 string someday
+string something_went_wrong
 string status_bar_notification_info_overflow
 string status_save_btn_text
 string stocky
@@ -2220,6 +2236,7 @@ string tracker_id
 string twitter_consumer_key
 string twitter_consumer_secret
 string unfriend
+string uploading_image
 string user_avatar
 string user_default_status
 string user_information_category
@@ -2244,6 +2261,7 @@ string what_relationship_status
 string what_relationships_looking_for
 string what_smoke_status
 string what_smoke_status_looking_for
+string where_are_you_from
 string where_live
 string which_best_ethnicities_best_describes_you
 string which_ethnicity_best_describe_you
@@ -2434,6 +2452,7 @@ style Base_Widget_AppCompat_Toolbar
 style Base_Widget_AppCompat_Toolbar_Button_Navigation
 style Base_Widget_Design_AppBarLayout
 style Base_Widget_Design_TabLayout
+style Button_Colored
 style CardView
 style CardView_Dark
 style CardView_Light

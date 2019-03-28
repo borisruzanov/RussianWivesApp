@@ -196,7 +196,30 @@ public class UserRepository {
         });
     }
 
+    public void hasDefaultMustInfo(BoolCallback callback) {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            if (task.getResult().exists()) {
+                DocumentSnapshot snapshot = task.getResult();
+                String[] keys = {Consts.IMAGE, Consts.AGE, Consts.COUNTRY};
+                callback.setBool(!notDefault(keys, snapshot));
+            }
+        });
+    }
+
+    // check if the value of the given key is default or not
+    private boolean notDefault(String[] keys, DocumentSnapshot snapshot){
+        boolean result = true;
+        for (String key: keys) {
+            if (snapshot.getString(key).equals(Consts.DEFAULT)) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
     public void hasNecessaryInfo(BoolCallback callback) {
+        String[] keys = {Consts.GENDER, Consts.AGE, Consts.IMAGE, Consts.COUNTRY};
         users.document(getUid()).get().addOnCompleteListener(task -> {
             if (task.getResult().exists()) {
                 DocumentSnapshot snapshot = task.getResult();
@@ -205,8 +228,7 @@ public class UserRepository {
                         prefs.clearValue(Consts.DIALOG_OPEN_DATE);
                         callback.setBool(false);
                     }
-                    else callback.setBool(isOneDayGone(Consts.DIALOG_OPEN_DATE) &&
-                            !snapshot.getString(Consts.GENDER).equals(Consts.DEFAULT));
+                    else callback.setBool(isOneDayGone(Consts.DIALOG_OPEN_DATE) && notDefault(keys, snapshot));
                 });
             }
         });

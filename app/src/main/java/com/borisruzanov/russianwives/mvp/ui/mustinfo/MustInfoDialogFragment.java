@@ -29,6 +29,8 @@ import butterknife.OnClick;
 
 public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implements MustInfoDialogView {
 
+    public static final String TAG = "Must_Info_TAG";
+
     private String image = Consts.DEFAULT;
     private static final int GALLERY_PICK = 1;
     private ProgressDialog progressDialog;

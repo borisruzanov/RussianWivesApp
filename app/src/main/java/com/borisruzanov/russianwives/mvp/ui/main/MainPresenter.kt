@@ -23,6 +23,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         mainInteractor.setFirstOpenDate()
 
         if(isUserExist()) {
+            showMustInfoDialog()
             showAdditionalInfoDialog()
             checkAchieve()
         }
@@ -56,6 +57,12 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         if (mainInteractor.isGenderDefault()) {
             viewState.showGenderDialog()
         }
+    }
+
+    private fun showMustInfoDialog() {
+        mainInteractor.hasDefaultMustInfo(callback = BoolCallback {flag ->
+            if (flag) viewState.showMustInfoDialog()
+        })
     }
 
     private fun showAdditionalInfoDialog() {

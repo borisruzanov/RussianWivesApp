@@ -38,6 +38,7 @@ import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
+import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
@@ -152,6 +153,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         supportFragmentManager.beginTransaction().add(GenderDialogFragment(), GenderDialogFragment.TAG).commit()
     }
 
+    override fun showMustInfoDialog() {
+        supportFragmentManager.beginTransaction().add(MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
+    }
+
     override fun showAdditionalInfoDialog() {
         supportFragmentManager.beginTransaction()
                 .add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), ConfirmDialogFragment.TAG)
@@ -200,11 +205,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                 callAuthWindow()
                 return true
             }
-            /*R.id.menu_shop -> {
-                val shopIntent = Intent(this@MainActivity, ShopActivity::class.java)
-                startActivity(shopIntent)
-                return true
-            }*/
             else -> return super.onOptionsItemSelected(item)
         }
     }
