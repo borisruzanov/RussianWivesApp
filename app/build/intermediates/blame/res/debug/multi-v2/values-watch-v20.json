@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
+            "outputFile": "D:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-auth-16.0.1.aar\\efbd498d8fda8bb0cf2ae23af6771f4e\\res\\values-watch-v20\\values.xml",

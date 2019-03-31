@@ -42,30 +42,34 @@ public class ChatsRepository {
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
 
     public void getChats(UserChatListCallback userChatListCallback) {
-        realtimeReference.child("Messages").child(getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> uidList =  new ArrayList<>();
-                List<Message> messageList = new ArrayList<>();
-                List<UserChat> userChatList = new ArrayList<>();
+        if(getUid() != null) {
+            realtimeReference.child("Messages").child(getUid()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    List<String> uidList = new ArrayList<>();
+                    List<Message> messageList = new ArrayList<>();
+                    List<UserChat> userChatList = new ArrayList<>();
 
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    uidList.add(snapshot.getKey());
+                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                        uidList.add(snapshot.getKey());
 
-                    snapshot.getRef().limitToLast(1).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                messageList.add(snapshot.getValue(Message.class));
+                        snapshot.getRef().limitToLast(1).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    messageList.add(snapshot.getValue(Message.class));
+                                }
                             }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) { }
-                    });
-                }
 
-                getUsers(uidList, userList -> {
-                    userChatList.clear();
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    }
+
+
+                    getUsers(uidList, userList -> {
+                        userChatList.clear();
                         for (int i = 0; i < userList.size(); i++) {
 
                             String name = userList.get(i).getName();
@@ -79,15 +83,18 @@ public class ChatsRepository {
                             String message = messageList.get(i).getMessage();
 
                             userChatList.add(new UserChat(name, image, seen, userId, online, message, messageTimestamp));
-                    }
+                        }
 
-                    userChatListCallback.setUserChatList(sortByDate(userChatList));
-                });
-            }
+                        userChatListCallback.setUserChatList(sortByDate(userChatList));
+                    });
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
+        else userChatListCallback.setUserChatList(new ArrayList<UserChat>());
     }
 
     private List<UserChat> sortByDate(List<UserChat> userChats) {

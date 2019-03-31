@@ -159,7 +159,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     //Updating results of the filtration
     override fun onUpdate() {
-        searchPresenter.onUpdate()
+        if (searchPresenter != null) searchPresenter.onUpdate()
     }
 
     override fun showFullProfileDialog() {
