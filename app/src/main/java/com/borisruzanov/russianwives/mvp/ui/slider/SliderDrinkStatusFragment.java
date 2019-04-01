@@ -81,6 +81,8 @@ public class SliderDrinkStatusFragment extends Fragment {
                         }
                         Toast.makeText(getActivity(), R.string.drink_updated, Toast.LENGTH_LONG).show();
                     });
+                } else {
+                    Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
                 }
             }
         });

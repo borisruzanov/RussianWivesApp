@@ -42,7 +42,7 @@ public class ChatsRepository {
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
 
     public void getChats(UserChatListCallback userChatListCallback) {
-        if(getUid() != null) {
+        if (getUid() != null) {
             realtimeReference.child("Messages").child(getUid()).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -66,7 +66,6 @@ public class ChatsRepository {
                             }
                         });
                     }
-
 
                     getUsers(uidList, userList -> {
                         userChatList.clear();
@@ -94,7 +93,6 @@ public class ChatsRepository {
                 }
             });
         }
-        else userChatListCallback.setUserChatList(new ArrayList<UserChat>());
     }
 
     private List<UserChat> sortByDate(List<UserChat> userChats) {

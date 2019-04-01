@@ -63,7 +63,7 @@ public class SliderImageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new SliderRepository()));
 
-        new SliderRepository().getFieldFromCurrentUser("image", value -> result = value);
+        new SliderRepository().getFieldFromCurrentUser(Consts.IMAGE, value -> result = value);
 
         btnChangeImage = view.findViewById(R.id.fragment_slider_image_btn_save);
         btnChangeImage.setOnClickListener(view1 -> {

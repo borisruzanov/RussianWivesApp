@@ -24,7 +24,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     fun getUserList(page: Int) {
         searchInteractor.getFilteredUserList(usersListCallback, page)
         Log.d("UsersListDebug", "in getUserList and fsUsers size is ${fsUsers.size}")
-        fsUsers.forEach { Log.d("UsersListDebug", "FsUser name is ${it.name} and uid is ${it.uid}") }
+        //fsUsers.forEach { Log.d("UsersListDebug", "FsUser name is ${it.name} and uid is ${it.uid}") }
     }
 
     private val usersListCallback = UsersListCallback { userList ->
@@ -49,7 +49,6 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun onUpdate() {
-        canLoad = true
         fsUsers.clear()
         likedUsers.clear()
         viewState.clearUsers()

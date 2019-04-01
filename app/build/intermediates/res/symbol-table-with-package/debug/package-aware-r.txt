@@ -2028,6 +2028,7 @@ string emptyText
 string emptyText_actions
 string emptyText_chats
 string empty_chats_img
+string empty_field
 string enter_message_hint
 string enter_your_name
 string error_in_changes

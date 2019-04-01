@@ -19,6 +19,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
+import com.borisruzanov.russianwives.R.id.*
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
@@ -110,8 +111,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
         users_swipe_refresh.setOnRefreshListener {
             Log.d("UsersListDebug", "refreshing ...")
-            searchPresenter.onUpdate()
-            onUserListScrollListener.resetState()
+            onUpdate()
         }
 
         searchPresenter.setProgressBar(true)
@@ -120,10 +120,11 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     override fun addUsers(userList: List<FsUser>) {
         searchPresenter.setProgressBar(false)
+        Log.d("UsersListDebug", "Stopped loading is ${onUserListScrollListener.isStoppedLoading}")
         //!important! when using FeedScrollListener we need manually tell it about the end of the list
         if (userList.size == 1) {
             onUserListScrollListener.setStopLoading(true)
-            searchPresenter.setLoading(false)
+            Log.d("UsersListDebug", "Stop loading")
         }
         adapter.addUsers(userList)
     }
@@ -159,7 +160,10 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     //Updating results of the filtration
     override fun onUpdate() {
-        if (searchPresenter != null) searchPresenter.onUpdate()
+        if (searchPresenter != null) {
+            searchPresenter.onUpdate()
+            onUserListScrollListener.resetState()
+        }
     }
 
     override fun showFullProfileDialog() {

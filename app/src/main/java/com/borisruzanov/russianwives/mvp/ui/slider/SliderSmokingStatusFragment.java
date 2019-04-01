@@ -84,6 +84,8 @@ public class SliderSmokingStatusFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.smoking_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;    }

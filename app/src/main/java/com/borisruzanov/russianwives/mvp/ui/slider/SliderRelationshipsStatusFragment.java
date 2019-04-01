@@ -49,7 +49,7 @@ public class SliderRelationshipsStatusFragment extends Fragment {
         radioGroup = view.findViewById(R.id.fragment_slider_relationships_radiogroup);
         btnSave = view.findViewById(R.id.fragment_slider_relationships_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("relationship_status", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.RELATIONSHIP_STATUS, value -> {
             result = value;
             if (value != null && value.equals(getString(R.string.never_married))){
                 radioGroup.check(R.id.fragment_slider_rbtn_never_married);
@@ -79,6 +79,8 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.relationship_was_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

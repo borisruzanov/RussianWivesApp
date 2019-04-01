@@ -48,7 +48,7 @@ public class SliderNameFragment extends MvpAppCompatFragment {
         btnSave = view.findViewById(R.id.fragment_slider_name_btn_save);
         answer = view.findViewById(R.id.fragment_slider_name_et_answer);
 
-        new SliderRepository().getFieldFromCurrentUser("name", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.NAME, value -> {
             if (value != null) {
                 answer.setText(value);
                 answer.setSelection(answer.getText().length());

@@ -49,8 +49,8 @@ public class SliderEthnicityFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_slider_ethnicity, container, false);
 
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_ethnicity_radiogroup);
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_ethnicity_btn_save);
+        radioGroup = view.findViewById(R.id.fragment_slider_ethnicity_radiogroup);
+        btnSave = view.findViewById(R.id.fragment_slider_ethnicity_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.ETHNICITY, value -> {
             result = value;
@@ -87,6 +87,8 @@ public class SliderEthnicityFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.ethnicity_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
 

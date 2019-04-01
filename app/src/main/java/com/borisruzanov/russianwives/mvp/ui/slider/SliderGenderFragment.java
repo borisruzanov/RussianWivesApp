@@ -48,7 +48,7 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_gender, container, false);
         radioGroup = view.findViewById(R.id.fragment_slider_gender_radiogroup);
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_gender_btn_save);
+        btnSave = view.findViewById(R.id.fragment_slider_gender_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.GENDER, value -> {
             if (value != null && value.equals(getString(R.string.female_option))) {
@@ -73,6 +73,8 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
 
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

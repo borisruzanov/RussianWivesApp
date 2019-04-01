@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.mvp.ui.slider;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,7 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
         radioGroup = view.findViewById(R.id.fragment_slider_bodytype_radiogroup);
         btnSave = view.findViewById(R.id.fragment_slider_bodytype_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("body_type", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.BODY_TYPE, value -> {
             result = value;
             if (value != null && value.equals(getString(R.string.slender))) {
                 radioGroup.check(R.id.fragment_slider_bodytype_rbtn_slender);
@@ -83,6 +84,8 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
                         Toast.makeText(getActivity(), R.string.bkodytype_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

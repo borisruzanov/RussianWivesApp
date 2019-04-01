@@ -1,4 +1,4 @@
-#Fri Mar 01 12:12:35 GMT-05:00 2019
+#Sun Mar 31 20:59:24 GMT-05:00 2019
 path.3=classes2.dex
 path.2=classes.dex
 path.1=classes.dex
@@ -7,10 +7,10 @@ path.0=classes.dex
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
-base.4=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
+base.4=D\:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
 renamed.0=classes.dex
-base.3=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
-base.2=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
-base.1=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
-base.0=D\:\\dev\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
+base.3=D\:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
+base.2=D\:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\1
+base.1=D\:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\3
+base.0=D\:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 path.4=classes3.dex

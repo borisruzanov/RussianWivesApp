@@ -33,7 +33,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public void setData(List<UserChat> userChatList) {
+    public void setData(List<UserChat> userChatList){
         this.userChatList = userChatList;
         notifyDataSetChanged();
     }
@@ -43,8 +43,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
     public ChatsAdapter.ChatsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_chat, parent, false);
-        return new ChatsAdapter.ChatsAdapterViewHolder(view);
-    }
+        return new ChatsAdapter.ChatsAdapterViewHolder(view);    }
 
     @Override
     public void onBindViewHolder(@NonNull ChatsAdapterViewHolder holder, int position) {
@@ -58,7 +57,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
         return userChatList.size();
     }
 
-    public class ChatsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ChatsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         LinearLayout container;
         TextView name;
         TextView time;
@@ -80,22 +79,23 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
         public void onClick(View v) {
         }
 
-        void bind(UserChat model, int position) {
+        void bind(UserChat model, int position){
             name.setText(model.getName());
+            // country.setText(fsUser.getCountry());
             Log.d("TimestampDebug", "Timestamp is " + model.getMessageTimestamp());
             String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
 
             if (model.getMessage().contains(Consts.IMAGE_STORAGE)) {
-                message.setText(context.getString(R.string.photo));
-                message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_photo));
+               message.setText(context.getString(R.string.photo));
+               message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_photo));
             } else {
                 message.setText(model.getMessage());
                 message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_text));
             }
 
             if (model.getImage() != null) {
-                if (model.getImage().equals("default")) {
+                if (model.getImage().equals(Consts.DEFAULT)) {
                     Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
                 } else {
                     Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
@@ -103,16 +103,15 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
             }
             container.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
 
-            if (!model.getSeen())
-                container.setBackgroundColor(ContextCompat.getColor(context, R.color.chat_item_bg));
+            if (!model.getSeen()) container.setBackgroundColor(ContextCompat.getColor(context, R.color.chat_item_bg));
             else container.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
 
-            if (model.getOnline() != null) {
-                if (model.getOnline().equals("true")) online.setVisibility(View.VISIBLE);
-                else {
-                    Log.d("xx", "onlineStatus.equals(\"FAlse\")");
-                    online.setVisibility(View.INVISIBLE);
-                }
+            if(model.getOnline() != null){
+            if (model.getOnline().equals("true")) online.setVisibility(View.VISIBLE);
+            else {
+                Log.d("xx", "onlineStatus.equals(\"FAlse\")");
+                online.setVisibility(View.INVISIBLE);
+            }
             } else {
                 Log.d("xx", "onlineStatus.equals(\"FAlse\")");
                 online.setVisibility(View.INVISIBLE);

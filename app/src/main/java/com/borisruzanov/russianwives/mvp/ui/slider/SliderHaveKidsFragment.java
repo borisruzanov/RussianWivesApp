@@ -73,6 +73,8 @@ public class SliderHaveKidsFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.number_of_kids_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

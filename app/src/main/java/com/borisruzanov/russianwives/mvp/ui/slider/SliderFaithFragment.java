@@ -50,7 +50,7 @@ public class SliderFaithFragment extends Fragment {
         radioGroup = view.findViewById(R.id.fragment_slider_faith_radiogroup);
         btnSave = view.findViewById(R.id.fragment_slider_faith_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("faith", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.FAITH, value -> {
             if (value == null || value.equals(Consts.DEFAULT)) result = Consts.DEFAULT;
             if (value != null && value.equals(getString(R.string.christian))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
@@ -85,6 +85,8 @@ public class SliderFaithFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.faith_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

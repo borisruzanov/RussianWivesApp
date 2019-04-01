@@ -23,7 +23,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         mainInteractor.setFirstOpenDate()
 
         if(isUserExist()) {
-            showMustInfoDialog()
+            //showMustInfoDialog()
             showAdditionalInfoDialog()
             checkAchieve()
         }

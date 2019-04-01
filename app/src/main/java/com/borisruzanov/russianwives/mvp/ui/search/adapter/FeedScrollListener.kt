@@ -18,7 +18,7 @@ abstract class FeedScrollListener: RecyclerView.OnScrollListener {
     private var previousTotalItemCount = 0
     private var isLoading = true
     //!important! when using FeedScrollListener we need manually tell it about the end of the list
-    private var isStoppedLoading = false
+    var isStoppedLoading = false
 
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 

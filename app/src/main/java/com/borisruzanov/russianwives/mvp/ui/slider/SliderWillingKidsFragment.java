@@ -83,6 +83,8 @@ public class SliderWillingKidsFragment extends Fragment {
                         Toast.makeText(getActivity(), R.string.willing_kids_updated, Toast.LENGTH_LONG).show();
                     });
                 }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

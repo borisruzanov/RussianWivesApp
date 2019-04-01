@@ -197,13 +197,15 @@ public class UserRepository {
     }
 
     public void hasDefaultMustInfo(BoolCallback callback) {
-        users.document(getUid()).get().addOnCompleteListener(task -> {
-            if (task.getResult().exists()) {
-                DocumentSnapshot snapshot = task.getResult();
-                String[] keys = {Consts.IMAGE, Consts.AGE, Consts.COUNTRY};
-                callback.setBool(!notDefault(keys, snapshot));
-            }
-        });
+        if (getUid() != null) {
+            users.document(getUid()).get().addOnCompleteListener(task -> {
+                if (task.getResult().exists()) {
+                    DocumentSnapshot snapshot = task.getResult();
+                    String[] keys = {Consts.IMAGE, Consts.AGE, Consts.COUNTRY};
+                    callback.setBool(!notDefault(keys, snapshot));
+                }
+            });
+        }
     }
 
     // check if the value of the given key is default or not

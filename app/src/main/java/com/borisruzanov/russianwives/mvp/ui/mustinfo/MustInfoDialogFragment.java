@@ -55,17 +55,9 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.dialog_must_info, container, false);
-        progressDialog = new ProgressDialog(getActivity());
         ButterKnife.bind(this, view);
+        progressDialog = new ProgressDialog(getActivity());
         return view;
-    }
-
-    @OnClick(R.id.button_ok_mi)
-    public void onButtonClicked() {
-        String age = ageSpinner.getSelectedItem().toString();
-        String country = countrySpinner.getSelectedItem().toString();
-        presenter.saveValues(age, country, image);
-        dismiss();
     }
 
     @OnClick(R.id.add_photo_btn_mi)
@@ -74,6 +66,14 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
         galleryIntent.setType("image/*");
         galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(galleryIntent, getString(R.string.add_your_photo)), GALLERY_PICK);
+    }
+
+    @OnClick(R.id.button_ok_mi)
+    public void onButtonClicked() {
+        String age = ageSpinner.getSelectedItem().toString();
+        String country = countrySpinner.getSelectedItem().toString();
+        presenter.saveValues(age, country, image);
+        dismiss();
     }
 
     @Override
