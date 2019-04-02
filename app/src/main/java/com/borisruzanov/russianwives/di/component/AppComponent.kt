@@ -11,13 +11,14 @@ import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.main.MainPresenter
 import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
+import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
 import dagger.Component
 import javax.inject.Singleton
 
 
-@Singleton @Component(modules = arrayOf(AppModule::class))
+@Singleton @Component(modules = [AppModule::class])
 interface AppComponent {
     // todo: separate to modules
     fun inject(app: App)
@@ -36,4 +37,6 @@ interface AppComponent {
     fun inject(filterDialogFragment: FilterDialogFragment)
     fun inject(myProfileActivity: MyProfileActivity)
     fun inject(searchFragment: SearchFragment)
+    fun inject(mustInfoDialogFragment: MustInfoDialogFragment)
+
 }

@@ -38,10 +38,8 @@
             android:id="@+id/add_photo_btn_mi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_margin="@dimen/dp4"
             android:text="@string/add"
-            android:theme="@style/Button.Colored"
             android:layout_alignParentRight="true"/>
 
         </RelativeLayout>
@@ -98,7 +96,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@android:string/ok"
-            android:theme="@style/Button.Colored"
             android:layout_alignParentRight="true"/>
         </RelativeLayout>
 

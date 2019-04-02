@@ -9,10 +9,13 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 public class MustInfoInteractor {
 
     private SliderRepository sliderRepository;
 
+    @Inject
     public MustInfoInteractor(SliderRepository sliderRepository) {
         this.sliderRepository = sliderRepository;
     }

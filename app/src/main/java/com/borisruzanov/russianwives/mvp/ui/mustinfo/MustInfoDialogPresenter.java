@@ -2,15 +2,20 @@ package com.borisruzanov.russianwives.mvp.ui.mustinfo;
 
 import android.net.Uri;
 
+import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.interactor.mustinfo.MustInfoInteractor;
 import com.borisruzanov.russianwives.utils.Consts;
 
+import javax.inject.Inject;
+
+@InjectViewState
 public class MustInfoDialogPresenter extends MvpPresenter<MustInfoDialogView> {
 
     private MustInfoInteractor interactor;
 
+    @Inject
     public MustInfoDialogPresenter(MustInfoInteractor interactor) {
         this.interactor = interactor;
     }
@@ -18,6 +23,7 @@ public class MustInfoDialogPresenter extends MvpPresenter<MustInfoDialogView> {
     public void saveValues(String age, String country, String image) {
         if (!age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT) && !image.equals(Consts.DEFAULT)) {
             interactor.updateAgeCountry(age, country);
+            getViewState().closeDialog();
         } else if (image.equals(Consts.DEFAULT)) {
             getViewState().showMessage(R.string.add_your_photo_mi);
         } else {

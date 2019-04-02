@@ -54,7 +54,7 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog d =  super.onCreateDialog(savedInstanceState);
+        Dialog d = super.onCreateDialog(savedInstanceState);
         d.setCanceledOnTouchOutside(false);
         return d;
     }
@@ -73,14 +73,14 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
     public void onConfirmClicked() {
         if (!genderSpinner.getSelectedItem().toString().equals(Consts.DEFAULT)) {
             listener.setGender(genderSpinner.getSelectedItem().toString());
-            if (genderSpinner.getSelectedItem().toString()!= null) {
+            if (genderSpinner.getSelectedItem().toString() != null) {
                 Bundle bundle = new Bundle();
                 bundle.putString(Consts.GENDER, genderSpinner.getSelectedItem().toString());
                 mFirebaseAnalytics.logEvent("dialog_gender", bundle);
             }
             dismiss();
-        }
-        else Toast.makeText(getContext(), getString(R.string.order_gender), Toast.LENGTH_SHORT).show();
+        } else
+            Toast.makeText(getContext(), getString(R.string.order_gender), Toast.LENGTH_SHORT).show();
     }
 
     @Override

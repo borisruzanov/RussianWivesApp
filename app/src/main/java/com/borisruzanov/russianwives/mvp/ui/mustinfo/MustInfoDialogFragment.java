@@ -1,6 +1,8 @@
 package com.borisruzanov.russianwives.mvp.ui.mustinfo;
 
 import android.app.Activity;
+import android.app.Application;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -17,6 +19,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
+import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -40,7 +43,7 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
     MustInfoDialogPresenter presenter;
 
     @ProvidePresenter
-    MustInfoDialogPresenter provideFilterDialogPresenter() {
+    MustInfoDialogPresenter provideMustInfoDialogPresenter() {
         return presenter;
     }
 
@@ -49,6 +52,21 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
 
     @BindView(R.id.spinner_country_mi)
     Spinner countrySpinner;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        App application = (App)getActivity().getApplication();
+        application.getComponent().inject(this);
+        super.onCreate(savedInstanceState);
+    }
+
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog d =  super.onCreateDialog(savedInstanceState);
+        d.setCanceledOnTouchOutside(false);
+        return d;
+    }
 
     @Nullable
     @Override
@@ -73,7 +91,6 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
         String age = ageSpinner.getSelectedItem().toString();
         String country = countrySpinner.getSelectedItem().toString();
         presenter.saveValues(age, country, image);
-        dismiss();
     }
 
     @Override
@@ -102,6 +119,11 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
                 }
             }
         }
+    }
+
+    @Override
+    public void closeDialog() {
+        dismiss();
     }
 
     @Override
