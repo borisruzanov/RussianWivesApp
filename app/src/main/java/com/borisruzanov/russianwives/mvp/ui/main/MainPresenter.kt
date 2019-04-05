@@ -66,7 +66,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         mainInteractor.hasNecessaryInfo(callback = BoolCallback { flag ->
             if (flag) {
             viewState.showAdditionalInfoDialog()
-            mainInteractor.setDialogLastOpenDate()
+            mainInteractor.setFPDialogLastOpenDate()
         }
         })
     }

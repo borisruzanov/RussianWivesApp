@@ -8,6 +8,7 @@ public interface MustInfoDialogView extends MvpView {
 
     void showProgress();
     void hideProgress();
+    void highlightConfirmButton();
     void closeDialog();
     void showMessage(@StringRes int resId);
 

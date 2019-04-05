@@ -36,8 +36,12 @@
         <item name="android:layout_marginBottom">4dp</item>
     </style>
 
-    <style name="Button.Colored" parent="Base.TextAppearance.AppCompat.Widget.Button.Colored">
+    <style name="ColoredButton" parent="ThemeOverlay.AppCompat">
         <item name="colorButtonNormal">@color/colorAccent</item>
+    </style>
+
+    <style name="InactiveButton" parent="ThemeOverlay.AppCompat">
+        <item name="colorButtonNormal">@android:color/darker_gray</item>
     </style>
 
     <style name="ThemeOverlay.FilterButton" parent="ThemeOverlay.AppCompat.Dark">

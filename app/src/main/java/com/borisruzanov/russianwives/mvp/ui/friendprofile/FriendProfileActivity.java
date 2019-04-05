@@ -63,7 +63,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     RecyclerView recyclerView;
     UserDescriptionListAdapter userDescriptionListAdapter;
 
-    private boolean reload = false;
     private String friendUid;
 
     @Inject
@@ -208,7 +207,6 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
             IdpResponse response = IdpResponse.fromResultIntent(data);
             if (resultCode == RESULT_OK) {
                 Log.d("RegDebug", "OnActivityResult with ok result");
-                reload = true;
                 presenter.saveUser();
             } else {
                 //Sign in failed

@@ -1058,6 +1058,7 @@ drawable common_google_signin_btn_text_light
 drawable common_google_signin_btn_text_light_focused
 drawable common_google_signin_btn_text_light_normal
 drawable common_google_signin_btn_text_light_normal_background
+drawable confirm_button_tint
 drawable crop_image_menu_flip
 drawable crop_image_menu_rotate_left
 drawable crop_image_menu_rotate_right
@@ -2453,10 +2454,10 @@ style Base_Widget_AppCompat_Toolbar
 style Base_Widget_AppCompat_Toolbar_Button_Navigation
 style Base_Widget_Design_AppBarLayout
 style Base_Widget_Design_TabLayout
-style Button_Colored
 style CardView
 style CardView_Dark
 style CardView_Light
+style ColoredButton
 style FirebaseUI
 style FirebaseUI_AuthMethodPicker
 style FirebaseUI_AuthMethodPicker_ButtonHolder
@@ -2503,6 +2504,7 @@ style FirebaseUI_Transparent
 style FirebaseUI_VerifyPhoneButton
 style FirebaseUI_WrapperStyle
 style FlatButton
+style InactiveButton
 style MessengerButton
 style MessengerButton_Blue
 style MessengerButton_Blue_Large

@@ -1,18 +1,22 @@
 package com.borisruzanov.russianwives.mvp.ui.mustinfo;
 
 import android.app.Activity;
-import android.app.Application;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -30,7 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implements MustInfoDialogView {
+public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implements MustInfoDialogView, AdapterView.OnItemSelectedListener {
 
     public static final String TAG = "Must_Info_TAG";
 
@@ -53,6 +57,9 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
     @BindView(R.id.spinner_country_mi)
     Spinner countrySpinner;
 
+    @BindView(R.id.button_ok_mi)
+    Button confirmButton;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         App application = (App)getActivity().getApplication();
@@ -74,7 +81,10 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         View view = inflater.inflate(R.layout.dialog_must_info, container, false);
         ButterKnife.bind(this, view);
+        ageSpinner.setOnItemSelectedListener(this);
+        countrySpinner.setOnItemSelectedListener(this);
         progressDialog = new ProgressDialog(getActivity());
+
         return view;
     }
 
@@ -104,7 +114,6 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
                         .start(getContext(), this);
             }
             if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-                //CropImage.ActivityResult result = CropImage.getActivityResult(data);
                 if (resultCode == Activity.RESULT_OK) {
                     showProgress();
                     Uri photoUri = CropImage.getActivityResult(data).getUri();
@@ -122,8 +131,27 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
     }
 
     @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        highlightConfirmButton();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {}
+
+    @Override
     public void closeDialog() {
         dismiss();
+    }
+
+    @Override
+    public void highlightConfirmButton() {
+        if (!ageSpinner.getSelectedItem().toString().equals(Consts.DEFAULT) && !image.equals(Consts.DEFAULT) &&
+                !countrySpinner.getSelectedItem().toString().equals(Consts.DEFAULT)) {
+            Drawable buttonDrawable = confirmButton.getBackground();
+            buttonDrawable = DrawableCompat.wrap(buttonDrawable);
+            DrawableCompat.setTint(buttonDrawable, ContextCompat.getColor(getActivity(), R.color.colorAccent));
+            confirmButton.setBackground(buttonDrawable);
+        }
     }
 
     @Override

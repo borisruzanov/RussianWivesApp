@@ -21,6 +21,10 @@ class FriendProfileInteractor @Inject constructor(private val repository: Friend
         repository.setUserVisited(friendUid)
     }
 
+    fun hasMustInfo(callback: BoolCallback) {
+        userRepository.hasMustInfo(callback)
+    }
+
     fun setFriendLiked(friendUid: String) = repository.setFriendLiked(friendUid)
 
     fun isUserExist(): Boolean = userRepository.isUserExist

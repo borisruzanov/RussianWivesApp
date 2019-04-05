@@ -41,6 +41,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MUST_INFO_ACH;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
@@ -80,14 +81,21 @@ public class UserRepository {
 
     public void addFullProfileUsers() {
         users.get().addOnCompleteListener(task -> {
-            for (DocumentSnapshot snapshot: task.getResult().getDocuments()) {
-                if (getListOfDefaults(snapshot).isEmpty()) {
+            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+                if (!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
+                        !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
+                        !snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT)) {
                     String uid = snapshot.getId();
                     Log.d("FpDebug", "User with full profile uid is " + uid);
                     Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put(FULL_PROFILE_ACH, "true");
+                    fpMap.put(MUST_INFO_ACH, "true");
                     users.document(uid).update(fpMap);
-                    new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                } else {
+                    String uid = snapshot.getId();
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put(MUST_INFO_ACH, "false");
+                    users.document(uid).update(fpMap);
                 }
             }
         });
@@ -120,14 +128,14 @@ public class UserRepository {
                 String image = snapshot.getString(Consts.IMAGE);
                 String age = snapshot.getString(Consts.AGE);
                 String country = snapshot.getString(Consts.COUNTRY);
-                boolean value = !image.equals(Consts.DEFAULT) &&  !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT);
+                boolean value = !image.equals(Consts.DEFAULT) && !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT);
                 callback.setBool(value);
             }
         });
     }
 
     public void setDialogLastOpenDate() {
-        prefs.setDialogOpenDate();
+        prefs.setFPOpenDate();
     }
 
     public void setFPDialogLastOpenDate() {
@@ -138,10 +146,10 @@ public class UserRepository {
         float days = 0f;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-                Date date1 = dateFormat.parse(prefs.getValue(key));
-                Date date2 = Calendar.getInstance().getTime();
-                long diff = date2.getTime() - date1.getTime();
-                days = (diff / (1000*60*60*24));
+            Date date1 = dateFormat.parse(prefs.getValue(key));
+            Date date2 = Calendar.getInstance().getTime();
+            long diff = date2.getTime() - date1.getTime();
+            days = (diff / (1000 * 60 * 60 * 24));
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -170,7 +178,7 @@ public class UserRepository {
         realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
     }
 
-    public void setFirstOpenDate(){
+    public void setFirstOpenDate() {
         if (prefs.getFirstOpenDate().equals(Consts.DEFAULT)) {
             prefs.setFirstOpenDate();
         }
@@ -191,8 +199,7 @@ public class UserRepository {
             if (flag) {
                 prefs.clearValue(Consts.FP_OPEN_DATE);
                 callback.setBool(false);
-            }
-            else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
+            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
     }
 
@@ -201,17 +208,19 @@ public class UserRepository {
             users.document(getUid()).get().addOnCompleteListener(task -> {
                 if (task.getResult().exists()) {
                     DocumentSnapshot snapshot = task.getResult();
-                    String[] keys = {Consts.IMAGE, Consts.AGE, Consts.COUNTRY};
-                    callback.setBool(!notDefault(keys, snapshot));
+                    boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
+                            snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
+                            snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT);
+                            callback.setBool(flag);
                 }
             });
         }
     }
 
     // check if the value of the given key is default or not
-    private boolean notDefault(String[] keys, DocumentSnapshot snapshot){
+    private boolean notDefault(String[] keys, DocumentSnapshot snapshot) {
         boolean result = true;
-        for (String key: keys) {
+        for (String key : keys) {
             if (snapshot.getString(key).equals(Consts.DEFAULT)) {
                 result = false;
                 break;
@@ -229,8 +238,8 @@ public class UserRepository {
                     if (flag) {
                         prefs.clearValue(Consts.DIALOG_OPEN_DATE);
                         callback.setBool(false);
-                    }
-                    else callback.setBool(isOneDayGone(Consts.DIALOG_OPEN_DATE) && notDefault(keys, snapshot));
+                    } else
+                        callback.setBool(isOneDayGone(Consts.DIALOG_OPEN_DATE) && notDefault(keys, snapshot));
                 });
             }
         });
@@ -333,7 +342,7 @@ public class UserRepository {
         realtimeReference.child("Users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String uid = snapshot.getKey();
                     Log.d("RDUpdate", "Uid is " + uid);
                     Map<String, Object> uidMap = new HashMap<>();
@@ -372,9 +381,10 @@ public class UserRepository {
         });
     }
 
-    public void makeDialogOpenDateDefault () {
+    public void makeDialogOpenDateDefault() {
         prefs.setDialogOpenDate(Consts.DEFAULT);
     }
+
     public void clearDialogOpenDate() {
         prefs.clearValue(Consts.DIALOG_OPEN_DATE);
     }

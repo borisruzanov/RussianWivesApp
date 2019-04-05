@@ -46,8 +46,8 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
 
     fun openChatMessage(friendUid: String) {
         if (interactor.isUserExist()) {
-            interactor.checkFullProfileAchieve(callback = BoolCallback { hasAchieve ->
-                if (hasAchieve) {
+            interactor.hasMustInfo(callback = BoolCallback { hasMustInfo ->
+                if (hasMustInfo) {
                     interactor.getFriendData(friendUid, UserCallback { fsUser ->
                         viewState.openChatMessage(fsUser.name, fsUser.image)
                     })

@@ -36,9 +36,6 @@ public class SliderImageFragment extends Fragment {
     Button btnChangeImage;
     String result;
 
-    private StorageReference storageReference = FirebaseStorage.getInstance().getReference();
-    ;
-
     SliderFragmentsPresenter sliderFragmentsPresenter;
     private static final int GALLERY_PICK = 1;
     private ProgressDialog progressDialog;

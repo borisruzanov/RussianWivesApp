@@ -32,7 +32,10 @@ public class MustInfoDialogPresenter extends MvpPresenter<MustInfoDialogView> {
     }
 
     public void uploadPhoto(Uri photoUri) {
-        interactor.uploadPhoto(photoUri, () -> getViewState().hideProgress());
+        interactor.uploadPhoto(photoUri, () -> {
+            getViewState().hideProgress();
+            getViewState().highlightConfirmButton();
+        });
     }
 
 }

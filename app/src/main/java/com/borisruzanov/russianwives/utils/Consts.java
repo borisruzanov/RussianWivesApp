@@ -23,7 +23,6 @@ public final class Consts {
     public static final String NUMBER_OF_KIDS  = "number_of_kids";
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
     public static final String UID  = "uid";
-    public static final String FULL_PROFILE  = "full_profile";
 
     public static final String FIRST_OPEN_DATE  = "first open date";
     public static final String DIALOG_OPEN_DATE  = "dialog open date";

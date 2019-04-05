@@ -27,6 +27,7 @@ public class FirebaseRequestManager {
         userMap.put("hobby", "default");
         userMap.put("uid", uid);
         userMap.put("full_profile", "false");
+        userMap.put("must_info", "false");
         userMap.put("rating", 1);
         return userMap;
     }

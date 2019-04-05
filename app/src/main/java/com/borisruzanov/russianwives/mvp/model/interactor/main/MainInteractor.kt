@@ -24,7 +24,7 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun hasDefaultMustInfo(callback: BoolCallback) = userRepository.hasDefaultMustInfo(callback)
 
-    fun setDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
+    fun setFPDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 

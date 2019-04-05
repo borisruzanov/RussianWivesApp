@@ -21,19 +21,17 @@ class SearchInteractor @Inject constructor(private val searchRepository: SearchR
         friendRepository.setFriendLiked(friendUid)
     }
 
-    fun areFriendsLiked(callback: StringsCallback) = friendRepository.getLikedFriends(callback)
-
     fun isFriendLiked(friendUid: String, callback: BoolCallback) = friendRepository.isLiked(friendUid, callback)
 
     fun getFilteredUserList(usersListCallback: UsersListCallback, page: Int) {
         searchRepository.getUsers(filterRepository.filteredSearchResult, usersListCallback, page)
     }
 
+    fun hasMustInfo(callback: BoolCallback) {
+        userRepository.hasMustInfo(callback)
+    }
+
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
-
-    fun hasFullProfileInfo(callback: BoolCallback) = userRepository.hasFullProfileInfo(callback)
-
-    fun setFPDialogLastOpen() = userRepository.setFPDialogLastOpenDate()
 
     fun checkFullProfileAchieve(callback: BoolCallback) = ratingRepository.isAchievementExist(FULL_PROFILE_ACH, callback)
 
