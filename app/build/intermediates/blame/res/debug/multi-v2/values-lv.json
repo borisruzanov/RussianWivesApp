@@ -4,7 +4,24 @@
             "outputFile": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-lv\\values-lv.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.1.0.aar\\b349c1a3c04179a2152b3404b84c8d2e\\res\\values-lv\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.5.0.aar\\c87a00c7a17875c5d294d71e1ee217c5\\res\\values-lv\\values.xml",
+                    "from": {
+                        "startLines": "4",
+                        "startColumns": "0",
+                        "startOffsets": "205",
+                        "endColumns": "100",
+                        "endOffsets": "305"
+                    },
+                    "to": {
+                        "startLines": "38",
+                        "startColumns": "4",
+                        "startOffsets": "5141",
+                        "endColumns": "104",
+                        "endOffsets": "5241"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.2.0.aar\\cf1c96417b90ae9619352e2141544114\\res\\values-lv\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -18,6 +35,23 @@
                         "startOffsets": "3511",
                         "endColumns": "224",
                         "endOffsets": "3731"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-17.2.0.aar\\f2ba7d2322baa75c744ea64e207d0e72\\res\\values-lv\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "199,274,377,443,509,593,699",
+                        "endColumns": "74,102,65,65,83,105,70",
+                        "endOffsets": "273,376,442,508,592,698,769"
+                    },
+                    "to": {
+                        "startLines": "102,103,104,105,106,107,108",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "10600,10679,10786,10856,10926,11014,11124",
+                        "endColumns": "78,106,69,69,87,109,74",
+                        "endOffsets": "10674,10781,10851,10921,11009,11119,11194"
                     }
                 },
                 {
@@ -47,11 +81,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "103",
+                        "startLines": "110",
                         "startColumns": "4",
-                        "startOffsets": "10682",
+                        "startOffsets": "11281",
                         "endColumns": "100",
-                        "endOffsets": "10778"
+                        "endOffsets": "11377"
                     }
                 },
                 {
@@ -81,28 +115,11 @@
                         "endOffsets": "220,328,437,523,627,749,831,913,998,1107,1219,1318,1429,1538,1643,1817,1916,1998"
                     },
                     "to": {
-                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,102",
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,109",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "532,652,760,869,955,1059,1181,1263,1345,1430,1539,1651,1750,1861,1970,2075,2249,10600",
+                        "startOffsets": "532,652,760,869,955,1059,1181,1263,1345,1430,1539,1651,1750,1861,1970,2075,2249,11199",
                         "endColumns": "119,107,108,85,103,121,81,81,84,108,111,98,110,108,104,173,98,81",
-                        "endOffsets": "647,755,864,950,1054,1176,1258,1340,1425,1534,1646,1745,1856,1965,2070,2244,2343,10677"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.3.4.aar\\cf900d2ae1a011148baf216b8016a1d5\\res\\values-lv\\values.xml",
-                    "from": {
-                        "startLines": "4",
-                        "startColumns": "0",
-                        "startOffsets": "205",
-                        "endColumns": "100",
-                        "endOffsets": "305"
-                    },
-                    "to": {
-                        "startLines": "38",
-                        "startColumns": "4",
-                        "startOffsets": "5141",
-                        "endColumns": "104",
-                        "endOffsets": "5241"
+                        "endOffsets": "647,755,864,950,1054,1176,1258,1340,1425,1534,1646,1745,1856,1965,2070,2244,2343,11276"
                     }
                 }
             ]

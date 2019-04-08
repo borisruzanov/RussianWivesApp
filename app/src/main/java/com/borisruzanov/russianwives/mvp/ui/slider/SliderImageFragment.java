@@ -59,6 +59,7 @@ public class SliderImageFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new SliderRepository()));
+        progressDialog = new ProgressDialog(getActivity());
 
         new SliderRepository().getFieldFromCurrentUser(Consts.IMAGE, value -> result = value);
 
@@ -85,39 +86,37 @@ public class SliderImageFragment extends Fragment {
                         .setMinCropWindowSize(500, 500)
                         .start(getContext(), this);
             }
-        }
 
-        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
-            Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
-            if (resultCode == RESULT_OK) {
-                Log.d(Contract.TAG, "resultCode == RESULT_OK");
-                progressDialog = new ProgressDialog(getActivity());
-                progressDialog.setTitle(getString(R.string.uploading_image));
-                progressDialog.setMessage(getString(R.string.please_wait));
-                progressDialog.show();
+            if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+                Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in IF");
+                if (resultCode == RESULT_OK) {
+                    Log.d(Contract.TAG, "resultCode == RESULT_OK");
+                    progressDialog.setTitle(getString(R.string.uploading_image));
+                    progressDialog.setMessage(getString(R.string.please_wait));
+                    progressDialog.show();
 
 
-                Uri resultUri = CropImage.getActivityResult(data).getUri();
-                Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
+                    Uri resultUri = CropImage.getActivityResult(data).getUri();
+                    Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
 
-                new SliderRepository().uploadUserPhoto(resultUri, () -> {
-                    if (result.equals(Consts.DEFAULT))
-                        new RatingRepository().addRating(ADD_IMAGE_RATING);
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        if (getActivity() != null) getActivity().onBackPressed();
-                    }
-                });
-            } else {
-                Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
+                    new SliderRepository().uploadUserPhoto(resultUri, () -> {
+                        if (result.equals(Consts.DEFAULT))
+                            new RatingRepository().addRating(ADD_IMAGE_RATING);
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
+                }
+                progressDialog.dismiss();
+
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Exception error = CropImage.getActivityResult(data).getError();
+                Log.d(Contract.TAG, "resultCode == CropImage.ERROR");
+
             }
-            progressDialog.dismiss();
-
-        } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-            Exception error = CropImage.getActivityResult(data).getError();
-            Log.d(Contract.TAG, "resultCode == CropImage.ERROR");
-
         }
-        Log.d(Contract.TAG, "requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE in ELSE");
 
     }
 

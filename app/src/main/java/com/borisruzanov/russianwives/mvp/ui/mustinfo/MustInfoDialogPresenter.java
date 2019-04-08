@@ -22,8 +22,7 @@ public class MustInfoDialogPresenter extends MvpPresenter<MustInfoDialogView> {
 
     public void saveValues(String age, String country, String image) {
         if (!age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT) && !image.equals(Consts.DEFAULT)) {
-            interactor.updateAgeCountry(age, country);
-            getViewState().closeDialog();
+            saveMustInfo(age, country);
         } else if (image.equals(Consts.DEFAULT)) {
             getViewState().showMessage(R.string.add_your_photo_mi);
         } else {
@@ -36,6 +35,14 @@ public class MustInfoDialogPresenter extends MvpPresenter<MustInfoDialogView> {
             getViewState().hideProgress();
             getViewState().highlightConfirmButton();
         });
+    }
+
+    private void saveMustInfo(String age, String country) {
+        interactor.addRating();
+        interactor.updateAgeCountry(age, country);
+        interactor.addMustInfoAchieve();
+        getViewState().closeDialog();
+        getViewState().logSuccessMustInfo();
     }
 
 }

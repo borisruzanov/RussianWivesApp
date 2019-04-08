@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v4.app.ActivityCompat.invalidateOptionsMenu
 import android.support.v4.app.ActivityCompat.startActivityForResult
@@ -116,6 +117,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         Log.d("TabDebug", "Tabs count is ${tabLayout.tabCount}")
 
         analytics()
+        Handler().postDelayed({mainPresenter.showDialogs()}, 3000)
 
     }
 
@@ -173,10 +175,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         invalidateOptionsMenu()
         if (mainPresenter.isUserExist()) {
             menu.findItem(R.id.login).isVisible = false
+            //mainPresenter.showDialogs()
         } else {
             menu.findItem(R.id.sign_out_menu).isVisible = false
             menu.findItem(R.id.menu_my_profile).isVisible = false
-            //menu.findItem(R.id.menu_shop).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
@@ -210,16 +212,11 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun callAuthWindow() {
-        val eventTracker = App.AnalyticsTracker.sTracker
-        val eventBuilder = HitBuilders.EventBuilder()
-                .setCategory(getString(R.string.conversion_one))
-                .setAction(getString(R.string.registration_started))
-        eventTracker.send(eventBuilder.build())
-
 
         val tracker = App.AnalyticsTracker.sTracker
         tracker.setScreenName("AUTH Activity")
-        tracker.send(HitBuilders.ScreenViewBuilder().build());
+        tracker.send(HitBuilders.ScreenViewBuilder().build())
+        firebaseAnalytics.logEvent("registration_starts", null)
 
         startActivityForResult(
                 AuthUI.getInstance()
@@ -235,18 +232,19 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var s = getString(R.string.conversion_one)
         if (requestCode == RC_SIGN_IN) {
             //for checking errors
             if (data != null) {
                 val response = IdpResponse.fromResultIntent(data)
                 if (resultCode == Activity.RESULT_OK) {
-                    var s = getString(R.string.new_user_registered)
+                    firebaseAnalytics.logEvent("registration_completed", null)
                     mainPresenter.saveUser()
-
                     reload()
                 } else {
                     //Sign in failed
+                    val bundle = Bundle()
+                    bundle.putString("registration_error_type", response?.error?.errorCode.toString())
+                    firebaseAnalytics.logEvent("registration_failed", bundle)
                     if (response == null) {
                     }
                 }
@@ -264,7 +262,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun onConfirm() {
-        mainPresenter.openSliderWithDefaults()
+        mainPresenter.showMustInfoDialog()
     }
 
     fun highlightChats(messageSeen: Boolean) {

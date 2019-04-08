@@ -43,8 +43,11 @@ class ChatsPresenter @Inject constructor(private val interactor: ChatsInteractor
             Log.d(Contract.TAG, "List in ChatPresenter is empty")
         } else {
             Log.d(Contract.TAG, "List in ChatPresenter isn't empty")
-            viewState.openChat(userChats[position].userId, userChats[position].name,
-                    userChats[position].image)
+            if (userChats[position].userId != null) {
+                viewState.openChat(userChats[position].userId, userChats[position].name,
+                        userChats[position].image)
+            }
+            else viewState.showErrorMessage()
         }
     }
 }

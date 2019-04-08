@@ -17,6 +17,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 import com.borisruzanov.russianwives.mvp.ui.slider.adapter.UserInfoPagerAdapter;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class SliderActivity extends MvpAppCompatActivity {
     UserInfoPagerAdapter adapter;
     Toolbar toolbar;
     Button buttonNext;
+    FirebaseAnalytics firebaseAnalytics;
 
     final List<Fragment> fragmentList = new ArrayList<>();
 
@@ -42,6 +44,7 @@ public class SliderActivity extends MvpAppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         viewPager = findViewById(R.id.view_pager_add_info);
@@ -232,6 +235,8 @@ public class SliderActivity extends MvpAppCompatActivity {
                 userRepository.clearDialogOpenDate();
                 userRepository.setFullProfile();
                 new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                userRepository.addRating(8);
+                firebaseAnalytics.logEvent("achieve_full_profile", null);
             }
         });
     }

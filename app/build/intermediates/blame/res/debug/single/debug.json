@@ -1124,6 +1124,10 @@
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-xxxhdpi-v4\\abc_ic_star_black_16dp.png"
     },
     {
+        "merged": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_message.xml.flat",
+        "source": "D:\\misha\\RussianWivesSocNetwork\\app\\src\\main\\res\\layout\\dialog_message.xml"
+    },
+    {
         "merged": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-hdpi-v4\\abc_ic_commit_search_api_mtrl_alpha.png"
     },
@@ -2754,6 +2758,10 @@
     {
         "merged": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
         "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-27.1.1.aar\\9ed6aec740b638e031d51029355e0a22\\res\\drawable-xhdpi-v4\\abc_textfield_search_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\layout_ad_banner.xml.flat",
+        "source": "D:\\misha\\RussianWivesSocNetwork\\app\\src\\main\\res\\layout\\ad_banner.xml"
     },
     {
         "merged": "D:\\misha\\RussianWivesSocNetwork\\app\\build\\intermediates\\res\\merged\\debug\\drawable_fui_ic_facebook_white_22dp.xml.flat",

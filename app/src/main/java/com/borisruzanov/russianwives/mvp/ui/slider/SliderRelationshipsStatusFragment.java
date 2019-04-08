@@ -76,7 +76,7 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
-                        Toast.makeText(getActivity(), R.string.relationship_was_updated, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getString(R.string.relationship_was_updated), Toast.LENGTH_LONG).show();
                     });
                 }
             } else {

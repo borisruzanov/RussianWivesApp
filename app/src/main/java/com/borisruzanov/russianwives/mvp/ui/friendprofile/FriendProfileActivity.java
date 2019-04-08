@@ -24,9 +24,11 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingManager;
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity;
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter;
+import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
@@ -37,6 +39,11 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
@@ -76,6 +83,9 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
+    private AdView mAdView;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         App application = (App)getApplication();
@@ -85,6 +95,18 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         setContentView(R.layout.activity_friend);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        MobileAds.initialize(this, getString(R.string.mob_app_id));
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId(getString(R.string.mob_unit_banner_id));
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener());
+
+        RatingManager.getInstance().setUserMsgPts();
+
 
         //Transition
         //supportPostponeEnterTransition();
@@ -140,6 +162,9 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         countryText = findViewById(R.id.friend_activity_tv_country);
 
         presenter.setAllInfo(friendUid);
+
+        mFirebaseAnalytics.logEvent("friend_profile_viewed", null);
+
 
     }
 
@@ -258,7 +283,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     public void onConfirm() {
-        presenter.openSliderWithDefaults();
+        getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
     }
 
     @Override

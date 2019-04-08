@@ -61,9 +61,11 @@
 
             <RelativeLayout
                 android:id="@+id/item_user_bottom_relative_container"
+                android:layout_below="@+id/item_user_top_relative_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true">
+                android:layout_alignParentBottom="true"
+                >
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -73,18 +75,26 @@
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp12">
+                        android:layout_marginTop="@dimen/dp6"
+                        android:layout_marginBottom="@dimen/dp6"
+                        android:layout_marginRight="@dimen/dp12">
                         <ImageView
                             android:id="@+id/search_btn_like"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:src="@drawable/heart_outline"
+                            android:layout_marginTop="@dimen/dp6"
+                            android:layout_marginBottom="@dimen/dp6"
+                            android:layout_marginRight="@dimen/dp12"
                             android:contentDescription="@string/search_btn_like_desc"/>
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/lottieAnimationView"
                             android:visibility="gone"
                             android:layout_width="@dimen/lottie_animation_view_size"
                             android:layout_height="@dimen/lottie_animation_view_size"
+                            android:layout_marginTop="@dimen/dp6"
+                            android:layout_marginBottom="@dimen/dp6"
+                            android:layout_marginRight="@dimen/dp12"
                             app:lottie_loop="true"
                             app:lottie_autoPlay="true"
                             app:lottie_fileName="like.json"/>
@@ -94,8 +104,10 @@
                         android:id="@+id/search_btn_chat"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dp12"
                         android:layout_weight="1"
+                        android:layout_marginTop="@dimen/dp12"
+                        android:layout_marginBottom="@dimen/dp6"
+                        android:layout_marginLeft="@dimen/dp12"
                         android:src="@drawable/message_outline" />
                 </LinearLayout>
             </RelativeLayout>

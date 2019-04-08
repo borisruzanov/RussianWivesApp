@@ -79,27 +79,32 @@ public class UserRepository {
         });
     }
 
+    public void addRating(int addPoint) {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            int rating = snapshot.getLong(Consts.RATING).intValue();
+            int newRating = rating + addPoint;
+            Map<String, Object> achMap = new HashMap<>();
+            achMap.put(Consts.RATING, newRating);
+            users.document(getUid()).update(achMap);
+        });
+    }
+
     public void addFullProfileUsers() {
-        users.get().addOnCompleteListener(task -> {
+        /*users.get().addOnCompleteListener(task -> {
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                 if (!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
                         !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
                         !snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT)) {
                     String uid = snapshot.getId();
-                    Log.d("FpDebug", "User with full profile uid is " + uid);
                     Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put(MUST_INFO_ACH, "true");
+                    fpMap.put(Consts.RATING, Long.valueOf(6));
                     users.document(uid).update(fpMap);
                     //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                } else {
-                    String uid = snapshot.getId();
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put(MUST_INFO_ACH, "false");
-                    users.document(uid).update(fpMap);
                 }
             }
-        });
-/*        realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
+        });*/
+        realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
@@ -107,9 +112,9 @@ public class UserRepository {
                     Log.d("FpDebug", "User uid is " + uid);
                     new RatingRepository().isAchExist(uid, FULL_PROFILE_ACH, flag -> {
                         if (flag) {
-                            Log.d("FpDebug", "User with full profile uid is " + uid);
+                            //Log.d("FpDebug", "User with full profile uid is " + uid);
                             Map<String, Object> fpMap = new HashMap<>();
-                            fpMap.put(FULL_PROFILE_ACH, "true");
+                            fpMap.put(Consts.RATING, 14);
                             users.document(uid).update(fpMap);
                         }
                     });
@@ -118,7 +123,7 @@ public class UserRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });*/
+        });
     }
 
     public void hasMustInfo(BoolCallback callback) {
@@ -204,17 +209,17 @@ public class UserRepository {
     }
 
     public void hasDefaultMustInfo(BoolCallback callback) {
-        if (getUid() != null) {
+        Log.d("DialogDebug", "Uid is " + getUid());
             users.document(getUid()).get().addOnCompleteListener(task -> {
                 if (task.getResult().exists()) {
+                    Log.d("DialogDebug", "Task exists");
                     DocumentSnapshot snapshot = task.getResult();
-                    boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
-                            snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
+                    boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) ||
+                            snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) ||
                             snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT);
                             callback.setBool(flag);
-                }
+                } else Log.d("DialogDebug", "Task doesn't exist!!!");
             });
-        }
     }
 
     // check if the value of the given key is default or not

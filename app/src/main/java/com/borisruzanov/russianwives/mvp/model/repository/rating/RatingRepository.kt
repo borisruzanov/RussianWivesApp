@@ -61,8 +61,10 @@ class RatingRepository {
         })
     }
 
-    fun addRating(addPoint: Int) {
-        usersRef.child(getUid()).addListenerForSingleValueEvent(object : ValueEventListener {
+    fun addRating(addPoint: Int) = addRating(getUid(), addPoint)
+
+    fun addRating(uid: String, addPoint: Int) {
+        usersRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val rating: Long
 
@@ -108,10 +110,17 @@ class RatingRepository {
                 }
                 achMap[achievement] = true
                 dataSnapshot.child(Consts.ACHIEVEMENTS).ref.setValue(achMap)
+                addAchieveToFs(achievement)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {}
         })
+    }
+
+    private fun addAchieveToFs(achieveName: String) {
+        val achMap = HashMap<String, Any>()
+        achMap[achieveName] = "true"
+        users.document(getUid()).update(achMap)
     }
 
     fun getRating(uid: String, callback: RatingCallback) {

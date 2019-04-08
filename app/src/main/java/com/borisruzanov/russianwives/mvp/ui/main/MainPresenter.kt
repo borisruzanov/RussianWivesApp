@@ -7,6 +7,7 @@ import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor
 import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
+import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
 import com.borisruzanov.russianwives.utils.StringsCallback
 import javax.inject.Inject
 
@@ -19,10 +20,14 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         showGenderDialog()
         mainInteractor.setFirstOpenDate()
 
-        if(isUserExist()) {
+        mainInteractor.addMustInfo()
+
+    }
+
+    fun showDialogs() {
+        if (isUserExist()) {
             showMustInfoDialog()
             showAdditionalInfoDialog()
-            checkAchieve()
         }
     }
 
@@ -43,12 +48,12 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
             viewState.openSlider(ArrayList<String>(strings)) })
     }
 
-    private fun checkAchieve () {
+    /*private fun checkAchieve () {
         RatingRepository().isAchievementExist(FULL_PROFILE_ACH, callback = BoolCallback {
             if (it) Log.d("AchDebug", "User can write msgs")
             else Log.d("AchDebug", "USER CAN'T WRITE")
         })
-    }
+    }*/
 
     private fun showGenderDialog() {
         if (mainInteractor.isGenderDefault()) {
@@ -56,8 +61,10 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         }
     }
 
-    private fun showMustInfoDialog() {
+    fun showMustInfoDialog() {
+        Log.d("MIDebug", "In showMustInfoDialog()")
         mainInteractor.hasDefaultMustInfo(callback = BoolCallback {flag ->
+            Log.d("DialogDebug", "Flag is $flag")
             if (flag) viewState.showMustInfoDialog()
         })
     }

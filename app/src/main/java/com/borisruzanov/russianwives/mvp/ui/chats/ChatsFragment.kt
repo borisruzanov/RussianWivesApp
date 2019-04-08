@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -90,6 +91,10 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
     override fun highlightChats(messageSeen: Boolean) {
         (activity as MainActivity).highlightChats(messageSeen)
+    }
+
+    override fun showErrorMessage() {
+        Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
     }
 
     //TODO uncomment addUserActivity

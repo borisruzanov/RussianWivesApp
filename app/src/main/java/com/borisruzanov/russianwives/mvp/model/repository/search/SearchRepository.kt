@@ -42,15 +42,14 @@ class SearchRepository {
             lastUserInPage = ""
 
         query
-                //todo: .orderBy('rank')
-                //todo: add where user did not liked this one
-                .orderBy(Consts.NAME)
+                .orderBy(Consts.RATING, Query.Direction.DESCENDING)
                 .startAt(lastUserInPage) //todo: BUG IN HERE - we need to show only first n-1 users
                 .limit(ITEMS_PER_PAGE.toLong())
                 .get()
                 //todo: addOnSuccessListener instead
                 .addOnCompleteListener { task ->
-                    putCallbackData(usersListCallback, task) }
+                    putCallbackData(usersListCallback, task)
+                }
     }
 
 

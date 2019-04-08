@@ -63,6 +63,9 @@ attr actionOverflowMenuStyle
 attr actionProviderClass
 attr actionViewClass
 attr activityChooserViewStyle
+attr adSize
+attr adSizes
+attr adUnitId
 attr alertDialogButtonGroupStyle
 attr alertDialogCenterButtons
 attr alertDialogStyle
@@ -657,6 +660,7 @@ color grey_600
 color grey_mid_light
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color inactive_btn
 color material_blue_grey_800
 color material_blue_grey_900
 color material_blue_grey_950
@@ -853,6 +857,7 @@ dimen dp20
 dimen dp4
 dimen dp40
 dimen dp48
+dimen dp6
 dimen dp64
 dimen dp8
 dimen empty_img_size
@@ -1167,6 +1172,7 @@ id actions_empty_rl
 id actions_empty_text
 id actions_reg_layout
 id activity_chooser_view_content
+id adView
 id add
 id add_photo_btn_mi
 id adjust_height
@@ -1757,6 +1763,7 @@ layout activity_slider
 layout activity_status
 layout activity_user_info_view_pager
 layout activity_users
+layout ad_banner
 layout app_bar_layout
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
@@ -1785,6 +1792,7 @@ layout design_text_input_password_icon
 layout dialog_confirm_fragment
 layout dialog_filters
 layout dialog_gender
+layout dialog_message
 layout dialog_must_info
 layout fragment_main_tab_activities
 layout fragment_main_tab_friends
@@ -2148,6 +2156,8 @@ string message
 string message_image_layout_desc
 string message_text
 string messenger_send_button_text
+string mob_app_id
+string mob_unit_banner_id
 string moderately
 string muslim
 string must_have_info_done
@@ -2174,6 +2184,7 @@ string number_of_kids_updated
 string number_of_likes_default
 string number_of_visitors_default
 string occasionally
+string only_photo_available
 string only_with_friends
 string order_gender
 string other
@@ -2201,6 +2212,13 @@ string relationship_status
 string relationship_was_updated
 string request_btn_accept_desc
 string request_btn_decline_desc
+string s1
+string s2
+string s3
+string s4
+string s5
+string s6
+string s7
 string save
 string search_btn_like_desc
 string search_menu_title
@@ -2638,6 +2656,7 @@ style Theme_Design_Light
 style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
+style Theme_IAPTheme
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark
@@ -2757,6 +2776,7 @@ styleable ActionMenuItemView android_minWidth
 styleable ActionMenuView
 styleable ActionMode background backgroundSplit closeItemLayout height subtitleTextStyle titleTextStyle
 styleable ActivityChooserView expandActivityOverflowButtonDrawable initialActivityCount
+styleable AdsAttrs adSize adSizes adUnitId
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
 styleable AppBarLayout android_background android_touchscreenBlocksFocus android_keyboardNavigationCluster elevation expanded
 styleable AppBarLayoutStates state_collapsed state_collapsible

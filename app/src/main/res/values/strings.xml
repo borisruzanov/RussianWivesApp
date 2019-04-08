@@ -251,6 +251,13 @@
     <string name="please_wait">Please Wait...</string>
     <string name="something_went_wrong">Something went wrong. Try again!</string>
     <string name="empty_field">Field can not be empty</string>
+    <string name="only_photo_available">Face Photo Only</string>
+
+    <!-- ADVERTISEMENT -->
+    <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>
+    <!-- real banner id ca-app-pub-5095813023957397/5592359725 -->
+    <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
+    <string name="mob_unit_banner_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- Genders -->
     <string-array name="genders">

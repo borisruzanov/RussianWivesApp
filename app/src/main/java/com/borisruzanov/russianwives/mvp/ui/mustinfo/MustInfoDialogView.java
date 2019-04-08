@@ -12,4 +12,6 @@ public interface MustInfoDialogView extends MvpView {
     void closeDialog();
     void showMessage(@StringRes int resId);
 
+
+    void logSuccessMustInfo();
 }
