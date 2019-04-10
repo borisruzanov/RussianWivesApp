@@ -61,9 +61,9 @@ class RatingRepository {
         })
     }
 
-    fun addRating(addPoint: Int) = addRating(getUid(), addPoint)
+    fun addRating(addPoint: Double) = addRating(getUid(), addPoint)
 
-    fun addRating(uid: String, addPoint: Int) {
+    fun addRating(uid: String, addPoint: Double) {
         usersRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 val rating: Long

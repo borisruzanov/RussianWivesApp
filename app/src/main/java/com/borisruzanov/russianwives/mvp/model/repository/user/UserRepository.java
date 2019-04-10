@@ -79,11 +79,15 @@ public class UserRepository {
         });
     }
 
-    public void addRating(int addPoint) {
-        users.document(getUid()).get().addOnCompleteListener(task -> {
+    public void addRating(double addPoint) {
+        addRating(getUid(), addPoint);
+    }
+
+    public void addRating(String uid, double addPoint) {
+        users.document(uid).get().addOnCompleteListener(task -> {
             DocumentSnapshot snapshot = task.getResult();
-            int rating = snapshot.getLong(Consts.RATING).intValue();
-            int newRating = rating + addPoint;
+            int rating = snapshot.getDouble(Consts.RATING).intValue();
+            double newRating = rating + addPoint;
             Map<String, Object> achMap = new HashMap<>();
             achMap.put(Consts.RATING, newRating);
             users.document(getUid()).update(achMap);
@@ -91,20 +95,20 @@ public class UserRepository {
     }
 
     public void addFullProfileUsers() {
-        /*users.get().addOnCompleteListener(task -> {
+        users.get().addOnCompleteListener(task -> {
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                 if (!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
                         !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
                         !snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT)) {
                     String uid = snapshot.getId();
                     Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put(Consts.RATING, Long.valueOf(6));
+                    fpMap.put(MUST_INFO_ACH, "true");
                     users.document(uid).update(fpMap);
                     //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
                 }
             }
-        });*/
-        realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
+        });
+       /* realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
@@ -123,7 +127,7 @@ public class UserRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {}
-        });
+        });*/
     }
 
     public void hasMustInfo(BoolCallback callback) {

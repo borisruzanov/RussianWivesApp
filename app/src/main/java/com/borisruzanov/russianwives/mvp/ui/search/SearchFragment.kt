@@ -160,7 +160,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     //Updating results of the filtration
     override fun onUpdate() {
-        if (searchPresenter != null) {
+        if (::searchPresenter.isInitialized) {
             searchPresenter.onUpdate()
             onUserListScrollListener.resetState()
         }

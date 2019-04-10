@@ -18,7 +18,10 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
 
     fun setAllInfo(friendUid: String) {
         setFriendData(friendUid)
-        if (interactor.isUserExist()) interactor.setFriendVisited(friendUid)
+        if (interactor.isUserExist()){
+            interactor.setFriendVisited(friendUid)
+            interactor.addRatingVisited(friendUid)
+        }
     }
 
     fun setLikeHighlighted(friendUid: String) {
@@ -33,6 +36,7 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
                 if (!isLiked) {
                     interactor.setFriendLiked(friendUid)
                     viewState.setLikeHighlighted()
+                    interactor.addRatingLiked(friendUid)
                 }
             })
         } else {

@@ -11,8 +11,8 @@ public class RatingManager {
     private static final int USER_LIKE_POINTS = 1;
     private static final int USER_MSG_POINTS = 1;
     private static final int USER_FULL_PROFILE = 8;
-    private static final int FRIEND_LIKE_POINTS = 2;
-    private static final int FRIEND_VISIT_POINTS = 2;
+    public static final double FRIEND_LIKE_POINTS = 0.5;
+    public static final double FRIEND_VISIT_POINTS = 0.2;
 
     private RatingRepository ratingRepository = new RatingRepository();
 

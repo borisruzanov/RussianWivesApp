@@ -81,7 +81,7 @@ public class SliderSmokingStatusFragment extends Fragment {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
-                        Toast.makeText(getActivity(), R.string.smoking_updated, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getString(R.string.smoking_updated), Toast.LENGTH_LONG).show();
                     });
                 }
             } else {

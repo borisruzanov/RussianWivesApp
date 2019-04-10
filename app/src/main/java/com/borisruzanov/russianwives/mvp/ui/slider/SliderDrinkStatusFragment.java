@@ -79,7 +79,7 @@ public class SliderDrinkStatusFragment extends Fragment {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
-                        Toast.makeText(getActivity(), R.string.drink_updated, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getString(R.string.drink_updated), Toast.LENGTH_LONG).show();
                     });
                 } else {
                     Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();

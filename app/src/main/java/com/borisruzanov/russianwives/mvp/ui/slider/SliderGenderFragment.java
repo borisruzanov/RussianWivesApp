@@ -69,7 +69,7 @@ public class SliderGenderFragment extends MvpAppCompatFragment {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
-                        Toast.makeText(getActivity(), R.string.gender_updated, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getString(R.string.gender_updated), Toast.LENGTH_LONG).show();
 
                     });
                 }

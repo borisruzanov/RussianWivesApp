@@ -20,8 +20,6 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         showGenderDialog()
         mainInteractor.setFirstOpenDate()
 
-        mainInteractor.addMustInfo()
-
     }
 
     fun showDialogs() {

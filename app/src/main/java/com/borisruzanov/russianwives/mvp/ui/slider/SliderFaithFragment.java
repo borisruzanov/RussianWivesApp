@@ -80,9 +80,9 @@ public class SliderFaithFragment extends Fragment {
                         if (result.equals(Consts.DEFAULT))
                             new RatingRepository().addRating(ADD_FAITH_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                            if (getActivity() != null)getActivity().onBackPressed();
+                            if (getActivity() != null) getActivity().onBackPressed();
                         }
-                        Toast.makeText(getActivity(), R.string.faith_updated, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), getString(R.string.faith_updated), Toast.LENGTH_LONG).show();
                     });
                 }
             } else {

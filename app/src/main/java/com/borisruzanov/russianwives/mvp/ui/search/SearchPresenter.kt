@@ -64,6 +64,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
             searchInteractor.isFriendLiked(fsUsers[position].uid, callback = BoolCallback { hasLiked ->
                 if (!hasLiked) {
                     searchInteractor.setFriendLiked(fsUsers[position].uid)
+                    searchInteractor.addRatingLiked(fsUsers[position].uid)
                     Log.d("LikeDebug", "${fsUsers[position].name} was liked")
                 }
                 else Log.d("LikeDebug", "${fsUsers[position].name} WAS NOT liked")
