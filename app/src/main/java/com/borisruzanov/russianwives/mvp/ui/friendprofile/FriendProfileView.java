@@ -13,6 +13,6 @@ public interface FriendProfileView  extends MvpView{
     void openRegDialog();
     void setLikeHighlighted();
     void openChatMessage(String name, String image);
-    void showFullProfileDialog();
+    void showMustInfoDialog();
     void openSlider(ArrayList<String> sliderList);
 }

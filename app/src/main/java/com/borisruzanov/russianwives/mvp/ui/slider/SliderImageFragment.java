@@ -34,7 +34,6 @@ import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 public class SliderImageFragment extends Fragment {
 
     Button btnChangeImage;
-    String result;
 
     SliderFragmentsPresenter sliderFragmentsPresenter;
     private static final int GALLERY_PICK = 1;
@@ -60,8 +59,6 @@ public class SliderImageFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_slider_image, container, false);
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new SliderRepository()));
         progressDialog = new ProgressDialog(getActivity());
-
-        new SliderRepository().getFieldFromCurrentUser(Consts.IMAGE, value -> result = value);
 
         btnChangeImage = view.findViewById(R.id.fragment_slider_image_btn_save);
         btnChangeImage.setOnClickListener(view1 -> {
@@ -100,8 +97,6 @@ public class SliderImageFragment extends Fragment {
                     Log.d(Contract.TAG, "resultUri is " + resultUri.toString());
 
                     new SliderRepository().uploadUserPhoto(resultUri, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_IMAGE_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

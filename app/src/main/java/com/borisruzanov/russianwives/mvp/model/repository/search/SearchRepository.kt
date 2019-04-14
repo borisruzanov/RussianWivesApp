@@ -42,8 +42,8 @@ class SearchRepository {
             lastUserInPage = ""
 
         query
-                .orderBy(Consts.RATING, Query.Direction.DESCENDING)
-                .startAt(lastUserInPage) //todo: BUG IN HERE - we need to show only first n-1 users
+                .orderBy(Consts.NAME)
+                .startAt(lastUserInPage) //todo: BUG IS HERE - we need to show only first n-1 users
                 .limit(ITEMS_PER_PAGE.toLong())
                 .get()
                 //todo: addOnSuccessListener instead

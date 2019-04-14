@@ -28,8 +28,6 @@ public class SliderWillingKidsFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result;
-
     public SliderWillingKidsFragment() {
         // Required empty public constructor
     }
@@ -51,7 +49,6 @@ public class SliderWillingKidsFragment extends Fragment {
         btnSave = view.findViewById(R.id.fragment_slider_willingkids_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.WANT_CHILDREN_OR_NOT, value -> {
-            result = value;
             if (value != null && value.equals(getString(R.string.definitely))) {
                 radioGroup.check(R.id.fragment_slider_willingkids_rbtn_definitely);
             } else if (value != null && value.equals(getString(R.string.someday))) {
@@ -75,8 +72,6 @@ public class SliderWillingKidsFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.WANT_CHILDREN_OR_NOT, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_WILL_OF_KIDS_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

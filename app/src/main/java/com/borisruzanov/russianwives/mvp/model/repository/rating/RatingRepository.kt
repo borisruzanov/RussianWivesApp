@@ -61,7 +61,12 @@ class RatingRepository {
         })
     }
 
-    fun addRating(addPoint: Double) = addRating(getUid(), addPoint)
+    fun addRating(addPoint: Double) {
+        if(getUid() != null) {
+            addRating(getUid(), addPoint)
+        }
+        else Log.d("RatingDebug", "Rating ALARM!!!")
+    }
 
     fun addRating(uid: String, addPoint: Double) {
         usersRef.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {

@@ -84,14 +84,16 @@ public class UserRepository {
     }
 
     public void addRating(String uid, double addPoint) {
-        users.document(uid).get().addOnCompleteListener(task -> {
-            DocumentSnapshot snapshot = task.getResult();
-            int rating = snapshot.getDouble(Consts.RATING).intValue();
-            double newRating = rating + addPoint;
-            Map<String, Object> achMap = new HashMap<>();
-            achMap.put(Consts.RATING, newRating);
-            users.document(getUid()).update(achMap);
-        });
+        if (uid != null) {
+            users.document(uid).get().addOnCompleteListener(task -> {
+                DocumentSnapshot snapshot = task.getResult();
+                int rating = snapshot.getDouble(Consts.RATING).intValue();
+                double newRating = rating + addPoint;
+                Map<String, Object> achMap = new HashMap<>();
+                achMap.put(Consts.RATING, newRating);
+                users.document(getUid()).update(achMap);
+            });
+        } else Log.d("RatingDebug", "Rating ALARM from UR");
     }
 
     public void addFullProfileUsers() {

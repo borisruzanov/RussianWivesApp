@@ -33,8 +33,6 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
     Button btnSave;
     RadioButton radioButton;
 
-    String result;
-
     public static SliderAgeFragment newInstance() {
         SliderAgeFragment fragment = new SliderAgeFragment();
         Bundle args = new Bundle();
@@ -59,8 +57,6 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
         Log.d("qwe", "onCreateView " );
 
         new SliderRepository().getFieldFromCurrentUser(Consts.AGE, value -> {
-            result = value;
-            Log.d("qwe", "value " + result);
             if (value != null && value.equals(getString(R.string.age_18_21))){
                 radioGroup.check(R.id.fragment_slider_age_18_21);
             } else if (value != null && value.equals(getString(R.string.age_22_26))){
@@ -82,8 +78,6 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.AGE, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_AGE_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

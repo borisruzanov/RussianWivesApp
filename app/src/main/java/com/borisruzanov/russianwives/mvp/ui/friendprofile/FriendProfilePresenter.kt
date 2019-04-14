@@ -7,7 +7,6 @@ import com.borisruzanov.russianwives.models.UserDescriptionModel
 import com.borisruzanov.russianwives.mvp.model.interactor.friendprofile.FriendProfileInteractor
 import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
-import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UserCallback
 import java.util.*
 import javax.inject.Inject
@@ -56,17 +55,12 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
                         viewState.openChatMessage(fsUser.name, fsUser.image)
                     })
                 }
-                else viewState.showFullProfileDialog()
+                else viewState.showMustInfoDialog()
             })
 
         } else {
             viewState.openRegDialog()
         }
-    }
-
-    fun openSliderWithDefaults() {
-        interactor.getDefaultList(callback = StringsCallback { strings ->
-            viewState.openSlider(ArrayList<String>(strings)) })
     }
 
     private fun setFriendData(friendUid: String) {
