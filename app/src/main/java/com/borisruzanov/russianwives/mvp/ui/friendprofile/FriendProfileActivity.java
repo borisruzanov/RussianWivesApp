@@ -268,7 +268,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     }
 
     @Override
-    public void showFullProfileDialog() {
+    public void showMustInfoDialog() {
         getSupportFragmentManager().beginTransaction()
                 .add(ConfirmDialogFragment.newInstance(Consts.FP_MODULE), ConfirmDialogFragment.TAG)
                 .commit();

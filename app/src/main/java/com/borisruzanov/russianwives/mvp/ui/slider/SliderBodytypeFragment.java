@@ -29,8 +29,6 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result;
-
     public SliderBodytypeFragment() {
         // Required empty public constructor
     }
@@ -52,7 +50,6 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
         btnSave = view.findViewById(R.id.fragment_slider_bodytype_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.BODY_TYPE, value -> {
-            result = value;
             if (value != null && value.equals(getString(R.string.slender))) {
                 radioGroup.check(R.id.fragment_slider_bodytype_rbtn_slender);
             } else if (value != null && value.equals(getString(R.string.about_average))) {
@@ -76,8 +73,6 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.BODY_TYPE, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_BODY_TYPE_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

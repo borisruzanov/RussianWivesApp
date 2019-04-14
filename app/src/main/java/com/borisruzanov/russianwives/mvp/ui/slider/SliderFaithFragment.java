@@ -29,8 +29,6 @@ public class SliderFaithFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result = "";
-
     public SliderFaithFragment() {
         // Required empty public constructor
     }
@@ -51,7 +49,6 @@ public class SliderFaithFragment extends Fragment {
         btnSave = view.findViewById(R.id.fragment_slider_faith_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.FAITH, value -> {
-            if (value == null || value.equals(Consts.DEFAULT)) result = Consts.DEFAULT;
             if (value != null && value.equals(getString(R.string.christian))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
             } else if (value != null && value.equals(getString(R.string.black_african_descent))){
@@ -77,8 +74,6 @@ public class SliderFaithFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.FAITH, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_FAITH_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

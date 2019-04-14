@@ -28,8 +28,6 @@ public class SliderRelationshipsStatusFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result;
-
     public SliderRelationshipsStatusFragment() {
         // Required empty public constructor
     }
@@ -50,7 +48,6 @@ public class SliderRelationshipsStatusFragment extends Fragment {
         btnSave = view.findViewById(R.id.fragment_slider_relationships_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.RELATIONSHIP_STATUS, value -> {
-            result = value;
             if (value != null && value.equals(getString(R.string.never_married))){
                 radioGroup.check(R.id.fragment_slider_rbtn_never_married);
             } else if (value != null && value.equals(getString(R.string.currently_separated))){
@@ -70,9 +67,6 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.RELATIONSHIP_STATUS, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        //TODO fix adding value after multiple touching button
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_RELATIONSHIP_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

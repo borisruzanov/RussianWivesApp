@@ -28,7 +28,7 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
     SliderFragmentsPresenter sliderFragmentsPresenter;
     EditText answer;
     Button btnSave;
-    String result, previousResult;
+    String result;
 
     public SliderHobbyFragment() {
         // Required empty public constructor
@@ -55,7 +55,6 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
         answer = view.findViewById(R.id.fragment_slider_hobby_et_answer);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.HOBBY, value -> {
-            previousResult = value;
             if (value != null && !value.equals(Consts.DEFAULT)) {
                 answer.setText(value);
                 answer.setSelection(answer.getText().length());
@@ -69,7 +68,6 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
                 Map<String, Object> map = new HashMap<>();
                 map.put(Consts.HOBBY, answer.getText().toString());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (previousResult.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_HOBBY_RATING);
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                         if (getActivity() != null) getActivity().onBackPressed();
                     }

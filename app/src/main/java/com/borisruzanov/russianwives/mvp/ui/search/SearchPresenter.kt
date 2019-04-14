@@ -28,9 +28,11 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     private val usersListCallback = UsersListCallback { userList ->
         if (userList.isNotEmpty()) {
             if (!fsUsers.containsAll(userList)) {
+                Log.d("UsersListDebug", "Users list size is ${userList.size}")
                 if (fsUsers.isNotEmpty() && fsUsers.last().uid == userList.last().uid){
                     userList.remove(userList.last())
                 }
+                Log.d("UsersListDebug", "Users list size after removing is  ${userList.size}")
                 fsUsers.addAll(userList)
                 Log.d("UsersListDebug", "Add users to fsUsers and fsUsers size is " + fsUsers.size)
             }

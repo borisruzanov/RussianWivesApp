@@ -31,7 +31,6 @@ public class SliderDrinkStatusFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result;
 
     public SliderDrinkStatusFragment() {
         // Required empty public constructor
@@ -54,7 +53,6 @@ public class SliderDrinkStatusFragment extends Fragment {
         btnSave = view.findViewById(R.id.fragment_slider_drinkstatus_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.DRINK_STATUS, value -> {
-            result = value;
             if (value != null && value.equals(getString(R.string.never))) {
                 radioGroup.check(R.id.fragment_slider_drink_status_rbtn_never);
             } else if (value != null && value.equals(getString(R.string.only_with_friends))) {
@@ -74,8 +72,6 @@ public class SliderDrinkStatusFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.DRINK_STATUS, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_DRINK_STATUS_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

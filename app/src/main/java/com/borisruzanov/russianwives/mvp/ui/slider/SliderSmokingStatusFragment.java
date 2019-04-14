@@ -31,8 +31,6 @@ public class SliderSmokingStatusFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result;
-
     public SliderSmokingStatusFragment() {
         // Required empty public constructor
     }
@@ -54,7 +52,6 @@ public class SliderSmokingStatusFragment extends Fragment {
         btnSave = view.findViewById(R.id.fragment_slider_smokestatus_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.SMOKING_STATUS, value -> {
-            result = value;
             if (value != null && value.equals(getString(R.string.no_way))){
                 radioGroup.check(R.id.fragment_slider_smoking_status_rbtn_no_way);
             } else if (value != null && value.equals(getString(R.string.occasionally))){
@@ -76,8 +73,6 @@ public class SliderSmokingStatusFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.SMOKING_STATUS, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_SMOKE_STATUS_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }

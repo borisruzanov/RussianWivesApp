@@ -28,9 +28,6 @@ public class SliderEthnicityFragment extends Fragment {
     RadioGroup radioGroup;
     RadioButton radioButton;
 
-    String result;
-
-
     public SliderEthnicityFragment() {
         // Required empty public constructor
     }
@@ -53,7 +50,6 @@ public class SliderEthnicityFragment extends Fragment {
         btnSave = view.findViewById(R.id.fragment_slider_ethnicity_btn_save);
 
         new SliderRepository().getFieldFromCurrentUser(Consts.ETHNICITY, value -> {
-            result = value;
             if (value != null && value.equals(getString(R.string.asian))){
                 radioGroup.check(R.id.fragment_slider_ethnicity_radiobtn_asian);
             } else if (value != null && value.equals(getString(R.string.black_african_descent))){
@@ -79,8 +75,6 @@ public class SliderEthnicityFragment extends Fragment {
                     Map<String, Object> map = new HashMap<>();
                     map.put(Consts.ETHNICITY, radioButton.getText());
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                        if (result.equals(Consts.DEFAULT))
-                            new RatingRepository().addRating(ADD_ETHNICITY_RATING);
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
