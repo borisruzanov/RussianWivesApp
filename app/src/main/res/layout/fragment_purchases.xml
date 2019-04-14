@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorAccent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.70"
+        android:background="@color/white"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/purchase_min_block_linear"
+            android:background="@drawable/customborder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:weightSum="100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/purchase_min_tv"
+                android:layout_weight="75"
+                android:textSize="@dimen/sp14"
+                android:layout_margin="@dimen/dp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/purchase_min_price"
+                android:layout_weight="15"
+                android:layout_margin="@dimen/dp2"
+                android:textSize="@dimen/sp16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                 />
+            <Button
+                android:id="@+id/purchase_min_btn"
+                android:layout_weight="15"
+                android:layout_margin="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:paddingLeft="@dimen/friend_btn_padding"
+                android:paddingRight="@dimen/friend_btn_padding"
+                android:text="@string/buy"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/purchase_medium_block_linear"
+            android:layout_below="@+id/purchase_min_block_linear"
+            android:background="@drawable/customborder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:weightSum="100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/purchase_medium_tv"
+                android:layout_weight="75"
+                android:textSize="@dimen/sp14"
+                android:layout_margin="@dimen/dp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/purchase_medium_price"
+                android:layout_weight="15"
+                android:layout_margin="@dimen/dp2"
+                android:textSize="@dimen/sp16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/purchase_medium_btn"
+                android:layout_margin="6dp"
+                android:layout_weight="15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:paddingLeft="@dimen/friend_btn_padding"
+                android:paddingRight="@dimen/friend_btn_padding"
+                android:text="@string/buy"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/purchase_max_block_linear"
+            android:layout_below="@+id/purchase_medium_block_linear"
+            android:background="@drawable/customborder"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:weightSum="100"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/purchase_max_tv"
+                android:layout_weight="75"
+                android:textSize="@dimen/sp14"
+                android:layout_margin="@dimen/dp2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+            <TextView
+                android:id="@+id/purchase_max_price"
+                android:layout_weight="15"
+                android:layout_margin="@dimen/dp2"
+                android:textSize="@dimen/sp16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/purchase_max_btn"
+                android:layout_weight="15"
+                android:layout_margin="6dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:paddingLeft="@dimen/friend_btn_padding"
+                android:paddingRight="@dimen/friend_btn_padding"
+                android:text="@string/buy"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

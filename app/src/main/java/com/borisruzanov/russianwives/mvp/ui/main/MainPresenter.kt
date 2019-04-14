@@ -29,7 +29,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         }
     }
 
-    fun checkForUserExist() = viewState.setAdapter(mainInteractor.isUserExist)
+    fun checkForUserExist() = viewState.checkIfUserExist(mainInteractor.isUserExist)
 
     fun isUserExist(): Boolean = mainInteractor.isUserExist
 

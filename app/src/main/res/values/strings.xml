@@ -240,6 +240,14 @@
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
     <string name="shop">Shop</string>
+<<<<<<< HEAD
+    <string name="get_free_tokens">GET FREE TOKENS</string>
+    <string name="buy">BUY</string>
+    <string name="mini_price">$0.99</string>
+    <string name="medium_price">$9.99</string>
+    <string name="maximum_price">$19.99</string>
+    <string name="get_free_coins">GET FREE COINS</string>
+=======
     <string name="add_your_photo">Add your photo</string>
     <string name="where_are_you_from">Where are you from?</string>
     <string name="how_old_are_you">How old are you?</string>
@@ -252,6 +260,7 @@
     <string name="something_went_wrong">Something went wrong. Try again!</string>
     <string name="empty_field">Field can not be empty</string>
     <string name="only_photo_available">Face Photo Only</string>
+>>>>>>> origin/dev
 
     <!-- ADVERTISEMENT -->
     <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>

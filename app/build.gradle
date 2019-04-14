@@ -30,6 +30,9 @@ android {
             targetCompatibility JavaVersion.VERSION_1_8
         }
     }
+    lintOptions {
+        disable 'RestrictedApi'
+    }
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
         ext {
