@@ -125,7 +125,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                 Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);
             }
 
-            name.setText(fsUser.getName());
+            name.setVisibility(View.GONE);
             country.setText(fsUser.getCountry());
 
             ValueAnimator animator = ValueAnimator.ofFloat(0f, 1f).setDuration(500);

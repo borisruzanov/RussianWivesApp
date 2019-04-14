@@ -13,11 +13,11 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "103",
+                        "startLines": "110",
                         "startColumns": "4",
-                        "startOffsets": "10600",
+                        "startOffsets": "11234",
                         "endColumns": "100",
-                        "endOffsets": "10696"
+                        "endOffsets": "11330"
                     }
                 },
                 {
@@ -38,7 +38,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.3.4.aar\\cf900d2ae1a011148baf216b8016a1d5\\res\\values-ro\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.5.0.aar\\c87a00c7a17875c5d294d71e1ee217c5\\res\\values-ro\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.1.0.aar\\b349c1a3c04179a2152b3404b84c8d2e\\res\\values-ro\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.2.0.aar\\cf1c96417b90ae9619352e2141544114\\res\\values-ro\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -69,6 +69,23 @@
                         "startOffsets": "3579",
                         "endColumns": "203",
                         "endOffsets": "3778"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-17.2.0.aar\\f2ba7d2322baa75c744ea64e207d0e72\\res\\values-ro\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "199,272,397,464,530,619,733",
+                        "endColumns": "72,124,66,65,88,113,71",
+                        "endOffsets": "271,396,463,529,618,732,804"
+                    },
+                    "to": {
+                        "startLines": "102,103,104,105,106,107,108",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "10517,10594,10723,10794,10864,10957,11075",
+                        "endColumns": "76,128,70,69,92,117,75",
+                        "endOffsets": "10589,10718,10789,10859,10952,11070,11146"
                     }
                 },
                 {
@@ -98,11 +115,11 @@
                         "endOffsets": "221,325,438,526,638,759,844,925,1008,1120,1233,1333,1447,1552,1658,1822,1925,2008"
                     },
                     "to": {
-                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,102",
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,109",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "576,697,801,914,1002,1114,1235,1320,1401,1484,1596,1709,1809,1923,2028,2134,2298,10517",
+                        "startOffsets": "576,697,801,914,1002,1114,1235,1320,1401,1484,1596,1709,1809,1923,2028,2134,2298,11151",
                         "endColumns": "120,103,112,87,111,120,84,80,82,111,112,99,113,104,105,163,102,82",
-                        "endOffsets": "692,796,909,997,1109,1230,1315,1396,1479,1591,1704,1804,1918,2023,2129,2293,2396,10595"
+                        "endOffsets": "692,796,909,997,1109,1230,1315,1396,1479,1591,1704,1804,1918,2023,2129,2293,2396,11229"
                     }
                 }
             ]

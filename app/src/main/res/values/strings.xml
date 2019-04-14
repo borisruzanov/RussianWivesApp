@@ -239,6 +239,12 @@
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
     <string name="shop">Shop</string>
+    <string name="get_free_tokens">GET FREE TOKENS</string>
+    <string name="buy">BUY</string>
+    <string name="mini_price">$0.99</string>
+    <string name="medium_price">$9.99</string>
+    <string name="maximum_price">$19.99</string>
+    <string name="get_free_coins">GET FREE COINS</string>
 
 
     <!-- Genders -->

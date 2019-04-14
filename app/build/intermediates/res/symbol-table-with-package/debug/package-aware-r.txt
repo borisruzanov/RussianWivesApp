@@ -63,6 +63,9 @@ attr actionOverflowMenuStyle
 attr actionProviderClass
 attr actionViewClass
 attr activityChooserViewStyle
+attr adSize
+attr adSizes
+attr adUnitId
 attr alertDialogButtonGroupStyle
 attr alertDialogCenterButtons
 attr alertDialogStyle
@@ -849,6 +852,7 @@ dimen disabled_alpha_material_light
 dimen display_name_text_margin
 dimen dp12
 dimen dp16
+dimen dp2
 dimen dp20
 dimen dp4
 dimen dp40
@@ -907,6 +911,11 @@ dimen pb_margin
 dimen photo_picker_button_size
 dimen profile_action_layout_size
 dimen profile_img_size
+dimen sp12
+dimen sp14
+dimen sp16
+dimen sp18
+dimen sp20
 dimen tooltip_corner_radius
 dimen tooltip_horizontal_padding
 dimen tooltip_margin
@@ -1061,6 +1070,7 @@ drawable common_google_signin_btn_text_light_normal_background
 drawable crop_image_menu_flip
 drawable crop_image_menu_rotate_left
 drawable crop_image_menu_rotate_right
+drawable customborder
 drawable default_avatar
 drawable design_bottom_navigation_item_background
 drawable design_fab_background
@@ -1094,12 +1104,16 @@ drawable ic_edit_black_24dp
 drawable ic_favorite
 drawable ic_favorite_48
 drawable ic_favorite_black_24dp
+drawable ic_heart
 drawable ic_keyboard_arrow_right_black_24dp
 drawable ic_keyboard_backspace_black_24dp
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ic_medal
 drawable ic_person_add
 drawable ic_send_black_24dp
+drawable ic_star
+drawable ic_user
 drawable ic_widget
 drawable inbox
 drawable message
@@ -1166,6 +1180,7 @@ id actions_empty_rl
 id actions_empty_text
 id actions_reg_layout
 id activity_chooser_view_content
+id adView
 id add
 id adjust_height
 id adjust_width
@@ -1195,6 +1210,7 @@ id button
 id buttonPanel
 id button_buy
 id button_cancel
+id button_consume
 id button_create
 id button_done
 id button_next
@@ -1219,6 +1235,7 @@ id chronometer
 id circular
 id clip_horizontal
 id clip_vertical
+id coin_count_text
 id collapseActionView
 id collapsing_toolbar_layout
 id com_facebook_body_frame
@@ -1410,6 +1427,7 @@ id friend_activity_tv_country
 id friend_activity_tv_name
 id friends_fragment_recycler_activities
 id friends_fragment_recycler_chats
+id game_title
 id gender_rl
 id gender_text
 id ghost_view
@@ -1427,6 +1445,7 @@ id icon_group
 id icon_only
 id ifRoom
 id image
+id imageView
 id info
 id inline
 id invisible
@@ -1477,6 +1496,15 @@ id logo
 id lottieAnimationView
 id lottie_layer_name
 id main_app_bar
+id main_bottom_img_likes
+id main_bottom_img_rating
+id main_bottom_img_visits
+id main_bottom_relative_likes
+id main_bottom_relative_rating
+id main_bottom_relative_visits
+id main_bottom_tv_likes
+id main_bottom_tv_rating
+id main_bottom_tv_visits
 id main_tabs
 id main_tos_and_pp
 id main_view_pager
@@ -1557,6 +1585,18 @@ id profile_totalFriends
 id progress_bar
 id progress_circular
 id progress_horizontal
+id purchase_max_block_linear
+id purchase_max_btn
+id purchase_max_price
+id purchase_max_tv
+id purchase_medium_block_linear
+id purchase_medium_btn
+id purchase_medium_price
+id purchase_medium_tv
+id purchase_min_block_linear
+id purchase_min_btn
+id purchase_min_price
+id purchase_min_tv
 id radio
 id rectangle
 id recycler_list_friendDescription
@@ -1598,10 +1638,14 @@ id select_dialog_listview
 id send_code
 id send_sms_tos
 id settings_image_btn
+id shop_activity_frame_top
+id shop_activity_free_btn
+id shop_activity_relative_bottom
 id shortcut
 id showCustom
 id showHome
 id showTitle
+id show_video_button
 id sign_out_menu
 id slider_button
 id slider_countries_tv_question
@@ -1651,6 +1695,7 @@ id textinput_error
 id ticker
 id time
 id time_text_layout
+id timer
 id title
 id titleDividerNoCustom
 id title_template
@@ -1744,6 +1789,7 @@ layout activity_friend
 layout activity_main
 layout activity_my_profile
 layout activity_profile
+layout activity_rewardvideo
 layout activity_settings
 layout activity_shop
 layout activity_slider
@@ -1781,6 +1827,7 @@ layout dialog_gender
 layout fragment_main_tab_activities
 layout fragment_main_tab_friends
 layout fragment_main_tab_search
+layout fragment_purchases
 layout fragment_register
 layout fragment_slider_age
 layout fragment_slider_bodytype
@@ -1922,6 +1969,7 @@ string bottom_sheet_behavior
 string btn_add_friend_text
 string btn_start_chat_text
 string buddist
+string buy
 string cancel
 string cancel_friend_request
 string change
@@ -2103,6 +2151,8 @@ string fui_welcome_back_password_prompt_body
 string full_profile_header
 string gcm_defaultSenderId
 string gender_updated
+string get_free_coins
+string get_free_tokens
 string github_client_id
 string github_client_secret
 string google_api_key
@@ -2130,10 +2180,13 @@ string log_out
 string login
 string looking_for_kids
 string male_option
+string maximum_price
+string medium_price
 string message
 string message_image_layout_desc
 string message_text
 string messenger_send_button_text
+string mini_price
 string moderately
 string muslim
 string must_have_info_done
@@ -2186,6 +2239,13 @@ string relationship_status
 string relationship_was_updated
 string request_btn_accept_desc
 string request_btn_decline_desc
+string s1
+string s2
+string s3
+string s4
+string s5
+string s6
+string s7
 string save
 string search_btn_like_desc
 string search_menu_title
@@ -2617,6 +2677,7 @@ style Theme_Design_Light
 style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
+style Theme_IAPTheme
 style ThemeOverlay_AppCompat
 style ThemeOverlay_AppCompat_ActionBar
 style ThemeOverlay_AppCompat_Dark
@@ -2736,6 +2797,7 @@ styleable ActionMenuItemView android_minWidth
 styleable ActionMenuView
 styleable ActionMode background backgroundSplit closeItemLayout height subtitleTextStyle titleTextStyle
 styleable ActivityChooserView expandActivityOverflowButtonDrawable initialActivityCount
+styleable AdsAttrs adSize adSizes adUnitId
 styleable AlertDialog android_layout buttonIconDimen buttonPanelSideLayout listItemLayout listLayout multiChoiceItemLayout showTitle singleChoiceItemLayout
 styleable AppBarLayout android_background android_touchscreenBlocksFocus android_keyboardNavigationCluster elevation expanded
 styleable AppBarLayoutStates state_collapsed state_collapsible

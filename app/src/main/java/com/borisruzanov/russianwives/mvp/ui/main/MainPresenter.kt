@@ -5,10 +5,6 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor
 import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH
-import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MUST_INFO_ACH
-import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MUST_INFO_LIST
-import com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_AGE_RATING
-import com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_GENDER_RATING
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.utils.*
 import javax.inject.Inject
@@ -28,7 +24,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         }
     }
 
-    fun checkForUserExist() = viewState.setAdapter(mainInteractor.isUserExist)
+    fun checkForUserExist() = viewState.checkIfUserExist(mainInteractor.isUserExist)
 
     fun isUserExist(): Boolean = mainInteractor.isUserExist
 

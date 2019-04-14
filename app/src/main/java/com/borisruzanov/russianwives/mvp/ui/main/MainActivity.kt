@@ -18,8 +18,10 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -63,6 +65,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     //UI
     lateinit var toolbar: Toolbar
     private lateinit var tabLayout: TabLayout
+    private lateinit var ratingBottomLayout: LinearLayout
 
     private lateinit var viewPager: ViewPager
     private lateinit var mainPagerAdapter: MainPagerAdapter
@@ -95,6 +98,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         dialogFragment = FilterDialogFragment()
         viewPager = findViewById(R.id.main_view_pager)
         tabLayout = findViewById(R.id.main_tabs)
+        ratingBottomLayout = findViewById(R.id.main_bottom_relative_rating)
 
         mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
@@ -120,12 +124,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     private fun analytics() {
         val tracker = App.AnalyticsTracker.sTracker
-
-       /* val params = Bundle()
-        params.putString("param_One", "First param")
-        params.putString("param_Two", "Second param")
-        firebaseAnalytics.logEvent("some_event_name", params)*/
-
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "some_id")
         bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "some_name")
@@ -134,7 +132,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     }
 
-    override fun setAdapter(isUserExist: Boolean) {
+    override fun checkIfUserExist(isUserExist: Boolean) {
         mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
         if (isUserExist) {
             toolbar.subtitle = ""
@@ -142,6 +140,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             mainPagerAdapter.addFragment(actionsFragment, getString(R.string.actions_title))
         } else {
             toolbar.subtitle = getString(R.string.please_register_to_start)
+            ratingBottomLayout.visibility
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
         }

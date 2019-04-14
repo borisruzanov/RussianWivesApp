@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.3.4.aar\\cf900d2ae1a011148baf216b8016a1d5\\res\\values-fi\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.5.0.aar\\c87a00c7a17875c5d294d71e1ee217c5\\res\\values-fi\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -64,11 +64,11 @@
                         "endOffsets": "208,308,409,495,600,718,805,887,967,1074,1177,1274,1380,1479,1583,1746,1845,1925"
                     },
                     "to": {
-                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,125",
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,132",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "429,537,637,738,824,929,1047,1134,1216,1296,1403,1506,1603,1709,1808,1912,2075,12741",
+                        "startOffsets": "429,537,637,738,824,929,1047,1134,1216,1296,1403,1506,1603,1709,1808,1912,2075,13348",
                         "endColumns": "107,99,100,85,104,117,86,81,79,106,102,96,105,98,103,162,98,79",
-                        "endOffsets": "532,632,733,819,924,1042,1129,1211,1291,1398,1501,1598,1704,1803,1907,2070,2169,12816"
+                        "endOffsets": "532,632,733,819,924,1042,1129,1211,1291,1398,1501,1598,1704,1803,1907,2070,2169,13423"
                     }
                 },
                 {
@@ -81,15 +81,15 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "126",
+                        "startLines": "133",
                         "startColumns": "4",
-                        "startOffsets": "12821",
+                        "startOffsets": "13428",
                         "endColumns": "100",
-                        "endOffsets": "12917"
+                        "endOffsets": "13524"
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.1.0.aar\\b349c1a3c04179a2152b3404b84c8d2e\\res\\values-fi\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.2.0.aar\\cf1c96417b90ae9619352e2141544114\\res\\values-fi\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -120,6 +120,23 @@
                         "startOffsets": "4738,4851,5036,5169,5277,5479,5607,5753,6098,6298,6406,6586,6714,6921,7090,7186,7286",
                         "endColumns": "112,184,132,107,201,127,145,135,199,107,179,127,206,168,95,99,111",
                         "endOffsets": "4846,5031,5164,5272,5474,5602,5748,5884,6293,6401,6581,6709,6916,7085,7181,7281,7393"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-17.2.0.aar\\f2ba7d2322baa75c744ea64e207d0e72\\res\\values-fi\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "199,269,385,450,514,594,709",
+                        "endColumns": "69,115,64,63,79,114,68",
+                        "endOffsets": "268,384,449,513,593,708,777"
+                    },
+                    "to": {
+                        "startLines": "125,126,127,128,129,130,131",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "12741,12815,12935,13004,13072,13156,13275",
+                        "endColumns": "73,119,68,67,83,118,72",
+                        "endOffsets": "12810,12930,12999,13067,13151,13270,13343"
                     }
                 }
             ]

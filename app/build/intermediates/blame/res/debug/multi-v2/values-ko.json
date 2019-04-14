@@ -13,11 +13,11 @@
                         "endOffsets": "195,289,391,473,571,677,756,832,912,1010,1105,1200,1300,1396,1495,1647,1741,1819"
                     },
                     "to": {
-                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,125",
+                        "startLines": "3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,132",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "319,414,508,610,692,790,896,975,1051,1131,1229,1324,1419,1519,1615,1714,1866,11082",
+                        "startOffsets": "319,414,508,610,692,790,896,975,1051,1131,1229,1324,1419,1519,1615,1714,1866,11601",
                         "endColumns": "94,93,101,81,97,105,78,75,79,97,94,94,99,95,98,151,93,77",
-                        "endOffsets": "409,503,605,687,785,891,970,1046,1126,1224,1319,1414,1514,1610,1709,1861,1955,11155"
+                        "endOffsets": "409,503,605,687,785,891,970,1046,1126,1224,1319,1414,1514,1610,1709,1861,1955,11674"
                     }
                 },
                 {
@@ -55,7 +55,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.3.4.aar\\cf900d2ae1a011148baf216b8016a1d5\\res\\values-ko\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\firebase-messaging-17.5.0.aar\\c87a00c7a17875c5d294d71e1ee217c5\\res\\values-ko\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",
@@ -89,6 +89,23 @@
                     }
                 },
                 {
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-ads-17.2.0.aar\\f2ba7d2322baa75c744ea64e207d0e72\\res\\values-ko\\values.xml",
+                    "from": {
+                        "startLines": "4,5,6,7,8,9,10",
+                        "startColumns": "0,0,0,0,0,0,0",
+                        "startOffsets": "199,262,353,413,473,541,626",
+                        "endColumns": "62,90,59,59,67,84,63",
+                        "endOffsets": "261,352,412,472,540,625,689"
+                    },
+                    "to": {
+                        "startLines": "125,126,127,128,129,130,131",
+                        "startColumns": "4,4,4,4,4,4,4",
+                        "startOffsets": "11082,11149,11244,11308,11372,11444,11533",
+                        "endColumns": "66,94,63,63,71,88,67",
+                        "endOffsets": "11144,11239,11303,11367,11439,11528,11596"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-27.1.1.aar\\4fd9fdc2dc736af604763ddab3b4b797\\res\\values-ko\\values-ko.xml",
                     "from": {
                         "startLines": "2",
@@ -98,15 +115,15 @@
                         "endOffsets": "151"
                     },
                     "to": {
-                        "startLines": "126",
+                        "startLines": "133",
                         "startColumns": "4",
-                        "startOffsets": "11160",
+                        "startOffsets": "11679",
                         "endColumns": "100",
-                        "endOffsets": "11256"
+                        "endOffsets": "11775"
                     }
                 },
                 {
-                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.1.0.aar\\b349c1a3c04179a2152b3404b84c8d2e\\res\\values-ko\\values.xml",
+                    "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\play-services-basement-16.2.0.aar\\cf1c96417b90ae9619352e2141544114\\res\\values-ko\\values.xml",
                     "from": {
                         "startLines": "4",
                         "startColumns": "0",

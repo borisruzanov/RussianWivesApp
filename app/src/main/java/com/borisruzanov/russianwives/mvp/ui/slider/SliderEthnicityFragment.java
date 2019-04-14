@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.ui.slider;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -51,7 +52,6 @@ public class SliderEthnicityFragment extends Fragment {
 
         radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_ethnicity_radiogroup);
         btnSave = (Button) view.findViewById(R.id.fragment_slider_ethnicity_btn_save);
-
         new SliderRepository().getFieldFromCurrentUser("ethnicity", value -> {
             result = value;
             if (value != null && value.equals("Asian")){
