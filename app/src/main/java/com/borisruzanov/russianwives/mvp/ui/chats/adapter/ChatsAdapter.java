@@ -81,7 +81,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
 
         void bind(UserChat model, int position){
             name.setText(model.getName());
-            Long l = 1535047947581L;
+            // country.setText(fsUser.getCountry());
             Log.d("TimestampDebug", "Timestamp is " + model.getMessageTimestamp());
             String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
@@ -94,10 +94,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
                 message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_text));
             }
 
-            if(model.getImage().equals("default")){
-                Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
-            }else {
-                Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
+            if (model.getImage() != null) {
+                if (model.getImage().equals(Consts.DEFAULT)) {
+                    Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
+                } else {
+                    Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
+                }
             }
             container.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
 

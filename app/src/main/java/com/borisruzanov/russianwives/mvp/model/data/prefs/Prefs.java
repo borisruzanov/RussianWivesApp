@@ -29,7 +29,7 @@ public class Prefs {
         return getValue(Consts.FIRST_OPEN_DATE);
     }
 
-    public void setDialogOpenDate() {
+    public void setFPOpenDate() {
         setDate(Consts.DIALOG_OPEN_DATE);
     }
 
@@ -39,10 +39,6 @@ public class Prefs {
 
     public void clearValue(String key) {
         setValue(key, "");
-    }
-
-    public void setFPOpenDate() {
-        setDate(Consts.FP_OPEN_DATE);
     }
 
     public String getUserGender() {

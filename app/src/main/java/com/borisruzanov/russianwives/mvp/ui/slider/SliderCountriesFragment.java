@@ -23,8 +23,6 @@ import java.util.Map;
  */
 public class SliderCountriesFragment extends Fragment {
 
-    private ListView countriesList;
-
     public SliderCountriesFragment() {
         // Required empty public constructor
     }
@@ -42,21 +40,21 @@ public class SliderCountriesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slider_countries, container, false);
 
-        countriesList = view.findViewById(R.id.country_list);
+        ListView countriesList = view.findViewById(R.id.country_list);
         CountriesAdapter countriesAdapter = new CountriesAdapter(getActivity(), CountriesList.initData());
         countriesList.setAdapter(countriesAdapter);
         countriesList.setOnItemClickListener((parent, view1, position, id) -> {
             String country = CountriesList.initData().get(position).getCountryName();
             Map<String, Object> map = new HashMap<>();
-            map.put("country", country);
+            map.put(Consts.COUNTRY, country);
             new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                 if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                    getActivity().onBackPressed();
+                    if (getActivity() != null) getActivity().onBackPressed();
                 }
-                Toast.makeText(getActivity(), R.string.country_updated, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.country_updated), Toast.LENGTH_LONG).show();
             });
         });
-        // Inflate the layout for this fragment
+
         return view;
     }
 

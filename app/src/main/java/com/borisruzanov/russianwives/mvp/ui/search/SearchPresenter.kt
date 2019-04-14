@@ -19,12 +19,10 @@ import javax.inject.Inject
 class SearchPresenter @Inject constructor(private val searchInteractor: SearchInteractor) : MvpPresenter<SearchView>() {
     private val fsUsers = ArrayList<FsUser>()
     private val likedUsers = HashSet<String>()
-    private var canLoad = false
 
     fun getUserList(page: Int) {
         searchInteractor.getFilteredUserList(usersListCallback, page)
         Log.d("UsersListDebug", "in getUserList and fsUsers size is ${fsUsers.size}")
-        fsUsers.forEach { Log.d("UsersListDebug", "FsUser name is ${it.name} and uid is ${it.uid}") }
     }
 
     private val usersListCallback = UsersListCallback { userList ->
@@ -40,16 +38,11 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         }
     }
 
-    fun setLoading(isLoading: Boolean) {
-        this.canLoad = isLoading
-    }
-
     fun setProgressBar(isLoading: Boolean) {
         viewState.setProgressBar(isLoading)
     }
 
     fun onUpdate() {
-        canLoad = true
         fsUsers.clear()
         likedUsers.clear()
         viewState.clearUsers()
@@ -71,6 +64,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
             searchInteractor.isFriendLiked(fsUsers[position].uid, callback = BoolCallback { hasLiked ->
                 if (!hasLiked) {
                     searchInteractor.setFriendLiked(fsUsers[position].uid)
+                    searchInteractor.addRatingLiked(fsUsers[position].uid)
                     Log.d("LikeDebug", "${fsUsers[position].name} was liked")
                 }
                 else Log.d("LikeDebug", "${fsUsers[position].name} WAS NOT liked")
@@ -84,8 +78,8 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
 
     fun openChat(position: Int) {
         if (isUserExist()){
-            searchInteractor.checkFullProfileAchieve(callback = BoolCallback { hasAchieve ->
-                if (hasAchieve) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
+            searchInteractor.hasMustInfo(callback = BoolCallback { hasMustInfo ->
+                if (hasMustInfo) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
                 else viewState.showFullProfileDialog()
             })
         }

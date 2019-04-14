@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v4.app.ActivityCompat.invalidateOptionsMenu
 import android.support.v4.app.ActivityCompat.startActivityForResult
@@ -40,6 +41,7 @@ import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
+import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
@@ -119,6 +121,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         Log.d("TabDebug", "Tabs count is ${tabLayout.tabCount}")
 
         analytics()
+        Handler().postDelayed({mainPresenter.showDialogs()}, 3000)
 
     }
 
@@ -140,7 +143,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             mainPagerAdapter.addFragment(actionsFragment, getString(R.string.actions_title))
         } else {
             toolbar.subtitle = getString(R.string.please_register_to_start)
-            ratingBottomLayout.visibility
+            //ratingBottomLayout.visibility
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
             mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
         }
@@ -149,6 +152,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun showGenderDialog() {
         supportFragmentManager.beginTransaction().add(GenderDialogFragment(), GenderDialogFragment.TAG).commit()
+    }
+
+    override fun showMustInfoDialog() {
+        supportFragmentManager.beginTransaction().add(MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
     }
 
     override fun showAdditionalInfoDialog() {
@@ -167,10 +174,14 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         invalidateOptionsMenu()
         if (mainPresenter.isUserExist()) {
             menu.findItem(R.id.login).isVisible = false
+            //mainPresenter.showDialogs()
         } else {
             menu.findItem(R.id.sign_out_menu).isVisible = false
             menu.findItem(R.id.menu_my_profile).isVisible = false
+<<<<<<< HEAD
             menu.findItem(R.id.menu_shop).isVisible = false
+=======
+>>>>>>> origin/dev
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
@@ -199,26 +210,24 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                 callAuthWindow()
                 return true
             }
+<<<<<<< HEAD
             R.id.menu_shop -> {
                 val shopIntent = Intent(this@MainActivity, ShopActivity::class.java)
                 startActivity(shopIntent)
                 return true
             }
+=======
+>>>>>>> origin/dev
             else -> return super.onOptionsItemSelected(item)
         }
     }
 
     override fun callAuthWindow() {
-        val eventTracker = App.AnalyticsTracker.sTracker
-        val eventBuilder = HitBuilders.EventBuilder()
-                .setCategory(getString(R.string.conversion_one))
-                .setAction(getString(R.string.registration_started))
-        eventTracker.send(eventBuilder.build())
-
 
         val tracker = App.AnalyticsTracker.sTracker
         tracker.setScreenName("AUTH Activity")
-        tracker.send(HitBuilders.ScreenViewBuilder().build());
+        tracker.send(HitBuilders.ScreenViewBuilder().build())
+        firebaseAnalytics.logEvent("registration_starts", null)
 
         startActivityForResult(
                 AuthUI.getInstance()
@@ -234,18 +243,19 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        var s = getString(R.string.conversion_one)
         if (requestCode == RC_SIGN_IN) {
             //for checking errors
             if (data != null) {
                 val response = IdpResponse.fromResultIntent(data)
                 if (resultCode == Activity.RESULT_OK) {
-                    var s = getString(R.string.new_user_registered)
+                    firebaseAnalytics.logEvent("registration_completed", null)
                     mainPresenter.saveUser()
-
                     reload()
                 } else {
                     //Sign in failed
+                    val bundle = Bundle()
+                    bundle.putString("registration_error_type", response?.error?.errorCode.toString())
+                    firebaseAnalytics.logEvent("registration_failed", bundle)
                     if (response == null) {
                     }
                 }
@@ -263,7 +273,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun onConfirm() {
-        mainPresenter.openSliderWithDefaults()
+        mainPresenter.showMustInfoDialog()
     }
 
     fun highlightChats(messageSeen: Boolean) {

@@ -22,7 +22,11 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun hasNecessaryInfo(callback: BoolCallback) = userRepository.hasNecessaryInfo(callback)
 
-    fun setDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
+    fun hasDefaultMustInfo(callback: BoolCallback) = userRepository.hasDefaultMustInfo(callback)
+
+    fun addMustInfo() = userRepository.addFullProfileUsers()
+
+    fun setFPDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 

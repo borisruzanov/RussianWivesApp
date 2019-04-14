@@ -72,10 +72,10 @@
     <string name="native_american">Native American</string>
     <string name="white_caucasian">White / Caucasian</string>
     <string name="other">Other</string>
-    <string name="christian_catholic">Christian</string>
+    <string name="christian">Christian</string>
     <string name="muslim">Muslim</string>
     <string name="atheist">Atheist</string>
-    <string name="buddist">Buddhist</string>
+    <string name="buddhist">Buddhist</string>
     <string name="adventist">Adventist</string>
     <string name="never">Never</string>
     <string name="social_drinker">Social drinker</string>
@@ -112,6 +112,7 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="header_filters">Filter</string>
+    <string name="header_must_info">Fill your info</string>
     <string name="what_ethnicity">What is your ethnicity?</string>
     <string name="what_smoke_status">What is your smoke status?</string>
     <string name="what_drink_status">What is your drink status?</string>
@@ -239,13 +240,33 @@
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
     <string name="shop">Shop</string>
+<<<<<<< HEAD
     <string name="get_free_tokens">GET FREE TOKENS</string>
     <string name="buy">BUY</string>
     <string name="mini_price">$0.99</string>
     <string name="medium_price">$9.99</string>
     <string name="maximum_price">$19.99</string>
     <string name="get_free_coins">GET FREE COINS</string>
+=======
+    <string name="add_your_photo">Add your photo</string>
+    <string name="where_are_you_from">Where are you from?</string>
+    <string name="how_old_are_you">How old are you?</string>
+    
+    <string name="add_your_photo_mi">Add your photo to continue</string>
+    <string name="add_your_info_mi">Please, fill all fields</string>
+    <string name="select_image">Select image</string>
+    <string name="uploading_image">Uploading Image</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="something_went_wrong">Something went wrong. Try again!</string>
+    <string name="empty_field">Field can not be empty</string>
+    <string name="only_photo_available">Face Photo Only</string>
+>>>>>>> origin/dev
 
+    <!-- ADVERTISEMENT -->
+    <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>
+    <!-- real banner id ca-app-pub-5095813023957397/5592359725 -->
+    <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
+    <string name="mob_unit_banner_id">ca-app-pub-3940256099942544/6300978111</string>
 
     <!-- Genders -->
     <string-array name="genders">

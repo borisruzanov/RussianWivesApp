@@ -171,7 +171,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         galleryIntent.action = Intent.ACTION_GET_CONTENT
         Log.d(Contract.CHAT_LIST, "inside addFile")
 
-        startActivityForResult(Intent.createChooser(galleryIntent, "SELECT IMAGE"), GALLERY_PICK)
+        startActivityForResult(Intent.createChooser(galleryIntent, getString(R.string.select_image)), GALLERY_PICK)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {

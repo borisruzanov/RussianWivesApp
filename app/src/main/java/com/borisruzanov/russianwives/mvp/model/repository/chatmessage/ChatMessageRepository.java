@@ -101,14 +101,14 @@ public class ChatMessageRepository {
     public void sendImage(String friendUid, Uri imageUri, UpdateCallback callback){
         final String current_user_ref = "Messages/" + getUid() + "/" + friendUid;
         final String chat_user_ref = "Messages/" + friendUid + "/" + getUid();
-        // Пушим Message -> Token -> FrUid
+        // Push Message -> Token -> FrUid
         DatabaseReference user_message_push = realtimeReference.child("Messages")
                 .child(getDeviceToken())
                 .child(friendUid)
                 .push();
 
         final String push_id = user_message_push.getKey();
-        // Берем ссылку на картинку
+        // get image reference
         StorageReference filePath = mImageStorage.child("message_images").child(push_id + ".jpg");
 
 

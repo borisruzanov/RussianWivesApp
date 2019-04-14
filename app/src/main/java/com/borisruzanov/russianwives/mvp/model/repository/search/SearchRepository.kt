@@ -27,7 +27,6 @@ class SearchRepository {
     private var lastUserInPage = ""
     private val reference: CollectionReference = FirebaseFirestore.getInstance().collection(Consts.USERS_DB)
 
-    //todo: rename getUsersNextPage(isFirstPage: Boolean)
     fun getUsers(filterParams: List<SearchModel>, usersListCallback: UsersListCallback, page: Int) {
         var query: Query = reference
 
@@ -43,15 +42,14 @@ class SearchRepository {
             lastUserInPage = ""
 
         query
-                //todo: .orderBy('rank')
-                //todo: add where user did not liked this one
-                .orderBy(Consts.NAME)
+                .orderBy(Consts.RATING, Query.Direction.DESCENDING)
                 .startAt(lastUserInPage) //todo: BUG IN HERE - we need to show only first n-1 users
                 .limit(ITEMS_PER_PAGE.toLong())
                 .get()
                 //todo: addOnSuccessListener instead
                 .addOnCompleteListener { task ->
-                    putCallbackData(usersListCallback, task) }
+                    putCallbackData(usersListCallback, task)
+                }
     }
 
 
@@ -79,10 +77,6 @@ class SearchRepository {
                 fsUserList.removeAt(fsUserList.size - 1)
             }
         }
-
-
-
-
         usersListCallback.setUsers(fsUserList)
     }
 

@@ -18,7 +18,10 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
 
     fun setAllInfo(friendUid: String) {
         setFriendData(friendUid)
-        if (interactor.isUserExist()) interactor.setFriendVisited(friendUid)
+        if (interactor.isUserExist()){
+            interactor.setFriendVisited(friendUid)
+            interactor.addRatingVisited(friendUid)
+        }
     }
 
     fun setLikeHighlighted(friendUid: String) {
@@ -33,6 +36,7 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
                 if (!isLiked) {
                     interactor.setFriendLiked(friendUid)
                     viewState.setLikeHighlighted()
+                    interactor.addRatingLiked(friendUid)
                 }
             })
         } else {
@@ -46,8 +50,8 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
 
     fun openChatMessage(friendUid: String) {
         if (interactor.isUserExist()) {
-            interactor.checkFullProfileAchieve(callback = BoolCallback { hasAchieve ->
-                if (hasAchieve) {
+            interactor.hasMustInfo(callback = BoolCallback { hasMustInfo ->
+                if (hasMustInfo) {
                     interactor.getFriendData(friendUid, UserCallback { fsUser ->
                         viewState.openChatMessage(fsUser.name, fsUser.image)
                     })

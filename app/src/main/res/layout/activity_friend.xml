@@ -57,6 +57,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+<<<<<<< HEAD
+=======
+            <include
+                layout="@layout/ad_banner"/>
+
+>>>>>>> origin/dev
             <LinearLayout
                 android:id="@+id/meta_bar"
                 android:layout_width="match_parent"
@@ -113,7 +119,10 @@
             <android.support.v7.widget.CardView
                 android:id="@+id/friend_activity_block_message_like"
                 android:layout_below="@+id/meta_bar"
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/dev
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"

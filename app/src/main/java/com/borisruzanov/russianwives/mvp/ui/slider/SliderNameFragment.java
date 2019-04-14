@@ -48,7 +48,7 @@ public class SliderNameFragment extends MvpAppCompatFragment {
         btnSave = view.findViewById(R.id.fragment_slider_name_btn_save);
         answer = view.findViewById(R.id.fragment_slider_name_et_answer);
 
-        new SliderRepository().getFieldFromCurrentUser("name", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.NAME, value -> {
             if (value != null) {
                 answer.setText(value);
                 answer.setSelection(answer.getText().length());
@@ -65,14 +65,14 @@ public class SliderNameFragment extends MvpAppCompatFragment {
             if (!answer.getText().toString().trim().isEmpty()) {
                 Map<String, Object> map = new HashMap<>();
                 String name = answer.getText().toString();
-                map.put("name", name);
+                map.put(Consts.NAME, name);
                 FirebaseDatabase.getInstance().getReference()
                         .child(Consts.USERS_DB).child(getUid()).child(Consts.NAME).setValue(name);
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
+                        if (getActivity() != null) getActivity().onBackPressed();
                     }
-                    Toast.makeText(getActivity(), R.string.name_updated, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.name_updated), Toast.LENGTH_LONG).show();
 
                 });
             }

@@ -53,35 +53,39 @@ public class SliderSmokingStatusFragment extends Fragment {
         radioGroup = view.findViewById(R.id.fragment_slider_smoking_status_radiogroup);
         btnSave = view.findViewById(R.id.fragment_slider_smokestatus_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("smoking_status", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.SMOKING_STATUS, value -> {
             result = value;
-            if (value != null && value.equals("No way")){
+            if (value != null && value.equals(getString(R.string.no_way))){
                 radioGroup.check(R.id.fragment_slider_smoking_status_rbtn_no_way);
-            } else if (value != null && value.equals("Occasionally")){
+            } else if (value != null && value.equals(getString(R.string.occasionally))){
                 radioGroup.check(R.id.fragment_slider_smoking_status_rbtn_occasioally);
-            } else if (value != null && value.equals("Daily")){
+            } else if (value != null && value.equals(getString(R.string.daily))){
                 radioGroup.check(R.id.fragment_slider_smoking_status_rbtn_daily);
-            }else if (value != null && value.equals("Cigar aficionado")){
+            }else if (value != null && value.equals(getString(R.string.cigar_aficionado))){
                 radioGroup.check(R.id.fragment_slider_smokine_status_rbtn_cigar_aficionado);
-            }else if (value != null && value.equals("Yes, but trying to quit")){
+            }else if (value != null && value.equals(getString(R.string.yes_but_trying_to_quit))){
                 radioGroup.check(R.id.fragment_slider_smokine_status_rbtn_quit);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("smoking_status", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (result.equals(Consts.DEFAULT)) new RatingRepository().addRating(ADD_SMOKE_STATUS_RATING);
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.smoking_updated, Toast.LENGTH_LONG).show();
-
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.SMOKING_STATUS, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (result.equals(Consts.DEFAULT))
+                            new RatingRepository().addRating(ADD_SMOKE_STATUS_RATING);
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), getString(R.string.smoking_updated), Toast.LENGTH_LONG).show();
+                    });
+                }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;    }

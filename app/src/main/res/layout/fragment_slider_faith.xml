@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
-                android:text="@string/christian_catholic"
+                android:text="@string/christian"
                 android:textSize="@dimen/answers_text_size" />
 
             <RadioButton
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp8"
-                android:text="@string/buddist"
+                android:text="@string/buddhist"
                 android:textSize="@dimen/answers_text_size" />
 
             <RadioButton

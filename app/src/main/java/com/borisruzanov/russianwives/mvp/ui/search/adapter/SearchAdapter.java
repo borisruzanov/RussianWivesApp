@@ -18,6 +18,7 @@ import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository;
+import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.FirebaseUtils;
 import com.bumptech.glide.Glide;
 
@@ -119,7 +120,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            if(fsUser.getImage().equals("default")){
+            if(fsUser.getImage().equals(Consts.DEFAULT)){
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);
             } else {
                 Glide.with(context).load(fsUser.getImage()).thumbnail(0.5f).into(imageView);

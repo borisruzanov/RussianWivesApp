@@ -9,6 +9,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.filter.FilterRepositor
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository
+import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import dagger.Module
 import dagger.Provides
@@ -28,4 +29,5 @@ class AppModule(val app: App) {
     @Provides fun filterRepository(prefs: Prefs) = FilterRepository(prefs)
 
     @Provides fun provideSearchRepository() = SearchRepository()
+    @Provides fun provideSliderRepository() = SliderRepository()
 }

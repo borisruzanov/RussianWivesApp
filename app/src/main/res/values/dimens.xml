@@ -15,6 +15,7 @@
     <dimen name="empty_text_size">24sp</dimen>
     <dimen name="action_tv_margin">24dp</dimen>
     <dimen name="dp4">4dp</dimen>
+    <dimen name="dp6">6dp</dimen>
     <dimen name="profile_img_size">220dp</dimen>
     <dimen name="display_name_text_margin">26dp</dimen>
     <dimen name="dp12">12dp</dimen>
@@ -27,7 +28,7 @@
     <dimen name="user_desc_view_height">1px</dimen>
     <dimen name="lottie_animation_view_size">26dp</dimen>
     <dimen name="user_cv_width">160dp</dimen>
-    <dimen name="user_cv_height">180dp</dimen>
+    <dimen name="user_cv_height">190dp</dimen>
     <dimen name="user_rl_width">160dp</dimen>
     <dimen name="user_rl_height">140dp</dimen>
     <dimen name="empty_img_size">128dp</dimen>
