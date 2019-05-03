@@ -29,6 +29,7 @@ public class FirebaseRequestManager {
         userMap.put("full_profile", "false");
         userMap.put("must_info", "false");
         userMap.put("rating", 1);
+        userMap.put("coins", 0);
         return userMap;
     }
 

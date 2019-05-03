@@ -1,37 +1,34 @@
 package com.borisruzanov.russianwives.mvp.ui.main
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
-import android.support.v4.app.ActivityCompat.invalidateOptionsMenu
-import android.support.v4.app.ActivityCompat.startActivityForResult
 import android.support.v4.app.DialogFragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.ContextCompat.startActivity
+import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
-import android.support.v7.widget.LinearLayoutCompat
+import android.support.v4.widget.DrawerLayout
+import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View.GONE
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
-import com.borisruzanov.russianwives.R.id.toolbar
-import com.borisruzanov.russianwives.R.string.finish
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
-import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH
-import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment
@@ -43,19 +40,26 @@ import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
-import com.borisruzanov.russianwives.mvp.ui.shop.ShopActivity
+import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity
+import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
 import com.borisruzanov.russianwives.utils.Consts
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.analytics.HitBuilders
-import com.google.android.gms.analytics.Tracker
 import com.google.firebase.analytics.FirebaseAnalytics
 import java.util.*
 import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
-        ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener {
+        ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener, NavigationView.OnNavigationItemSelectedListener {
+
+
+    private val APP_ID = "ca-app-pub-5095813023957397~1146672660"
+    private var mAdView: AdView? = null
 
     //MVP
     @Inject
@@ -68,6 +72,14 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     private lateinit var viewPager: ViewPager
     private lateinit var mainPagerAdapter: MainPagerAdapter
+
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navigationView: NavigationView
+
+    private lateinit var closeDrawer: ImageView
+    private lateinit var viewProfile: TextView
+    private lateinit var purchaseSection: LinearLayout
+    private lateinit var filterBtn: RelativeLayout
 
     //Fragments
     private var dialogFragment: DialogFragment? = null
@@ -83,7 +95,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         component.inject(this)
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.drawer)
+
+        MobileAds.initialize(this, APP_ID)
+
 
         if (intent.extras != null) {
             if (intent.extras.get("fromUid") != null) {
@@ -97,6 +112,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         dialogFragment = FilterDialogFragment()
         viewPager = findViewById(R.id.main_view_pager)
         tabLayout = findViewById(R.id.main_tabs)
+        filterBtn = findViewById(R.id.toolbar_filter_btn)
 
         mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
@@ -104,8 +120,11 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         actionsFragment = ActionsFragment()
 
         //UI
-        toolbar = findViewById(R.id.toolbar)
+
+        toolbar = this.findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
+
 
         mainPresenter.checkForUserExist()
         viewPager.offscreenPageLimit = 3
@@ -117,17 +136,65 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         Log.d("TabDebug", "Tabs count is ${tabLayout.tabCount}")
 
         analytics()
-        Handler().postDelayed({mainPresenter.showDialogs()}, 3000)
+        Handler().postDelayed({ mainPresenter.showDialogs() }, 3000)
 
+        mAdView = findViewById<View>(R.id.adView) as AdView?
+        val adRequest = AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build()
+        mAdView?.loadAd(adRequest)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)
+        drawerLayout.setDrawerListener(toggle)
+        toggle.syncState()
+        var headerView: View = navigationView.getHeaderView(0)
+
+        closeDrawer = headerView.findViewById(R.id.drawer_header_close_btn)
+        closeDrawer.setOnClickListener {
+            onBackPressed()
+        }
+        viewProfile = headerView.findViewById(R.id.drawer_header_view_profile)
+        viewProfile.setOnClickListener {
+            val settingsIntent = Intent(this@MainActivity, MyProfileActivity::class.java)
+            startActivity(settingsIntent)
+        }
+        purchaseSection = headerView.findViewById(R.id.drawer_header_purchase_section)
+        purchaseSection.setOnClickListener {
+            val settingsIntent = Intent(this@MainActivity, ServicesActivity::class.java)
+            startActivity(settingsIntent)
+        }
+
+        searchButtonHide(true)
     }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
+    override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.getItemId()) {
+            R.id.drawer_top_menu_third_item ->   AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
+        }
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
+    }
+
+
 
     private fun analytics() {
         val tracker = App.AnalyticsTracker.sTracker
 
-       /* val params = Bundle()
-        params.putString("param_One", "First param")
-        params.putString("param_Two", "Second param")
-        firebaseAnalytics.logEvent("some_event_name", params)*/
+        /* val params = Bundle()
+         params.putString("param_One", "First param")
+         params.putString("param_Two", "Second param")
+         firebaseAnalytics.logEvent("some_event_name", params)*/
 
         val bundle = Bundle()
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, "some_id")
@@ -177,8 +244,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             menu.findItem(R.id.login).isVisible = false
             //mainPresenter.showDialogs()
         } else {
-            menu.findItem(R.id.sign_out_menu).isVisible = false
-            menu.findItem(R.id.menu_my_profile).isVisible = false
+            menu.findItem(R.id.shop).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)
@@ -190,16 +256,20 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         return true
     }
 
+    fun searchButtonHide(result: Boolean) {
+        if (!result) {
+            Log.d("ss", "!result")
+//            filterBtn.visibility = View.GONE
+        } else {
+            Log.d("ss", "else result")
+//            filterBtn.visibility = View.VISIBLE
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.sign_out_menu -> {
-                val params = Bundle()
-                firebaseAnalytics.logEvent("sign_out", params)
-                AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
-                return true
-            }
-            R.id.menu_my_profile -> {
-                val settingsIntent = Intent(this@MainActivity, MyProfileActivity::class.java)
+            R.id.shop -> {
+                val settingsIntent = Intent(this@MainActivity, RewardVideoActivity::class.java)
                 startActivity(settingsIntent)
                 return true
             }
@@ -207,6 +277,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                 callAuthWindow()
                 return true
             }
+
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -229,6 +300,9 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
                 RC_SIGN_IN)
     }
 
+    fun callFilter() {
+//        dialogFragment.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

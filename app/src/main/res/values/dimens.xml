@@ -32,4 +32,6 @@
     <dimen name="user_rl_width">160dp</dimen>
     <dimen name="user_rl_height">140dp</dimen>
     <dimen name="empty_img_size">128dp</dimen>
+    <dimen name="sp14">14sp</dimen>
+    <dimen name="sp20">20sp</dimen>
 </resources>

@@ -71,12 +71,10 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
-
         App application = (App)getActivity().getApplication();
+        application.getComponent().inject(this);
         firebaseAnalytics = FirebaseAnalytics.getInstance(getActivity());
         firebaseAnalytics.logEvent("must_info_appear", null);
-        application.getComponent().inject(this);
         super.onCreate(savedInstanceState);
     }
 

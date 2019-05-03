@@ -13,6 +13,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 
 import com.arellomobile.mvp.MvpAppCompatActivity
@@ -38,6 +39,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 import com.borisruzanov.russianwives.models.Contract.RC_PHOTO_PICKER
 import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.*
@@ -45,11 +49,15 @@ import kotlin.collections.HashMap
 
 class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
+    private val APP_ID = "ca-app-pub-5095813023957397~1146672660"
+    private var mAdView: AdView? = null
+
     //UI
     private lateinit var mChatUser: String
     private lateinit var mLastSeenView: TextView
     private lateinit var mChatMessageView: EditText
     private lateinit var mRefreshLayout: SwipeRefreshLayout
+    private lateinit var mActionsBlockLinear: LinearLayout
 
     private lateinit var firebaseAnalytics: FirebaseAnalytics
 
@@ -84,6 +92,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         setContentView(R.layout.activity_chat)
 
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
+        mActionsBlockLinear = findViewById(R.id.chat_action_block_linear)
 
         mChatUser = intent.getStringExtra(Consts.UID)
         mCurrentUserId = getUid()
@@ -147,6 +156,16 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
             firebaseAnalytics.logEvent("message_sent", null)
             presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
         }
+
+        adInit()
+
+    }
+
+    private fun adInit() {
+        MobileAds.initialize(this, APP_ID)
+        mAdView = findViewById<View>(R.id.adView) as AdView?
+        val adRequest = AdRequest.Builder().build()
+        mAdView?.loadAd(adRequest)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -174,11 +193,11 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         startActivityForResult(Intent.createChooser(galleryIntent, getString(R.string.select_image)), GALLERY_PICK)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GALLERY_PICK && resultCode == Activity.RESULT_OK) {
             Log.d("ImageDebug", "inside if")
-            val selectedImageUri = data.data
+            val selectedImageUri = data?.data
             Log.d("ImageDebug", "Uri is " + selectedImageUri!!)
             presenter.sendImage(mChatUser, selectedImageUri)
         } else if (resultCode == Activity.RESULT_CANCELED) {

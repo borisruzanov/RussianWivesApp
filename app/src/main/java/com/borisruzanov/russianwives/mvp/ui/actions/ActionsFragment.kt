@@ -20,6 +20,7 @@ import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.ActionItem
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
+import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
 
 import javax.inject.Inject
 
@@ -59,6 +60,7 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
                 DividerItemDecoration.VERTICAL))
 
         recyclerActivitiesList.adapter = actionsAdapter
+        (activity as MainActivity).searchButtonHide(false)
 
         emptyLayout = view.findViewById(R.id.actions_empty_rl)
 

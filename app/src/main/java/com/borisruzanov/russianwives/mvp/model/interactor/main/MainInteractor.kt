@@ -1,12 +1,14 @@
 package com.borisruzanov.russianwives.mvp.model.interactor.main
 
+import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
-import com.borisruzanov.russianwives.utils.NecessaryInfoCallback
+import com.borisruzanov.russianwives.utils.HotUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import javax.inject.Inject
 
-class MainInteractor @Inject constructor(private val userRepository: UserRepository) {
+class MainInteractor @Inject constructor(private val userRepository: UserRepository,
+                                         private val hotUsersRepository: HotUsersRepository) {
 
     val isUserExist: Boolean = userRepository.isUserExist
 
@@ -18,13 +20,21 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun isGenderDefault() = userRepository.isGenderDefault
 
-    fun setGender(gender: String) = userRepository.setGender(gender)
+    fun setGender(gender: String) {
+        userRepository.gender = gender
+    }
 
     fun hasNecessaryInfo(callback: BoolCallback) = userRepository.hasNecessaryInfo(callback)
 
     fun hasDefaultMustInfo(callback: BoolCallback) = userRepository.hasDefaultMustInfo(callback)
 
     fun addMustInfo() = userRepository.addFullProfileUsers()
+
+    fun setUserInHot() = hotUsersRepository.setUserInHot()
+
+    fun getHotUsers(callback: HotUsersCallback) {
+        hotUsersRepository.getHotUsers(callback)
+    }
 
     fun setFPDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
 

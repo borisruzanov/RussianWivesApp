@@ -26,9 +26,15 @@ import com.bumptech.glide.Glide
 
 import butterknife.BindView
 import com.borisruzanov.russianwives.di.component
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import javax.inject.Inject
 
 class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
+
+    private val APP_ID = "ca-app-pub-5095813023957397~1146672660"
+    private var mAdView: AdView? = null
 
     //todo: use kotlin syntetic
     //UI
@@ -92,6 +98,14 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
 
         supportFragmentManager.beginTransaction().add(R.id.my_profile_list_container, SearchFragment()).commit()
 
+        adInit()
+    }
+
+    private fun adInit() {
+        MobileAds.initialize(this, APP_ID)
+        mAdView = findViewById<View>(R.id.adView) as AdView?
+        val adRequest = AdRequest.Builder().build()
+        mAdView?.loadAd(adRequest)
     }
 
     override fun setUserData(name: String, age: String, country: String, image: String) {

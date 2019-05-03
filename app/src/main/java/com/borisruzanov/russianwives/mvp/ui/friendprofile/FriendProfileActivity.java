@@ -99,11 +99,9 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         MobileAds.initialize(this, getString(R.string.mob_app_id));
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
-        adView.setAdUnitId(getString(R.string.mob_unit_banner_id));
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener());
 
         RatingManager.getInstance().setUserMsgPts();
 

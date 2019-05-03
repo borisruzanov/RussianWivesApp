@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FU
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
+import com.borisruzanov.russianwives.utils.HotUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import javax.inject.Inject
 
@@ -16,10 +17,15 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-
         showGenderDialog()
         mainInteractor.setFirstOpenDate()
-
+        //mainInteractor.setUserInHot()
+//        mainInteractor.getHotUsers(callback = HotUsersCallback { hotUsers ->
+//            if (hotUsers.isEmpty()) Log.d("HotUsersDebug", "users is empty")
+//            hotUsers.forEach {
+//                Log.d("HotUsersDebug", "Uid is ${it.uid}")
+//            }
+//        })
     }
 
     fun showDialogs() {

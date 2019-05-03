@@ -81,6 +81,7 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
                 confirmButton.setText(R.string.now);
                 cancelButton.setText(R.string.later);
                 break;
+
         }
 
     }

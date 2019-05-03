@@ -243,7 +243,7 @@
     <string name="add_your_photo">Add your photo</string>
     <string name="where_are_you_from">Where are you from?</string>
     <string name="how_old_are_you">How old are you?</string>
-    
+
     <string name="add_your_photo_mi">Add your photo to continue</string>
     <string name="add_your_info_mi">Please, fill all fields</string>
     <string name="select_image">Select image</string>
@@ -257,7 +257,16 @@
     <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>
     <!-- real banner id ca-app-pub-5095813023957397/5592359725 -->
     <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
+    <!--<string name="mob_unit_tester_banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="mob_unit_prod_id">ca-app-pub-5095813023957397/5592359725</string>-->
     <string name="mob_unit_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="buy_tokens">Buy Tokens</string>
+    <string name="get_free_coins">Get free coins</string>
+    <string name="you_have">You have</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="buy">Buy</string>
+    <string name="services">Services</string>
 
     <!-- Genders -->
     <string-array name="genders">

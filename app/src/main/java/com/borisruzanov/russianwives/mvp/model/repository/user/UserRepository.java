@@ -149,6 +149,14 @@ public class UserRepository {
         prefs.setFPOpenDate();
     }
 
+    public String getGender() {
+        return prefs.getGender();
+    }
+
+    public String getSearchGender() {
+        return prefs.getGenderSearch();
+    }
+
     public void setFPDialogLastOpenDate() {
         prefs.setFPOpenDate();
     }

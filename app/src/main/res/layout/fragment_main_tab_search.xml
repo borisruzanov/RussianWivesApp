@@ -1,43 +1,38 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_root_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/search_root_container"
     android:background="@android:color/white">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <Button
-        android:id="@+id/users_filter_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:backgroundTint="@android:color/white"
-        android:paddingLeft="@dimen/friend_btn_padding"
-        android:paddingRight="@dimen/friend_btn_padding"
-        android:text="@string/change_filter"
-        android:textColor="@color/colorAccent" />
-
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/users_swipe_refresh"
-        android:layout_below="@id/users_filter_btn"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/users_recycler_view"
+            android:id="@+id/users_hot_recycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/users_empty_text"
-            android:visibility="gone"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/users_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/emptyText"
-            android:layout_gravity="center"/>
+            android:layout_height="match_parent"
+            android:layout_below="@id/users_hot_recycler">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/users_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/users_empty_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/emptyText"
+                android:visibility="gone" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
     </RelativeLayout>
 
 </FrameLayout>

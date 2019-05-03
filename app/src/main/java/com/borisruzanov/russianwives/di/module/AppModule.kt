@@ -3,8 +3,10 @@ package com.borisruzanov.russianwives.di.module
 
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs
+import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository
 import com.borisruzanov.russianwives.mvp.model.repository.chatmessage.ChatMessageRepository
 import com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository
+import com.borisruzanov.russianwives.mvp.model.repository.coins.CoinsRepository
 import com.borisruzanov.russianwives.mvp.model.repository.filter.FilterRepository
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
@@ -30,4 +32,7 @@ class AppModule(val app: App) {
 
     @Provides fun provideSearchRepository() = SearchRepository()
     @Provides fun provideSliderRepository() = SliderRepository()
+    @Provides fun provideCoinsRepository() = CoinsRepository()
+    @Provides fun provideHotUsersRepository(prefs: Prefs) = HotUsersRepository(prefs)
+
 }

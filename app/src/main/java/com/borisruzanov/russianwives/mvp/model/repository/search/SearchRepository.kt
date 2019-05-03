@@ -40,6 +40,7 @@ class SearchRepository {
         //not forgetting to set to zero when using from another fragment
         if (page == 0)
             lastUserInPage = ""
+        Log.d("RatingDebug", "Last user in page is $lastUserInPage")
 
         query
                 .orderBy(Consts.NAME)

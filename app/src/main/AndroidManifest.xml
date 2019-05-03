@@ -41,29 +41,15 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".zTEST.ChatUdacityActivity" />
-        <activity android:name=".mvp.ui.profilesettings.ProfileSettingsActivity" />
-        <activity
-            android:name=".zHOLD.AllUsersActivity"
-            android:parentActivityName=".mvp.ui.main.MainActivity" />
-        <activity android:name=".zHOLD.ProfileActivity">
-            <intent-filter>
-                <action android:name="com.borisruzanov.russianwives_TARGET_NOTIFICATION" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".mvp.ui.rewardvideo.RewardVideoActivity" />
         <activity
             android:name=".mvp.ui.chatmessage.ChatMessageActivity"
             android:parentActivityName=".mvp.ui.main.MainActivity" />
-        <activity android:name=".zHOLD.StatusActivity" />
         <activity
-            android:name=".zTEST.SettingsProfileBasics"
-            android:parentActivityName=".mvp.ui.profilesettings.ProfileSettingsActivity" />
+            android:name=".mvp.ui.profilesettings.ProfileSettingsActivity" />
         <activity
             android:name=".mvp.ui.myprofile.MyProfileActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".zTEST.UserInfoViewPager" />
         <activity
             android:name=".mvp.ui.slider.SliderActivity"
             android:parentActivityName=".mvp.ui.main.MainActivity">
@@ -96,7 +82,7 @@
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/notification_channel_id" />
 
-        <activity android:name=".mvp.ui.shop.ShopActivity"></activity>
+        <activity android:name=".mvp.ui.shop.ServicesActivity"></activity>
     </application>
 
 </manifest>

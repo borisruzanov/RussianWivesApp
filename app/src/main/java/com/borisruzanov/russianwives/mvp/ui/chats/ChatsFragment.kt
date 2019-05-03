@@ -59,6 +59,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false)
 
         emptyLayout = mMainView.findViewById(R.id.chats_empty_rl)
+        (activity as MainActivity).searchButtonHide(false)
 
         recyclerChatsList = mMainView.findViewById(R.id.friends_fragment_recycler_chats)
         recyclerChatsList.layoutManager = LinearLayoutManager(activity)

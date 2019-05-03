@@ -22,6 +22,7 @@ public final class Consts {
     public static final String RELATIONSHIP_STATUS  = "relationship_status";
     public static final String NUMBER_OF_KIDS  = "number_of_kids";
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
+    public static final String COINS  = "coins";
     public static final String UID  = "uid";
 
     public static final String FIRST_OPEN_DATE  = "first open date";

@@ -13,6 +13,7 @@ import com.borisruzanov.russianwives.mvp.ui.main.MainPresenter
 import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
 import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
+import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -38,5 +39,5 @@ interface AppComponent {
     fun inject(myProfileActivity: MyProfileActivity)
     fun inject(searchFragment: SearchFragment)
     fun inject(mustInfoDialogFragment: MustInfoDialogFragment)
-
+    fun inject(rewardVideoActivity: RewardVideoActivity)
 }
