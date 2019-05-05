@@ -9,6 +9,7 @@ import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor
 import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
+import com.borisruzanov.russianwives.utils.HotUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UsersListCallback
 
@@ -23,6 +24,10 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     fun getUserList(page: Int) {
         searchInteractor.getFilteredUserList(usersListCallback, page)
         Log.d("UsersListDebug", "in getUserList and fsUsers size is ${fsUsers.size}")
+    }
+
+    fun getHotUsers() {
+        searchInteractor.getHotUsers(callback = HotUsersCallback { viewState.addHotUsers(it) })
     }
 
     private val usersListCallback = UsersListCallback { userList ->

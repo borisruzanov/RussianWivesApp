@@ -1,10 +1,7 @@
 package com.borisruzanov.russianwives.mvp.ui.shop;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +12,8 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieComposition;
 import com.airbnb.lottie.LottieDrawable;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.mvp.ui.main.MainActivity;
+import com.borisruzanov.russianwives.models.HotUser;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +21,14 @@ import java.util.List;
 public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
 
     private static final int FIRST_POSITION = 0;
-    private List<Integer> mUsersList;
-    private LayoutInflater mInflater;
+    private List<HotUser> hotUsers = new ArrayList<>();
     private ItemClickListener mClickListener;
     private Context context;
 
-    // data is passed into the constructor
-    HotAdapter(Context context, List<Integer> colors) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mUsersList = colors;
+    // data is passed with this method
+    public void setData(List<HotUser> hotUserList) {
+        this.hotUsers = hotUserList;
+        notifyDataSetChanged();
     }
 
     // inflates the row layout from xml when needed
@@ -39,11 +36,11 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     @NonNull
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View view = null;
+        View view;
         if (viewType == FIRST_POSITION) {
-            view = mInflater.inflate(R.layout.item_hot_first, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_hot_first, parent, false);
         } else {
-            view = mInflater.inflate(R.layout.item_hot_second, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.item_hot_second, parent, false);
         }
         return new ViewHolder(view);
     }
@@ -53,7 +50,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
         if (position == 0) {
             return FIRST_POSITION;
         } else {
-            return 1;
+            return position;
         }
     }
 
@@ -67,7 +64,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     // total number of rows
     @Override
     public int getItemCount() {
-        return mUsersList.size();
+        return hotUsers.size();
     }
 
     // stores and recycles views as they are scrolled off screen
@@ -97,7 +94,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
                     lottieAnimationView.setImageDrawable(drawable);
                 }));
             } else {
-                mSecondItemImage.setImageResource(mUsersList.get(position));
+                Glide.with(context).load(hotUsers.get(position).getImage()).thumbnail(0.5f).into(mSecondItemImage);;
             }
         }
 
@@ -106,11 +103,6 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
             if (mClickListener != null) mClickListener.onItemClick(view, getAdapterPosition());
         }
 
-    }
-
-    // convenience method for getting data at click position
-    public Integer getItem(int id) {
-        return mUsersList.get(id);
     }
 
     // allows clicks events to be caught

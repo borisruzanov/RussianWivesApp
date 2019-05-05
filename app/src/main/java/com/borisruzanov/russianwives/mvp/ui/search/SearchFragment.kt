@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -19,11 +19,11 @@ import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.models.FsUser
+import com.borisruzanov.russianwives.models.HotUser
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
-import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
 import com.borisruzanov.russianwives.mvp.ui.shop.HotAdapter
@@ -51,10 +51,6 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     private lateinit var hotAdapter: HotAdapter
 
-    private var hotRecycler: RecyclerView? = null
-
-
-
     private val onItemChatCallback = { _: View, position: Int ->
         firebaseAnalytics.logEvent("start_chat_from_main_search", null)
         searchPresenter.openChat(position)
@@ -74,7 +70,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(activity, "You clicked on item with position $position", Toast.LENGTH_SHORT).show()
     }
 
     lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -89,14 +85,6 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         application.component.inject(this)
         super.onCreate(savedInstanceState)
         firebaseAnalytics = FirebaseAnalytics.getInstance(context!!)
-
-        // set up the RecyclerView
-//        val recyclerView = view?.findViewById<RecyclerView>(R.id.users_hot_recycler)
-//        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        recyclerView?.setLayoutManager(horizontalLayoutManager)
-//        hotAdapter = HotAdapter(context, getList())
-//        hotAdapter!!.setClickListener(this)
-//        recyclerView?.setAdapter(adapter)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -134,10 +122,19 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        users_hot_recycler.setOnClickListener {
-//            Log.d("qwe", "show filter dialog")
-//            dialogFragment.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
-//        }
+
+        // set up the RecyclerView
+        val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        users_hot_recycler.layoutManager = horizontalLayoutManager
+        hotAdapter = HotAdapter()
+        hotAdapter.setClickListener(this)
+        users_hot_recycler.adapter = hotAdapter
+        searchPresenter.getHotUsers()
+
+        users_hot_recycler.setOnClickListener {
+            Log.d("qwe", "show filter dialog")
+            dialogFragment.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
+        }
 
         layoutManager = GridLayoutManager(activity, 3)
 
@@ -210,7 +207,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
     override fun onUpdate() {
         if (::searchPresenter.isInitialized) {
             searchPresenter.onUpdate()
-            onUserListScrollListener.resetState()
+            if (::onUserListScrollListener.isInitialized) onUserListScrollListener.resetState()
         }
     }
 
@@ -238,6 +235,10 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
             users_recycler_view.visibility = View.VISIBLE
             users_empty_text.visibility = View.GONE
         }
+    }
+
+    override fun addHotUsers(hotUsers: MutableList<HotUser>?) {
+        hotAdapter.setData(hotUsers)
     }
 
     private fun getList(): List<Int> {

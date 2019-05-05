@@ -150,7 +150,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)
         drawerLayout.setDrawerListener(toggle)
         toggle.syncState()
-        var headerView: View = navigationView.getHeaderView(0)
+        val headerView: View = navigationView.getHeaderView(0)
 
         closeDrawer = headerView.findViewById(R.id.drawer_header_close_btn)
         closeDrawer.setOnClickListener {

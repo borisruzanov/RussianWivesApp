@@ -87,6 +87,7 @@ public class HotUsersRepository {
     // get users from Hots/$reversedGender
     public void getHotUsers(HotUsersCallback callback) {
         Query sortQuery = hotsRef.child(prefs.getGenderSearch()).orderByChild("reversedTimestamp");
+        Log.d("CarouselDebug", "Get hot users by " + prefs.getGenderSearch());
         sortQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -104,7 +105,7 @@ public class HotUsersRepository {
         });
     }
 
-    public void getHotsByPage(int page, HotUsersCallback callback) {
+    public void getHotUsersByPage(int page, HotUsersCallback callback) {
         if (page == 0) lastUserInPage = "";
 
         Query sortQuery = hotsRef.child(prefs.getGenderSearch())
