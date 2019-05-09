@@ -116,7 +116,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         } else {
             if (menu != null) {
             }
-        }
+        }   
         return super.onPrepareOptionsMenu(menu)
     }
 

@@ -37,6 +37,8 @@ class SearchInteractor @Inject constructor(private val searchRepository: SearchR
         userRepository.hasMustInfo(callback)
     }
 
+    fun setUserInHot() = hotsRepository.setUserInHot()
+
     fun getHotUsers(callback: HotUsersCallback) = hotsRepository.getHotUsers(callback)
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)

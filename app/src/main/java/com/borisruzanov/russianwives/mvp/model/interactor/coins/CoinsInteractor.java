@@ -26,4 +26,8 @@ public class CoinsInteractor {
         repository.deleteCoins(deleteCoins, enoughCallback);
     }
 
+    public void purchaseHotOption(BoolCallback enoughCallback) {
+        repository.deleteCoins(10, enoughCallback);
+    }
+
 }

@@ -6,6 +6,7 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.models.FsUser
+import com.borisruzanov.russianwives.mvp.model.interactor.coins.CoinsInteractor
 import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor
 import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
@@ -17,7 +18,8 @@ import java.util.ArrayList
 import javax.inject.Inject
 
 @InjectViewState
-class SearchPresenter @Inject constructor(private val searchInteractor: SearchInteractor) : MvpPresenter<SearchView>() {
+class SearchPresenter @Inject constructor(private val searchInteractor: SearchInteractor,
+                                          private val coinsInteractor: CoinsInteractor) : MvpPresenter<SearchView>() {
     private val fsUsers = ArrayList<FsUser>()
     private val likedUsers = HashSet<String>()
 
@@ -28,6 +30,17 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
 
     fun getHotUsers() {
         searchInteractor.getHotUsers(callback = HotUsersCallback { viewState.addHotUsers(it) })
+    }
+
+    fun purchaseHot() {
+        coinsInteractor.purchaseHotOption { isEnoughMoney -> run {
+            if (isEnoughMoney) {
+                searchInteractor.setUserInHot()
+            } else {
+                //show message
+            }
+        }
+        }
     }
 
     private val usersListCallback = UsersListCallback { userList ->
