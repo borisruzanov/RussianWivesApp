@@ -28,6 +28,7 @@ public final class Consts {
     public static final String FIRST_OPEN_DATE  = "first open date";
     public static final String DIALOG_OPEN_DATE  = "dialog open date";
     public static final String FP_OPEN_DATE  = "full profile open date";
+    public static final String COINS_AMOUNT = "coins_amount";
     public static final String GENDER_SEARCH  = "gender search";
 
     public static final String RATING  = "rating";

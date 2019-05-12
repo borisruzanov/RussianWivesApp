@@ -9,6 +9,7 @@ import javax.inject.Inject;
 public class CoinsInteractor {
 
     private CoinsRepository repository;
+    public static int HOT_PURCHASE = 10;
 
     @Inject CoinsInteractor(CoinsRepository coinsRepository){
         repository = coinsRepository;
@@ -26,8 +27,12 @@ public class CoinsInteractor {
         repository.deleteCoins(deleteCoins, enoughCallback);
     }
 
+    public void hasEnoughMoneyForHots(BoolCallback enoughCallback) {
+        repository.hasEnoughCoins(HOT_PURCHASE, enoughCallback);
+    }
+
     public void purchaseHotOption(BoolCallback enoughCallback) {
-        repository.deleteCoins(10, enoughCallback);
+        repository.deleteCoins(HOT_PURCHASE, enoughCallback);
     }
 
 }

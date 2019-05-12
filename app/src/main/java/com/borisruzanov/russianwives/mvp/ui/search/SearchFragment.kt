@@ -24,6 +24,8 @@ import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
+import com.borisruzanov.russianwives.mvp.ui.purchasedialog.PurchaseDialogFragment
+import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
 import com.borisruzanov.russianwives.mvp.ui.shop.HotAdapter
@@ -36,8 +38,8 @@ import java.util.Objects
 
 import javax.inject.Inject
 
-class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment.ConfirmListener, HotAdapter.ItemClickListener {
-
+class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment.ConfirmListener,
+        PurchaseDialogFragment.ConfirmPurchaseListener, HotAdapter.ItemClickListener {
 
     @Inject
     @InjectPresenter
@@ -70,6 +72,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
     }
 
     override fun onItemClick(view: View?, position: Int) {
+        if (position == 0) searchPresenter.purchaseHot()
         Toast.makeText(activity, "You clicked on item with position $position", Toast.LENGTH_SHORT).show()
     }
 
@@ -227,6 +230,10 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         searchPresenter.openSliderWithDefaults()
     }
 
+    override fun onConfirmPurchase() {
+        searchPresenter.confirmHotPurchase()
+    }
+
     override fun showEmpty(show: Boolean) {
         if (show) {
             users_recycler_view.visibility = View.GONE
@@ -241,25 +248,16 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         hotAdapter.setData(hotUsers)
     }
 
-    private fun getList(): List<Int> {
-        // data to populate the RecyclerView with
-        val viewColors = ArrayList<Int>()
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        viewColors.add(R.drawable.default_avatar)
-        return viewColors
+    override fun openRewardActivity() {
+        val rewardIntent = Intent(activity, RewardVideoActivity::class.java)
+        activity?.startActivity(rewardIntent)
     }
+
+    override fun openPurchaseDialog() {
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.add(PurchaseDialogFragment.newInstance(10), PurchaseDialogFragment.TAG)
+                ?.commit()
+    }
+
 
 }

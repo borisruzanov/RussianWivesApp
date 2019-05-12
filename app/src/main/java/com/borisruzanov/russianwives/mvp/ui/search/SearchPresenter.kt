@@ -32,12 +32,16 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         searchInteractor.getHotUsers(callback = HotUsersCallback { viewState.addHotUsers(it) })
     }
 
+    fun confirmHotPurchase() = coinsInteractor.purchaseHotOption {}
+
     fun purchaseHot() {
-        coinsInteractor.purchaseHotOption { isEnoughMoney -> run {
+        coinsInteractor.hasEnoughMoneyForHots { isEnoughMoney -> run {
             if (isEnoughMoney) {
-                searchInteractor.setUserInHot()
+                //open confirm purchase dialog
+                viewState.openPurchaseDialog()
             } else {
-                //show message
+                // open reward activity
+                viewState.openRewardActivity()
             }
         }
         }

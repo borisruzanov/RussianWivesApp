@@ -33,11 +33,23 @@ public class CoinsRepository {
         addCoins(getUid(), addCoins);
     }
 
-    public void deleteCoins(int delCoins, BoolCallback emoughCallback) {
-        deleteCoins(getUid(), delCoins, emoughCallback);
+    public void deleteCoins(int delCoins, BoolCallback enoughCallback) {
+        deleteCoins(getUid(), delCoins, enoughCallback);
     }
 
-    public void deleteCoins(String uid, int delCoins, BoolCallback enoughCallback) {
+    public void hasEnoughCoins(int needCoins, BoolCallback enoughCallback) {
+        if (getUid() != null) {
+            users.document(getUid()).get().addOnCompleteListener(task -> {
+                DocumentSnapshot snapshot = task.getResult();
+                int coins = snapshot.getLong(Consts.COINS).intValue();
+                int newCoins = coins - needCoins;
+                // if user has enough coins value will be higher than 0
+                enoughCallback.setBool(newCoins > 0);
+            });
+        }
+    }
+
+    private void deleteCoins(String uid, int delCoins, BoolCallback enoughCallback) {
         if (uid != null) {
             users.document(uid).get().addOnCompleteListener(task -> {
                 DocumentSnapshot snapshot = task.getResult();
