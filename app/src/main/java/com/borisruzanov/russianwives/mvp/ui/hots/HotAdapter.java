@@ -1,4 +1,4 @@
-package com.borisruzanov.russianwives.mvp.ui.shop;
+package com.borisruzanov.russianwives.mvp.ui.hots;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -25,9 +25,22 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     private ItemClickListener mClickListener;
     private Context context;
 
+    private int VIEW_TYPE_ITEM = 1;
+    private static int VIEW_TYPE_LOADING = 0;
+
     // data is passed with this method
     public void setData(List<HotUser> hotUserList) {
         this.hotUsers = hotUserList;
+        notifyDataSetChanged();
+    }
+
+    public void addHots(List<HotUser> hotUserList) {
+        hotUsers.addAll(hotUserList);
+        notifyItemRangeInserted(hotUsers.size() - hotUserList.size(), hotUsers.size());
+    }
+
+    public void clearData(){
+        hotUsers.clear();
         notifyDataSetChanged();
     }
 
@@ -39,26 +52,28 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
         View view;
         if (viewType == FIRST_POSITION) {
             view = LayoutInflater.from(context).inflate(R.layout.item_hot_first, parent, false);
+            return new HotViewHolder(view);
+        } else if (viewType == VIEW_TYPE_ITEM) {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hot_second, parent, false);
         } else {
-            view = LayoutInflater.from(context).inflate(R.layout.item_hot_second, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress, parent, false);
+            return new ProgressViewHolder(view);
         }
-        return new ViewHolder(view);
+        return new HotViewHolder(view);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) {
-            return FIRST_POSITION;
-        } else {
-            return position;
-        }
+        if (position == 0) return FIRST_POSITION;
+        else if (hotUsers.get(position) != null) return VIEW_TYPE_ITEM;
+        else return VIEW_TYPE_LOADING;
     }
 
 
     // binds the data to the view and textview in each row
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(position);
+        ((HotViewHolder)holder).bind(position);
     }
 
     // total number of rows
@@ -67,22 +82,25 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
         return hotUsers.size();
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+    }
+
     // stores and recycles views as they are scrolled off screen
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class HotViewHolder extends ViewHolder implements View.OnClickListener {
         ImageView mSecondItemImage;
         ImageView mFirstItemImage;
         LottieAnimationView lottieAnimationView;
 
-        ViewHolder(View itemView) {
+        HotViewHolder(View itemView) {
             super(itemView);
             mSecondItemImage = itemView.findViewById(R.id.colorView);
             mFirstItemImage = itemView.findViewById(R.id.hot_first_item);
             lottieAnimationView = itemView.findViewById(R.id.lottieAnimationView);
             itemView.setOnClickListener(this);
-
-
         }
-
 
         void bind(int position) {
             if (position == 0) {
@@ -108,6 +126,12 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     // allows clicks events to be caught
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
+    }
+
+    class ProgressViewHolder extends ViewHolder {
+        public ProgressViewHolder(View itemView) {
+            super(itemView);
+        }
     }
 
     // parent activity will implement this method to respond to click events

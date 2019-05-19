@@ -28,7 +28,8 @@ import com.borisruzanov.russianwives.mvp.ui.purchasedialog.PurchaseDialogFragmen
 import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener
 import com.borisruzanov.russianwives.mvp.ui.search.adapter.SearchAdapter
-import com.borisruzanov.russianwives.mvp.ui.shop.HotAdapter
+import com.borisruzanov.russianwives.mvp.ui.hots.HotAdapter
+import com.borisruzanov.russianwives.mvp.ui.hots.InfiniteScrollListener
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
 import com.borisruzanov.russianwives.utils.Consts
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -39,7 +40,8 @@ import java.util.Objects
 import javax.inject.Inject
 
 class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment.ConfirmListener,
-        PurchaseDialogFragment.ConfirmPurchaseListener, HotAdapter.ItemClickListener {
+        PurchaseDialogFragment.ConfirmPurchaseListener, HotAdapter.ItemClickListener,
+        InfiniteScrollListener.OnLoadMoreListener {
 
     @Inject
     @InjectPresenter
@@ -50,6 +52,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     private lateinit var layoutManager: GridLayoutManager
     private var dialogFragment = FilterDialogFragment()
+    private var infiniteScrollListener: InfiniteScrollListener? = null
 
     private lateinit var hotAdapter: HotAdapter
 
@@ -129,6 +132,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         // set up the RecyclerView
         val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         users_hot_recycler.layoutManager = horizontalLayoutManager
+        infiniteScrollListener = InfiniteScrollListener(layoutManager, this)
+        users_hot_recycler.addOnScrollListener(infiniteScrollListener!!)
         hotAdapter = HotAdapter()
         hotAdapter.setClickListener(this)
         users_hot_recycler.adapter = hotAdapter
@@ -226,6 +231,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         startActivity(intent)
     }
 
+    override fun setHotsLoaded() = infiniteScrollListener!!.setLoaded()
+
     override fun onConfirm() {
         searchPresenter.openSliderWithDefaults()
     }
@@ -244,8 +251,12 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         }
     }
 
+    override fun onLoadMore() {
+        searchPresenter.getHotUsersByPage()
+    }
+
     override fun addHotUsers(hotUsers: MutableList<HotUser>?) {
-        hotAdapter.setData(hotUsers)
+        hotAdapter.addHots(hotUsers)
     }
 
     override fun openRewardActivity() {

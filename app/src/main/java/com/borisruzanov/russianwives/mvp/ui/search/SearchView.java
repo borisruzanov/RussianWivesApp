@@ -23,6 +23,7 @@ public interface SearchView extends MvpView {
     void showFullProfileDialog();
     void openRewardActivity();
     void openPurchaseDialog();
+    void setHotsLoaded();
     void openSlider(ArrayList<String> sliderList);
     void showRegistrationDialog();
 }

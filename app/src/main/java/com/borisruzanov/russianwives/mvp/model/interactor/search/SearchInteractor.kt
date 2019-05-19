@@ -41,6 +41,8 @@ class SearchInteractor @Inject constructor(private val searchRepository: SearchR
 
     fun getHotUsers(callback: HotUsersCallback) = hotsRepository.getHotUsers(callback)
 
+    fun getHotUsersByPage(page: Int, callback: HotUsersCallback) = hotsRepository.getHotUsersByPage(page, callback)
+
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 
     fun checkFullProfileAchieve(callback: BoolCallback) = ratingRepository.isAchievementExist(FULL_PROFILE_ACH, callback)

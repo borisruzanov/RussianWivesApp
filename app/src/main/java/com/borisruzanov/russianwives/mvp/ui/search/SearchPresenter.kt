@@ -22,10 +22,18 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
                                           private val coinsInteractor: CoinsInteractor) : MvpPresenter<SearchView>() {
     private val fsUsers = ArrayList<FsUser>()
     private val likedUsers = HashSet<String>()
+    private var page = 0
 
     fun getUserList(page: Int) {
         searchInteractor.getFilteredUserList(usersListCallback, page)
         Log.d("UsersListDebug", "in getUserList and fsUsers size is ${fsUsers.size}")
+    }
+
+    fun getHotUsersByPage() {
+        searchInteractor.getHotUsersByPage(page, callback = HotUsersCallback {
+            viewState.addHotUsers(it)
+            viewState.setHotsLoaded()
+        })
     }
 
     fun getHotUsers() {
