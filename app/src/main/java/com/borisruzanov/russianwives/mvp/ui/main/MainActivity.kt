@@ -4,9 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.support.design.widget.BottomNavigationView
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.app.DialogFragment
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.view.ViewPager
@@ -57,7 +59,6 @@ import javax.inject.Inject
 class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
         ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener, NavigationView.OnNavigationItemSelectedListener {
 
-
     private val APP_ID = "ca-app-pub-5095813023957397~1146672660"
     private var mAdView: AdView? = null
 
@@ -80,6 +81,8 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     private lateinit var viewProfile: TextView
     private lateinit var purchaseSection: LinearLayout
     private lateinit var filterBtn: RelativeLayout
+
+    private lateinit var navigation: BottomNavigationView
 
     //Fragments
     private var dialogFragment: DialogFragment? = null
@@ -325,6 +328,47 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             }
         }
     }
+
+    // TODO add scroll to top method and add tags for fragments
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {
+        when (it.itemId) {
+            R.id.navigation_home -> {
+                if (getFragmentByTag(Consts.SEARCH_FRAGMENT) !is SearchFragment) {
+                    openFragment(SearchFragment(), Consts.SEARCH_FRAGMENT)
+                }
+                // else (getFragmentByTag(Consts.SEARCH_FRAGMENT) as SearchFragment).scrollToTop()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_favorite -> {
+                if (getFragmentByTag(Consts.CHATS_FRAGMENT) !is ChatsFragment) {
+                    openFragment(ChatsFragment(), Consts.CHATS_FRAGMENT)
+                }
+                // else (getFragmentByTag(Consts.CHATS_FRAGMENT) as ChatsFragment).scrollToTop()
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_settings -> {
+                if (getFragmentByTag(Consts.ACTIONS_FRAGMENT) !is ActionsFragment) {
+                    openFragment(ActionsFragment(), Consts.ACTIONS_FRAGMENT)
+                }
+                // else (getFragmentByTag(Consts.ACTIONS_FRAGMENT) as ActionsFragment).scrollToTop()
+                return@OnNavigationItemSelectedListener true
+            }
+        }
+        false
+    }
+
+    // TODO rewrite xml file and add navigation
+    fun selectItem(condition: Boolean, position: Int?) {
+        if(condition && position == null) navigation.selectedItemId = R.id.navigation_settings
+        else navigation.selectedItemId = position ?: R.id.navigation_home
+    }
+
+    // TODO add frameContainer
+    fun openFragment(fragment: Fragment, tag: String){
+        // supportFragmentManager.beginTransaction().replace(R.id.frameContainer, fragment, tag).commit()
+    }
+
+    private fun getFragmentByTag(tag: String) = supportFragmentManager.findFragmentByTag(tag)
 
     override fun onUpdate() {
         searchFragment?.onUpdate()

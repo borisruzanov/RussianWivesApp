@@ -25,6 +25,10 @@ public final class Consts {
     public static final String COINS  = "coins";
     public static final String UID  = "uid";
 
+    public static final String SEARCH_FRAGMENT = "SearchFragment";
+    public static final String CHATS_FRAGMENT = "ChatsFragment";
+    public static final String ACTIONS_FRAGMENT = "ActionsFragment";
+
     public static final String FIRST_OPEN_DATE  = "first open date";
     public static final String DIALOG_OPEN_DATE  = "dialog open date";
     public static final String FP_OPEN_DATE  = "full profile open date";
