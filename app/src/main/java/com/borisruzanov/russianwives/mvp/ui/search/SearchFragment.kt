@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.view.ViewCompat
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -131,13 +132,13 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
         // set up the RecyclerView
         val horizontalLayoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        infiniteScrollListener = InfiniteScrollListener(horizontalLayoutManager, this)
         users_hot_recycler.layoutManager = horizontalLayoutManager
-        infiniteScrollListener = InfiniteScrollListener(layoutManager, this)
         users_hot_recycler.addOnScrollListener(infiniteScrollListener!!)
         hotAdapter = HotAdapter()
         hotAdapter.setClickListener(this)
         users_hot_recycler.adapter = hotAdapter
-        searchPresenter.getHotUsers()
+        searchPresenter.getHotUsersByPage()
 
         users_hot_recycler.setOnClickListener {
             Log.d("qwe", "show filter dialog")
@@ -146,29 +147,29 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
         layoutManager = GridLayoutManager(activity, 3)
 
-//        onUserListScrollListener = object : FeedScrollListener(layoutManager) {
-//            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
-//                Log.d("UsersListDebug", "in onUserScrollListener and page is $page")
-//                searchPresenter.setProgressBar(true)
-//                searchPresenter.getUserList(page)
-//            }
-//        }
-//
-//        if (users_recycler_view.layoutManager == null) {
-//            users_recycler_view.layoutManager = layoutManager
-//        }
-//
-//        users_recycler_view.setHasFixedSize(true)
-//        users_recycler_view.adapter = adapter
-//        users_recycler_view.addOnScrollListener(onUserListScrollListener)
-//
-//        users_swipe_refresh.setOnRefreshListener {
-//            Log.d("UsersListDebug", "refreshing ...")
-//            onUpdate()
-//        }
-//
-//        searchPresenter.setProgressBar(true)
-//        searchPresenter.getUserList(0)
+        onUserListScrollListener = object : FeedScrollListener(layoutManager) {
+            override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
+                Log.d("UsersListDebug", "in onUserScrollListener and page is $page")
+                searchPresenter.setProgressBar(true)
+                searchPresenter.getUserList(page)
+            }
+        }
+
+        if (users_recycler_view.layoutManager == null) {
+            users_recycler_view.layoutManager = layoutManager
+        }
+
+        users_recycler_view.setHasFixedSize(true)
+        users_recycler_view.adapter = adapter
+        users_recycler_view.addOnScrollListener(onUserListScrollListener)
+
+        users_swipe_refresh.setOnRefreshListener {
+            Log.d("UsersListDebug", "refreshing ...")
+            onUpdate()
+        }
+
+        searchPresenter.setProgressBar(true)
+        searchPresenter.getUserList(0)
     }
 
     override fun addUsers(userList: List<FsUser>) {

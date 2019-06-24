@@ -34,6 +34,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
             viewState.addHotUsers(it)
             viewState.setHotsLoaded()
         })
+        page++
     }
 
     fun getHotUsers() {
@@ -75,6 +76,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun onUpdate() {
+        page = 0
         fsUsers.clear()
         likedUsers.clear()
         viewState.clearUsers()

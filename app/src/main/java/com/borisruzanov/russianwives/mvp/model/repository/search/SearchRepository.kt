@@ -18,7 +18,6 @@ import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
 
 
-
 class SearchRepository {
     companion object {
         const val ITEMS_PER_PAGE = 20
@@ -40,10 +39,14 @@ class SearchRepository {
         //not forgetting to set to zero when using from another fragment
         if (page == 0)
             lastUserInPage = ""
-        Log.d("RatingDebug", "Last user in page is $lastUserInPage")
+
+
+        Log.d("RatingDebug", "Page number is $page and last user uid is $lastUserInPage")
+
+        // Log.d("RatingDebug", "Last user in page is $lastUserInPage")
 
         query
-                .orderBy(Consts.NAME)
+                .orderBy(Consts.RATING, Query.Direction.DESCENDING)
                 .startAt(lastUserInPage) //todo: BUG IS HERE - we need to show only first n-1 users
                 .limit(ITEMS_PER_PAGE.toLong())
                 .get()
@@ -69,8 +72,11 @@ class SearchRepository {
 
         //todo: show "not find" photo by this filter params
         if (fsUserList.isNotEmpty()) {
-            lastUserInPage = fsUserList[fsUserList.size - 1].name //todo: use .uid but it's not working this way
-
+            Log.d("RatingDebug", "Lne: Last user uid is ${fsUserList.last().uid} and name is ${fsUserList.last()}")
+            lastUserInPage = fsUserList[fsUserList.size - 1].uid //todo: use .uid but it's not working this way
+            /*  fsUserList.forEach {fsUser ->
+                 Log.d("RatingDebug", "FE: User uid is ${fsUser.uid} and name is ${fsUser.name}")
+             }*/
             //fucking firebase have made me writing this shitty code
             if (fsUserList.size == ITEMS_PER_PAGE) {
                 fsUserList.removeAt(fsUserList.size - 1)

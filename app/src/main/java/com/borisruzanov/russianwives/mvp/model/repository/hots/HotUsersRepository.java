@@ -37,9 +37,10 @@ public class HotUsersRepository {
         this.prefs = prefs;
     }
 
-    /** --Hots--
-     --Male--
-     --Female--
+    /**
+     * --Hots--
+     * --Male--
+     * --Female--
      */
 
     // add user to gender equal to preferences value
@@ -58,7 +59,8 @@ public class HotUsersRepository {
                 }
 
                 @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {}
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
             });
         }
     }
@@ -80,7 +82,8 @@ public class HotUsersRepository {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
@@ -101,32 +104,42 @@ public class HotUsersRepository {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
     public void getHotUsersByPage(int page, HotUsersCallback callback) {
+        Log.d("CarouselDebug", "In getHotUsersByPage()");
         if (page == 0) lastUserInPage = "";
 
         Query sortQuery = hotsRef.child(prefs.getGenderSearch())
                 .orderByChild("reversedTimestamp")
-                .startAt(lastUserInPage)
                 .limitToFirst(PAGE_SIZE);
 
-        sortQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+        if (!lastUserInPage.equals("")) sortQuery = sortQuery.startAt(lastUserInPage);
+
+        sortQuery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 List<HotUser> hotUsers = new ArrayList<>();
+                Log.d("CarouselDebug", "Data snapshot children count is " + String.valueOf(dataSnapshot.getChildrenCount()));
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String uid = snapshot.getKey();
+                    Log.d("CarouselDebug", "Hot user uid is " + uid);
                     String image = snapshot.child(Consts.IMAGE).getValue().toString();
                     if (!uid.equals(getUid())) hotUsers.add(new HotUser(uid, image));
                 }
-                lastUserInPage = hotUsers.get(hotUsers.size() - 1).getUid();
+
+                if (!hotUsers.isEmpty()) {
+                    lastUserInPage = hotUsers.get(hotUsers.size() - 1).getUid();
+                }
                 callback.setHotUsers(hotUsers);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
-    }}
+    }
+}
