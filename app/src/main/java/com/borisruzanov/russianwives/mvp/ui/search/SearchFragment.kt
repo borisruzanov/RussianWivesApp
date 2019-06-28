@@ -205,6 +205,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         startActivity(chatIntent)
     }
 
+    // Борис, ты здесь?
     override fun showRegistrationDialog() {
         activity?.supportFragmentManager?.beginTransaction()?.add(ConfirmDialogFragment.newInstance(Consts.ACTION_MODULE),
                 ConfirmDialogFragment.TAG)?.commit()

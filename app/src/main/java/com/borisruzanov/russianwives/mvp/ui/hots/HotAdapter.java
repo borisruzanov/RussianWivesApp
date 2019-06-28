@@ -20,13 +20,13 @@ import java.util.List;
 
 public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
 
-    private static final int FIRST_POSITION = 0;
+    private static final int VIEW_TYPE_ADD = 0;
     private List<HotUser> hotUsers = new ArrayList<>();
     private ItemClickListener mClickListener;
     private Context context;
 
     private int VIEW_TYPE_ITEM = 1;
-    private static int VIEW_TYPE_LOADING = 0;
+    private static int VIEW_TYPE_LOADING = 2;
 
     // data is passed with this method
     public void setData(List<HotUser> hotUserList) {
@@ -35,6 +35,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     }
 
     public void addHots(List<HotUser> hotUserList) {
+        if(hotUsers.isEmpty()) hotUsers.add(new HotUser("", ""));
         hotUsers.addAll(hotUserList);
         notifyItemRangeInserted(hotUsers.size() - hotUserList.size(), hotUsers.size());
     }
@@ -50,21 +51,23 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view;
-        if (viewType == FIRST_POSITION) {
+        ViewHolder holder;
+        if (viewType == VIEW_TYPE_ADD) {
             view = LayoutInflater.from(context).inflate(R.layout.item_hot_first, parent, false);
-            return new HotViewHolder(view);
+            holder = new HotViewHolder(view, VIEW_TYPE_ADD);
         } else if (viewType == VIEW_TYPE_ITEM) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_hot_second, parent, false);
+            holder = new HotViewHolder(view, VIEW_TYPE_ITEM);
         } else {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_progress, parent, false);
-            return new ProgressViewHolder(view);
+            holder = new ProgressViewHolder(view);
         }
-        return new HotViewHolder(view);
+        return holder;
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 0) return FIRST_POSITION;
+        if (position == 0) return VIEW_TYPE_ADD;
         else if (hotUsers.get(position) != null) return VIEW_TYPE_ITEM;
         else return VIEW_TYPE_LOADING;
     }
@@ -73,6 +76,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
     // binds the data to the view and textview in each row
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         ((HotViewHolder)holder).bind(position);
     }
 
@@ -93,9 +97,11 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
         ImageView mSecondItemImage;
         ImageView mFirstItemImage;
         LottieAnimationView lottieAnimationView;
+        int viewType;
 
-        HotViewHolder(View itemView) {
+        HotViewHolder(View itemView, int viewType) {
             super(itemView);
+            this.viewType = viewType;
             mSecondItemImage = itemView.findViewById(R.id.colorView);
             mFirstItemImage = itemView.findViewById(R.id.hot_first_item);
             lottieAnimationView = itemView.findViewById(R.id.lottieAnimationView);
@@ -103,7 +109,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
         }
 
         void bind(int position) {
-            if (position == 0) {
+            if (viewType == VIEW_TYPE_ADD) {
                 LottieDrawable drawable = new LottieDrawable();
                 LottieComposition.Factory.fromAssetFileName(context, "hot_round.json", (composition -> {
                     drawable.setComposition(composition);
@@ -112,7 +118,7 @@ public class HotAdapter extends RecyclerView.Adapter<HotAdapter.ViewHolder> {
                     lottieAnimationView.setImageDrawable(drawable);
                 }));
             } else {
-                Glide.with(context).load(hotUsers.get(position).getImage()).thumbnail(0.5f).into(mSecondItemImage);;
+                Glide.with(context).load(hotUsers.get(position).getImage()).thumbnail(0.5f).into(mSecondItemImage);
             }
         }
 
