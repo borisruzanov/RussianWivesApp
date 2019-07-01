@@ -245,6 +245,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
             //mainPresenter.showDialogs()
         } else {
             menu.findItem(R.id.shop).isVisible = false
+            menu.findItem(R.id.chats).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
         return super.onPrepareOptionsMenu(menu)

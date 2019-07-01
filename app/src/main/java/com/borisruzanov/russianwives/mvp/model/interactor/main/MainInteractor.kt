@@ -36,6 +36,8 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
         hotUsersRepository.getHotUsers(callback)
     }
 
+    fun roundRating() = userRepository.roundRating()
+
     fun setFPDialogLastOpenDate() = userRepository.setDialogLastOpenDate()
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)

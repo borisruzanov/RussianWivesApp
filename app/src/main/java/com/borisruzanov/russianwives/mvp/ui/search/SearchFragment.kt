@@ -148,9 +148,12 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         layoutManager = GridLayoutManager(activity, 3)
 
         onUserListScrollListener = object : FeedScrollListener(layoutManager) {
+            // ВОТ ТУТ НУЖНО ХРАНИТЬ ОБЪЕКТ ЮЗЕРА И ОБНОВЛЯТЬ ЕГО ТЕМ ЮЗЕРОМ КОТОРЫЙ ПРИХОДИТ ИЗ КОЛЛБЕКА
+            // И ПОТОМ ПЕРЕДАВАТЬ ЕГО В ВИДЕ ПАРАМЕТРА В НОВЫЙ ЗАПРОС
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 Log.d("UsersListDebug", "in onUserScrollListener and page is $page")
                 searchPresenter.setProgressBar(true)
+                // ВОТ ТУТ НУЖНО ПЕРЕДАВАЙТЬ ВТОРЫМ ПАРАМЕТРОМ ЮЗЕРА , я правда хз зачем нужна страница, может она не нужна
                 searchPresenter.getUserList(page)
             }
         }

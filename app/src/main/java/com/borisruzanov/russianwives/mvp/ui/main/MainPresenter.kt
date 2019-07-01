@@ -19,6 +19,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
         super.onFirstViewAttach()
         showGenderDialog()
         mainInteractor.setFirstOpenDate()
+        if (isUserExist()) mainInteractor.roundRating()
         //mainInteractor.setUserInHot()
 //        mainInteractor.getHotUsers(callback = HotUsersCallback { hotUsers ->
 //            if (hotUsers.isEmpty()) Log.d("HotUsersDebug", "users is empty")

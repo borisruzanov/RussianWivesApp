@@ -96,6 +96,21 @@ public class UserRepository {
         } else Log.d("RatingDebug", "Rating ALARM from UR");
     }
 
+    public void roundRating() {
+        users.get().addOnCompleteListener(task -> {
+            for (DocumentSnapshot snapshot: task.getResult().getDocuments()) {
+                int rating = 0;
+                Map<String, Object> ratingMap = new HashMap<>();
+                String uid = snapshot.getId();
+                if (snapshot.getDouble(Consts.RATING) != null) {
+                    rating = snapshot.getDouble(Consts.RATING).intValue();
+                }
+                ratingMap.put(Consts.RATING, rating);
+                users.document(uid).update(ratingMap);
+            }
+        });
+    }
+
     public void addFullProfileUsers() {
         users.get().addOnCompleteListener(task -> {
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
