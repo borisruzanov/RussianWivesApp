@@ -24,6 +24,7 @@ public interface SearchView extends MvpView {
     void openRewardActivity();
     void openPurchaseDialog();
     void setHotsLoaded();
+    void openHotUser(String uid);
     void openSlider(ArrayList<String> sliderList);
     void showRegistrationDialog();
 }

@@ -128,7 +128,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         likeIv = findViewById(R.id.friend_activity_like_img);
         messageIv = findViewById(R.id.friend_activity_message_img);
 
-        friendUid = getIntent().getStringExtra("uid");
+        friendUid = getIntent().getStringExtra(Consts.UID);
         presenter.setLikeHighlighted(friendUid);
 
         fab = findViewById(R.id.friend_activity_fab);

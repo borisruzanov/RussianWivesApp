@@ -77,7 +77,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     override fun onItemClick(view: View?, position: Int) {
         if (position == 0) searchPresenter.purchaseHot()
-        Toast.makeText(activity, "You clicked on item with position $position", Toast.LENGTH_SHORT).show()
+        else searchPresenter.openHotUser(position)
     }
 
     lateinit var firebaseAnalytics: FirebaseAnalytics
@@ -194,7 +194,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
 
     override fun openFriend(uid: String, transitionName: String, args: Bundle) {
         val dataIntent = Intent(context, FriendProfileActivity::class.java)
-        dataIntent.putExtra("uid", uid)
+        dataIntent.putExtra(Consts.UID, uid)
         dataIntent.putExtra("transitionName", transitionName)
 
         startActivity(dataIntent, args)
@@ -208,7 +208,12 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         startActivity(chatIntent)
     }
 
-    // Борис, ты здесь?
+    override fun openHotUser(uid: String) {
+        val hotIntent = Intent(context, FriendProfileActivity::class.java)
+        hotIntent.putExtra(Consts.UID, uid)
+        startActivity(hotIntent)
+    }
+
     override fun showRegistrationDialog() {
         activity?.supportFragmentManager?.beginTransaction()?.add(ConfirmDialogFragment.newInstance(Consts.ACTION_MODULE),
                 ConfirmDialogFragment.TAG)?.commit()

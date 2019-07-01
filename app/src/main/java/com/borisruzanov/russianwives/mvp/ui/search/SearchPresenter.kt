@@ -6,6 +6,7 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.models.FsUser
+import com.borisruzanov.russianwives.models.HotUser
 import com.borisruzanov.russianwives.mvp.model.interactor.coins.CoinsInteractor
 import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor
 import com.borisruzanov.russianwives.utils.BoolCallback
@@ -22,6 +23,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
                                           private val coinsInteractor: CoinsInteractor) : MvpPresenter<SearchView>() {
     private val fsUsers = ArrayList<FsUser>()
     private val likedUsers = HashSet<String>()
+    private val hotUsers = ArrayList<HotUser>()
     private var page = 0
 
     fun getUserList(page: Int) {
@@ -31,11 +33,14 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
 
     fun getHotUsersByPage() {
         searchInteractor.getHotUsersByPage(page, callback = HotUsersCallback {
+            hotUsers.addAll(it)
             viewState.addHotUsers(it)
             viewState.setHotsLoaded()
         })
         page++
     }
+
+    fun openHotUser(position: Int) = viewState.openHotUser(hotUsers[position - 1].uid)
 
     fun getHotUsers() {
         searchInteractor.getHotUsers(callback = HotUsersCallback { viewState.addHotUsers(it) })
