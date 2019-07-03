@@ -172,7 +172,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         }
 
         searchPresenter.setProgressBar(true)
-        searchPresenter.getUserList(0)
+//        searchPresenter.getUserList(0)
     }
 
     override fun addUsers(userList: List<FsUser>) {

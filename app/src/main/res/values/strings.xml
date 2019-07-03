@@ -267,6 +267,7 @@
     <string name="close">Close</string>
     <string name="buy">Buy</string>
     <string name="services">Services</string>
+    <string name="text">Text</string>
 
     <!-- Genders -->
     <string-array name="genders">

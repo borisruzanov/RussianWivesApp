@@ -40,7 +40,10 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         page++
     }
 
-    fun openHotUser(position: Int) = viewState.openHotUser(hotUsers[position - 1].uid)
+    fun openHotUser(position: Int) {
+        Log.d("CarouselDebug", "Uid is ${hotUsers[position - 1].uid}")
+        viewState.openHotUser(hotUsers[position - 1].uid)
+    }
 
     fun getHotUsers() {
         searchInteractor.getHotUsers(callback = HotUsersCallback { viewState.addHotUsers(it) })

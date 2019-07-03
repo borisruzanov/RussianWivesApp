@@ -1,5 +1,7 @@
 package com.borisruzanov.russianwives.mvp.model.repository.coins;
 
+import android.util.Log;
+
 import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.NumCallback;
@@ -39,10 +41,14 @@ public class CoinsRepository {
 
     public void hasEnoughCoins(int needCoins, BoolCallback enoughCallback) {
         if (getUid() != null) {
+            Log.d("CarouselDebug", "Uid is " + getUid());
             users.document(getUid()).get().addOnCompleteListener(task -> {
                 DocumentSnapshot snapshot = task.getResult();
-                int coins = snapshot.getLong(Consts.COINS).intValue();
-                int newCoins = coins - needCoins;
+                int newCoins = 0;
+                if (snapshot.get(Consts.COINS) != null) {
+                    int coins = snapshot.getLong(Consts.COINS).intValue();
+                    newCoins = coins - needCoins;
+                }
                 // if user has enough coins value will be higher than 0
                 enoughCallback.setBool(newCoins > 0);
             });
@@ -73,7 +79,10 @@ public class CoinsRepository {
         if (uid != null) {
             users.document(uid).get().addOnCompleteListener(task -> {
                 DocumentSnapshot snapshot = task.getResult();
-                int coins = snapshot.getLong(Consts.COINS).intValue();
+                int coins = 0;
+                if(snapshot.get(Consts.COINS) != null) {
+                    coins = snapshot.getLong(Consts.COINS).intValue();
+                }
                 numCallback.setNumber(coins);
             });
         }
