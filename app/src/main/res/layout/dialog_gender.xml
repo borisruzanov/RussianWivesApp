@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp16"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/header_ni_dialog"
+        style="@style/AppTheme.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/header_necessary_info" />
+
+    <RelativeLayout
+        android:id="@+id/gender_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/header_ni_dialog">
+
+        <TextView
+            android:id="@+id/gender_text"
+            style="@style/TextAppearance.AppCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/dp8"
+            android:text="@string/what_gender"/>
+
+        <Spinner
+            android:id="@+id/dialog_spinner_gender"
+            style="@style/AppTheme.FilterSpinner"
+            android:layout_below="@+id/gender_text"
+            android:layout_centerVertical="true"
+            android:entries="@array/genders" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:id="@+id/policy_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp4"
+        android:text="@string/privacy_policy"
+        android:linksClickable="true"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toBottomOf="@id/gender_rl" />
+
+    <Button
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:id="@+id/confirm_button_gender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp8"
+        android:text="@android:string/ok"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/policy_tv"/>
+
+
+
+</android.support.constraint.ConstraintLayout>

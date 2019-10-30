@@ -13,12 +13,15 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.interactor.slider.SliderInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_HOBBY_RATING;
 
 public class SliderHobbyFragment extends MvpAppCompatFragment{
 
@@ -48,10 +51,10 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
         sliderFragmentsPresenter = new SliderFragmentsPresenter(new SliderInteractor(new SliderRepository()));
 
 
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_hobby_btn_save);
-        answer = (EditText) view.findViewById(R.id.fragment_slider_hobby_et_answer);
+        btnSave = view.findViewById(R.id.fragment_slider_hobby_btn_save);
+        answer = view.findViewById(R.id.fragment_slider_hobby_et_answer);
 
-        new SliderRepository().getFieldFromCurrentUser("hobby", value -> {
+        new SliderRepository().getFieldFromCurrentUser(Consts.HOBBY, value -> {
             if (value != null && !value.equals(Consts.DEFAULT)) {
                 answer.setText(value);
                 answer.setSelection(answer.getText().length());
@@ -63,12 +66,12 @@ public class SliderHobbyFragment extends MvpAppCompatFragment{
 
             if(!result.isEmpty()){
                 Map<String, Object> map = new HashMap<>();
-                map.put("hobby", answer.getText().toString());
+                map.put(Consts.HOBBY, answer.getText().toString());
                 new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                     if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
+                        if (getActivity() != null) getActivity().onBackPressed();
                     }
-                    Toast.makeText(getActivity(), R.string.hobby_updated, Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), getString(R.string.hobby_updated), Toast.LENGTH_LONG).show();
                 });
             }
         });

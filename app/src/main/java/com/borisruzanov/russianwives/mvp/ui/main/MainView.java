@@ -8,7 +8,8 @@ public interface MainView extends MvpView{
 
     void callAuthWindow();
     void setAdapter(boolean isUserExist);
-    void showNecessaryInfoDialog(String gender, String age);
+    void showGenderDialog();
+    void showMustInfoDialog();
     void showAdditionalInfoDialog();
     void openSlider(ArrayList<String> stringList);
 }

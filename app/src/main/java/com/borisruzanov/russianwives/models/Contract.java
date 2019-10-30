@@ -2,7 +2,6 @@ package com.borisruzanov.russianwives.models;
 
 public class Contract {
 
-    //TODO Put with constants in one file
     public static final String TAG = "WorkProcess";
     public static final String ERROR = "ErrorMessage";
     public static final String CHAT_FRAGMENT = "ChatFragmentLogs";

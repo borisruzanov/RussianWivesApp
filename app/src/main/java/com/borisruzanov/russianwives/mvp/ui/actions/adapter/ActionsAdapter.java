@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.ui.actions.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +18,12 @@ import com.borisruzanov.russianwives.models.ActionItem;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.ActivitiesAdapterViewHolder> {
 
-    private List<ActionItem> activitiesList = new ArrayList<>();
+    private List<ActionItem> actionItems = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private Context context;
 
@@ -29,8 +31,14 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public void setData(List<ActionItem> activitiesList) {
-        this.activitiesList = activitiesList;
+    public void setData(List<ActionItem> actionItems) {
+        this.actionItems = actionItems;
+        notifyDataSetChanged();
+    }
+
+    public void clearAndUpdateData(List<ActionItem> newActionItems) {
+        actionItems.clear();
+        actionItems.addAll(newActionItems);
         notifyDataSetChanged();
     }
 
@@ -45,13 +53,13 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
 
     @Override
     public void onBindViewHolder(@NonNull ActionsAdapter.ActivitiesAdapterViewHolder holder, int position) {
-        ActionItem model = activitiesList.get(position);
+        ActionItem model = actionItems.get(position);
         holder.bind(model, position);
     }
 
     @Override
     public int getItemCount() {
-        return activitiesList.size();
+        return actionItems.size();
     }
 
     class ActivitiesAdapterViewHolder extends RecyclerView.ViewHolder {
@@ -82,7 +90,7 @@ public class ActionsAdapter extends RecyclerView.Adapter<ActionsAdapter.Activiti
             }
             actionContainer.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
 
-            if (model.getAction().equals("like")){
+            if (model.getAction().equals("like")) {
                 type_like.setVisibility(View.VISIBLE);
                 type_visit.setVisibility(View.INVISIBLE);
             } else {

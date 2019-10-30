@@ -18,16 +18,32 @@ class ActionsPresenter @Inject constructor(private val interactor: ActionsIntera
     fun setActionsList() {
         interactor.getActions(callback = ActionItemCallback { actionList ->
             if (actionList.isNotEmpty() && actionItems.isEmpty()) {
+                Log.d("ActionsBack", "in getActions")
                 actionItems.addAll(actionList)
             }
             else Log.d("ActionList", "Actions list is empty " + actionList.isEmpty())
             viewState.showUserActions(actionItems)
         })
+    }
 
+    fun updateActionsList() {
+       interactor.getActions(callback = ActionItemCallback { actionList ->
+           if (actionList.isNotEmpty() && (!listEqualsIgnoreOrder(actionList, actionItems) || actionItems.isEmpty())) {
+               Log.d("ActionsBack", "Update List")
+               actionItems.clear()
+               actionItems.addAll(actionList)
+           } else  Log.d("ActionsBack", "List is empty")
+
+           viewState.updateUserActions(actionItems)
+       })
     }
 
     fun openFriendProfile(position: Int) {
         viewState.openFriendProfile(actionItems[position].uid)
+    }
+
+    private fun <T> listEqualsIgnoreOrder(list1: List<T>, list2: List<T>): Boolean {
+        return HashSet(list1) == HashSet(list2)
     }
 
 }

@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.RelativeLayout
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -20,6 +20,7 @@ import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.ActionItem
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
+import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
 
 import javax.inject.Inject
 
@@ -31,10 +32,10 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     private lateinit var recyclerActivitiesList: RecyclerView
 
-    private lateinit var emptyText: TextView
+    private lateinit var emptyLayout: RelativeLayout
 
     private val onItemClickCallback
-            = OnItemClickListener.OnItemClickCallback{ view: View, position: Int -> actionsPresenter.openFriendProfile(position) }
+            = OnItemClickListener.OnItemClickCallback{ _: View, position: Int -> actionsPresenter.openFriendProfile(position) }
 
     private val actionsAdapter = ActionsAdapter(onItemClickCallback)
 
@@ -45,7 +46,6 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         requireActivity().component.inject(this)
         super.onCreate(savedInstanceState)
     }
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -60,10 +60,9 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
                 DividerItemDecoration.VERTICAL))
 
         recyclerActivitiesList.adapter = actionsAdapter
+        (activity as MainActivity).searchButtonHide(false)
 
-        emptyText = view.findViewById(R.id.activities_empty_text)
-
-        actionsPresenter.setActionsList()
+        emptyLayout = view.findViewById(R.id.actions_empty_rl)
 
         // Inflate the layout for this fragment
         return view
@@ -71,11 +70,21 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
 
     override fun showUserActions(actionItems: List<ActionItem>) {
         if (actionItems.isNotEmpty()) {
-            emptyText.visibility = View.GONE
+            emptyLayout.visibility = View.GONE
             recyclerActivitiesList.post { actionsAdapter.setData(actionItems) }
         } else {
             recyclerActivitiesList.visibility = View.GONE
-            emptyText.visibility = View.VISIBLE
+            emptyLayout.visibility = View.VISIBLE
+        }
+    }
+
+    override fun updateUserActions(newActionItems: List<ActionItem>) {
+        if (newActionItems.isNotEmpty()) {
+            emptyLayout.visibility = View.GONE
+            recyclerActivitiesList.post { actionsAdapter.clearAndUpdateData(newActionItems) }
+        } else {
+            recyclerActivitiesList.visibility = View.GONE
+            emptyLayout.visibility = View.VISIBLE
         }
     }
 
@@ -83,6 +92,12 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
         val friendProfileIntent = Intent(activity, FriendProfileActivity::class.java)
         friendProfileIntent.putExtra("uid", friendUid)
         startActivity(friendProfileIntent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        actionsPresenter.updateActionsList()
     }
 
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MUST_INFO_ACH;
+
 public class FilterRepository {
 
     private Prefs prefs;
@@ -22,6 +24,9 @@ public class FilterRepository {
         for (SearchModel model: getSearchResult()){
             if (isNotDefault(model.getValue())) searchModels.add(model);
         }
+
+        /** @important add filter to show users with full profile*/
+        searchModels.add(new SearchModel(MUST_INFO_ACH, "true"));
 
         return searchModels;
     }

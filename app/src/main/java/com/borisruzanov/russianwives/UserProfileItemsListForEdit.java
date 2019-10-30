@@ -25,7 +25,7 @@ public class UserProfileItemsListForEdit {
                 new UserDescriptionModel("How Often Do You Drink Alcohol", "Never"),
                 new UserDescriptionModel("Do You Have Kids", "No"),
                 new UserDescriptionModel("Do You Want Kids", "Yes"),
-                new UserDescriptionModel("Hobby", "Swimming")
+                new UserDescriptionModel("Looking for", "Swimming")
         );
 
     }

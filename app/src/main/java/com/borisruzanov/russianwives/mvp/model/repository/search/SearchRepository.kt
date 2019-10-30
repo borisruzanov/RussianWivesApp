@@ -5,17 +5,12 @@ import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.models.SearchModel
 import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.UsersListCallback
-import com.google.android.gms.tasks.Task
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 
 import java.util.ArrayList
 
 import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
 import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
-
+import com.google.firebase.firestore.*
 
 
 class SearchRepository {
@@ -23,40 +18,47 @@ class SearchRepository {
         const val ITEMS_PER_PAGE = 20
     }
 
-    private var lastUserInPage = ""
+    private var lastUserInPage: DocumentSnapshot? = null
     private val reference: CollectionReference = FirebaseFirestore.getInstance().collection(Consts.USERS_DB)
 
-    //todo: rename getUsersNextPage(isFirstPage: Boolean)
+    // метод пагинации, который забирает по 20 пользователей
     fun getUsers(filterParams: List<SearchModel>, usersListCallback: UsersListCallback, page: Int) {
         var query: Query = reference
 
-        if (!filterParams.isEmpty()) {
+        if (filterParams.isNotEmpty()) {
             for ((key, value) in filterParams) {
+                Log.d("FilterDebug", "Key is $key and value is $value")
                 query = query.whereEqualTo(key, value)
             }
         }
 
         //not forgetting to set to zero when using from another fragment
         if (page == 0)
-            lastUserInPage = ""
+            lastUserInPage = null
 
-        query
-                //todo: .orderBy('rank')
-                //todo: add where user did not liked this one
-                .orderBy(Consts.NAME)
-                .startAt(lastUserInPage) //todo: BUG IN HERE - we need to show only first n-1 users
+
+        Log.d("RatingDebug", "Page number is $page and last user uid is ${lastUserInPage?.getString(Consts.UID)}")
+
+        query = query
+                .whereGreaterThan(Consts.RATING, 0)
+                .orderBy(Consts.RATING, Query.Direction.DESCENDING)
                 .limit(ITEMS_PER_PAGE.toLong())
-                .get()
-                //todo: addOnSuccessListener instead
-                .addOnCompleteListener { task ->
-                    putCallbackData(usersListCallback, task) }
+
+        if (lastUserInPage != null) {
+            query = query.startAfter(lastUserInPage!!)
+        }
+                query.get()
+                .addOnSuccessListener { documentSnapshots ->
+                    putCallbackData(usersListCallback, documentSnapshots)
+                }
     }
 
 
-    private fun putCallbackData(usersListCallback: UsersListCallback, task: Task<QuerySnapshot>) {
+    private fun putCallbackData(usersListCallback: UsersListCallback, documentsSnapshot: QuerySnapshot) {
         val fsUserList = ArrayList<FsUser>()
-        for (snapshot in task.result!!.documents) {
+        for (snapshot in documentsSnapshot.documents) {
             if (isUserExist()) {
+                //Remove user from the list
                 if (snapshot.id != getUid()) {
                     fsUserList.add(snapshot.toObject(FsUser::class.java)!!)
                 }
@@ -65,16 +67,24 @@ class SearchRepository {
             }
         }
 
-        lastUserInPage = fsUserList[fsUserList.size - 1].name //todo: use .uid but it's not working this way
-
-        //fucking firebase have made me writing this shitty code
-        if (fsUserList.size == ITEMS_PER_PAGE) {
-            fsUserList.removeAt(fsUserList.size - 1)
-        } else if (fsUserList.size == ITEMS_PER_PAGE - 1 && isUserExist()) {
-            fsUserList.removeAt(fsUserList.size - 1)
+        //todo: show "not find" photo by this filter params
+        if (fsUserList.isNotEmpty()) {
+            for (user in fsUserList){
+                Log.d("RatingDebug", "User uid is ${user.uid} with ${user.rating} points")
+            }
+            //Вот видишь ты его тут сетаешь а надо его обратно перекидывать в точку запроса
+            // Поэтому при запросе он у тебя не тот, который ты засетал, перекидывай его обратно я думаю  как то так, точно не знаю
+            //У тебя же эта переменная не глобальная, как ты ее можешь тут сохра
+            lastUserInPage = documentsSnapshot.documents.last()
+            Log.d("RatingDebug", "Saved lastUserInPage uid is ${lastUserInPage?.get(Consts.UID)} " +
+                    "and rating is ${lastUserInPage?.get(Consts.RATING)}")
+            //fucking firebase have made me writing this shitty code
+            if (fsUserList.size == ITEMS_PER_PAGE) {
+                fsUserList.removeAt(fsUserList.size - 1)
+            } else if (fsUserList.size == ITEMS_PER_PAGE - 1 && isUserExist()) {
+                fsUserList.removeAt(fsUserList.size - 1)
+            }
         }
-
-
         usersListCallback.setUsers(fsUserList)
     }
 

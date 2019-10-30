@@ -3,15 +3,56 @@ package com.borisruzanov.russianwives.mvp.model.data.prefs;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.utils.Consts;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class Prefs {
 
     private SharedPreferences prefs;
-    private String PREFS_FILE_NAME = "russian_wives_app";
+    private Context context;
 
     public Prefs(Context context) {
+        this.context = context;
+        String PREFS_FILE_NAME = "russian_wives_app";
         prefs = context.getSharedPreferences(PREFS_FILE_NAME, Context.MODE_PRIVATE);
+    }
+
+    public void setFirstOpenDate() {
+        setDate(Consts.FIRST_OPEN_DATE);
+    }
+
+    public String getFirstOpenDate() {
+        return getValue(Consts.FIRST_OPEN_DATE);
+    }
+
+    public void setFPOpenDate() {
+        setDate(Consts.DIALOG_OPEN_DATE);
+    }
+
+    public void setDialogOpenDate(String value) {
+        setValue(Consts.DIALOG_OPEN_DATE, value);
+    }
+
+    public void clearValue(String key) {
+        setValue(key, "");
+    }
+
+    public String getUserGender() {
+        return reverseGender(getGenderSearch());
+    }
+
+    public void setGenderSearch(String gender) {
+        String genderSearch = reverseGender(gender);
+        setValue(Consts.GENDER_SEARCH, genderSearch);
+        setGender(genderSearch);
+    }
+
+    public String getGenderSearch() {
+        return getValue(Consts.GENDER_SEARCH);
     }
 
     public String getGender() {
@@ -110,8 +151,23 @@ public class Prefs {
         setValue(Consts.HOBBY, value);
     }
 
+    private void setDate(String key) {
+        String date = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        setValue(key, date);
+    }
+
+    private String reverseGender(String gender) {
+        String reverseGender = "";
+        if (gender.equals(context.getString(R.string.male_option))) {
+            reverseGender = context.getString(R.string.female_option);
+        } else if (gender.equals(context.getString(R.string.female_option))) {
+            reverseGender = context.getString(R.string.male_option);
+        }
+        return reverseGender;
+    }
+
     public String getValue(String key) {
-        return prefs.getString(key, "default");
+        return prefs.getString(key, Consts.DEFAULT);
     }
 
     public void setValue(String key, String value) {

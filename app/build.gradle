@@ -2,25 +2,19 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'io.fabric'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
     signingConfigs {
-        // More code
-        myConfig {
-            storeFile file("keystore.jks")
-            storePassword "Russianwives1"
-            keyAlias "general_key"
-            keyPassword "Russianwives1"
-        }
 
         defaultConfig {
             applicationId "com.borisruzanov.russianwives"
-            minSdkVersion 21
+            minSdkVersion 19
             targetSdkVersion 27
-            versionCode 1
-            versionName "1.0"
+            versionCode 6
+            versionName "1.1"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
             // Enabling multidex support.
             multiDexEnabled true
@@ -29,7 +23,6 @@ android {
             release {
                 minifyEnabled false
                 proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-                signingConfig signingConfigs.myConfig
             }
         }
         compileOptions {
@@ -53,6 +46,7 @@ android {
         testImplementation 'junit:junit:4.12'
         androidTestImplementation 'com.android.support.test:runner:1.0.1'
         androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
         //General
         implementation 'com.facebook.android:facebook-android-sdk:4.29.0'
         //Moxy MVP
@@ -70,15 +64,17 @@ android {
         implementation 'com.squareup.okhttp:okhttp:2.7.5'
         implementation 'com.android.support:cardview-v7:27.1.0'
         //Firebase
-        implementation "com.google.firebase:firebase-core:16.0.4"
-        implementation "com.google.firebase:firebase-firestore:17.1.3"
-        implementation "com.google.firebase:firebase-database:$firebase"
-        implementation "com.google.firebase:firebase-auth:$firebase"
-        implementation "com.google.firebase:firebase-storage:$firebase"
-        implementation "com.firebaseui:firebase-ui-auth:$firebaseUI"
-        implementation "com.google.firebase:firebase-messaging:17.3.4"
-        implementation "com.google.firebase:firebase-config:16.1.0"
-        implementation "com.firebaseui:firebase-ui-database:$firebaseUI"
+        implementation "com.google.firebase:firebase-core:16.0.8"
+        implementation "com.google.firebase:firebase-firestore:18.2.0"
+        implementation "com.google.firebase:firebase-database:16.1.0"
+        implementation "com.google.firebase:firebase-auth:16.2.1"
+        implementation "com.google.firebase:firebase-storage:16.1.0"
+        implementation "com.firebaseui:firebase-ui-auth:4.3.2"
+        implementation "com.google.firebase:firebase-messaging:17.6.0"
+        implementation "com.google.firebase:firebase-config:16.5.0"
+        implementation "com.firebaseui:firebase-ui-database:4.3.2"
+        implementation 'com.google.firebase:firebase-ads:17.2.0'
+
         //Rx
         implementation 'io.reactivex.rxjava2:rxandroid:2.0.2'
         implementation 'io.reactivex.rxjava2:rxjava:2.2.0'
@@ -95,10 +91,22 @@ android {
         def daggerVer = "2.12"
         kapt "com.google.dagger:dagger-compiler:$daggerVer"
         implementation "com.google.dagger:dagger:$daggerVer"
+
+        //Analytics
+        implementation 'com.google.android.gms:play-services-analytics:16.0.8'
+
+        implementation 'com.google.guava:guava:25.0-android'
+
+        //Crashlytics
+        implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
+
+        // InApp Purchase
+        implementation 'com.android.billingclient:billing:1.2'
+
     }
-}
-repositories {
-    mavenCentral()
+    apply plugin: 'com.google.gms.google-services'
 }
 
-apply plugin: 'com.google.gms.google-services'
+dependencies {
+    implementation 'com.android.support.constraint:constraint-layout:+'
+}

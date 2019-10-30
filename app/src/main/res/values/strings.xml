@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Russian Wives</string>
+    <string name="app_name">RusWives</string>
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -13,8 +13,6 @@
     <string name="chats_title">Chats</string>
     <string name="actions_title">Actions</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_status">Default status</string>
 
     <string name="facebook_application_id" translatable="false">382050188909546</string>
@@ -34,7 +32,7 @@
     <string name="set_your_body_type">Set Your Body Type</string>
     <string name="set_your_ethnicity">Set Your Ethnicity</string>
     <string name="which_best_ethnicities_best_describes_you">Which Best Ethnicities Best Describes You</string>
-    <string name="what_is_your_faith">What is your faith?</string>
+    <string name="what_faith">What is your faith?</string>
     <string name="set_your_faith">Set Your Faith</string>
     <string name="languages_you_can_speak">Languages You Can Speak</string>
     <string name="set_languages">Set Languages</string>
@@ -45,18 +43,18 @@
     <string name="do_you_smoke">Do You Smoke</string>
     <string name="set_the_answer">Set The Answer</string>
     <string name="how_many_kids_you_have">How Many Kids You Have</string>
-    <string name="do_you_want_children">Do you want children?</string>
+    <string name="do_you_willing_kids">Do you want children?</string>
     <string name="your_hobby">Your Hobby</string>
     <string name="check_your_search_parameters">CHECK YOUR SEARCH PARAMETERS</string>
     <string name="you_may_also_like_them">You May Also Like Them</string>
     <string name="add_photo">Change photo</string>
     <string name="change">CHANGE</string>
-    <string name="have_a_hobby_describe_what_do_you_like_to_do">Have a hobby? Describe what do you like to do.</string>
+    <string name="describe_who_are_you_looking_for">Describe who are you looking for?</string>
     <string name="save">Save</string>
     <string name="discribe_what_you_like_to_do_in_couple_words">Describe what you like to do</string>
     <string name="what_is_your_height">What is your height?</string>
     <string name="edit">Edit</string>
-    <string name="what_is_your_bodytype">What is your bodytype?</string>
+    <string name="what_bodytype">What is your body type?</string>
     <string name="slender">Slender</string>
     <string name="about_average">About average</string>
     <string name="athletic">Athletic</string>
@@ -65,6 +63,7 @@
     <string name="stocky">Stocky</string>
     <string name="choose_languages_you_can_talk">Choose languages you can talk</string>
     <string name="add">Add</string>
+    <string name="choose_your_country">Choose your country</string>
     <string name="which_ethnicity_best_describe_you">Describe your ethnicity?</string>
     <string name="asian">Asian</string>
     <string name="black_african_descent">Black / African descent</string>
@@ -73,10 +72,10 @@
     <string name="native_american">Native American</string>
     <string name="white_caucasian">White / Caucasian</string>
     <string name="other">Other</string>
-    <string name="christian_catholic">Christian</string>
+    <string name="christian">Christian</string>
     <string name="muslim">Muslim</string>
     <string name="atheist">Atheist</string>
-    <string name="buddist">Buddhist</string>
+    <string name="buddhist">Buddhist</string>
     <string name="adventist">Adventist</string>
     <string name="never">Never</string>
     <string name="social_drinker">Social drinker</string>
@@ -87,12 +86,12 @@
     <string name="daily">Daily</string>
     <string name="cigar_aficionado">Cigar aficionado</string>
     <string name="yes_but_trying_to_quit">Yes, but trying to quit</string>
-    <string name="what_is_your_relationship_status">What is your relationship status?</string>
+    <string name="what_relationship_status">What is your relationship status?</string>
     <string name="never_married">Never married</string>
     <string name="currently_separated">Currently separated</string>
     <string name="divorced">Divorced</string>
     <string name="widow_widower">Widow / Widower</string>
-    <string name="do_you_have_any_kids">Do you have any kids?</string>
+    <string name="do_you_have_kids">Do you have kids?</string>
     <string name="no">No</string>
     <string name="yes_they_sometimes_live_at_home">Yes, they sometimes live at home</string>
     <string name="yes_they_live_away_from_home">Yes, they live away from home</string>
@@ -103,7 +102,9 @@
     <string name="probably_not">Probably not</string>
     <string name="no_but_its_ok_if_partner_has_kids">No, but its OK if partner has kids</string>
     <string name="next_text">Next</string>
-    <string name="emptyText">Nothing to show</string>
+    <string name="emptyText">Nothing to show yet</string>
+    <string name="emptyText_chats">No messages yet</string>
+    <string name="emptyText_actions">No likes and visits yet</string>
     <string name="basic_info">Basic info</string>
     <string name="enter_your_name">Enter Your Name</string>
     <string name="your_name_is_here">Your name is here…</string>
@@ -111,19 +112,21 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="header_filters">Filter</string>
-    <string name="what_is_your_ethnicity">What is your ethnicity?</string>
-    <string name="what_is_your_smoke_status">What is your smoke status?</string>
-    <string name="what_is_your_drink_status">What is your drink status?</string>
-    <string name="what_is_your_gender">What is your gender?</string>
-    <string name="where_do_you_live">Where do you live?</string>
-    <string name="how_old_are_you">How old are you?</string>
+    <string name="header_must_info">Fill your info</string>
+    <string name="what_ethnicity">What is your ethnicity?</string>
+    <string name="what_smoke_status">What is your smoke status?</string>
+    <string name="what_drink_status">What is your drink status?</string>
+    <string name="what_gender">What is your gender?</string>
+    <string name="where_live">Where do you live?</string>
+    <string name="what_age">What is your age?</string>
     <string name="only_with_friends">Only with friends</string>
     <string name="you">You</string>
     <string name="didnt_fill_form_question">You Didn\'t Fill The Form. Do You Want To Fill It Now?</string>
     <string name="yes">Yes</string>
     <string name="likes">Likes</string>
     <string name="visits">Visits</string>
-    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5-016103d06330]]></string>
+    <string name="photo">Photo</string>
+    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5–016103d06330]]></string>
     <string name="chat_add_btn_desc">Button for sending images</string>
     <string name="chat_send_btn_desc">Button for sending message</string>
     <string name="enter_message_hint">Enter Message…</string>
@@ -197,12 +200,75 @@
     <string name="need_register_chats">You need to be registered to read and send messages</string>
     <string name="register">Register</string>
     <string name="confirm_dialog_reg_header">You need to create account</string>
-    <string name="confirm_dialog_slider_header">Do you want to fill the form and get rating points?</string>
+    <string name="confirm_dialog_slider_header">Fill out the profile to get more points!</string>
     <string name="login">Login</string>
     <string name="header_necessary_info">Please, fill necessary info</string>
     <string name="finish">Finish</string>
-    <string name="hobby_updated">Hobby was updated</string>
+    <string name="hobby_updated">Looking for was updated</string>
     <string name="notification_channel_id">RW_CH</string>
+    <string name="please_register_to_start">Please register to start</string>
+    <string name="conversion_one">conversion one</string>
+    <string name="new_user_registered">New User Registered</string>
+    <string name="user_information_category">User Information</string>
+    <string name="conversion_two">Conversion two</string>
+    <string name="must_have_info_done">Must Have Info Done</string>
+    <string name="conversion_break">Conversion Break</string>
+    <string name="must_info_canceled">Must Info Canceled</string>
+    <string name="tracker_id">131196800</string>
+    <string name="registration_started">Registration Started</string>
+    <string name="change_filter">Change Filter</string>
+    <string name="message">Message</string>
+    <string name="like">Like</string>
+    <string name="order_gender">Order your gender</string>
+
+    <string name="privacy_policy">By clicking OK you are confirming that you are over the age of 18 and allow this app
+        to use your information in accordance with <a href="http://ruswives.com/terms-and-privacy/">privacy policy</a></string>
+    <string name="full_profile_header">You can\'t write to another user until you fill out your profile</string>
+    <string name="now">Now</string>
+    <string name="later">Later</string>
+
+    <string name="who_are_you_looking_for">Who are you looking for?</string>
+    <string name="what_age_looking_for">What age are you looking for?</string>
+    <string name="what_country_looking_for">What country are you looking for</string>
+    <string name="what_relationships_looking_for">What relationship status are you looking for?</string>
+    <string name="what_bodytype_looking_for">What body type are you looking for?</string>
+    <string name="what_ethnicity_looking_for">What ethnicity are you looking for?</string>
+    <string name="what_faith_looking_for">What faith are you looking for?</string>
+    <string name="what_smoke_status_looking_for">What smoke status are you looking for?</string>
+    <string name="what_drink_status_looking_for">What drink status are you looking for?</string>
+    <string name="looking_for_kids">Are you looking for partner with kids?</string>
+    <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
+    <string name="empty_chats_img">Image for empty chats</string>
+    <string name="shop">Shop</string>
+    <string name="add_your_photo">Add your photo</string>
+    <string name="where_are_you_from">Where are you from?</string>
+    <string name="how_old_are_you">How old are you?</string>
+
+    <string name="add_your_photo_mi">Add your photo to continue</string>
+    <string name="add_your_info_mi">Please, fill all fields</string>
+    <string name="select_image">Select image</string>
+    <string name="uploading_image">Uploading Image</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="something_went_wrong">Something went wrong. Try again!</string>
+    <string name="empty_field">Field can not be empty</string>
+    <string name="only_photo_available">Face Photo Only</string>
+
+    <!-- ADVERTISEMENT -->
+    <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>
+    <!-- real banner id ca-app-pub-5095813023957397/5592359725 -->
+    <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
+    <!--<string name="mob_unit_tester_banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="mob_unit_prod_id">ca-app-pub-5095813023957397/5592359725</string>-->
+    <string name="mob_unit_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="buy_tokens">Buy Tokens</string>
+    <string name="get_free_coins">Get free coins</string>
+    <string name="you_have">You have</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="buy">Buy</string>
+    <string name="services">Services</string>
+    <string name="text">Text</string>
+    <string name="online_users_title">Online Users</string>
 
     <!-- Genders -->
     <string-array name="genders">
@@ -300,7 +366,7 @@
         <item>Iraq</item>
         <item>Israel</item>
         <item>Italy</item>
-        <item>Ivory Coast (Cote d'Ivoire)</item>
+        <item>Ivory Coast (Cote d\'Ivoire)</item>
         <item>Jamaica</item>
         <item>Japan</item>
         <item>Jordan</item>
@@ -360,11 +426,11 @@
         <item>Puerto Rico</item>
         <item>Qatar</item>
         <item>Romania</item>
-        <item>Russian Federation</item>
+        <item>Russia</item>
         <item>Rwanda</item>
         <item>Saint Kitts and Nevis</item>
         <item>Saint Lucia</item>
-        <item>Saint Vincent's &amp; Grenadines</item>
+        <item>Saint Vincent\'s &amp; Grenadines</item>
         <item>Samoa</item>
         <item>Sao Tome and Principe</item>
         <item>Saudi Arabia</item>
@@ -401,7 +467,7 @@
         <item>Uganda</item>
         <item>Ukraine</item>
         <item>United Arab Emirates</item>
-        <item>United States of America (USA)</item>
+        <item>USA</item>
         <item>Uruguay</item>
         <item>Uzbekistan</item>
         <item>Venezuela</item>

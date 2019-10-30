@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:titleTextColor="@color/message_text_color" />
+    </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:id="@+id/service_page_title"
+        android:layout_below="@id/appBarLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/sp20"
+        android:textAlignment="center"
+        android:text="Boorst Your Account. Get More Visitors!"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/services_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/service_page_title" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="48dp"
+        android:background="@color/lightGrey"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:id="@+id/item_service_title"
+            android:gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:paddingStart="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="44dp"
+            android:textSize="20sp"
+            android:text="Tokens: "
+            android:layout_weight="0.7"/>
+
+        <TextView
+            android:id="@+id/item_service_price"
+            android:layout_marginStart="8dp"
+            android:paddingStart="8dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="34"/>
+
+        <Button
+            android:id="@+id/item_service_buy_btn"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/white"
+            android:text="+ Free Tokens"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            />
+    </LinearLayout>
+
+
+
+</RelativeLayout>

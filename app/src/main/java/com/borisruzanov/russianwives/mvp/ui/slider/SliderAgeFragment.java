@@ -4,6 +4,7 @@ package com.borisruzanov.russianwives.mvp.ui.slider;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,15 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_AGE_RATING;
 
 
 public class SliderAgeFragment extends MvpAppCompatFragment {
@@ -28,8 +32,6 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
     RadioGroup radioGroup;
     Button btnSave;
     RadioButton radioButton;
-
-//    String result;
 
     public static SliderAgeFragment newInstance() {
         SliderAgeFragment fragment = new SliderAgeFragment();
@@ -51,36 +53,40 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
         View view = inflater.inflate(R.layout.fragment_slider_age, container, false);
 
         btnSave = view.findViewById(R.id.fragment_slider_age_btn_save);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_age_radiogroup);
+        radioGroup = view.findViewById(R.id.fragment_slider_age_radiogroup);
+        Log.d("qwe", "onCreateView " );
 
-        new SliderRepository().getFieldFromCurrentUser("age", value -> {
-            if (value != null && value.equals("18-21")){
+        new SliderRepository().getFieldFromCurrentUser(Consts.AGE, value -> {
+            if (value != null && value.equals(getString(R.string.age_18_21))){
                 radioGroup.check(R.id.fragment_slider_age_18_21);
-            } else if (value != null && value.equals("22-26")){
+            } else if (value != null && value.equals(getString(R.string.age_22_26))){
                 radioGroup.check(R.id.fragment_slider_age_22_26);
-            } else if (value != null && value.equals("26-35")){
+            } else if (value != null && value.equals(getString(R.string.age_26_35))){
                 radioGroup.check(R.id.fragment_slider_age_26_35);
-            }else if (value != null && value.equals("36-45")){
+            }else if (value != null && value.equals(getString(R.string.age_36_45))){
                 radioGroup.check(R.id.fragment_slider_age_36_45);
-            }else if (value != null && value.equals("45+")){
+            }else if (value != null && value.equals(getString(R.string.age_45_plus))){
                 radioGroup.check(R.id.fragment_slider_age_45_plus);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = view.findViewById(selectedId);
-            if (radioButton.getText() != null) {
-                Map<String, Object> map = new HashMap<>();
-                map.put("age", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.age_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.AGE, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), getString(R.string.age_updated), Toast.LENGTH_LONG).show();
+                    });
+                }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
-
         });
 
         return view;

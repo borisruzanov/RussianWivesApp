@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp16"
-        android:text="@string/have_a_hobby_describe_what_do_you_like_to_do"
+        android:text="@string/describe_who_are_you_looking_for"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/large_text_size" />
 

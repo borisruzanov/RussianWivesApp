@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/dp16"
         android:text="@string/which_ethnicity_best_describe_you"
         android:textColor="@color/darkGrey"
-        android:textSize="24sp" />
+        android:textSize="@dimen/large_text_size" />
 
     <RadioGroup
         android:id="@+id/fragment_slider_ethnicity_radiogroup"

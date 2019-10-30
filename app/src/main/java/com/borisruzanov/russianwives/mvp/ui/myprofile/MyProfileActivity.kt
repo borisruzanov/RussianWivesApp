@@ -26,22 +26,28 @@ import com.bumptech.glide.Glide
 
 import butterknife.BindView
 import com.borisruzanov.russianwives.di.component
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import javax.inject.Inject
 
 class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
+
+    private val APP_ID = "ca-app-pub-5095813023957397~1146672660"
+    private var mAdView: AdView? = null
 
     //todo: use kotlin syntetic
     //UI
     @BindView(R.id.recycler_list_userDescription)
     lateinit var recyclerView: RecyclerView
     lateinit var toolbar: Toolbar
-    lateinit var fab: FloatingActionButton
-    lateinit var nameText: TextView
-    lateinit var ageText: TextView
-    lateinit var countryText: TextView
-    lateinit var numberOfLikes: TextView
-    lateinit var numberOfVisits: TextView
-    lateinit var imageView: ImageView
+    private lateinit var fab: FloatingActionButton
+    private lateinit var nameText: TextView
+    private lateinit var ageText: TextView
+    private lateinit var countryText: TextView
+    private lateinit var numberOfLikes: TextView
+    private lateinit var numberOfVisits: TextView
+    private lateinit var imageView: ImageView
 
     lateinit var userDescriptionListAdapter: UserDescriptionListAdapter
 
@@ -65,8 +71,8 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         collapsingToolbarLayout.isTitleEnabled = false
 
         setSupportActionBar(toolbar)
-        toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-        toolbar.background.alpha = 125
+        //toolbar.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+        //toolbar.background.alpha = 125
         supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
@@ -77,9 +83,10 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         recyclerView.adapter = userDescriptionListAdapter
 
         fab = findViewById(R.id.fab_id)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             val settingsProfile = Intent(this@MyProfileActivity, ProfileSettingsActivity::class.java)
             startActivity(settingsProfile)
+            finish()
         }
 
         imageView = findViewById(R.id.my_profile_image)
@@ -91,6 +98,14 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
 
         supportFragmentManager.beginTransaction().add(R.id.my_profile_list_container, SearchFragment()).commit()
 
+        adInit()
+    }
+
+    private fun adInit() {
+        MobileAds.initialize(this, APP_ID)
+        mAdView = findViewById<View>(R.id.adView) as AdView?
+        val adRequest = AdRequest.Builder().build()
+        mAdView?.loadAd(adRequest)
     }
 
     override fun setUserData(name: String, age: String, country: String, image: String) {
@@ -126,5 +141,9 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
 
     private fun setOnItemClickCallback(): OnItemClickListener.OnItemClickCallback {
         return OnItemClickListener.OnItemClickCallback { view, position -> }
+    }
+
+    override fun onRestart() {
+        super.onRestart()
     }
 }

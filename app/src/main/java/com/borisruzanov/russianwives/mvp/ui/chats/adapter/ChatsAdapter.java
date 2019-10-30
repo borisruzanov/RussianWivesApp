@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.mvp.ui.chats.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.GetTimeAgo;
+import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -27,13 +29,12 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
     private Context context;
 
-
     public ChatsAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
     }
 
-    public void setData(List<UserChat> recipesList){
-        this.userChatList = recipesList;
+    public void setData(List<UserChat> userChatList){
+        this.userChatList = userChatList;
         notifyDataSetChanged();
     }
 
@@ -64,7 +65,7 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
         ImageView image;
         ImageView online;
 
-        public ChatsAdapterViewHolder(View itemView) {
+        ChatsAdapterViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.item_list_chat_name);
             container = itemView.findViewById(R.id.item_list_chat_container);
@@ -80,17 +81,30 @@ public class ChatsAdapter extends RecyclerView.Adapter<ChatsAdapter.ChatsAdapter
 
         void bind(UserChat model, int position){
             name.setText(model.getName());
-            Long l = 1535047947581L;
+            // country.setText(fsUser.getCountry());
             Log.d("TimestampDebug", "Timestamp is " + model.getMessageTimestamp());
             String lastSeenTime = GetTimeAgo.getTimeAgo(Long.valueOf(model.getMessageTimestamp()));
             time.setText(lastSeenTime);
-            message.setText(model.getMessage());
-            if(model.getImage().equals("default")){
-                Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
-            }else {
-                Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
+
+            if (model.getMessage().contains(Consts.IMAGE_STORAGE)) {
+               message.setText(context.getString(R.string.photo));
+               message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_photo));
+            } else {
+                message.setText(model.getMessage());
+                message.setTextColor(ContextCompat.getColor(context, R.color.chat_msg_text));
+            }
+
+            if (model.getImage() != null) {
+                if (model.getImage().equals(Consts.DEFAULT)) {
+                    Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(image);
+                } else {
+                    Glide.with(context).load(model.getImage()).thumbnail(0.5f).into(image);
+                }
             }
             container.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
+
+            if (!model.getSeen()) container.setBackgroundColor(ContextCompat.getColor(context, R.color.chat_item_bg));
+            else container.setBackgroundColor(ContextCompat.getColor(context, R.color.white));
 
             if(model.getOnline() != null){
             if (model.getOnline().equals("true")) online.setVisibility(View.VISIBLE);

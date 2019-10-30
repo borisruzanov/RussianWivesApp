@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.borisruzanov.russianwives.models.Message;
 import com.borisruzanov.russianwives.R;
-import com.borisruzanov.russianwives.mvp.model.repository.FirebaseRepository;
 import com.borisruzanov.russianwives.GetTimeAgo;
 import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
@@ -23,6 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 
 public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.MessageViewHolder> {
 
@@ -37,7 +38,7 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         this.friendsName = friendsName;
     }
 
-    public void setData(List<Message> mMessageList){
+    public void setData(List<Message> mMessageList) {
         this.mMessageList = mMessageList;
         notifyDataSetChanged();
     }
@@ -88,8 +89,9 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         Glide.with(viewHolder.profileImage.getContext()).load(friendsPhoto).into(viewHolder.profileImage);
         viewHolder.timeView.setText(time);
 
+
         // If we get message not from us
-        if (!from_user.equals(new FirebaseRepository().getUid())) {
+        if (!from_user.equals(getUid())) {
             viewHolder.displayName.setText(friendsName);
             viewHolder.messageText.setBackgroundColor(Color.WHITE);
             viewHolder.messageText.setTextColor(Color.BLACK);
@@ -105,12 +107,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
         //Проверка на текст или картинку
         if (message_type.equals("text")) {
             viewHolder.messageText.setText(currentMessage.getMessage());
-            viewHolder.messageImage.setVisibility(View.INVISIBLE);
+            viewHolder.messageText.setVisibility(View.VISIBLE);
+            viewHolder.messageImage.setVisibility(View.GONE);
         } else {
-            viewHolder.messageText.setVisibility(View.INVISIBLE);
-            Picasso.with(viewHolder.profileImage.getContext())
-                    .load(context.getString(R.string.image_message_link))
-                    .placeholder(R.drawable.default_avatar).into(viewHolder.profileImage);
+            viewHolder.messageImage.setVisibility(View.VISIBLE);
+            viewHolder.messageText.setVisibility(View.GONE);
+            Picasso.with(context).load(currentMessage.getMessage()).into(viewHolder.messageImage);
 
         }
     }

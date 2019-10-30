@@ -11,12 +11,18 @@ import android.widget.Button;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 import com.borisruzanov.russianwives.mvp.ui.slider.adapter.UserInfoPagerAdapter;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
 
 public class SliderActivity extends MvpAppCompatActivity {
     //TODO Implement MVP
@@ -26,8 +32,9 @@ public class SliderActivity extends MvpAppCompatActivity {
     UserInfoPagerAdapter adapter;
     Toolbar toolbar;
     Button buttonNext;
+    FirebaseAnalytics firebaseAnalytics;
 
-    final List<Fragment> fragmentList = new ArrayList<>();;
+    final List<Fragment> fragmentList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +44,13 @@ public class SliderActivity extends MvpAppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 
         viewPager = findViewById(R.id.view_pager_add_info);
         buttonNext = findViewById(R.id.slider_button);
+
+        Log.d("SliderDebug", "In onCreate");
 
         if (getIntent().getStringArrayListExtra(Consts.DEFAULT_LIST) != null) {
             addFragments();
@@ -72,7 +82,7 @@ public class SliderActivity extends MvpAppCompatActivity {
                     fragmentList.add(SliderEthnicityFragment.newInstance());
                     break;
                 case "Faith":
-                    fragmentList.add(new SliderFaithFragment());
+                    fragmentList.add(SliderFaithFragment.newInstance());
                     break;
                 case "Smoke Status":
                     fragmentList.add(SliderSmokingStatusFragment.newInstance());
@@ -86,7 +96,7 @@ public class SliderActivity extends MvpAppCompatActivity {
                 case "Do You Want Kids":
                     fragmentList.add(SliderWillingKidsFragment.newInstance());
                     break;
-                case "Hobby":
+                case "Looking for":
                     fragmentList.add(SliderHobbyFragment.newInstance());
                     break;
             }
@@ -103,8 +113,9 @@ public class SliderActivity extends MvpAppCompatActivity {
         viewPager.addOnPageChangeListener(onPageChangeListener);
 
         if (getIntent().getExtras().getString("intent") != null && getIntent().getExtras().getString("intent").equals("list")){
-            buttonNext.setVisibility(View.INVISIBLE);
+            buttonNext.setVisibility(View.GONE);
         }else {
+            if (fragmentList.size() == 1) buttonNext.setText(R.string.finish);
             Log.d("tag", "Inside extras " + getIntent().getExtras().getString("field_id"));
         }
         Log.d(Contract.SLIDER, "Inside extras " + getIntent().getExtras().getString("field_id"));
@@ -143,8 +154,14 @@ public class SliderActivity extends MvpAppCompatActivity {
                 case Consts.BODY_TYPE:
                     fragmentList.add(new SliderBodytypeFragment());
                     break;
+                case Consts.AGE:
+                    fragmentList.add(new SliderAgeFragment());
+                    break;
                 case Consts.DRINK_STATUS:
                     fragmentList.add(new SliderDrinkStatusFragment());
+                    break;
+                case Consts.COUNTRY:
+                    fragmentList.add(new SliderCountriesFragment());
                     break;
                 case Consts.ETHNICITY:
                     fragmentList.add(new SliderEthnicityFragment());
@@ -190,7 +207,38 @@ public class SliderActivity extends MvpAppCompatActivity {
         if(position + 1 == fragmentList.size()) {
             //close the survey
             finish();
+            addFullProfileAchieve();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        addFPAchieveIfNeeded();
+    }
+
+    private void addFPAchieveIfNeeded() {
+        new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
+            if (!flag) {
+                Log.d("SliderDebug", "Add achievement");
+                addFullProfileAchieve();
+            }
+            else Log.d("SliderDebug", "Already exist");
+        });
+    }
+
+    private void addFullProfileAchieve() {
+        UserRepository userRepository = new UserRepository(new Prefs(getApplicationContext()));
+        userRepository.getDefaultList(stringList -> {
+            Log.d("TimerDebug", "String list emptiness is " + stringList.isEmpty());
+            if (stringList.isEmpty()) {
+                userRepository.clearDialogOpenDate();
+                userRepository.setFullProfile();
+                new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                userRepository.addRating(8);
+                firebaseAnalytics.logEvent("achieve_full_profile", null);
+            }
+        });
     }
 
 }

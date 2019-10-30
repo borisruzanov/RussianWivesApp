@@ -4,12 +4,9 @@ import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor
-import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository
-import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
-import com.borisruzanov.russianwives.utils.NecessaryInfoCallback
+import com.borisruzanov.russianwives.utils.OnlineUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
-import com.borisruzanov.russianwives.utils.ValueCallback
 import javax.inject.Inject
 
 @InjectViewState
@@ -17,20 +14,20 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
+        showGenderDialog()
+        mainInteractor.setFirstOpenDate()
+        //mainInteractor.setUserInHot()
+//        mainInteractor.getHotUsers(callback = HotUsersCallback { hotUsers ->
+//            if (hotUsers.isEmpty()) Log.d("HotUsersDebug", "users is empty")
+//            hotUsers.forEach {
+//                Log.d("HotUsersDebug", "Uid is ${it.uid}")
+//            }
+//        })
+    }
 
-        //UserRepository().getTokens { value -> Log.d("TokensDebug", value)}
-
-        //UserRepository().addInfo()
-
-        if(isUserExist()) {
-            /*RatingRepository().addRating(10, "Necessary Info")
-            RatingRepository().getRatingAch {rating, achievements ->
-                run {
-                    Log.d("RatingDebug", "Rating is $rating")
-                    for(achievement in achievements) Log.d("RatingDebug", "Achievement is $achievement")
-                }
-            }*/
-            showNecessaryInfoDialog()
+    fun showDialogs() {
+        if (isUserExist()) {
+            showMustInfoDialog()
             showAdditionalInfoDialog()
         }
     }
@@ -41,22 +38,45 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     fun saveUser() = mainInteractor.saveUser()
 
-    fun setNecessaryInfo(gender: String, age: String) {
-        mainInteractor.setNecessaryInfo(gender, age)
+    fun setGender(gender: String) {
+        mainInteractor.setGender(gender)
     }
+
+    fun makeDialogOpenDateDefault() = mainInteractor.makeDialogOpenDateDefault()
 
     fun openSliderWithDefaults() {
-        mainInteractor.hasAdditionalInfo(callback = StringsCallback { strings -> viewState.openSlider(ArrayList<String>(strings)) })
+        mainInteractor.getDefaultList(callback = StringsCallback { strings ->
+            viewState.openSlider(ArrayList<String>(strings)) })
     }
 
-    private fun showNecessaryInfoDialog() {
-            mainInteractor.getNecessaryInfo(callback = NecessaryInfoCallback { gender, age ->
-                viewState.showNecessaryInfoDialog(gender, age)
-            })
+    /*private fun checkAchieve () {
+        RatingRepository().isAchievementExist(FULL_PROFILE_ACH, callback = BoolCallback {
+            if (it) Log.d("AchDebug", "User can write msgs")
+            else Log.d("AchDebug", "USER CAN'T WRITE")
+        })
+    }*/
+
+    private fun showGenderDialog() {
+        if (mainInteractor.isGenderDefault()) {
+            viewState.showGenderDialog()
         }
+    }
+
+    fun showMustInfoDialog() {
+        Log.d("MIDebug", "In showMustInfoDialog()")
+        mainInteractor.hasDefaultMustInfo(callback = BoolCallback {flag ->
+            Log.d("DialogDebug", "Flag is $flag")
+            if (flag) viewState.showMustInfoDialog()
+        })
+    }
 
     private fun showAdditionalInfoDialog() {
-        mainInteractor.hasNecessaryInfo(callback = BoolCallback { flag -> if (flag) viewState.showAdditionalInfoDialog() })
+        mainInteractor.hasNecessaryInfo(callback = BoolCallback { flag ->
+            if (flag) {
+            viewState.showAdditionalInfoDialog()
+            mainInteractor.setFPDialogLastOpenDate()
+        }
+        })
     }
 
 }

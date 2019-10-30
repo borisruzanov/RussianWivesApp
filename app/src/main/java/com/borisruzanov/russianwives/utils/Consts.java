@@ -4,9 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class Consts {
-    //TODO rename to USERS_FS and add USERS_RT
     public static final String USERS_DB = "Users";
-    public static final String ACTIONS_DB = "Actions";
 
     public static final String NAME = "name";
     public static final String BODY_TYPE = "body_type";
@@ -24,12 +22,21 @@ public final class Consts {
     public static final String RELATIONSHIP_STATUS  = "relationship_status";
     public static final String NUMBER_OF_KIDS  = "number_of_kids";
     public static final String WANT_CHILDREN_OR_NOT  = "want_children_or_not";
+    public static final String COINS  = "coins";
     public static final String UID  = "uid";
 
+    public static final String FIRST_OPEN_DATE  = "first open date";
+    public static final String DIALOG_OPEN_DATE  = "dialog open date";
+    public static final String FP_OPEN_DATE  = "full profile open date";
+    public static final String COINS_AMOUNT = "coins_amount";
+    public static final String GENDER_SEARCH  = "gender search";
+
     public static final String RATING  = "rating";
+    public static final String ACTION_MODULE = "action_module";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";
+    public static final String ONLINE = "online";
 
     public static String ACTION = "action";
     public static String VISIT = "visit";
@@ -39,6 +46,8 @@ public final class Consts {
     public static String MODULE = "module";
     public static final String REG_MODULE = "reg_module";
     public static final String SLIDER_MODULE = "slider_module";
+    public static final String FP_MODULE = "full_profile_module";
+
     public static final String DEFAULT_LIST = "default_list";
 
     public static String REG_TAB_NAME = "reg_tab_name";
@@ -51,9 +60,10 @@ public final class Consts {
     public static List<String> keyList = Arrays.asList(GENDER, AGE, COUNTRY, RELATIONSHIP_STATUS,
             BODY_TYPE, ETHNICITY, FAITH, SMOKING_STATUS, DRINK_STATUS, NUMBER_OF_KIDS, WANT_CHILDREN_OR_NOT);
 
-    public static List<String> fieldKeyList = Arrays.asList(Consts.BODY_TYPE, Consts.DRINK_STATUS, Consts.ETHNICITY,Consts.GENDER,
-            Consts.HOBBY, Consts.FAITH, Consts.IMAGE, Consts.LANGUAGES, Consts.SMOKING_STATUS,
-            Consts.RELATIONSHIP_STATUS, Consts.WANT_CHILDREN_OR_NOT);
+    public static List<String> fieldKeyList = Arrays.asList(GENDER, IMAGE, AGE, COUNTRY, RELATIONSHIP_STATUS,
+            BODY_TYPE, ETHNICITY, FAITH, SMOKING_STATUS, DRINK_STATUS, NUMBER_OF_KIDS, WANT_CHILDREN_OR_NOT, HOBBY);
+
 
     public static final String DEFAULT  = "default";
+    public static final String IMAGE_STORAGE  = "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/";
 }

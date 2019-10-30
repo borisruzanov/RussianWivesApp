@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.borisruzanov.russianwives.di.component.AppComponent
 import com.borisruzanov.russianwives.di.component.DaggerAppComponent
@@ -17,14 +18,35 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.StorageReference
 import com.squareup.picasso.OkHttpDownloader
 import com.squareup.picasso.Picasso
+import com.google.android.gms.analytics.GoogleAnalytics
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
+
 
 class App : Application() {
 
     private var mUserDatabase: DatabaseReference? = null
     private var mAuth: FirebaseAuth? = null
+    private lateinit var sAnalytics: GoogleAnalytics
+    lateinit var sTracker: Tracker
+
 
     val component: AppComponent by lazy {
         DaggerAppComponent.builder().appModule(AppModule(this)).build()
+    }
+
+    object AnalyticsTracker {
+        lateinit var sTracker: Tracker
+        private lateinit var sAnalytics: GoogleAnalytics
+
+        fun onCreate(context: Context) {
+            sAnalytics = GoogleAnalytics.getInstance(context)
+            sTracker = sAnalytics.newTracker(context.getString(R.string.tracker_id))
+            sTracker.enableExceptionReporting(true)
+            sTracker.enableAdvertisingIdCollection(true)
+            sTracker.enableAutoActivityTracking(true)
+            sTracker.send(HitBuilders.ScreenViewBuilder().setCustomDimension(1, null).build())
+        }
     }
 
     override fun onCreate() {
@@ -32,26 +54,21 @@ class App : Application() {
 
         component.inject(this)
 
-        mAuth = FirebaseAuth.getInstance()
+        AnalyticsTracker.onCreate(this)
 
+        mAuth = FirebaseAuth.getInstance()
 
         if (mAuth!!.currentUser != null) {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true)
             mUserDatabase = FirebaseDatabase.getInstance().reference
                     .child("Users").child(mAuth!!.currentUser!!.uid)
-
-            Log.d("xx", "user != null")
             //TODO fix-1
             mUserDatabase!!.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
-                    Log.d("xx", "onDataChange")
-
                     if (dataSnapshot != null) {
-                        Log.d("xx", "dataSnapshot != null")
                         mUserDatabase!!.child("online").onDisconnect().setValue(ServerValue.TIMESTAMP)
                         mUserDatabase!!.child("online").setValue(true)
                     } else {
-                        Log.d("xx", "dataSnapshot == null")
                     }
                 }
 
@@ -71,5 +88,12 @@ class App : Application() {
 
     }
 
+
+    /**
+     * Gets the default [Tracker] for this [Application].
+     * @return tracker
+     */
+    @Synchronized
+    fun getTracker(): Tracker = GoogleAnalytics.getInstance(this).newTracker(R.xml.global_tracker)
 
 }

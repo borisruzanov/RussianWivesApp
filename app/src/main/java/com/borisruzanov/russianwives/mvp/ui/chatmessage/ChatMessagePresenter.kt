@@ -12,10 +12,6 @@ import javax.inject.Inject
 class ChatMessagePresenter @Inject constructor(private val interactor: ChatMessageInteractor)
     : MvpPresenter<ChatMessageView>() {
 
-    fun initChat(friendUid: String) {
-        interactor.initChat(friendUid)
-    }
-
     fun sendMessage(friendUid: String, message: String) {
         interactor.sendMessage(friendUid, message, UpdateCallback{viewState.setEmptyMessage() })
     }

@@ -11,12 +11,32 @@
         android:layout_height="match_parent"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:id="@+id/activities_empty_text"
+    <RelativeLayout
+        android:id="@+id/actions_empty_rl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/emptyText"
-        android:visibility="gone"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/actions_empty_img"
+            android:layout_width="@dimen/empty_img_size"
+            android:layout_height="@dimen/empty_img_size"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/empty_chats_img"
+            android:src="@drawable/actions_empty" />
+
+        <TextView
+            android:id="@+id/actions_empty_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/actions_empty_img"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/dp8"
+            android:text="@string/emptyText_actions"
+            android:textSize="@dimen/empty_text_size"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

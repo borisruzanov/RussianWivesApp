@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp16"
-        android:text="@string/how_old_are_you"
+        android:text="@string/what_age"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/large_text_size" />
 

@@ -12,12 +12,14 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.UpdateCallback;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_FAITH_RATING;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,39 +45,43 @@ public class SliderFaithFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_slider_faith, container, false);
-        radioGroup = (RadioGroup) view.findViewById(R.id.fragment_slider_faith_radiogroup);
-        btnSave = (Button) view.findViewById(R.id.fragment_slider_faith_btn_save);
+        radioGroup = view.findViewById(R.id.fragment_slider_faith_radiogroup);
+        btnSave = view.findViewById(R.id.fragment_slider_faith_btn_save);
 
-        new SliderRepository().getFieldFromCurrentUser("faith", value -> {
-            if (value != null && value.equals("Christian")){
+        new SliderRepository().getFieldFromCurrentUser(Consts.FAITH, value -> {
+            if (value != null && value.equals(getString(R.string.christian))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_christian);
-            } else if (value != null && value.equals("Black / African descent")){
+            } else if (value != null && value.equals(getString(R.string.black_african_descent))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_black);
-            } else if (value != null && value.equals("Muslim")){
+            } else if (value != null && value.equals(getString(R.string.muslim))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_muslim);
-            }else if (value != null && value.equals("Atheist")){
+            }else if (value != null && value.equals(getString(R.string.atheist))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_atheist);
-            }else if (value != null && value.equals("Buddist")){
+            }else if (value != null && value.equals(getString(R.string.buddhist))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_buddist);
-            }else if (value != null && value.equals("Other")){
-                radioGroup.check(R.id.fragment_slider_faith_rbtn_other);
-            }else if (value != null && value.equals("Adventist")){
+            }else if (value != null && value.equals(getString(R.string.adventist))){
                 radioGroup.check(R.id.fragment_slider_faith_rbtn_adventist);
+            } else if (value != null && value.equals(getString(R.string.other))){
+                radioGroup.check(R.id.fragment_slider_faith_rbtn_other);
             }
         });
 
         btnSave.setOnClickListener(v -> {
             int selectedId = radioGroup.getCheckedRadioButtonId();
-            radioButton = (RadioButton) view.findViewById(selectedId);
-            if(radioButton.getText() != null){
-                Map<String, Object> map = new HashMap<>();
-                map.put("faith", radioButton.getText());
-                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                        getActivity().onBackPressed();
-                    }
-                    Toast.makeText(getActivity(), R.string.faith_updated, Toast.LENGTH_LONG).show();
-                });
+            if (selectedId > 0) {
+                radioButton = view.findViewById(selectedId);
+                if (radioButton.getText() != null) {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put(Consts.FAITH, radioButton.getText());
+                    new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                        if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                            if (getActivity() != null) getActivity().onBackPressed();
+                        }
+                        Toast.makeText(getActivity(), getString(R.string.faith_updated), Toast.LENGTH_LONG).show();
+                    });
+                }
+            } else {
+                Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
         return view;

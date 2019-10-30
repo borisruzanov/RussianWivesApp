@@ -21,6 +21,7 @@ public class FsUser implements ViewType {
     private String want_children_or_not;
     private String hobby;
     private String drink_status;
+    private int rating;
 
     public String getAge() {
         return age;
@@ -46,7 +47,12 @@ public class FsUser implements ViewType {
         this.drink_status = drink_status;
     }
 
-    public FsUser(String name, String age, String country, String drink_status, String image, String status, String thumb_image, String uid, String gender, String relationship_status, String body_type, String ethnicity, String faith, String smoking_status, String alcohol, String number_of_kids, String want_children_or_not, String hobby) {
+    public FsUser(String name, String age, String country, String drink_status,
+                  String image, String status, String thumb_image, String uid,
+                  String gender, String relationship_status, String body_type,
+                  String ethnicity, String faith, String smoking_status,
+                  String number_of_kids, String want_children_or_not,
+                  String hobby, int rating) {
         this.name = name;
         this.age = age;
         this.country = country;
@@ -64,6 +70,7 @@ public class FsUser implements ViewType {
         this.number_of_kids = number_of_kids;
         this.want_children_or_not = want_children_or_not;
         this.hobby = hobby;
+        this.rating = rating;
     }
 
     public String getGender() {
@@ -180,6 +187,14 @@ public class FsUser implements ViewType {
 
     public void setUid(String uid) {
         this.uid = uid;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 
     @Override

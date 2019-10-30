@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dp16">
+
+    <TextView
+        android:id="@+id/purchase_dialog_text"
+        style="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:text="here will be static text"/>
+
+    <TextView
+        android:id="@+id/purchase_coins_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toBottomOf="@id/purchase_dialog_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_compass"
+        android:layout_marginEnd="@dimen/dp6"
+        app:layout_constraintStart_toEndOf="@id/purchase_coins_text"
+        app:layout_constraintTop_toBottomOf="@id/purchase_dialog_text" />
+
+    <Button
+        android:id="@+id/purchase_confirm_btn"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp8"
+        android:text="@android:string/ok"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/purchase_coins_text" />
+
+    <Button
+        android:id="@+id/purchase_cancel_btn"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp8"
+        android:text="@android:string/cancel"
+        app:layout_constraintRight_toLeftOf="@id/purchase_confirm_btn"
+        app:layout_constraintTop_toBottomOf="@+id/purchase_coins_text" />
+
+</android.support.constraint.ConstraintLayout>

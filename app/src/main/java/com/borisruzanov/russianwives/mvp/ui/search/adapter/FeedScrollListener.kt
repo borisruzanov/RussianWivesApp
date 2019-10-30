@@ -18,7 +18,7 @@ abstract class FeedScrollListener: RecyclerView.OnScrollListener {
     private var previousTotalItemCount = 0
     private var isLoading = true
     //!important! when using FeedScrollListener we need manually tell it about the end of the list
-    private var isStoppedLoading = false
+    var isStoppedLoading = false
 
     private var mLayoutManager: RecyclerView.LayoutManager? = null
 
@@ -33,10 +33,10 @@ abstract class FeedScrollListener: RecyclerView.OnScrollListener {
 
     constructor(layoutManager: StaggeredGridLayoutManager) {
         this.mLayoutManager = layoutManager
-        visibleThreshold = visibleThreshold * layoutManager.spanCount
+        visibleThreshold *= layoutManager.spanCount
     }
 
-    public fun setStopLoading(isStopLoading: Boolean) {
+    fun setStopLoading(isStopLoading: Boolean) {
         isStoppedLoading = isStopLoading
     }
 
@@ -70,7 +70,7 @@ abstract class FeedScrollListener: RecyclerView.OnScrollListener {
         // If it isn’t currently isLoading, we check to see if we have breached
         // the visibleThreshold and need to reload more data.
         if (!isLoading && lastVisibleItemPosition + visibleThreshold > totalItemCount
-                && view.adapter.itemCount > visibleThreshold
+                && view.adapter!!.itemCount > visibleThreshold
                 && !isStoppedLoading) {// This condition will useful when recyclerview has less than visibleThreshold items
             currentPage++
             onLoadMore(currentPage, totalItemCount, view)

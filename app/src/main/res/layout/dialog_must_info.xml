@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp16">
+
+    <TextView
+        android:id="@+id/mi_header"
+        style="@style/AppTheme.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp8"
+        android:text="@string/header_must_info" />
+
+    <ScrollView
+        android:layout_below="@+id/mi_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/add_your_photo"
+            android:layout_centerVertical="true"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/medium_text_size"/>
+
+        <Button
+            android:id="@+id/add_photo_btn_mi"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp4"
+            android:text="@string/add"
+            android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <!-- Age types -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/age_text_mi"
+                style="@style/TextAppearance.AppCompat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp8"
+                android:text="@string/how_old_are_you"/>
+
+            <Spinner
+                android:id="@+id/spinner_age_mi"
+                style="@style/AppTheme.FilterSpinner"
+                android:layout_below="@+id/age_text_mi"
+                android:layout_centerVertical="true"
+                android:entries="@array/age_types" />
+
+        </RelativeLayout>
+
+        <!--Countries -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/country_text_mi"
+                style="@style/TextAppearance.AppCompat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/dp8"
+                android:text="@string/where_are_you_from"/>
+
+            <Spinner
+                android:id="@+id/spinner_country_mi"
+                style="@style/AppTheme.FilterSpinner"
+                android:layout_below="@+id/country_text_mi"
+                android:layout_centerVertical="true"
+                android:entries="@array/countries" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/button_ok_mi"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@android:string/ok"
+            android:layout_alignParentRight="true"
+            android:backgroundTint="@android:color/darker_gray"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -9,7 +9,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.TextView
+import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -21,6 +23,7 @@ import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
+import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
 import javax.inject.Inject
 
 class ChatsFragment : MvpAppCompatFragment(), ChatsView {
@@ -29,7 +32,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
     lateinit var recyclerChatsList: RecyclerView
     lateinit var chatsAdapter: ChatsAdapter
 
-    lateinit var emptyText: TextView
+    lateinit var emptyLayout: RelativeLayout
 
     private lateinit var mMainView: View
 
@@ -37,13 +40,13 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
     @InjectPresenter
     lateinit var chatsPresenter: ChatsPresenter
 
-    @ProvidePresenter fun provideChatsPresenter()= chatsPresenter
+    @ProvidePresenter
+    fun provideChatsPresenter() = chatsPresenter
 
-    private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { view, position ->
+    private val onItemClickCallback = OnItemClickListener.OnItemClickCallback { _, position ->
         Log.d(Contract.TAG, "In onCLICK")
         chatsPresenter.openChat(position)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         requireActivity().component.inject(this)
@@ -55,7 +58,8 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
 
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false)
 
-        emptyText = mMainView.findViewById(R.id.chats_empty_text)
+        emptyLayout = mMainView.findViewById(R.id.chats_empty_rl)
+        (activity as MainActivity).searchButtonHide(false)
 
         recyclerChatsList = mMainView.findViewById(R.id.friends_fragment_recycler_chats)
         recyclerChatsList.layoutManager = LinearLayoutManager(activity)
@@ -65,6 +69,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         recyclerChatsList.adapter = chatsAdapter
 
         chatsPresenter.getUserChatList()
+
         return mMainView
     }
 
@@ -74,12 +79,23 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
      */
     override fun showUserChats(userChats: List<UserChat>) {
         if (!userChats.isEmpty()) {
-            emptyText.visibility = View.GONE
+            Log.d("ChatsDebug", "Chats is not empty")
+            recyclerChatsList.visibility = View.VISIBLE
+            emptyLayout.visibility = View.GONE
             recyclerChatsList.post { chatsAdapter.setData(userChats) }
         } else {
+            Log.d("ChatsDebug", "Chats is empty")
             recyclerChatsList.visibility = View.GONE
-            emptyText.visibility = View.VISIBLE
+            emptyLayout.visibility = View.VISIBLE
         }
+    }
+
+    override fun highlightChats(messageSeen: Boolean) {
+        (activity as MainActivity).highlightChats(messageSeen)
+    }
+
+    override fun showErrorMessage() {
+        Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
     }
 
     //TODO uncomment addUserActivity
@@ -95,6 +111,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         chatIntent.putExtra("uid", uid)
         chatIntent.putExtra("name", name)
         chatIntent.putExtra("photo_url", image)
+
         startActivity(chatIntent)
     }
 

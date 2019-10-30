@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.widget.WidgetInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 
@@ -26,7 +27,7 @@ public class ActionWidgetService extends JobIntentService {
 
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
-        WidgetInteractor interactor = new WidgetInteractor(new UserRepository());
+        WidgetInteractor interactor = new WidgetInteractor(new UserRepository(new Prefs(getApplicationContext())));
         int [] widgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS);
         AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
