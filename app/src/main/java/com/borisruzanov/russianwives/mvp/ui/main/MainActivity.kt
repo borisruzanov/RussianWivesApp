@@ -216,6 +216,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun setAdapter(isUserExist: Boolean) {
+        //Test
         mainPagerAdapter.addFragment(OnlineUsersFragment(), getString(R.string.online_users_title))
         mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
         viewPager.adapter = mainPagerAdapter
