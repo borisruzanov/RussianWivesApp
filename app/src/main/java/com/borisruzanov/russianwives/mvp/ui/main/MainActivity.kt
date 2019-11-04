@@ -72,7 +72,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     lateinit var toolbar: Toolbar
     private lateinit var tabLayout: TabLayout
 
-    private lateinit var viewPager: ViewPager
+    private lateinit var viewPager: CustomViewPager
     private lateinit var mainPagerAdapter: MainPagerAdapter
 
     private lateinit var drawerLayout: DrawerLayout
@@ -126,10 +126,21 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        mainPresenter.checkForUserExist()
-        // viewPager.offscreenPageLimit = 1
 
-        // tabLayout.setupWithViewPager(viewPager)
+        val pageListener: CustomViewPager.OnPageChangeListener = object: CustomViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                viewPager.currentItem = position
+            }
+
+            override fun onPageSelected(position: Int) {
+                viewPager.currentItem = position
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {}
+        }
+
+        mainPresenter.checkForUserExist()
+        viewPager.setOnPageChangeListener(pageListener)
 
         mainPagerAdapter.notifyDataSetChanged()
 
@@ -207,15 +218,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     override fun setAdapter(isUserExist: Boolean) {
         mainPagerAdapter.addFragment(OnlineUsersFragment(), getString(R.string.online_users_title))
         mainPagerAdapter.addFragment(searchFragment, getString(R.string.search_title))
-        /*if (isUserExist) {
-            toolbar.subtitle = ""
-            mainPagerAdapter.addFragment(ChatsFragment(), getString(R.string.chats_title))
-            mainPagerAdapter.addFragment(actionsFragment, getString(R.string.actions_title))
-        } else {
-            toolbar.subtitle = getString(R.string.please_register_to_start)
-            mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.CHATS_TAB_NAME), getString(R.string.chats_title))
-            mainPagerAdapter.addFragment(RegisterFragment.newInstance(Consts.ACTIONS_TAB_NAME), getString(R.string.actions_title))
-        }*/
         viewPager.adapter = mainPagerAdapter
     }
 

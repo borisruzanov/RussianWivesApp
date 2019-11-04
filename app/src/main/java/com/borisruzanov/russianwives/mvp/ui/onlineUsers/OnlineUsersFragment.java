@@ -69,7 +69,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        Log.d("RecyclerDebug", "In OnlineUsersFragment onCreateView");
+        Log.d("PagerDebug", "In OnlineUsersFragment onCreateView");
         View view = inflater.inflate(R.layout.fragment_online_users, container, false);
         ButterKnife.bind(this, view);
         return view;
