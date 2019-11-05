@@ -190,7 +190,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.getItemId()) {
+        when (menuItem.itemId) {
             R.id.drawer_top_menu_third_item ->   AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
@@ -227,7 +227,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
     }
 
     override fun showMustInfoDialog() {
-        supportFragmentManager.beginTransaction().add(MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
+        supportFragmentManager.beginTransaction().add(MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit()
     }
 
     override fun showAdditionalInfoDialog() {

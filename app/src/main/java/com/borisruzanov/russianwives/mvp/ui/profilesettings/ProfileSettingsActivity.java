@@ -38,13 +38,13 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         //UI
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.my_profile_edit_recycler);
+        recyclerView = findViewById(R.id.my_profile_edit_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         userDescriptionEditListAdapter = new UserDescriptionEditListAdapter(setOnItemClickCallback());

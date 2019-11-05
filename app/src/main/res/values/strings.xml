@@ -270,6 +270,57 @@
     <string name="text">Text</string>
     <string name="online_users_title">Online Users</string>
 
+    <!-- Cleaned strings -->
+    <string name="button_sign_filter">Filter...</string>
+    <string name="menu_help">Help</string>
+    <string name="menu_privacy">Privacy</string>
+    <string name="menu_log_out">Log Out</string>
+    <string name="menu_view_provile">View Profile</string>
+    <string name="gender">Gender</string>
+    <string name="menu_get_more_visitors">Get More Visitors</string>
+    <string name="default_text">Default</string>
+
+    <!-- RU Answers -->
+
+    <string name="ru_male_option">Мужчина</string>
+    <string name="ru_female_option">Женщина</string>
+    <string name="ru_slender">Стройный</string>
+    <string name="ru_about_average">Обычное</string>
+    <string name="ru_athletic">Спортивное</string>
+    <string name="ru_heavyset">Полное</string>
+    <string name="ru_a_few_extra_pounds">Несколько лишних кг</string>
+    <string name="ru_stocky">Коренастый</string>
+    <string name="ru_asian">Азиатская</string>
+    <string name="ru_black_african_descent">Африканская</string>
+    <string name="ru_east_indian">Индейская</string>
+    <string name="ru_latino_hispanic">Испано-Латинская</string>
+    <string name="ru_native_american">Коренно-Американская</string>
+    <string name="ru_white_caucasian">Белая</string>
+    <string name="ru_other">Другое</string>
+    <string name="ru_moderately">Умеренно</string>
+    <string name="ru_regularly">Регулярно</string>
+    <string name="ru_no_way">Категорически нет</string>
+    <string name="ru_occasionally">Время от времени</string>
+    <string name="ru_daily">Ежедневно</string>
+    <string name="ru_cigar_aficionado">Ценитель сигар</string>
+    <string name="ru_yes_but_trying_to_quit">Да, но пробую бросить</string>
+    <string name="ru_never_married">Никогда не был женат / замужем</string>
+    <string name="ru_currently_separated">В данный момент не вместе</string>
+    <string name="ru_divorced">Разведен(а)</string>
+    <string name="ru_widow_widower">Вдовец / Вдова</string>
+    <string name="ru_no">Нет</string>
+    <string name="ru_yes_they_sometimes_live_at_home">Да, иногда живут дома</string>
+    <string name="ru_yes_they_live_away_from_home">Да, живут вдали от дома</string>
+    <string name="ru_yes_they_live_at_home">Да, живут дома</string>
+    <string name="ru_definitely">Определенно</string>
+    <string name="ru_someday">Однажда</string>
+    <string name="ru_not_sure">Не уверен(а)</string>
+    <string name="ru_probably_not">Больше нет, чем да</string>
+    <string name="ru_no_but_its_ok_if_partner_has_kids">Нет, но ОК если у партнера есть</string>
+    <string name="ru_only_with_friends">Только с друзьями</string>
+    <string name="ru_default">Нет значения</string>
+
+
     <!-- Genders -->
     <string-array name="genders">
         <item>default</item>

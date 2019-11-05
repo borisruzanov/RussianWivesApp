@@ -153,7 +153,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         recyclerView = findViewById(R.id.recycler_list_friendDescription);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        userDescriptionListAdapter = new UserDescriptionListAdapter(setOnItemClickCallback());
+        userDescriptionListAdapter = new UserDescriptionListAdapter(setOnItemClickCallback(),this);
         recyclerView.setAdapter(userDescriptionListAdapter);
 
         nameText = findViewById(R.id.friend_activity_tv_name);

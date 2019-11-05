@@ -54,7 +54,6 @@ public class SliderAgeFragment extends MvpAppCompatFragment {
 
         btnSave = view.findViewById(R.id.fragment_slider_age_btn_save);
         radioGroup = view.findViewById(R.id.fragment_slider_age_radiogroup);
-        Log.d("qwe", "onCreateView " );
 
         new SliderRepository().getFieldFromCurrentUser(Consts.AGE, value -> {
             if (value != null && value.equals(getString(R.string.age_18_21))){

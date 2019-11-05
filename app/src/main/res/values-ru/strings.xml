@@ -1,0 +1,632 @@
+<resources>
+    <string name="app_name">RusWives</string>
+
+    <!-- Titles-->
+    <string name="button_sign_filter">Фильтр...</string>
+    <string name="menu_help">Помощь</string>
+    <string name="menu_privacy">Безопасность</string>
+    <string name="menu_log_out">Выйти</string>
+    <string name="menu_view_provile">Профиль</string>
+    <string name="menu_get_more_visitors">Поднять Рейтинг</string>
+    <string name="gender">Пол</string>
+
+    <!-- Values for answers -->
+    <string name="male_option">Male</string>
+    <string name="female_option">Female</string>
+    <string name="slender">Slender</string>
+    <string name="about_average">About average</string>
+    <string name="athletic">Athletic</string>
+    <string name="heavyset">Heavyset</string>
+    <string name="a_few_extra_pounds">A few extra pounds</string>
+    <string name="stocky">Stocky</string>
+    <string name="asian">Asian</string>
+    <string name="black_african_descent">Black / African descent</string>
+    <string name="east_indian">East Indian</string>
+    <string name="latino_hispanic">Latino / Hispanic</string>
+    <string name="native_american">Native American</string>
+    <string name="white_caucasian">White / Caucasian</string>
+    <string name="other">Other</string>
+    <string name="moderately">Moderately</string>
+    <string name="regularly">Regularly</string>
+    <string name="no_way">No way</string>
+    <string name="occasionally">Occasionally</string>
+    <string name="daily">Daily</string>
+    <string name="cigar_aficionado">Cigar aficionado</string>
+    <string name="yes_but_trying_to_quit">Yes, but trying to quit</string>
+    <string name="never_married">Never married</string>
+    <string name="currently_separated">Currently separated</string>
+    <string name="divorced">Divorced</string>
+    <string name="widow_widower">Widow / Widower</string>
+    <string name="no">No</string>
+    <string name="yes_they_sometimes_live_at_home">Yes, they sometimes live at home</string>
+    <string name="yes_they_live_away_from_home">Yes, they live away from home</string>
+    <string name="yes_they_live_at_home">Yes, they live at home</string>
+    <string name="definitely">Definitely</string>
+    <string name="someday">Someday</string>
+    <string name="not_sure">Not sure</string>
+    <string name="probably_not">Probably not</string>
+    <string name="no_but_its_ok_if_partner_has_kids">No, but its OK if partner has kids</string>
+    <string name="only_with_friends">Only with friends</string>
+    <string name="default_text">Default</string>
+
+    <string name="ru_male_option">Мужчина</string>
+    <string name="ru_female_option">Женщина</string>
+    <string name="ru_slender">Стройный</string>
+    <string name="ru_about_average">Обычное</string>
+    <string name="ru_athletic">Спортивное</string>
+    <string name="ru_heavyset">Полное</string>
+    <string name="ru_a_few_extra_pounds">Несколько лишних кг</string>
+    <string name="ru_stocky">Коренастый</string>
+    <string name="ru_asian">Азиатская</string>
+    <string name="ru_black_african_descent">Африканская</string>
+    <string name="ru_east_indian">Индейская</string>
+    <string name="ru_latino_hispanic">Испано-Латинская</string>
+    <string name="ru_native_american">Коренно-Американская</string>
+    <string name="ru_white_caucasian">Белая</string>
+    <string name="ru_other">Другое</string>
+    <string name="ru_moderately">Умеренно</string>
+    <string name="ru_regularly">Регулярно</string>
+    <string name="ru_no_way">Категорически нет</string>
+    <string name="ru_occasionally">Время от времени</string>
+    <string name="ru_daily">Ежедневно</string>
+    <string name="ru_cigar_aficionado">Ценитель сигар</string>
+    <string name="ru_yes_but_trying_to_quit">Да, но пробую бросить</string>
+    <string name="ru_never_married">Никогда не был женат / замужем</string>
+    <string name="ru_currently_separated">В данный момент не вместе</string>
+    <string name="ru_divorced">Разведен(а)</string>
+    <string name="ru_widow_widower">Вдовец / Вдова</string>
+    <string name="ru_no">Нет</string>
+    <string name="ru_yes_they_sometimes_live_at_home">Да, иногда живут дома</string>
+    <string name="ru_yes_they_live_away_from_home">Да, живут вдали от дома</string>
+    <string name="ru_yes_they_live_at_home">Да, живут дома</string>
+    <string name="ru_definitely">Определенно</string>
+    <string name="ru_someday">Однажда</string>
+    <string name="ru_not_sure">Не уверен(а)</string>
+    <string name="ru_probably_not">Больше нет, чем да</string>
+    <string name="ru_no_but_its_ok_if_partner_has_kids">Нет, но ОК если у партнера есть</string>
+    <string name="ru_only_with_friends">Только с друзьями</string>
+    <string name="ru_default">Нет значения</string>
+
+    <!-- Questions need to be translate -->
+    <string name="do_you_have_kids">Do you have kids?</string>
+
+
+
+
+    <string name="need_a_new_account">НУЖЕН НОВЫЙ АККАУНТ?</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="create_account">СОЗДАТЬ АККАУНТ</string>
+    <string name="log_out">Выйти</string>
+    <string name="sign_out">Выйти</string>
+    <string name="send">Отправить</string>
+    <string name="default_data">По умолчанию</string>
+
+    <string name="search_title">Поиск</string>
+    <string name="chats_title">Чаты</string>
+    <string name="actions_title">Активность</string>
+
+    <string name="default_status">Статус по умолчанию</string>
+
+    <string name="facebook_application_id" translatable="false">382050188909546</string>
+    <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
+    <string name="facebook_login_protocol_scheme" translatable="false">fb382050188909546</string>
+    <string name="visitors">Посетители</string>
+    <string name="number_of_visitors_default">1</string>
+    <string name="number_of_likes_default">1</string>
+    <string name="about">О Вас</string>
+    <string name="relationship_status">Семейное положение</string>
+    <string name="please_set_your_status">Установите статус</string>
+    <string name="your_gender">Ваш пол</string>
+    <string name="select_your_gender">Укажите свой пол</string>
+    <string name="how_tall_are_you">Укажите свой рост</string>
+    <string name="set_your_height">Укажите свой рост</string>
+    <string name="your_body_type">Ваша комплекция</string>
+    <string name="set_your_body_type">Укажите Вашу комплекцию</string>
+    <string name="set_your_ethnicity">Укажите этническую принадлежность</string>
+    <string name="which_best_ethnicities_best_describes_you">К какой этнической группе Вы относитесь</string>
+    <string name="what_faith">Ваша религия</string>
+    <string name="set_your_faith">Укажите Вашу религию</string>
+    <string name="languages_you_can_speak">Языки на которых Вы разговариваете</string>
+    <string name="set_languages">Укажите языки</string>
+    <string name="smoking_status">Вы курите?</string>
+    <string name="select_your_smoke_status">Как Вы относитесь к курению</string>
+    <string name="how_often_do_you_drink">Как часто Вы употребляете алкоголь?</string>
+    <string name="set_status">Указать статус</string>
+    <string name="do_you_smoke">Вы курите?</string>
+    <string name="set_the_answer">Указать ответ</string>
+    <string name="how_many_kids_you_have">Сколько у Вас детей?</string>
+    <string name="do_you_willing_kids">Вы хотите детей?</string>
+    <string name="your_hobby">Ваше хобби</string>
+    <string name="check_your_search_parameters">ПРОВЕРИТЬ ПАРАМЕТРЫ ПОИСКА</string>
+    <string name="you_may_also_like_them">Вам также могут понравиться</string>
+    <string name="add_photo">Поменять фото</string>
+    <string name="change">ПОМЕНЯТЬ</string>
+    <string name="describe_who_are_you_looking_for">Опишите кого Вы ищите?</string>
+    <string name="save">Сохранить</string>
+    <string name="discribe_what_you_like_to_do_in_couple_words">Опишите что Вы любите делать?</string>
+    <string name="what_is_your_height">Какой у Вас рост?</string>
+    <string name="edit">Редактировать</string>
+    <string name="what_bodytype">Какое у Вас телосложение?</string>
+
+    <string name="choose_languages_you_can_talk">Укажите языки на которых Вы разговариваете</string>
+    <string name="add">Добавить</string>
+    <string name="choose_your_country">Укажите свою страну</string>
+    <string name="which_ethnicity_best_describe_you">Укажите этническую принадлежность</string>
+
+    <string name="christian">Christian</string>
+    <string name="muslim">Muslim</string>
+    <string name="atheist">Atheist</string>
+    <string name="buddhist">Buddhist</string>
+    <string name="adventist">Adventist</string>
+    <string name="never">Never</string>
+    <string name="social_drinker">Social drinker</string>
+        <string name="what_relationship_status">What is your relationship status?</string>
+    <string name="next_text">Следующий</string>
+    <string name="emptyText">Пока нечего показывать</string>
+    <string name="emptyText_chats">Пока нет сообщений</string>
+    <string name="emptyText_actions">Пока активностей нет</string>
+    <string name="basic_info">Основная информация</string>
+    <string name="enter_your_name">Введите своё имя</string>
+    <string name="your_name_is_here">Введите имя здесь...</string>
+
+    <string name="apply">Принять</string>
+    <string name="cancel">Отменить</string>
+    <string name="header_filters">Фильтр</string>
+    <string name="header_must_info">Заполните свою информаци.</string>
+    <string name="what_ethnicity">Укажите этническую принадлежность</string>
+    <string name="what_smoke_status">Вы курите?</string>
+    <string name="what_drink_status">Употребляете ли Вы алкоголь?</string>
+    <string name="what_gender">Укажите свой пол</string>
+    <string name="where_live">Где Вы живете?</string>
+    <string name="what_age">Сколько Вам лет?</string>
+    <string name="you">Вы</string>
+    <string name="didnt_fill_form_question">Вы не заполнили информацию, хотите сделать это сейчас?</string>
+    <string name="yes">Да</string>
+    <string name="likes">Лайки</string>
+    <string name="visits">Визиты</string>
+    <string name="photo">Фото</string>
+    <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5–016103d06330]]></string>
+    <string name="chat_add_btn_desc">Button for sending images</string>
+    <string name="chat_send_btn_desc">Button for sending message</string>
+    <string name="enter_message_hint">Введите сообщение...</string>
+    <string name="friend_image_desc">friend avatar</string>
+    <string name="name_text">Имя</string>
+    <string name="age_text">Возраст</string>
+    <string name="country_text">Страна</string>
+    <string name="btn_add_friend_text">+ ДОБАВИТЬ</string>
+    <string name="btn_start_chat_text">СООБЩЕНИЕ</string>
+    <string name="also_like_text">Вам так же могут понравится</string>
+    <string name="user_avatar">User Avatar</string>
+    <string name="display_name_text">Display Name</string>
+    <string name="total_friends_text">Всего друзей</string>
+    <string name="current_user_status_text">Current User Status</string>
+    <string name="send_friend_request_text">ОТПРАВИТЬ ЗАПРОС В ДРУЗЬЯ</string>
+    <string name="decline_friend_request_text">ОТМЕНИТЬ ЗАПРОС В ДРУЗЬЯ</string>
+    <string name="profile_img_desc">profile image</string>
+    <string name="your_status_hint">Ваш статус</string>
+    <string name="status_save_btn_text">Сохранить изменения</string>
+    <string name="last_seen_text">Последний раз заходил</string>
+    <string name="age_18_21">18–21</string>
+    <string name="age_22_26">22–26</string>
+    <string name="age_26_35">26–35</string>
+    <string name="age_36_45">36–45</string>
+    <string name="age_45_plus">45+</string>
+    <string name="height_number_text">Номер</string>
+    <string name="height_cm_text">CM</string>
+    <string name="slider_language_text">English</string>
+    <string name="name_lastname_text">Name Lastname</string>
+    <string name="action_type_visit_text">Ваш профиль посмотрели</string>
+    <string name="action_type_liked_text">Вы им понравились</string>
+    <string name="title_text">Title</string>
+    <string name="message_text">Message</string>
+    <string name="user_single_online_desc">Online icon</string>
+    <string name="avatar_sender_desc">Avatar of message sender</string>
+    <string name="request_btn_accept_desc">Image button accept</string>
+    <string name="request_btn_decline_desc">Image button decline</string>
+    <string name="profile_arrow_desc">Arrow image</string>
+    <string name="user_profile_text">Description</string>
+    <string name="time_of_message_text">time of message</string>
+    <string name="message_image_layout_desc">Message image layout</string>
+    <string name="search_btn_like_desc">Search Button like</string>
+    <string name="my_profile">My Profile</string>
+    <string name="display_name">Display Name</string>
+    <string name="user_default_status">User default Status</string>
+    <string name="accept_friend_request">Accept Friend Request</string>
+    <string name="cancel_friend_request">Cancel Friend Request</string>
+    <string name="unfriend">Unfriend this Person</string>
+    <string name="send_friend_request">Send Friend Request</string>
+    <string name="photo_was_updated">Photo was updated</string>
+    <string name="there_is_an_error">There is an error</string>
+    <string name="relationship_was_updated">Relationship status was updated</string>
+    <string name="willing_kids_updated">Willing kids status was updated</string>
+    <string name="name_updated">Name was updated</string>
+    <string name="bkodytype_updated">Bodytype was updated</string>
+    <string name="number_of_kids_updated">Number of kids were updated</string>
+    <string name="smoking_updated">Smoking status was updated</string>
+    <string name="gender_updated">Gender information was updated</string>
+    <string name="height_updated">Height was updated</string>
+    <string name="error_in_changes">There was some error in saving Changes.</string>
+    <string name="error_in_request">There was some error in sending request</string>
+    <string name="error_request">There was some error in sending request</string>
+    <string name="country_updated">Country was updated</string>
+    <string name="drink_updated">Drink status was updated</string>
+    <string name="age_updated">Age was updated</string>
+    <string name="ethnicity_updated">Ethnicity was updated</string>
+    <string name="faith_updated">Faith was updated</string>
+    <string name="need_register_actions">You need to be registered to see who liked or visited you</string>
+    <string name="need_register_chats">You need to be registered to read and send messages</string>
+    <string name="register">Register</string>
+    <string name="confirm_dialog_reg_header">You need to create account</string>
+    <string name="confirm_dialog_slider_header">Пожалуйста заполните профиль и получите очки рейтинга</string>
+    <string name="login">Login</string>
+    <string name="header_necessary_info">Please, fill necessary info</string>
+    <string name="finish">Finish</string>
+    <string name="hobby_updated">Looking for was updated</string>
+    <string name="notification_channel_id">RW_CH</string>
+    <string name="please_register_to_start">Please register to start</string>
+    <string name="conversion_one">conversion one</string>
+    <string name="new_user_registered">New User Registered</string>
+    <string name="user_information_category">User Information</string>
+    <string name="conversion_two">Conversion two</string>
+    <string name="must_have_info_done">Must Have Info Done</string>
+    <string name="conversion_break">Conversion Break</string>
+    <string name="must_info_canceled">Must Info Canceled</string>
+    <string name="tracker_id">131196800</string>
+    <string name="registration_started">Registration Started</string>
+    <string name="change_filter">Change Filter</string>
+    <string name="message">Message</string>
+    <string name="like">Like</string>
+    <string name="order_gender">Order your gender</string>
+
+    <string name="privacy_policy">By clicking OK you are confirming that you are over the age of 18 and allow this app
+        to use your information in accordance with <a href="http://ruswives.com/terms-and-privacy/">privacy policy</a></string>
+    <string name="full_profile_header">You can\'t write to another user until you fill out your profile</string>
+    <string name="now">Now</string>
+    <string name="later">Later</string>
+
+    <string name="who_are_you_looking_for">Who are you looking for?</string>
+    <string name="what_age_looking_for">What age are you looking for?</string>
+    <string name="what_country_looking_for">What country are you looking for</string>
+    <string name="what_relationships_looking_for">What relationship status are you looking for?</string>
+    <string name="what_bodytype_looking_for">What body type are you looking for?</string>
+    <string name="what_ethnicity_looking_for">What ethnicity are you looking for?</string>
+    <string name="what_faith_looking_for">What faith are you looking for?</string>
+    <string name="what_smoke_status_looking_for">What smoke status are you looking for?</string>
+    <string name="what_drink_status_looking_for">What drink status are you looking for?</string>
+    <string name="looking_for_kids">Are you looking for partner with kids?</string>
+    <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
+    <string name="empty_chats_img">Image for empty chats</string>
+    <string name="shop">Shop</string>
+    <string name="add_your_photo">Add your photo</string>
+    <string name="where_are_you_from">Where are you from?</string>
+    <string name="how_old_are_you">How old are you?</string>
+
+    <string name="add_your_photo_mi">Add your photo to continue</string>
+    <string name="add_your_info_mi">Please, fill all fields</string>
+    <string name="select_image">Select image</string>
+    <string name="uploading_image">Uploading Image</string>
+    <string name="please_wait">Please Wait...</string>
+    <string name="something_went_wrong">Something went wrong. Try again!</string>
+    <string name="empty_field">Field can not be empty</string>
+    <string name="only_photo_available">Face Photo Only</string>
+
+    <!-- ADVERTISEMENT -->
+    <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>
+    <!-- real banner id ca-app-pub-5095813023957397/5592359725 -->
+    <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
+    <!--<string name="mob_unit_tester_banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
+    <!--<string name="mob_unit_prod_id">ca-app-pub-5095813023957397/5592359725</string>-->
+    <string name="mob_unit_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="buy_tokens">Buy Tokens</string>
+    <string name="get_free_coins">Get free coins</string>
+    <string name="you_have">You have</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="buy">Buy</string>
+    <string name="services">Services</string>
+    <string name="text">Text</string>
+    <string name="online_users_title">Online Users</string>
+
+    <!-- Genders -->
+    <string-array name="genders">
+        <item>default</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!-- Countries -->
+    <string-array name="countries">
+        <item>default</item>
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Andorra</item>
+        <item>Algeria</item>
+        <item>Angola"</item>
+        <item>Anguilla</item>
+        <item>Antigua &amp; Barbuda</item>
+        <item>Argentina</item>
+        <item>Armenia</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Bahamas</item>
+        <item>Bahrain</item>
+        <item>Bangladesh</item>
+        <item>Barbados</item>
+        <item>Belarus</item>
+        <item>Belgium</item>
+        <item>Belize</item>
+        <item>Benin</item>
+        <item>Bermuda</item>
+        <item>Bhutan</item>
+        <item>Bolivia</item>
+        <item>Bosnia &amp; Herzegovina</item>
+        <item>Botswana</item>
+        <item>Brazil</item>
+        <item>Brunei Darussalam</item>
+        <item>Bulgaria</item>
+        <item>Burkina Faso</item>
+        <item>Myanmar/Burma</item>
+        <item>Burundi</item>
+        <item>Cambodia</item>
+        <item>Cameroon</item>
+        <item>Canada</item>
+        <item>Cape Verde</item>
+        <item>Cayman Islnds</item>
+        <item>Central African Republic</item>
+        <item>Chad</item>
+        <item>Chile</item>
+        <item>China</item>
+        <item>Colombia</item>
+        <item>Comoros</item>
+        <item>Congo</item>
+        <item>Costa Rica</item>
+        <item>Croatia</item>
+        <item>Cuba</item>
+        <item>Cyprus</item>
+        <item>Czech Republic</item>
+        <item>Democratic Republic of the Congo</item>
+        <item>Denmark</item>
+        <item>Djibouti</item>
+        <item>Dominica</item>
+        <item>Dominican Republic</item>
+        <item>Ecuador</item>
+        <item>Egypt</item>
+        <item>El Salvador</item>
+        <item>Equatorial Guinea</item>
+        <item>Eritrea</item>
+        <item>Estonia</item>
+        <item>Ethiopia</item>
+        <item>Fiji</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>French Guiana</item>
+        <item>Gabon</item>
+        <item>Gambia</item>
+        <item>Georgia</item>
+        <item>Germany</item>
+        <item>Ghana</item>
+        <item>Great Britain</item>
+        <item>Greece</item>
+        <item>Grenada</item>
+        <item>Guadeloupe</item>
+        <item>Guatemala</item>
+        <item>Guinea</item>
+        <item>Guinea-Bissau</item>
+        <item>Guyana</item>
+        <item>Haiti</item>
+        <item>Honduras</item>
+        <item>Hungary</item>
+        <item>Iceland</item>
+        <item>India</item>
+        <item>Indonesia</item>
+        <item>Iran</item>
+        <item>Iraq</item>
+        <item>Israel</item>
+        <item>Italy</item>
+        <item>Ivory Coast (Cote d\'Ivoire)</item>
+        <item>Jamaica</item>
+        <item>Japan</item>
+        <item>Jordan</item>
+        <item>Kazakhstan</item>
+        <item>Kenya</item>
+        <item>Kosovo</item>
+        <item>Kuwait</item>
+        <item>Kyrgyz Republic (Kyrgyzstan)</item>
+        <item>Laos</item>
+        <item>Latvia</item>
+        <item>Lebanon</item>
+        <item>Lesotho</item>
+        <item>Liberia</item>
+        <item>Libya</item>
+        <item>Liechtenstein</item>
+        <item>Lithuania</item>
+        <item>Luxembourg</item>
+        <item>Republic of Macedonia</item>
+        <item>Madagascar</item>
+        <item>Malawi</item>
+        <item>Malaysia</item>
+        <item>Maldives</item>
+        <item>Mali</item>
+        <item>Malta</item>
+        <item>Martinique</item>
+        <item>Mauritania</item>
+        <item>Mauritius</item>
+        <item>Mayotte</item>
+        <item>Mexico</item>
+        <item>Moldova</item>
+        <item>Republic of Monaco</item>
+        <item>Mongolia</item>
+        <item>Montenegro</item>
+        <item>Montserrat</item>
+        <item>Morocco</item>
+        <item>Mozambique</item>
+        <item>Namibia</item>
+        <item>Nepal</item>
+        <item>Netherlands</item>
+        <item>New Zealand</item>
+        <item>Nicaragua</item>
+        <item>Niger</item>
+        <item>Nigeria</item>
+        <item>Korea</item>
+        <item>Democratic Republic of North Korea</item>
+        <item>Norway</item>
+        <item>Oman</item>
+        <item>Pacific Islands</item>
+        <item>Pakistan</item>
+        <item>Panama</item>
+        <item>Papua New Guinea</item>
+        <item>Paraguay</item>
+        <item>Peru</item>
+        <item>Philippines</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Puerto Rico</item>
+        <item>Qatar</item>
+        <item>Romania</item>
+        <item>Russia</item>
+        <item>Rwanda</item>
+        <item>Saint Kitts and Nevis</item>
+        <item>Saint Lucia</item>
+        <item>Saint Vincent\'s &amp; Grenadines</item>
+        <item>Samoa</item>
+        <item>Sao Tome and Principe</item>
+        <item>Saudi Arabia</item>
+        <item>Senegal</item>
+        <item>Serbia</item>
+        <item>Seychelles</item>
+        <item>Sierra Leone</item>
+        <item>Singapore</item>
+        <item>Slovakia</item>
+        <item>Slovenia</item>
+        <item>Solomon Islands</item>
+        <item>Somalia</item>
+        <item>South Africa</item>
+        <item>South Korea</item>
+        <item>South Sudan</item>
+        <item>Spain</item>
+        <item>Sri Lanka</item>
+        <item>Sudan</item>
+        <item>Suriname</item>
+        <item>Swaziland</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>Syria</item>
+        <item>Tajikistan</item>
+        <item>Tanzania</item>
+        <item>Thailand</item>
+        <item>Timor Leste</item>
+        <item>Togo</item>
+        <item>Trinidad &amp; Tobago</item>
+        <item>Tunisia</item>
+        <item>Turkey</item>
+        <item>Turkmenistan</item>
+        <item>Turks &amp; Caicos Islands</item>
+        <item>Uganda</item>
+        <item>Ukraine</item>
+        <item>United Arab Emirates</item>
+        <item>USA</item>
+        <item>Uruguay</item>
+        <item>Uzbekistan</item>
+        <item>Venezuela</item>
+        <item>Vietnam</item>
+        <item>Virgin Islands (UK)</item>
+        <item>Virgin Islands (US)</item>
+        <item>Yemen</item>
+        <item>Zambia</item>
+        <item>Zimbabwe</item>
+    </string-array>
+
+    <string-array name="age_types">
+        <item>@string/default_data</item>
+        <item>@string/age_18_21</item>
+        <item>@string/age_22_26</item>
+        <item>@string/age_26_35</item>
+        <item>@string/age_36_45</item>
+        <item>@string/age_45_plus</item>
+    </string-array>
+
+    <!-- Relationship statuses -->
+    <string-array name="relationships_statuses">
+        <item>default</item>
+        <item>Never married</item>
+        <item>Currently separated</item>
+        <item>Divorced</item>
+        <item>Widow/Widower</item>
+    </string-array>
+
+    <!-- Body types -->
+    <string-array name="body_types">
+        <item>default</item>
+        <item>Slender</item>
+        <item>About average</item>
+        <item>Athletic</item>
+        <item>Heavyset</item>
+        <item>A few extra pounds</item>
+        <item>Stocky</item>
+    </string-array>
+
+    <!-- Ethnicities -->
+    <string-array name="ethnicities">
+        <item>default</item>
+        <item>Asian</item>
+        <item>Black/African descent</item>
+        <item>East Indian</item>
+        <item>Latino/Hispanic</item>
+        <item>Native American</item>
+        <item>White Caucasian</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Faith types -->
+    <string-array name="faith_types">
+        <item>default</item>
+        <item>Christian</item>
+        <item>Black/African descent</item>
+        <item>Muslim</item>
+        <item>Atheist</item>
+        <item>Buddhist</item>
+        <item>Adventist</item>
+        <item>Other</item>
+    </string-array>
+
+    <!-- Smoke statuses -->
+    <string-array name="smoke_statuses">
+        <item>default</item>
+        <item>No way</item>
+        <item>Occasionally</item>
+        <item>Daily</item>
+        <item>Cigar aficionado</item>
+        <item>Yes, but trying to quit</item>
+    </string-array>
+
+    <!-- Drink statuses -->
+    <string-array name="drink_statuses">
+        <item>default</item>
+        <item>Never</item>
+        <item>Social drinker</item>
+        <item>Moderately</item>
+        <item>Regularly</item>
+    </string-array>
+
+    <!-- Have kids statuses -->
+    <string-array name="have_kids_statuses">
+        <item>default</item>
+        <item>No</item>
+        <item>Yes, they live at home</item>
+        <item>Yes, they sometimes live at home</item>
+        <item>Yes, they live away from home</item>
+    </string-array>
+
+    <!-- Want kids statuses -->
+    <string-array name="want_kids_statuses">
+        <item>default</item>
+        <item>Definitely</item>
+        <item>Someday</item>
+        <item>Not sure</item>
+        <item>Probably not</item>
+        <item>No, but its OK if partner has kids</item>
+        <item>No</item>
+    </string-array>
+
+</resources>

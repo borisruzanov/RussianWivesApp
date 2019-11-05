@@ -54,6 +54,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:text="@string/heavyset"
             android:textSize="@dimen/answers_text_size" />
+
         <RadioButton
             android:id="@+id/fragment_slider_bodytype_rbtn_fewextra"
 
@@ -62,6 +63,7 @@
             android:layout_marginTop="@dimen/dp8"
             android:text="@string/a_few_extra_pounds"
             android:textSize="@dimen/answers_text_size" />
+
         <RadioButton
             android:id="@+id/fragment_slider_bodytype_rbtn_stocky"
             android:layout_width="match_parent"

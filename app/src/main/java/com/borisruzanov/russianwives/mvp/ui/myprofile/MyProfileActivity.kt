@@ -79,7 +79,7 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         recyclerView = findViewById(R.id.recycler_list_userDescription)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
-        userDescriptionListAdapter = UserDescriptionListAdapter(setOnItemClickCallback())
+        userDescriptionListAdapter = UserDescriptionListAdapter(setOnItemClickCallback(), this)
         recyclerView.adapter = userDescriptionListAdapter
 
         fab = findViewById(R.id.fab_id)
@@ -143,7 +143,4 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         return OnItemClickListener.OnItemClickCallback { view, position -> }
     }
 
-    override fun onRestart() {
-        super.onRestart()
-    }
 }

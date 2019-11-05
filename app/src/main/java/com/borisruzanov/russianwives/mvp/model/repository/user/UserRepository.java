@@ -130,7 +130,7 @@ public class UserRepository {
                     HashMap<String, Object> onlineUsersMap = new HashMap<>();
                     onlineUsersMap.put(Consts.IMAGE, snapshot.child(Consts.IMAGE).getValue().toString());
                     onlineUsersMap.put(Consts.NAME, snapshot.child(Consts.NAME).getValue().toString());
-                    onlineUsersMap.put(Consts.RATING, (long) snapshot.child(Consts.RATING).getValue());
+                    onlineUsersMap.put(Consts.RATING, snapshot.child(Consts.RATING).getValue());
                     if (i < 100) {
                         realtimeReference.child("OnlineUsers").child("Test").child(uid).updateChildren(onlineUsersMap);
                     } else {

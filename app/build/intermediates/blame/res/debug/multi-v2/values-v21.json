@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\AndroidProjects\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
+            "outputFile": "D:\\DEV_Boris\\RW\\RussianWivesSocNetwork\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v21\\values-v21.xml",
             "map": [
                 {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\dbf6df702f9b04cbf162a5008f5a79f6\\res\\values-v21\\values-v21.xml",
@@ -61,6 +61,25 @@
                     }
                 },
                 {
+                    "source": "D:\\DEV_Boris\\RW\\RussianWivesSocNetwork\\app\\src\\main\\res\\values-v21\\styles.xml",
+                    "from": {
+                        "startLines": "13,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "573,59",
+                        "endLines": "22,11",
+                        "endColumns": "12,12",
+                        "endOffsets": "1155,565"
+                    },
+                    "to": {
+                        "startLines": "6,16",
+                        "startColumns": "4,4",
+                        "startOffsets": "354,932",
+                        "endLines": "15,24",
+                        "endColumns": "12,12",
+                        "endOffsets": "927,1430"
+                    }
+                },
+                {
                     "source": "C:\\Users\\Public\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\15790cb11575bea1f1145b7394a45298\\res\\values-v21\\values-v21.xml",
                     "from": {
                         "startLines": "2,10,18,26",
@@ -77,25 +96,6 @@
                         "endLines": "305,313,321,329",
                         "endColumns": "10,10,10,10",
                         "endOffsets": "21929,22355,22778,23213"
-                    }
-                },
-                {
-                    "source": "D:\\AndroidProjects\\RussianWivesSocNetwork\\app\\src\\main\\res\\values-v21\\styles.xml",
-                    "from": {
-                        "startLines": "13,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "573,59",
-                        "endLines": "22,11",
-                        "endColumns": "12,12",
-                        "endOffsets": "1155,565"
-                    },
-                    "to": {
-                        "startLines": "6,16",
-                        "startColumns": "4,4",
-                        "startOffsets": "354,932",
-                        "endLines": "15,24",
-                        "endColumns": "12,12",
-                        "endOffsets": "927,1430"
                     }
                 }
             ]

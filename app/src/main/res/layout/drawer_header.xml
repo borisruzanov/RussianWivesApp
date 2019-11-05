@@ -40,7 +40,7 @@
                 android:id="@+id/drawer_header_view_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="View Profile"
+                android:text="@string/menu_view_provile"
                 android:textColor="@android:color/holo_blue_dark"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -79,7 +79,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
-            android:text="Get More Visitors"
+            android:text="@string/menu_get_more_visitors"
             android:textColor="@color/darkColor"
             android:textSize="16sp" />
     </LinearLayout>

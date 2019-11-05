@@ -47,7 +47,7 @@ public class CountriesAdapter extends BaseAdapter {
         }
 
         Country country = getCountry(position);
-        TextView textView = (TextView) view.findViewById(R.id.item_country_title);
+        TextView textView = view.findViewById(R.id.item_country_title);
         textView.setText(country.getCountryName());
         return view;
     }

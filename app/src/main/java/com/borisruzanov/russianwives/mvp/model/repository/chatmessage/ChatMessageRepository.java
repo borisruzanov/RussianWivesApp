@@ -137,7 +137,7 @@ public class ChatMessageRepository {
 
                 realtimeReference.updateChildren(messageUserMap, (databaseError, databaseReference) -> {
                     if (databaseError != null) {
-                        Log.d(Contract.TAG, "Error with insert image in DB" + databaseError.getMessage().toString());
+                        Log.d(Contract.TAG, "Error with insert image in DB" + databaseError.getMessage());
                     }
                 });
             }

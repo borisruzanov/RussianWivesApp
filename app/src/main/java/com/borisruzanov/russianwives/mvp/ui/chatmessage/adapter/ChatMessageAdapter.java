@@ -64,12 +64,12 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
         public MessageViewHolder(View view) {
             super(view);
-            container = (LinearLayout) view.findViewById(R.id.message_single_layout);
-            messageText = (TextView) view.findViewById(R.id.message_text_layout);
-            timeView = (TextView) view.findViewById(R.id.time_text_layout);
-            profileImage = (CircleImageView) view.findViewById(R.id.message_profile_layout);
-            displayName = (TextView) view.findViewById(R.id.name_text_layout);
-            messageImage = (ImageView) view.findViewById(R.id.message_image_layout);
+            container = view.findViewById(R.id.message_single_layout);
+            messageText = view.findViewById(R.id.message_text_layout);
+            timeView = view.findViewById(R.id.time_text_layout);
+            profileImage = view.findViewById(R.id.message_profile_layout);
+            displayName = view.findViewById(R.id.name_text_layout);
+            messageImage = view.findViewById(R.id.message_image_layout);
 
         }
     }
