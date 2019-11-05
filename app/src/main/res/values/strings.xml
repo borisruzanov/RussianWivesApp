@@ -269,6 +269,7 @@
     <string name="services">Services</string>
     <string name="text">Text</string>
     <string name="online_users_title">Online Users</string>
+    <string name="online_title">Online</string>
 
     <!-- Genders -->
     <string-array name="genders">

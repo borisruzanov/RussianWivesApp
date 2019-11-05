@@ -126,14 +126,28 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
+        tabLayout.addOnTabSelectedListener(object: TabLayout.BaseOnTabSelectedListener<TabLayout.Tab> {
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+            }
+        })
+
 
         val pageListener: CustomViewPager.OnPageChangeListener = object: CustomViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 viewPager.currentItem = position
+                tabLayout.setScrollPosition(position, positionOffset, false)
             }
 
             override fun onPageSelected(position: Int) {
                 viewPager.currentItem = position
+                tabLayout.setScrollPosition(position, 0f, false)
             }
 
             override fun onPageScrollStateChanged(state: Int) {}
