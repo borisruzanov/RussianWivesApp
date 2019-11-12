@@ -1,14 +1,181 @@
 <resources>
     <string name="app_name">RusWives</string>
 
+    <string name="ru_male_option">Мужчина</string>
+    <string name="ru_female_option">Женщина</string>
+    <string name="ru_slender">Стройный</string>
+    <string name="ru_about_average">Обычное</string>
+    <string name="ru_athletic">Спортивное</string>
+    <string name="ru_heavyset">Полное</string>
+    <string name="ru_a_few_extra_pounds">Несколько лишних кг</string>
+    <string name="ru_stocky">Коренастый</string>
+    <string name="ru_asian">Азиатская</string>
+    <string name="ru_black_african_descent">Африканская</string>
+    <string name="ru_east_indian">Индейская</string>
+    <string name="ru_latino_hispanic">Испано-Латинская</string>
+    <string name="ru_native_american">Коренно-Американская</string>
+    <string name="ru_white_caucasian">Белая</string>
+    <string name="ru_other">Другое</string>
+    <string name="ru_moderately">Умеренно</string>
+    <string name="ru_regularly">Регулярно</string>
+    <string name="ru_no_way">Категорически нет</string>
+    <string name="ru_occasionally">Время от времени</string>
+    <string name="ru_daily">Ежедневно</string>
+    <string name="ru_cigar_aficionado">Ценитель сигар</string>
+    <string name="ru_yes_but_trying_to_quit">Да, но пробую бросить</string>
+    <string name="ru_never_married">Никогда не был женат / замужем</string>
+    <string name="ru_currently_separated">В данный момент не вместе</string>
+    <string name="ru_divorced">Разведен(а)</string>
+    <string name="ru_widow_widower">Вдовец / Вдова</string>
+    <string name="ru_no">Нет</string>
+    <string name="ru_yes_they_sometimes_live_at_home">Да, иногда живут дома</string>
+    <string name="ru_yes_they_live_away_from_home">Да, живут вдали от дома</string>
+    <string name="ru_yes_they_live_at_home">Да, живут дома</string>
+    <string name="ru_definitely">Определенно</string>
+    <string name="ru_someday">Однажды</string>
+    <string name="ru_not_sure">Не уверен(а)</string>
+    <string name="ru_probably_not">Больше нет, чем да</string>
+    <string name="ru_no_but_its_ok_if_partner_has_kids">Нет, но ОК если у партнера есть</string>
+    <string name="ru_only_with_friends">Только с друзьями</string>
+    <string name="ru_default">Нет значения</string>
+    <string name="ru_image">Фото</string>
+    <string name="ru_name_text">Имя</string>
+    <string name="ru_age">Возраст</string>
+    <string name="ru_country">Страна</string>
+    <string name="ru_gender">Пол</string>
+    <string name="ru_relationship_status">Семейное Положение</string>
+    <string name="ru_ethnicity">Этническая принадлежность</string>
+    <string name="ru_faith">Вера</string>
+    <string name="ru_smoke_status">Курение</string>
+    <string name="ru_what_drink_status">Алкоголь</string>
+    <string name="ru_do_you_want_kids">Есть ли дети</string>
+    <string name="ru_do_you_have_kids">Есть ли у Вас дети</string>
+    <string name="ru_looking_for">Ищите</string>
+    <string name="ru_body_type">Телосложение</string>
+    <string name="ru_number_of_kids">Есть ли дети</string>
+    <string name="ru_christian">Православие</string>
+    <string name="ru_muslim">Ислам</string>
+    <string name="ru_atheist">Атеизм</string>
+    <string name="ru_buddist">Буддизм</string>
+    <string name="ru_adventist">Адвентизм</string>
+    <string name="ru_never">Никогда</string>
+
+
     <!-- Titles-->
+    <string name="gender">Gender</string>
+    <string name="age">Age</string>
+    <string name="country">Country</string>
+    <string name="ethnicity">Ethnicity</string>
+    <string name="relationship_status">Relationship Status</string>
+    <string name="faith">Faith</string>
+    <string name="smoke_status">Smoke Status</string>
+    <string name="looking_for">Looking for</string>
+    <string name="body_type">Body Type</string>
+    <string name="do_you_want_kids">Do You Want Kids</string>
+    <string name="what_drink_status">How Often Do You Drink Alcohol</string>
+    <string name="number_of_kids">Number Of Kids</string>
+
+    <!-- System safe strings -->
+    <string name="change_photo">Поменять Фото</string>
     <string name="button_sign_filter">Фильтр...</string>
     <string name="menu_help">Помощь</string>
     <string name="menu_privacy">Безопасность</string>
     <string name="menu_log_out">Выйти</string>
     <string name="menu_view_provile">Профиль</string>
     <string name="menu_get_more_visitors">Поднять Рейтинг</string>
-    <string name="gender">Пол</string>
+    <!-- Questions titles in slider -->
+    <string name="enter_your_name">Введите Ваше Имя</string>
+    <string name="your_name_is_here">Ваше имя тут…</string>
+    <string name="what_age">Сколько Вам лет?</string>
+    <string name="choose_your_country">Откуда Вы?</string>
+    <string name="select_your_gender">Укажите свой пол</string>
+    <string name="what_relationship_status">Ваше семейное положение</string>
+    <string name="what_bodytype">Укажите Ваше телосложение</string>
+    <string name="which_ethnicity_best_describe_you">Ваша расовая принадлежность</string>
+    <string name="what_faith">Ваша вера</string>
+    <string name="smoking_status">Насколько часто Вы курите?</string>
+    <string name="how_often_do_you_drink">Как часто Вы употребляете алкоголь?</string>
+    <string name="do_you_have_kids">Есть ли у Вас дети?</string>
+    <string name="do_you_willing_kids">Хотите ли Вы детей?</string>
+    <string name="describe_who_are_you_looking_for">Опишите кого Вы ищите на английском</string>
+    <string name="discribe_what_you_like_to_do_in_couple_words">Looking for a man...</string>
+
+
+    <string name="cancel">Cancel</string>
+    <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create_account">CREATE ACCOUNT</string>
+    <string name="log_out">Log Out</string>
+    <string name="sign_out">Log Out</string>
+    <string name="send">Send</string>
+    <string name="default_data">default</string>
+    <string name="search_title">Search</string>
+    <string name="chats_title">Chats</string>
+    <string name="actions_title">Actions</string>
+    <string name="default_status">Default status</string>
+    <string name="visitors">Visitors</string>
+    <string name="about">About You</string>
+    <string name="please_set_your_status">Set Your Status</string>
+    <string name="your_gender">Your Gender</string>
+    <string name="how_tall_are_you">How Tall Are You</string>
+    <string name="set_your_height">Set Your Height</string>
+    <string name="your_body_type">Your Body Type</string>
+    <string name="set_your_body_type">Set Your Body Type</string>
+    <string name="set_your_ethnicity">Set Your Ethnicity</string>
+    <string name="which_best_ethnicities_best_describes_you">Which Best Ethnicities Best Describes You</string>
+    <string name="set_your_faith">Set Your Faith</string>
+    <string name="languages_you_can_speak">Languages You Can Speak</string>
+    <string name="set_languages">Set Languages</string>
+    <string name="select_your_smoke_status">Select Your Smoke Status</string>
+    <string name="set_status">Set Status</string>
+    <string name="do_you_smoke">Do You Smoke</string>
+    <string name="set_the_answer">Set The Answer</string>
+    <string name="how_many_kids_you_have">How Many Kids You Have</string>
+    <string name="your_hobby">Your Hobby</string>
+    <string name="check_your_search_parameters">CHECK YOUR SEARCH PARAMETERS</string>
+    <string name="you_may_also_like_them">You May Also Like Them</string>
+    <string name="change">CHANGE</string>
+    <string name="save">Save</string>
+    <string name="what_is_your_height">What is your height?</string>
+    <string name="edit">Edit</string>
+    <string name="choose_languages_you_can_talk">Choose languages you can talk</string>
+    <string name="add">Add</string>
+    <string name="next_text">Next</string>
+    <string name="emptyText">Nothing to show yet</string>
+    <string name="emptyText_chats">No messages yet</string>
+    <string name="emptyText_actions">No likes and visits yet</string>
+    <string name="basic_info">Basic info</string>
+
+    <string name="apply">Apply</string>
+    <string name="header_filters">Filter</string>
+    <string name="header_must_info">Fill your info</string>
+    <string name="what_ethnicity">What is your ethnicity?</string>
+    <string name="what_smoke_status">What is your smoke status?</string>
+    <string name="what_gender">What is your gender?</string>
+    <string name="where_live">Where do you live?</string>
+    <string name="you">You</string>
+    <string name="didnt_fill_form_question">You Didn\'t Fill The Form. Do You Want To Fill It Now?</string>
+    <string name="yes">Yes</string>
+    <string name="likes">Likes</string>
+    <string name="visits">Visits</string>
+    <string name="photo">Photo</string>
+    <string name="enter_message_hint">Enter Message…</string>
+    <string name="name_text">Name</string>
+    <string name="age_text">Age</string>
+    <string name="btn_add_friend_text">+ ADD FRIEND</string>
+    <string name="btn_start_chat_text">WRITE MESSAGE</string>
+    <string name="also_like_text">You may also like them</string>
+    <string name="total_friends_text">Total Friends</string>
+    <string name="send_friend_request_text">SEND FRIEND REQUEST</string>
+    <string name="decline_friend_request_text">DECLINE FRIEND REQUEST</string>
+    <string name="your_status_hint">Your Status</string>
+    <string name="status_save_btn_text">Save changes</string>
+    <string name="last_seen_text">Last Seen</string>
+    <string name="height_number_text">Number</string>
+    <string name="confirm_dialog_slider_header">Fill out the profile to get more points!</string>
+    <string name="online_title">Online</string>
+
 
     <!-- Values for answers -->
     <string name="male_option">Male</string>
@@ -48,112 +215,17 @@
     <string name="no_but_its_ok_if_partner_has_kids">No, but its OK if partner has kids</string>
     <string name="only_with_friends">Only with friends</string>
     <string name="default_text">Default</string>
+    <string name="image">Image</string>
 
-    <string name="ru_male_option">Мужчина</string>
-    <string name="ru_female_option">Женщина</string>
-    <string name="ru_slender">Стройный</string>
-    <string name="ru_about_average">Обычное</string>
-    <string name="ru_athletic">Спортивное</string>
-    <string name="ru_heavyset">Полное</string>
-    <string name="ru_a_few_extra_pounds">Несколько лишних кг</string>
-    <string name="ru_stocky">Коренастый</string>
-    <string name="ru_asian">Азиатская</string>
-    <string name="ru_black_african_descent">Африканская</string>
-    <string name="ru_east_indian">Индейская</string>
-    <string name="ru_latino_hispanic">Испано-Латинская</string>
-    <string name="ru_native_american">Коренно-Американская</string>
-    <string name="ru_white_caucasian">Белая</string>
-    <string name="ru_other">Другое</string>
-    <string name="ru_moderately">Умеренно</string>
-    <string name="ru_regularly">Регулярно</string>
-    <string name="ru_no_way">Категорически нет</string>
-    <string name="ru_occasionally">Время от времени</string>
-    <string name="ru_daily">Ежедневно</string>
-    <string name="ru_cigar_aficionado">Ценитель сигар</string>
-    <string name="ru_yes_but_trying_to_quit">Да, но пробую бросить</string>
-    <string name="ru_never_married">Никогда не был женат / замужем</string>
-    <string name="ru_currently_separated">В данный момент не вместе</string>
-    <string name="ru_divorced">Разведен(а)</string>
-    <string name="ru_widow_widower">Вдовец / Вдова</string>
-    <string name="ru_no">Нет</string>
-    <string name="ru_yes_they_sometimes_live_at_home">Да, иногда живут дома</string>
-    <string name="ru_yes_they_live_away_from_home">Да, живут вдали от дома</string>
-    <string name="ru_yes_they_live_at_home">Да, живут дома</string>
-    <string name="ru_definitely">Определенно</string>
-    <string name="ru_someday">Однажда</string>
-    <string name="ru_not_sure">Не уверен(а)</string>
-    <string name="ru_probably_not">Больше нет, чем да</string>
-    <string name="ru_no_but_its_ok_if_partner_has_kids">Нет, но ОК если у партнера есть</string>
-    <string name="ru_only_with_friends">Только с друзьями</string>
-    <string name="ru_default">Нет значения</string>
 
     <!-- Questions need to be translate -->
-    <string name="do_you_have_kids">Do you have kids?</string>
 
-
-
-
-    <string name="need_a_new_account">НУЖЕН НОВЫЙ АККАУНТ?</string>
-    <string name="email">Email</string>
-    <string name="password">Пароль</string>
-    <string name="create_account">СОЗДАТЬ АККАУНТ</string>
-    <string name="log_out">Выйти</string>
-    <string name="sign_out">Выйти</string>
-    <string name="send">Отправить</string>
-    <string name="default_data">По умолчанию</string>
-
-    <string name="search_title">Поиск</string>
-    <string name="chats_title">Чаты</string>
-    <string name="actions_title">Активность</string>
-
-    <string name="default_status">Статус по умолчанию</string>
 
     <string name="facebook_application_id" translatable="false">382050188909546</string>
     <!-- Facebook Application ID, prefixed by 'fb'. Enables Chrome Custom tabs. -->
     <string name="facebook_login_protocol_scheme" translatable="false">fb382050188909546</string>
-    <string name="visitors">Посетители</string>
     <string name="number_of_visitors_default">1</string>
     <string name="number_of_likes_default">1</string>
-    <string name="about">О Вас</string>
-    <string name="relationship_status">Семейное положение</string>
-    <string name="please_set_your_status">Установите статус</string>
-    <string name="your_gender">Ваш пол</string>
-    <string name="select_your_gender">Укажите свой пол</string>
-    <string name="how_tall_are_you">Укажите свой рост</string>
-    <string name="set_your_height">Укажите свой рост</string>
-    <string name="your_body_type">Ваша комплекция</string>
-    <string name="set_your_body_type">Укажите Вашу комплекцию</string>
-    <string name="set_your_ethnicity">Укажите этническую принадлежность</string>
-    <string name="which_best_ethnicities_best_describes_you">К какой этнической группе Вы относитесь</string>
-    <string name="what_faith">Ваша религия</string>
-    <string name="set_your_faith">Укажите Вашу религию</string>
-    <string name="languages_you_can_speak">Языки на которых Вы разговариваете</string>
-    <string name="set_languages">Укажите языки</string>
-    <string name="smoking_status">Вы курите?</string>
-    <string name="select_your_smoke_status">Как Вы относитесь к курению</string>
-    <string name="how_often_do_you_drink">Как часто Вы употребляете алкоголь?</string>
-    <string name="set_status">Указать статус</string>
-    <string name="do_you_smoke">Вы курите?</string>
-    <string name="set_the_answer">Указать ответ</string>
-    <string name="how_many_kids_you_have">Сколько у Вас детей?</string>
-    <string name="do_you_willing_kids">Вы хотите детей?</string>
-    <string name="your_hobby">Ваше хобби</string>
-    <string name="check_your_search_parameters">ПРОВЕРИТЬ ПАРАМЕТРЫ ПОИСКА</string>
-    <string name="you_may_also_like_them">Вам также могут понравиться</string>
-    <string name="add_photo">Поменять фото</string>
-    <string name="change">ПОМЕНЯТЬ</string>
-    <string name="describe_who_are_you_looking_for">Опишите кого Вы ищите?</string>
-    <string name="save">Сохранить</string>
-    <string name="discribe_what_you_like_to_do_in_couple_words">Опишите что Вы любите делать?</string>
-    <string name="what_is_your_height">Какой у Вас рост?</string>
-    <string name="edit">Редактировать</string>
-    <string name="what_bodytype">Какое у Вас телосложение?</string>
-
-    <string name="choose_languages_you_can_talk">Укажите языки на которых Вы разговариваете</string>
-    <string name="add">Добавить</string>
-    <string name="choose_your_country">Укажите свою страну</string>
-    <string name="which_ethnicity_best_describe_you">Укажите этническую принадлежность</string>
-
     <string name="christian">Christian</string>
     <string name="muslim">Muslim</string>
     <string name="atheist">Atheist</string>
@@ -161,61 +233,25 @@
     <string name="adventist">Adventist</string>
     <string name="never">Never</string>
     <string name="social_drinker">Social drinker</string>
-        <string name="what_relationship_status">What is your relationship status?</string>
-    <string name="next_text">Следующий</string>
-    <string name="emptyText">Пока нечего показывать</string>
-    <string name="emptyText_chats">Пока нет сообщений</string>
-    <string name="emptyText_actions">Пока активностей нет</string>
-    <string name="basic_info">Основная информация</string>
-    <string name="enter_your_name">Введите своё имя</string>
-    <string name="your_name_is_here">Введите имя здесь...</string>
 
-    <string name="apply">Принять</string>
-    <string name="cancel">Отменить</string>
-    <string name="header_filters">Фильтр</string>
-    <string name="header_must_info">Заполните свою информаци.</string>
-    <string name="what_ethnicity">Укажите этническую принадлежность</string>
-    <string name="what_smoke_status">Вы курите?</string>
-    <string name="what_drink_status">Употребляете ли Вы алкоголь?</string>
-    <string name="what_gender">Укажите свой пол</string>
-    <string name="where_live">Где Вы живете?</string>
-    <string name="what_age">Сколько Вам лет?</string>
-    <string name="you">Вы</string>
-    <string name="didnt_fill_form_question">Вы не заполнили информацию, хотите сделать это сейчас?</string>
-    <string name="yes">Да</string>
-    <string name="likes">Лайки</string>
-    <string name="visits">Визиты</string>
-    <string name="photo">Фото</string>
     <string name="image_message_link"><![CDATA[https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FbgHG13B84lWEyr4voJ0dlPpROhD3%2Fprofile_photo?alt=media&token=4d0807c8–ddbc–4777–bcc5–016103d06330]]></string>
     <string name="chat_add_btn_desc">Button for sending images</string>
     <string name="chat_send_btn_desc">Button for sending message</string>
-    <string name="enter_message_hint">Введите сообщение...</string>
     <string name="friend_image_desc">friend avatar</string>
-    <string name="name_text">Имя</string>
-    <string name="age_text">Возраст</string>
-    <string name="country_text">Страна</string>
-    <string name="btn_add_friend_text">+ ДОБАВИТЬ</string>
-    <string name="btn_start_chat_text">СООБЩЕНИЕ</string>
-    <string name="also_like_text">Вам так же могут понравится</string>
+
     <string name="user_avatar">User Avatar</string>
     <string name="display_name_text">Display Name</string>
-    <string name="total_friends_text">Всего друзей</string>
     <string name="current_user_status_text">Current User Status</string>
-    <string name="send_friend_request_text">ОТПРАВИТЬ ЗАПРОС В ДРУЗЬЯ</string>
-    <string name="decline_friend_request_text">ОТМЕНИТЬ ЗАПРОС В ДРУЗЬЯ</string>
     <string name="profile_img_desc">profile image</string>
-    <string name="your_status_hint">Ваш статус</string>
-    <string name="status_save_btn_text">Сохранить изменения</string>
-    <string name="last_seen_text">Последний раз заходил</string>
     <string name="age_18_21">18–21</string>
     <string name="age_22_26">22–26</string>
     <string name="age_26_35">26–35</string>
     <string name="age_36_45">36–45</string>
     <string name="age_45_plus">45+</string>
-    <string name="height_number_text">Номер</string>
     <string name="height_cm_text">CM</string>
     <string name="slider_language_text">English</string>
     <string name="name_lastname_text">Name Lastname</string>
+
     <string name="action_type_visit_text">Ваш профиль посмотрели</string>
     <string name="action_type_liked_text">Вы им понравились</string>
     <string name="title_text">Title</string>
@@ -258,7 +294,7 @@
     <string name="need_register_chats">You need to be registered to read and send messages</string>
     <string name="register">Register</string>
     <string name="confirm_dialog_reg_header">You need to create account</string>
-    <string name="confirm_dialog_slider_header">Пожалуйста заполните профиль и получите очки рейтинга</string>
+
     <string name="login">Login</string>
     <string name="header_necessary_info">Please, fill necessary info</string>
     <string name="finish">Finish</string>

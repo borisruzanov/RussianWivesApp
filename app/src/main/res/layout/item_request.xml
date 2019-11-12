@@ -38,7 +38,7 @@
             android:layout_alignBottom="@+id/item_request_image"
             android:layout_alignStart="@+id/item_request_name"
             android:layout_marginBottom="@dimen/dp12"
-            android:text="@string/country_text" />
+            android:text="@string/country" />
 
         <TextView
             android:id="@+id/item_request_age"

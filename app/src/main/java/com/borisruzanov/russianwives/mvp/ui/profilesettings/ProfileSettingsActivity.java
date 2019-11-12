@@ -47,7 +47,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.my_profile_edit_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        userDescriptionEditListAdapter = new UserDescriptionEditListAdapter(setOnItemClickCallback());
+        userDescriptionEditListAdapter = new UserDescriptionEditListAdapter(setOnItemClickCallback(), this);
         recyclerView.setAdapter(userDescriptionEditListAdapter);
         userDescriptionEditList.addAll(UserProfileItemsListForEdit.initData());
         setEditList(userDescriptionEditList);

@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/dp8"
                         android:paddingBottom="0dp"
-                        android:text="@string/country_text"
+                        android:text="@string/country"
                         android:textColor="@color/grey_mid_light"
                         android:textSize="@dimen/medium_text_size" />
                 </LinearLayout>

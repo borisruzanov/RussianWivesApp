@@ -18,6 +18,7 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_AGE_RATING;
@@ -65,7 +66,13 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                 radioButton = view.findViewById(selectedId);
                 if (radioButton.getText() != null) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put(Consts.RELATIONSHIP_STATUS, radioButton.getText());
+                    String result = "";
+                    if (Locale.getDefault().getLanguage().equals("ru")) {
+                        result = extractValueForDb();
+                    } else {
+                        result = (String) radioButton.getText();
+                    }
+                    map.put(Consts.RELATIONSHIP_STATUS, result);
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
@@ -77,7 +84,58 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                 Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
+        translateButtonsToRu();
         return view;
     }
+
+
+    private void translateButtonsToRu() {
+        if (Locale.getDefault().getLanguage().equals("ru")) {
+            RadioButton radioSlender = (RadioButton) radioGroup.getChildAt(0);
+            if (radioSlender.getText().equals(getString(R.string.never_married))) {
+                radioSlender.setText(getString(R.string.ru_never_married));
+            } else {
+                radioSlender.setVisibility(View.GONE);
+            }
+
+            RadioButton radioAverage = (RadioButton) radioGroup.getChildAt(1);
+            if (radioAverage.getText().equals(getString(R.string.currently_separated))) {
+                radioAverage.setText(getString(R.string.ru_currently_separated));
+            } else {
+                radioAverage.setVisibility(View.GONE);
+            }
+
+            RadioButton radioAthletic = (RadioButton) radioGroup.getChildAt(2);
+            if (radioAthletic.getText().equals(getString(R.string.divorced))) {
+                radioAthletic.setText(getString(R.string.ru_divorced));
+            } else {
+                radioAthletic.setVisibility(View.GONE);
+            }
+
+            RadioButton radioHeavyset = (RadioButton) radioGroup.getChildAt(3);
+            if (radioHeavyset.getText().equals(getString(R.string.widow_widower))) {
+                radioHeavyset.setText(getString(R.string.ru_widow_widower));
+            } else {
+                radioHeavyset.setVisibility(View.GONE);
+            }
+        }
+    }
+
+    private String extractValueForDb() {
+        String result = "";
+        if (radioButton.getText().equals(getActivity().getString(R.string.ru_never_married))) {
+            result = getActivity().getString(R.string.never_married);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_currently_separated))) {
+            result = getActivity().getString(R.string.currently_separated);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_divorced))) {
+            result = getActivity().getString(R.string.divorced);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_widow_widower))) {
+            result = getActivity().getString(R.string.widow_widower);
+        }  else {
+            result = getActivity().getString(R.string.default_text);
+        }
+        return result;
+    }
+
 
 }

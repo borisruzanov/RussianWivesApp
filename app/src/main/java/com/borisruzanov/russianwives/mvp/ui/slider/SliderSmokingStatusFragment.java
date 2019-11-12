@@ -19,6 +19,7 @@ import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.borisruzanov.russianwives.utils.ValueCallback;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_SMOKE_STATUS_RATING;
@@ -71,7 +72,13 @@ public class SliderSmokingStatusFragment extends Fragment {
                 radioButton = view.findViewById(selectedId);
                 if (radioButton.getText() != null) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put(Consts.SMOKING_STATUS, radioButton.getText());
+                    String result = "";
+                    if (Locale.getDefault().getLanguage().equals("ru")) {
+                        result = extractValueForDb();
+                    } else {
+                        result = (String) radioButton.getText();
+                    }
+                    map.put(Consts.SMOKING_STATUS, result);
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
@@ -83,6 +90,64 @@ public class SliderSmokingStatusFragment extends Fragment {
                 Toast.makeText(getActivity(), getString(R.string.empty_field), Toast.LENGTH_SHORT).show();
             }
         });
+        translateButtonsToRu();
         return view;    }
 
+    private void translateButtonsToRu() {
+        if (Locale.getDefault().getLanguage().equals("ru")) {
+            RadioButton radioSlender = (RadioButton) radioGroup.getChildAt(0);
+            if (radioSlender.getText().equals(getString(R.string.no_way))) {
+                radioSlender.setText(getString(R.string.ru_no_way));
+            } else {
+                radioSlender.setVisibility(View.GONE);
+            }
+
+            RadioButton radioAverage = (RadioButton) radioGroup.getChildAt(1);
+            if (radioAverage.getText().equals(getString(R.string.occasionally))) {
+                radioAverage.setText(getString(R.string.ru_occasionally));
+            } else {
+                radioAverage.setVisibility(View.GONE);
+            }
+
+            RadioButton radioAthletic = (RadioButton) radioGroup.getChildAt(2);
+            if (radioAthletic.getText().equals(getString(R.string.daily))) {
+                radioAthletic.setText(getString(R.string.ru_daily));
+            } else {
+                radioAthletic.setVisibility(View.GONE);
+            }
+
+            RadioButton radioHeavyset = (RadioButton) radioGroup.getChildAt(3);
+            if (radioHeavyset.getText().equals(getString(R.string.cigar_aficionado))) {
+                radioHeavyset.setText(getString(R.string.ru_cigar_aficionado));
+            } else {
+                radioHeavyset.setVisibility(View.GONE);
+            }
+
+            RadioButton radioNativeAmerican = (RadioButton) radioGroup.getChildAt(4);
+            if (radioNativeAmerican.getText().equals(getString(R.string.yes_but_trying_to_quit))) {
+                radioNativeAmerican.setText(getString(R.string.ru_yes_but_trying_to_quit));
+            } else {
+                radioNativeAmerican.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+    private String extractValueForDb() {
+        String result = "";
+        if (radioButton.getText().equals(getActivity().getString(R.string.ru_no_way))) {
+            result = getActivity().getString(R.string.no_way);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_occasionally))) {
+            result = getActivity().getString(R.string.occasionally);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_daily))) {
+            result = getActivity().getString(R.string.daily);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_cigar_aficionado))) {
+            result = getActivity().getString(R.string.cigar_aficionado);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_yes_but_trying_to_quit))) {
+            result = getActivity().getString(R.string.yes_but_trying_to_quit);
+        }  else {
+            result = getActivity().getString(R.string.default_text);
+        }
+        return result;
+    }
 }

@@ -18,6 +18,7 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_DRINK_STATUS_RATING;
@@ -70,7 +71,13 @@ public class SliderDrinkStatusFragment extends Fragment {
                 radioButton = view.findViewById(selectedId);
                 if (radioButton.getText() != null) {
                     Map<String, Object> map = new HashMap<>();
-                    map.put(Consts.DRINK_STATUS, radioButton.getText());
+                    String result = "";
+                    if (Locale.getDefault().getLanguage().equals("ru")) {
+                        result = extractValueForDb();
+                    } else {
+                        result = (String) radioButton.getText();
+                    }
+                    map.put(Consts.DRINK_STATUS, result);
                     new SliderRepository().updateFieldFromCurrentUser(map, () -> {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
@@ -82,7 +89,56 @@ public class SliderDrinkStatusFragment extends Fragment {
                 }
             }
         });
+        translateButtonsToRu();
         return view;
     }
 
+    private void translateButtonsToRu() {
+        if (Locale.getDefault().getLanguage().equals("ru")) {
+            RadioButton radioSlender = (RadioButton) radioGroup.getChildAt(0);
+            if (radioSlender.getText().equals(getString(R.string.never))) {
+                radioSlender.setText(getString(R.string.ru_never));
+            } else {
+                radioSlender.setVisibility(View.GONE);
+            }
+
+            RadioButton radioAverage = (RadioButton) radioGroup.getChildAt(1);
+            if (radioAverage.getText().equals(getString(R.string.only_with_friends))) {
+                radioAverage.setText(getString(R.string.ru_only_with_friends));
+            } else {
+                radioAverage.setVisibility(View.GONE);
+            }
+
+            RadioButton radioAthletic = (RadioButton) radioGroup.getChildAt(2);
+            if (radioAthletic.getText().equals(getString(R.string.moderately))) {
+                radioAthletic.setText(getString(R.string.ru_moderately));
+            } else {
+                radioAthletic.setVisibility(View.GONE);
+            }
+
+            RadioButton radioHeavyset = (RadioButton) radioGroup.getChildAt(3);
+            if (radioHeavyset.getText().equals(getString(R.string.regularly))) {
+                radioHeavyset.setText(getString(R.string.ru_regularly));
+            } else {
+                radioHeavyset.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+    private String extractValueForDb() {
+        String result = "";
+        if (radioButton.getText().equals(getActivity().getString(R.string.ru_never))) {
+            result = getActivity().getString(R.string.never);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_only_with_friends))) {
+            result = getActivity().getString(R.string.only_with_friends);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_moderately))) {
+            result = getActivity().getString(R.string.moderately);
+        } else if (radioButton.getText().equals(getActivity().getString(R.string.ru_regularly))) {
+            result = getActivity().getString(R.string.regularly);
+        } else {
+            result = getActivity().getString(R.string.default_text);
+        }
+        return result;
+    }
 }

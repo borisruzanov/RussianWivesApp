@@ -90,7 +90,7 @@ public class SliderActivity extends MvpAppCompatActivity {
                 case "How Often Do You Drink Alcohol":
                     fragmentList.add(SliderDrinkStatusFragment.newInstance());
                     break;
-                case "Do You Have Kids":
+                case "Number Of Kids":
                     fragmentList.add(SliderHaveKidsFragment.newInstance());
                     break;
                 case "Do You Want Kids":
