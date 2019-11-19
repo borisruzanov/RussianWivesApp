@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.model.repository.user;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.borisruzanov.russianwives.eventbus.ListEvent;
 import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.models.ActionItem;
@@ -34,6 +35,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,6 +57,8 @@ import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
 
 public class UserRepository {
 
+    private static final String GENDER_FEMALE = "Female";
+    private static final String GENDER_MALE = "Male";
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
@@ -106,7 +111,7 @@ public class UserRepository {
 
     public void roundRating() {
         users.get().addOnCompleteListener(task -> {
-            for (DocumentSnapshot snapshot: task.getResult().getDocuments()) {
+            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
                 int rating = 0;
                 Map<String, Object> ratingMap = new HashMap<>();
                 String uid = snapshot.getId();
@@ -124,7 +129,7 @@ public class UserRepository {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int i = 0;
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     i++;
                     String uid = snapshot.getKey();
                     HashMap<String, Object> onlineUsersMap = new HashMap<>();
@@ -146,34 +151,80 @@ public class UserRepository {
         });
     }
 
-    public void getOnlineUsers(int page, OnlineUsersCallback callback) {
-        Query query = realtimeReference.child("OnlineUsers").child("Female")
-                .orderByKey()
-                .limitToLast(10);
-        if (endAt != null && page != 0) {
-            Log.d("OnlineDebug", "End at uid is " + endAt + "and page is " + page);
-            query = realtimeReference.child("OnlineUsers").child("Female")
-                    .orderByKey()
-                    .endAt(endAt)
-                    .limitToLast(10);
+    public void getOnlineUsers(int page, boolean isUserExist) {
+        String neededGender;
+        if (getGender().equals(GENDER_FEMALE)) {
+            neededGender = GENDER_FEMALE;
+        } else if (getGender().equals(GENDER_MALE)) {
+            neededGender = GENDER_MALE;
         } else {
-            Log.d("OnlineDebug", "End at uid is null and page is " + page);
-            endAt = null;
+            neededGender = GENDER_FEMALE;
         }
-        query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        setOnlineUsersCallback(dataSnapshot, callback);
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {}
-                });
+        if (isUserExist) {
+            callRealOnlineUsersList(neededGender);
+        } else {
+            callFakeUserList(neededGender);
+        }
+    }
+
+    /**
+     * Getting fake users for unregistered users
+     */
+    private void callFakeUserList(String neededGender) {
+
+        DatabaseReference mReference = realtimeReference.child("FakeUsers/" + neededGender);
+        Query query = mReference.orderByChild("rank");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final List<OnlineUser> userList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
+                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
+                }
+                EventBus.getDefault().post(new ListEvent(userList));
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                registerErrorEvent(databaseError);
+            }
+        });
+
+    }
+
+    /**
+     * Getting real online users from Realtime Database
+     */
+    private void callRealOnlineUsersList(String neededGender) {
+
+
+        DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
+        Query query = mReference.orderByChild("rank");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final List<OnlineUser> userList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
+                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
+                }
+                EventBus.getDefault().post(new ListEvent(userList));
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                registerErrorEvent(databaseError);
+            }
+        });
     }
 
     private void setOnlineUsersCallback(DataSnapshot usersSnapshot, OnlineUsersCallback callback) {
         List<OnlineUser> onlineUsers = new ArrayList<>();
-        for (DataSnapshot snapshot: usersSnapshot.getChildren()) {
+        for (DataSnapshot snapshot : usersSnapshot.getChildren()) {
             String uid = snapshot.getKey();
             long rating = (long) snapshot.child(Consts.RATING).getValue();
             OnlineUser onlineUser = new OnlineUser(snapshot.getKey(),
@@ -191,7 +242,7 @@ public class UserRepository {
                 onlineUsers.add(onlineUser);
             }
         }
-        if (onlineUsers.size() > 0 ) {
+        if (onlineUsers.size() > 0) {
             endAt = onlineUsers.get(onlineUsers.size() - 1).getUid();
             Log.d("OnlineDebug", "In setCallback endAt is " + endAt);
         } else {
@@ -204,7 +255,7 @@ public class UserRepository {
         realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     String uid = snapshot.getKey();
                     if (snapshot.child(Consts.GENDER).getValue() == null || snapshot.child(Consts.COUNTRY).getValue() == null) {
                         if (uid != null) {
@@ -224,7 +275,8 @@ public class UserRepository {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {}
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
         });
     }
 
@@ -232,7 +284,7 @@ public class UserRepository {
         realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // TODO add more users, add check for gender null and for default
                     String uid = snapshot.getKey();
                     if (snapshot.child(Consts.GENDER).getValue() != null && snapshot.child(Consts.NAME).getValue() != null) {
@@ -312,6 +364,7 @@ public class UserRepository {
     }
 
     public String getGender() {
+        String s = prefs.getGender();
         return prefs.getGender();
     }
 
@@ -385,17 +438,17 @@ public class UserRepository {
     }
 
     public void hasDefaultMustInfo(BoolCallback callback) {
-        Log.d("DialogDebug", "Uid is " + getUid());
-            users.document(getUid()).get().addOnCompleteListener(task -> {
-                if (task.getResult().exists()) {
-                    Log.d("DialogDebug", "Task exists");
-                    DocumentSnapshot snapshot = task.getResult();
-                    boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) ||
-                            snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) ||
-                            snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT);
-                            callback.setBool(flag);
-                } else Log.d("DialogDebug", "Task doesn't exist!!!");
-            });
+//        Log.d("DialogDebug", "Uid is " + getUid());
+//        users.document(getUid()).get().addOnCompleteListener(task -> {
+//            if (task.getResult().exists()) {
+//                Log.d("DialogDebug", "Task exists");
+//                DocumentSnapshot snapshot = task.getResult();
+//                boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) ||
+//                        snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) ||
+//                        snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT);
+//                callback.setBool(flag);
+//            } else Log.d("DialogDebug", "Task doesn't exist!!!");
+//        });
     }
 
     // check if the value of the given key is default or not

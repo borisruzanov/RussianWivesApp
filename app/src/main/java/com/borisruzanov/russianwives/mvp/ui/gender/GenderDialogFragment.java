@@ -16,8 +16,11 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,6 +82,7 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
                 bundle.putString(Consts.GENDER, genderSpinner.getSelectedItem().toString());
                 mFirebaseAnalytics.logEvent("dialog_gender", bundle);
             }
+            EventBus.getDefault().post(new StringEvent(genderSpinner.getSelectedItem().toString()));
             dismiss();
         } else
             Toast.makeText(getContext(), getString(R.string.order_gender), Toast.LENGTH_SHORT).show();

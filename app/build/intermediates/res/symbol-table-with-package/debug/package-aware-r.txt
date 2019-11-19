@@ -1683,9 +1683,10 @@ id drawer_header_photo
 id drawer_header_purchase_section
 id drawer_header_view_profile
 id drawer_layout
-id drawer_top_menu_first_item
-id drawer_top_menu_second_item
-id drawer_top_menu_third_item
+id drawer_top_menu_login_item
+id drawer_top_menu_logout_item
+id drawer_top_menu_safety_item
+id drawer_top_menu_support_item
 id drink_status_text
 id dynamic
 id easeIn
@@ -2543,6 +2544,7 @@ string currently_separated
 string daily
 string decline_friend_request_text
 string default_data
+string default_lower_case
 string default_status
 string default_text
 string default_web_client_id
@@ -2742,6 +2744,7 @@ string new_user_registered
 string next_text
 string no
 string no_but_its_ok_if_partner_has_kids
+string no_value
 string no_way
 string not_sure
 string notification_channel_id
@@ -2820,6 +2823,7 @@ string ru_never
 string ru_never_married
 string ru_no
 string ru_no_but_its_ok_if_partner_has_kids
+string ru_no_value
 string ru_no_way
 string ru_not_sure
 string ru_number_of_kids

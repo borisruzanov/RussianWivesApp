@@ -14,8 +14,11 @@ public class OnlineUsersInteractor {
         this.repository = repository;
     }
 
-    public void getOnlineUsers(int page, OnlineUsersCallback callback) {
-        repository.getOnlineUsers(page, callback);
+    public void getOnlineUsers(int page, boolean isUserExist) {
+        repository.getOnlineUsers(page, isUserExist);
     }
 
+    public boolean isUserExist() {
+        return repository.isUserExist();
+    }
 }

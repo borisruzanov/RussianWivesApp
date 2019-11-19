@@ -9,7 +9,6 @@ import android.support.design.widget.TabLayout
 import android.support.v4.app.DialogFragment
 import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
-import android.support.v4.view.ViewPager
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.widget.Toolbar
@@ -17,6 +16,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -31,7 +31,6 @@ import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
-import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment
@@ -40,7 +39,6 @@ import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
 import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment
-import com.borisruzanov.russianwives.mvp.ui.register.RegisterFragment
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
 import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity
@@ -77,6 +75,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var navigationView: NavigationView
+    private lateinit var mDrawerItemSupport : MenuItem
+    private lateinit var mDrawerItemSafety : MenuItem
+    private lateinit var mDrawerItemLogout : MenuItem
+    private lateinit var mDrawerItemLogin : MenuItem
 
     private lateinit var closeDrawer: ImageView
     private lateinit var viewProfile: TextView
@@ -100,45 +102,30 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         setContentView(R.layout.drawer)
 
         MobileAds.initialize(this, APP_ID)
-
-        if (intent.extras != null) {
-            if (intent.extras.get("fromUid") != null) {
-                val resultIntent = Intent(this, ChatMessageActivity::class.java)
-                resultIntent.putExtra(Consts.UID, intent.extras.get("fromUid").toString())
-            }
-        }
-
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
-
         dialogFragment = FilterDialogFragment()
         viewPager = findViewById(R.id.main_view_pager)
         tabLayout = findViewById(R.id.main_tabs)
         filterBtn = findViewById(R.id.toolbar_filter_btn)
+        mAdView = findViewById<View>(R.id.adView) as AdView?
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navigationView = findViewById(R.id.nav_view)
+        navigationView.setNavigationItemSelectedListener(this)
 
         mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
 
         searchFragment = SearchFragment()
         actionsFragment = ActionsFragment()
 
-        //UI
-
         toolbar = this.findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        tabLayout.addOnTabSelectedListener(object: TabLayout.BaseOnTabSelectedListener<TabLayout.Tab> {
-            override fun onTabReselected(p0: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(p0: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                viewPager.currentItem = tab.position
-            }
-        })
-
-
+        sendingToChatActivity()
+        tabsLogicImplementation()
+        analytics()
+        drawerInit()
+        showDialogs()
         val pageListener: CustomViewPager.OnPageChangeListener = object: CustomViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 viewPager.currentItem = position
@@ -155,28 +142,81 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
         mainPresenter.checkForUserExist()
         viewPager.setOnPageChangeListener(pageListener)
-
         mainPagerAdapter.notifyDataSetChanged()
 
-        Log.d("TabDebug", "Tabs count is ${tabLayout.tabCount}")
+        loadingListBasedOnUserExist()
 
-        analytics()
-        Handler().postDelayed({ mainPresenter.showDialogs() }, 3000)
 
-        mAdView = findViewById<View>(R.id.adView) as AdView?
         val adRequest = AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
                 .build()
         mAdView?.loadAd(adRequest)
 
-        drawerLayout = findViewById(R.id.drawer_layout)
-        navigationView = findViewById(R.id.nav_view)
-        navigationView.setNavigationItemSelectedListener(this)
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close)
         drawerLayout.setDrawerListener(toggle)
         toggle.syncState()
-        val headerView: View = navigationView.getHeaderView(0)
+        searchButtonHide(true)
+    }
 
+    private fun loadingListBasedOnUserExist() {
+        if(mainPresenter.isUserExist()){
+
+        } else{
+            //Load offline users
+        }
+    }
+
+    private fun showDialogs() {
+        Handler().postDelayed({ mainPresenter.showDialogs() }, 3000)
+    }
+
+    private fun tabsLogicImplementation() {
+        tabLayout.addOnTabSelectedListener(object: TabLayout.BaseOnTabSelectedListener<TabLayout.Tab> {
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                viewPager.currentItem = tab.position
+            }
+        })
+    }
+
+    private fun sendingToChatActivity() {
+        if (intent.extras != null) {
+            if (intent.extras.get("fromUid") != null) {
+                val resultIntent = Intent(this, ChatMessageActivity::class.java)
+                resultIntent.putExtra(Consts.UID, intent.extras.get("fromUid").toString())
+            }
+        }
+    }
+
+    private fun drawerInit() {
+        val headerView: View = navigationView.getHeaderView(0)
+        val menu : Menu = navigationView.getMenu()
+        mDrawerItemSafety = menu.findItem(R.id.drawer_top_menu_safety_item)
+        mDrawerItemSafety.isVisible = false
+        navigationView.setNavigationItemSelectedListener{
+            when (it.itemId) {
+                R.id.drawer_top_menu_support_item -> {
+                    // handle click
+                    true
+                }
+                R.id.drawer_top_menu_safety_item -> {
+                    // handle click
+                    true
+                }
+                R.id.drawer_top_menu_logout_item -> {
+                    true
+                }
+                R.id.drawer_top_menu_login_item -> {
+                    true
+                }
+                else -> false
+            }
+        }
         closeDrawer = headerView.findViewById(R.id.drawer_header_close_btn)
         closeDrawer.setOnClickListener {
             onBackPressed()
@@ -190,10 +230,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
         purchaseSection.setOnClickListener {
             val settingsIntent = Intent(this@MainActivity, ServicesActivity::class.java)
             startActivity(settingsIntent)
-        }
-
-        searchButtonHide(true)
-    }
+        }    }
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -205,7 +242,7 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onNavigationItemSelected(menuItem: MenuItem): Boolean {
         when (menuItem.itemId) {
-            R.id.drawer_top_menu_third_item ->   AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
+            R.id.drawer_top_menu_logout_item ->   AuthUI.getInstance().signOut(this).addOnCompleteListener { reload() }
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
@@ -258,15 +295,20 @@ class MainActivity : MvpAppCompatActivity(), MainView, FilterDialogFragment.Filt
 
     override fun onPrepareOptionsMenu(menu: Menu): Boolean {
         invalidateOptionsMenu()
+        validateMenuOnAuth(menu)
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    private fun validateMenuOnAuth(menu: Menu) {
         if (mainPresenter.isUserExist()) {
             menu.findItem(R.id.login).isVisible = false
             //mainPresenter.showDialogs()
         } else {
+            toolbar.setNavigationIcon(null);
             menu.findItem(R.id.shop).isVisible = false
             menu.findItem(R.id.chats).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
-        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

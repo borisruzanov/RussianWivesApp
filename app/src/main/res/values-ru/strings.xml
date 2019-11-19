@@ -59,6 +59,7 @@
     <string name="ru_buddist">Буддизм</string>
     <string name="ru_adventist">Адвентизм</string>
     <string name="ru_never">Никогда</string>
+    <string name="ru_no_value">Не указанно</string>
 
 
     <!-- Titles-->
@@ -74,8 +75,24 @@
     <string name="do_you_want_kids">Do You Want Kids</string>
     <string name="what_drink_status">How Often Do You Drink Alcohol</string>
     <string name="number_of_kids">Number Of Kids</string>
+    <string name="header_necessary_info">Заполните ОБЯЗАТЕЛЬНОЕ инфо</string>
+    <string name="what_gender">Укажите ВАШ пол</string>
+    <string name="privacy_policy">Нажав кнопку ОК, Вы подтверждаете, что Вы старше 18 лет и даете соглашение на
+        обработку Вашей информации согласно <a href="http://ruswives.com/terms-and-privacy/">правилам</a></string>
+    <string name="search_title">Поиск</string>
+    <string name="online_title">Онлайн</string>
+    <string name="header_must_info">Заполните Инфо</string>
+    <string name="add_your_photo">Добавить Фото</string>
+    <string name="how_old_are_you">Укажите Возраст</string>
+    <string name="where_are_you_from">Откуда Вы?</string>
+    <string name="no_value">No value</string>
+    <string name="default_lower_case">default</string>
+    <string name="visitors">Посетителей</string>
+    <string name="likes">Лайков</string>
+    <string name="order_gender">Укажите свой пол</string>
 
-    <!-- System safe strings -->
+
+    <!-- System safe strings 333-->
     <string name="change_photo">Поменять Фото</string>
     <string name="button_sign_filter">Фильтр...</string>
     <string name="menu_help">Помощь</string>
@@ -110,11 +127,9 @@
     <string name="sign_out">Log Out</string>
     <string name="send">Send</string>
     <string name="default_data">default</string>
-    <string name="search_title">Search</string>
     <string name="chats_title">Chats</string>
     <string name="actions_title">Actions</string>
     <string name="default_status">Default status</string>
-    <string name="visitors">Visitors</string>
     <string name="about">About You</string>
     <string name="please_set_your_status">Set Your Status</string>
     <string name="your_gender">Your Gender</string>
@@ -149,15 +164,12 @@
 
     <string name="apply">Apply</string>
     <string name="header_filters">Filter</string>
-    <string name="header_must_info">Fill your info</string>
     <string name="what_ethnicity">What is your ethnicity?</string>
     <string name="what_smoke_status">What is your smoke status?</string>
-    <string name="what_gender">What is your gender?</string>
     <string name="where_live">Where do you live?</string>
     <string name="you">You</string>
     <string name="didnt_fill_form_question">You Didn\'t Fill The Form. Do You Want To Fill It Now?</string>
     <string name="yes">Yes</string>
-    <string name="likes">Likes</string>
     <string name="visits">Visits</string>
     <string name="photo">Photo</string>
     <string name="enter_message_hint">Enter Message…</string>
@@ -174,7 +186,6 @@
     <string name="last_seen_text">Last Seen</string>
     <string name="height_number_text">Number</string>
     <string name="confirm_dialog_slider_header">Fill out the profile to get more points!</string>
-    <string name="online_title">Online</string>
 
 
     <!-- Values for answers -->
@@ -296,7 +307,6 @@
     <string name="confirm_dialog_reg_header">You need to create account</string>
 
     <string name="login">Login</string>
-    <string name="header_necessary_info">Please, fill necessary info</string>
     <string name="finish">Finish</string>
     <string name="hobby_updated">Looking for was updated</string>
     <string name="notification_channel_id">RW_CH</string>
@@ -313,10 +323,8 @@
     <string name="change_filter">Change Filter</string>
     <string name="message">Message</string>
     <string name="like">Like</string>
-    <string name="order_gender">Order your gender</string>
 
-    <string name="privacy_policy">By clicking OK you are confirming that you are over the age of 18 and allow this app
-        to use your information in accordance with <a href="http://ruswives.com/terms-and-privacy/">privacy policy</a></string>
+
     <string name="full_profile_header">You can\'t write to another user until you fill out your profile</string>
     <string name="now">Now</string>
     <string name="later">Later</string>
@@ -334,9 +342,6 @@
     <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
     <string name="shop">Shop</string>
-    <string name="add_your_photo">Add your photo</string>
-    <string name="where_are_you_from">Where are you from?</string>
-    <string name="how_old_are_you">How old are you?</string>
 
     <string name="add_your_photo_mi">Add your photo to continue</string>
     <string name="add_your_info_mi">Please, fill all fields</string>

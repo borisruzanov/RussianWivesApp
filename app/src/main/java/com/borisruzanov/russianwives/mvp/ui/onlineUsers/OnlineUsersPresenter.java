@@ -4,7 +4,15 @@ import android.util.Log;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.borisruzanov.russianwives.eventbus.ListEvent;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
+import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -18,12 +26,39 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
         this.interactor = interactor;
     }
 
-    public void getOnlineUsers(int page) {
-        Log.d("RecyclerDebug", "In OnlineUsersPresenter.initRecyclerView()");
-        interactor.getOnlineUsers(page, onlineUsers -> {
-            // Log.d("RecyclerDebug", "In OnlineUsersPresenter.getOnlineUsers, we have " + onlineUsers.size() + "users online");
-            getViewState().addUsers(onlineUsers);
-        });
+    public void getOnlineUsers(int page, boolean mIsUserExist) {
+//        interactor.getOnlineUsers(page, onlineUsers -> {
+//            getViewState().addUsers(onlineUsers);
+//        }, mIsUserExist);
+
+        interactor.getOnlineUsers(page, mIsUserExist);
     }
 
+    public boolean isUserExist() {
+        return interactor.isUserExist();
+    }
+
+    /**
+     * Event of inflating games list
+     */
+    @Subscribe
+    public void inflateCardList(ListEvent event) {
+        getViewState().addUsers(event.getCardList());
+    }
+
+    @Subscribe
+    public void inflateFakeUserListFirstTime(StringEvent event){
+        getViewState().makeFakeUserCall();
+    }
+
+
+    public void registerSubscribers() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    public void unregisterSubscribers() {
+        EventBus.getDefault().unregister(this);
+    }
 }

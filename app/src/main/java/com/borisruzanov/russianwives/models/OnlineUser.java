@@ -4,6 +4,9 @@ public class OnlineUser {
     private String uid, name, image, gender, country;
     private long rating;
 
+    public OnlineUser() {
+    }
+
     public OnlineUser(String uid, String name, String image, String gender, String country, long rating) {
         this.uid = uid;
         this.name = name;
