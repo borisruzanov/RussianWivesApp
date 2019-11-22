@@ -183,6 +183,7 @@ public class UserRepository {
                     OnlineUser user = postSnapshot.getValue(OnlineUser.class);
                     userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
                 }
+                Log.d("UserTest", "Real user list got");
                 EventBus.getDefault().post(new ListEvent(userList));
             }
 
@@ -202,7 +203,7 @@ public class UserRepository {
 
 
         DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
-        Query query = mReference.orderByChild("rank");
+        Query query = mReference.orderByChild("rank").endAt(10);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -211,6 +212,7 @@ public class UserRepository {
                     OnlineUser user = postSnapshot.getValue(OnlineUser.class);
                     userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
                 }
+                Log.d("UserTest", "Real user list got");
                 EventBus.getDefault().post(new ListEvent(userList));
             }
 

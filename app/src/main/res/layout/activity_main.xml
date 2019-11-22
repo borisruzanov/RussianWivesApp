@@ -18,12 +18,19 @@
             android:background="@color/colorPrimary"
             app:theme="@style/ThemeOverlay.AppCompat.Light">
 
+            <TextView
+                android:id="@+id/please_register_to_start_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_register_to_start" />
+
             <RelativeLayout
                 android:id="@+id/toolbar_filter_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_rectangle"
                 android:padding="4dp">
+
 
                 <ImageView
                     android:id="@+id/search_btn_image"
@@ -32,12 +39,12 @@
                     android:src="@drawable/ic_filter_list_black_24dp" />
 
                 <TextView
-                    android:gravity="center_vertical"
-                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/search_btn_image"
-                    android:text="@string/button_sign_filter" />
+                    android:gravity="center_vertical"
+                    android:text="@string/button_sign_filter"
+                    android:textSize="16sp" />
 
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>

@@ -27,7 +27,6 @@ class SearchRepository {
 
         if (filterParams.isNotEmpty()) {
             for ((key, value) in filterParams) {
-                Log.d("FilterDebug", "Key is $key and value is $value")
                 query = query.whereEqualTo(key, value)
             }
         }
@@ -67,14 +66,10 @@ class SearchRepository {
             }
         }
 
-        //todo: show "not find" photo by this filter params
         if (fsUserList.isNotEmpty()) {
             for (user in fsUserList){
                 Log.d("RatingDebug", "User uid is ${user.uid} with ${user.rating} points")
             }
-            //Вот видишь ты его тут сетаешь а надо его обратно перекидывать в точку запроса
-            // Поэтому при запросе он у тебя не тот, который ты засетал, перекидывай его обратно я думаю  как то так, точно не знаю
-            //У тебя же эта переменная не глобальная, как ты ее можешь тут сохра
             lastUserInPage = documentsSnapshot.documents.last()
             Log.d("RatingDebug", "Saved lastUserInPage uid is ${lastUserInPage?.get(Consts.UID)} " +
                     "and rating is ${lastUserInPage?.get(Consts.RATING)}")

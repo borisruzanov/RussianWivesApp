@@ -95,24 +95,23 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        Log.d("PagerDebug", "In SearchFragment onCreateView")
         return inflater.inflate(R.layout.fragment_main_tab_search, container, false)
     }
+
     private var visible: Boolean = false
 
     override fun setMenuVisibility(menuVisible: Boolean) {
         super.setMenuVisibility(menuVisible)
 
         if (menuVisible) {
-            Log.d("xxx","Visible true")
             visible = true
-        } else{
-        Log.d("xxx","Visible false")}
+        } else {
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.main_menu, menu)
-        super.onCreateOptionsMenu(menu,inflater)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?) {
@@ -124,7 +123,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         } else {
             if (menu != null) {
             }
-        }   
+        }
         return super.onPrepareOptionsMenu(menu)
     }
 
