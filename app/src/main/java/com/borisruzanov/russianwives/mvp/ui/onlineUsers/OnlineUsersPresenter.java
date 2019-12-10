@@ -1,18 +1,13 @@
 package com.borisruzanov.russianwives.mvp.ui.onlineUsers;
 
-import android.util.Log;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.eventbus.ListEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
-import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -20,10 +15,12 @@ import javax.inject.Inject;
 public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
 
     private OnlineUsersInteractor interactor;
+    private OnlineUsersView mView;
 
     @Inject
-    public OnlineUsersPresenter(OnlineUsersInteractor interactor) {
+    public OnlineUsersPresenter(OnlineUsersInteractor interactor, OnlineUsersView view) {
         this.interactor = interactor;
+        this.mView = view;
     }
 
     public void getOnlineFragmentUsers(int page, boolean mIsUserExist) {
@@ -43,7 +40,7 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
      */
     @Subscribe
     public void inflateCardList(ListEvent event) {
-        getViewState().addUsers(event.getCardList());
+        mView.addUsers(event.getCardList());
     }
 
     @Subscribe

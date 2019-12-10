@@ -146,7 +146,6 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         }*/
 
         layoutManager = GridLayoutManager(activity, 3)
-
         onUserListScrollListener = object : FeedScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 Log.d("UsersListDebug", "in onUserScrollListener and page is $page")

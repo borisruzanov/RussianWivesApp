@@ -59,6 +59,8 @@ public class UserRepository {
 
     private static final String GENDER_FEMALE = "Female";
     private static final String GENDER_MALE = "Male";
+    private static final int TOTAL_ITEMS_TO_LOAD = 15;
+
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
@@ -162,7 +164,7 @@ public class UserRepository {
         }
 
         if (isUserExist) {
-            callRealOnlineUsersList(neededGender);
+            callRealOnlineUsersList(page, neededGender);
         } else {
             callFakeUserList(neededGender);
         }
@@ -183,7 +185,6 @@ public class UserRepository {
                     OnlineUser user = postSnapshot.getValue(OnlineUser.class);
                     userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
                 }
-                Log.d("UserTest", "Real user list got");
                 EventBus.getDefault().post(new ListEvent(userList));
             }
 
@@ -199,11 +200,9 @@ public class UserRepository {
     /**
      * Getting real online users from Realtime Database
      */
-    private void callRealOnlineUsersList(String neededGender) {
-
-
+    private void callRealOnlineUsersList(int page, String neededGender) {
         DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
-        Query query = mReference.orderByChild("rank").endAt(10);
+        Query query = mReference.orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
         query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -212,7 +211,6 @@ public class UserRepository {
                     OnlineUser user = postSnapshot.getValue(OnlineUser.class);
                     userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
                 }
-                Log.d("UserTest", "Real user list got");
                 EventBus.getDefault().post(new ListEvent(userList));
             }
 
@@ -220,6 +218,7 @@ public class UserRepository {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 //                registerErrorEvent(databaseError);
+
             }
         });
     }
@@ -295,8 +294,9 @@ public class UserRepository {
                             HashMap<String, Object> onlineUserMap = new HashMap<>();
                             onlineUserMap.put(Consts.IMAGE, Objects.requireNonNull(snapshot.child(Consts.IMAGE).getValue()).toString());
                             onlineUserMap.put(Consts.NAME, Objects.requireNonNull(snapshot.child(Consts.NAME).getValue()).toString());
-                            onlineUserMap.put(Consts.RATING, snapshot.child(Consts.RATING).getValue());
+                            onlineUserMap.put(Consts.RATING, snapshot.child(Consts.RATING).getValue() );
                             onlineUserMap.put(Consts.COUNTRY, Objects.requireNonNull(snapshot.child(Consts.COUNTRY).getValue()).toString());
+                            onlineUserMap.put(Consts.UID, Objects.requireNonNull(snapshot.child(Consts.UID).getValue()).toString());
                             onlineUserMap.put(Consts.GENDER, gender);
                             Log.d("OnlineUsersDebug", "Add user to OnlineUsers" + "/" + gender + "/" + uid);
                             realtimeReference.child("OnlineUsers").child(gender).child(uid).updateChildren(onlineUserMap);

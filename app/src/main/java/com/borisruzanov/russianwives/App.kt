@@ -75,6 +75,26 @@ class App : Application() {
                 override fun onCancelled(databaseError: DatabaseError) {}
             })
 
+
+            mUserDatabase = FirebaseDatabase.getInstance().reference
+                    .child("OnlineUsers/").child("Female").child(mAuth!!.currentUser!!.uid)
+            //TODO fix-1
+            mUserDatabase!!.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot != null) {
+                        mUserDatabase!!.child("country").onDisconnect().setValue(ServerValue.TIMESTAMP)
+                        mUserDatabase!!.child("gender").setValue(true)
+                        mUserDatabase!!.child("image").setValue(true)
+                        mUserDatabase!!.child("name").setValue(true)
+                        mUserDatabase!!.child("rating").setValue(true)
+                        mUserDatabase!!.child("uid").setValue(mAuth!!.currentUser!!.uid)
+                    } else {
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {}
+            })
+
         }
 
         //todo: provide picasso by dagger

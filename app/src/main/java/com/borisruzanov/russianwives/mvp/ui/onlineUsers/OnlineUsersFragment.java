@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.ui.onlineUsers;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -7,38 +8,33 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.airbnb.lottie.L;
 import com.arellomobile.mvp.MvpAppCompatFragment;
-import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
-import com.borisruzanov.russianwives.mvp.ui.search.adapter.FeedScrollListener;
+import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
+
 
 public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineUsersView {
 
-    @Inject
-    @InjectPresenter
     OnlineUsersPresenter presenter;
 
     @ProvidePresenter
@@ -46,19 +42,25 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         return presenter;
     }
 
-    private OnlineUsersAdapter adapter;
+    private OnlineUsersAdapter mAdapter;
 
-    @BindView(R.id.online_users_rv)
     RecyclerView mOnlineUsersRecycler;
-    @BindView(R.id.online_users_swipe_refresh)
     SwipeRefreshLayout mRefreshSwipeLayout;
-    @BindView(R.id.online_users_empty_text)
     TextView mEmptyUsersTextView;
-    @BindView(R.id.to_see_more_users_container)
     RelativeLayout mBottomButtonContainer;
 
-    private FeedScrollListener scrollListener;
     private boolean mIsUserExist;
+    private int mCurrentPage = 1;
+
+    private int total_item = 0;
+    private int last_visible_item;
+    private boolean isLoading = false;
+    private boolean isMaxData = false;
+
+    private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
+
+    private String firstUid = "";
+    private boolean stopDownloadList = false;
 
     private OnItemClickListener.OnItemClickCallback itemClickCallback = (view, position) -> {
     };
@@ -70,8 +72,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        App app = (App) requireActivity().getApplication();
-        app.getComponent().inject(this);
+
         super.onCreate(savedInstanceState);
     }
 
@@ -85,51 +86,117 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         super.onResume();
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        List<OnlineUser> list = new ArrayList<>();
+        int sizes = mAdapter.getItemCount();
+        mAdapter.clearData(list);
+        mAdapter.notifyDataSetChanged();
+        int size = mAdapter.getItemCount();
+        int x = size;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_online_users, container, false);
         ButterKnife.bind(this, view);
+        setRefreshProgress(true);
         return view;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        initRecyclerView();
-        setRefreshProgress(true);
+        App app = (App) requireActivity().getApplication();
+        app.getComponent().inject(this);
+        presenter = new OnlineUsersPresenter(new OnlineUsersInteractor(new UserRepository(new Prefs(getContext()))), this);
+        mOnlineUsersRecycler = (RecyclerView) getView().findViewById(R.id.online_users_rv);
+        mRefreshSwipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.online_users_swipe_refresh);
+        mEmptyUsersTextView = (TextView) getView().findViewById(R.id.online_users_empty_text);
+        mBottomButtonContainer = (RelativeLayout) getView().findViewById(R.id.to_see_more_users_container);
         mIsUserExist = presenter.isUserExist();
         presenter.registerSubscribers();
 
+        initRecyclerView();
     }
 
     private void initRecyclerView() {
         LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         Prefs prefs = new Prefs(getContext());
-        adapter = new OnlineUsersAdapter(itemClickCallback, chatClickCallback, likeClickCallback);
+        mAdapter = new OnlineUsersAdapter(itemClickCallback, chatClickCallback, likeClickCallback);
         mOnlineUsersRecycler.setLayoutManager(layoutManager);
-        mOnlineUsersRecycler.setAdapter(adapter);
+        int size = mAdapter.getItemCount();
+        int x = size;
+        mOnlineUsersRecycler.setAdapter(mAdapter);
         if (!prefs.getUserGender().equals("")) {
             mIsUserExist = presenter.isUserExist();
-            if (mIsUserExist){
-                presenter.getOnlineFragmentUsers(0, mIsUserExist);
+            if (mIsUserExist) {
+                presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
                 mBottomButtonContainer.setVisibility(View.GONE);
-            }else {
+            } else {
+
             }
         }
         mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
-                int totalItemCount = layoutManager.getItemCount();
-                int lastVisible = layoutManager.findLastVisibleItemPosition();
+                total_item = layoutManager.getItemCount();
+                last_visible_item = layoutManager.findLastVisibleItemPosition();
 
-                boolean endHasBeenReached = lastVisible + 1 >= totalItemCount;
-                if (totalItemCount > 0 && endHasBeenReached) {
-                    Toast.makeText(getContext(),"BOTTOM",Toast.LENGTH_LONG).show();
+                if (!isLoading && last_visible_item >= (total_item - 5 )&& !stopDownloadList){
+                    isLoading = true;
+                    presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
+                    mCurrentPage++;
+                }else {
+                    stopDownloadList = true;
                 }
             }
         });
+    }
+
+    @Override
+    public void addUsers(List<OnlineUser> onlineUsers) {
+        if (firstUid.equals("")) {
+            firstUid = onlineUsers.get(0).getUid();
+        }
+
+        if (!firstUid.equals("") && onlineUsers.contains(firstUid)) {
+            stopDownloadList = true;
+        }
+        if (!stopDownloadList) {
+            mAdapter.addUsers(onlineUsers);
+        }
+
+        if (firstUid.equals("") && !onlineUsers.contains(firstUid)) {
+            mAdapter.addUsers(onlineUsers);
+        }
+
+        if (mAdapter.getItemCount() == 0){
+            mAdapter.addUsers(onlineUsers);
+        }
+
+        setRefreshProgress(false);
+        isLoading = false;
+        isMaxData = true;
+    }
+
+    @Override
+    public void setRefreshProgress(boolean progress) {
+//        mRefreshSwipeLayout.setRefreshing(progress);
+    }
+
+    @Override
+    public void makeFakeUserCall() {
+        presenter.getOnlineFragmentUsers(0, mIsUserExist);
     }
 
     private void createOfflineDBWomen() {
@@ -196,23 +263,6 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
             poemsCatRefRus.child(user.getUid()).setValue(user);
         }
     }
-
-    @Override
-    public void addUsers(List<OnlineUser> onlineUsers) {
-        adapter.addUsers(onlineUsers);
-        setRefreshProgress(false);
-    }
-
-    @Override
-    public void setRefreshProgress(boolean progress) {
-        mRefreshSwipeLayout.setRefreshing(progress);
-    }
-
-    @Override
-    public void makeFakeUserCall() {
-        presenter.getOnlineFragmentUsers(0, mIsUserExist);
-    }
-
 
 
 }

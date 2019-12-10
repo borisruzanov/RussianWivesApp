@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +26,7 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.OnlineUserViewHolder>{
+public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.OnlineUserViewHolder> {
 
     private List<OnlineUser> onlineUsers = new ArrayList<>();
     private OnItemClickListener.OnItemClickCallback onItemClickCallback;
@@ -46,9 +47,11 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
         notifyItemRangeInserted(onlineUsers.size() - userList.size(), onlineUsers.size());
     }
 
-    public void clearData(){
-        onlineUsers.clear();
-        notifyDataSetChanged();
+    public void clearData(List<OnlineUser> userList){
+        int oldSize = userList.size();
+        onlineUsers = userList;
+        notifyItemRangeRemoved(0, oldSize);
+        notifyItemRangeInserted(0, userList.size());
     }
 
     @NonNull
@@ -62,6 +65,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
     @Override
     public void onBindViewHolder(@NonNull OnlineUsersAdapter.OnlineUserViewHolder holder, int position) {
         OnlineUser user = onlineUsers.get(position);
+        Log.d("testList", "rating " + user.getRating() + " uid " + user.getUid());
         holder.bind(user, position);
     }
 
@@ -89,7 +93,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             animationView = itemView.findViewById(R.id.lottieAnimationView);
         }
 
-        void bind(OnlineUser user, int position){
+        void bind(OnlineUser user, int position) {
             ViewCompat.setTransitionName(imageView, user.getName());
 
             if (FirebaseUtils.isUserExist() && user.getUid() != null) {
@@ -97,15 +101,14 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
                     if (flag) {
                         likeBtn.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_favorite));
                         animationView.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         likeBtn.setBackground(ContextCompat.getDrawable(context, R.drawable.heart_outline));
                         animationView.setVisibility(View.GONE);
                     }
                 });
             }
 
-            if(user.getUid() != null) {
+            if (user.getUid() != null) {
                 chatBtn.setOnClickListener(new OnItemClickListener(position, onChatClickCallback));
                 likeBtn.setOnClickListener(new OnItemClickListener(position, onLikeClickCallback));
             }
@@ -113,7 +116,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-            if(user.getImage().equals(Consts.DEFAULT)){
+            if (user.getImage().equals(Consts.DEFAULT)) {
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);
             } else {
                 Glide.with(context).load(user.getImage()).thumbnail(0.5f).into(imageView);
