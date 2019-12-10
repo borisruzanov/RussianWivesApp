@@ -14,8 +14,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
-        showGenderDialog()
-        mainInteractor.setFirstOpenDate()
+
         //mainInteractor.setUserInHot()
 //        mainInteractor.getHotUsers(callback = HotUsersCallback { hotUsers ->
 //            if (hotUsers.isEmpty()) Log.d("HotUsersDebug", "users is empty")
@@ -25,10 +24,17 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 //        })
     }
 
+
+    fun showGenderFirstDialog(){
+        showGenderDialog()
+        mainInteractor.setFirstOpenDate()
+    }
     fun showDialogs() {
         if (isUserExist()) {
             showMustInfoDialog()
             showAdditionalInfoDialog()
+        } else{
+            Log.d("AchDebug", "User can write msgs")
         }
     }
 
@@ -58,14 +64,12 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
 
     private fun showGenderDialog() {
         if (mainInteractor.isGenderDefault()) {
-            viewState.showGenderDialog()
+//            mView.showGenderDialog()
         }
     }
 
     fun showMustInfoDialog() {
-        Log.d("MIDebug", "In showMustInfoDialog()")
         mainInteractor.hasDefaultMustInfo(callback = BoolCallback {flag ->
-            Log.d("DialogDebug", "Flag is $flag")
             if (flag) viewState.showMustInfoDialog()
         })
     }

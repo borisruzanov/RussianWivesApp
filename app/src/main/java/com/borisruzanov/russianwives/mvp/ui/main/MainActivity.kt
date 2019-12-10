@@ -110,25 +110,22 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
         MobileAds.initialize(this, APP_ID)
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mDialogFragment = FilterDialogFragment()
-
         mFilterButton = findViewById(R.id.toolbar_filter_btn)
         mAdView = findViewById<View>(R.id.adView) as AdView?
         mDrawerLayout = findViewById(R.id.drawer_layout)
         mNavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
-
         mUnregisteredTitle = findViewById(R.id.please_register_to_start_title)
 
         mUserExist = mPresenter.isUserExist()
-
         mSearchFragment = SearchFragment()
         mActionsFragment = ActionsFragment()
-
         mToolbar = this.findViewById(R.id.toolbar)
         setSupportActionBar(mToolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
-        sendingToChatActivity()
+        mPresenter.showGenderFirstDialog()
+//        sendingToChatActivity()
         analytics()
         drawerInit()
         showDialogs()
@@ -136,7 +133,7 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
 
         mPresenter.checkForUserExist()
 
-        loadingListBasedOnUserExist()
+//        loadingListBasedOnUserExist()
 
 
         val adRequest = AdRequest.Builder()
@@ -299,7 +296,6 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
     }
 
     override fun setAdapter(isUserExist: Boolean) {
-
         mViewPager.adapter = mViewPagerAdapter
     }
 

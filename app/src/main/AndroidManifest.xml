@@ -32,11 +32,7 @@
         <activity
             android:name=".mvp.ui.main.MainActivity"
             android:configChanges="screenSize|orientation">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
@@ -44,7 +40,7 @@
         <activity android:name=".mvp.ui.rewardvideo.RewardVideoActivity" />
         <activity
             android:name=".mvp.ui.chatmessage.ChatMessageActivity"
-            android:parentActivityName=".mvp.ui.main.MainActivity" />
+            android:parentActivityName=".mvp.ui.main.MainScreenActivity" />
         <activity
             android:name=".mvp.ui.profilesettings.ProfileSettingsActivity" />
         <activity
@@ -52,10 +48,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mvp.ui.slider.SliderActivity"
-            android:parentActivityName=".mvp.ui.main.MainActivity">
+            android:parentActivityName=".mvp.ui.main.MainScreenActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.borisruzanov.russianwives.mvp.ui.main.MainActivity" />
+                android:value="com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity" />
         </activity>
         <activity android:name=".mvp.ui.friendprofile.FriendProfileActivity" />
 
@@ -83,6 +79,12 @@
             android:value="@string/notification_channel_id" />
 
         <activity android:name=".mvp.ui.shop.ServicesActivity"></activity>
+        <activity android:name=".mvp.ui.main.MainScreenActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
