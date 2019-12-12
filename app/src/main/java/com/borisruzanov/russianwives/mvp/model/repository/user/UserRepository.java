@@ -156,9 +156,9 @@ public class UserRepository {
     public void getOnlineUsers(int page, boolean isUserExist) {
         String neededGender;
         if (getGender().equals(GENDER_FEMALE)) {
-            neededGender = GENDER_FEMALE;
-        } else if (getGender().equals(GENDER_MALE)) {
             neededGender = GENDER_MALE;
+        } else if (getGender().equals(GENDER_MALE)) {
+            neededGender = GENDER_FEMALE;
         } else {
             neededGender = GENDER_FEMALE;
         }
@@ -657,6 +657,10 @@ public class UserRepository {
             }
         }
         return valuesList;
+    }
+
+    public String getUserGender(){
+        return prefs.getGender();
     }
 
 }

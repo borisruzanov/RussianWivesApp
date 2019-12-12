@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -22,21 +23,32 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
+import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment;
+import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.CustomViewPager;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter;
+import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
 import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
+import com.borisruzanov.russianwives.utils.Consts;
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.analytics.HitBuilders;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static android.view.View.GONE;
+import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class MainScreenActivity extends AppCompatActivity {
 
@@ -93,6 +105,8 @@ public class MainScreenActivity extends AppCompatActivity {
         drawerViewsInit();
         invalidateOptionsMenu();
         validateUserExist();
+
+        showDialogs();
     }
 
     private void drawerViewsInit() {
@@ -162,8 +176,8 @@ public class MainScreenActivity extends AppCompatActivity {
             mFilterButton.setVisibility(View.VISIBLE);
             mUnregisteredTitle.setVisibility(GONE);
             menu.findItem(R.id.login).setVisible(false);
-            //mPresenter.showDialogs()
         } else {
+            mViewPagerAdapter.addFragment(new OnlineUsersFragment(), getString(R.string.online_users_title));
             mFilterButton.setVisibility(GONE);
             mUnregisteredTitle.setVisibility(View.VISIBLE);
             mTabLayout.setVisibility(GONE);
@@ -195,9 +209,29 @@ public class MainScreenActivity extends AppCompatActivity {
         mViewPager.setAdapter(mViewPagerAdapter);
     }
 
+    private void showDialogs() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                String s = mPresenter.getUserGender();
+                if (mPresenter.getUserGender().isEmpty() || mPresenter.getUserGender().equals("default")) {
+                    GenderDialogFragment genderDialogFragment = new GenderDialogFragment();
+                    genderDialogFragment.setCancelable(false);
+                    getSupportFragmentManager().beginTransaction().add(genderDialogFragment, GenderDialogFragment.TAG).commit();
+                } else {
+//                    getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), GenderDialogFragment.TAG).commit();
+//                    getSupportFragmentManager().beginTransaction().add(new ConfirmDialogFragment(), GenderDialogFragment.TAG).commit();
+                }
+            }
+        }, 100);
+
+
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
             case R.id.shop:
                 Intent settingsIntent = new Intent(MainScreenActivity.this, RewardVideoActivity.class);
                 startActivity(settingsIntent);
@@ -209,7 +243,21 @@ public class MainScreenActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Calling auth window to log in
+     */
     private void callAuthWindow() {
-        //sfdfsdf
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.FacebookBuilder().build());
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
     }
+
 }

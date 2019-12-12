@@ -45,7 +45,7 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
 
     @Subscribe
     public void inflateFakeUserListFirstTime(StringEvent event){
-        getViewState().makeFakeUserCall();
+        mView.makeFakeUserCall(event.getStringParameter());
     }
 
 

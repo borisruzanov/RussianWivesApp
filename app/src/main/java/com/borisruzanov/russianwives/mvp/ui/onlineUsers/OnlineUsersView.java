@@ -10,5 +10,5 @@ public interface OnlineUsersView extends MvpView {
     void addUsers(List<OnlineUser> onlineUsers);
     void setRefreshProgress(boolean progress);
 
-    void makeFakeUserCall();
+    void makeFakeUserCall(String gender);
 }

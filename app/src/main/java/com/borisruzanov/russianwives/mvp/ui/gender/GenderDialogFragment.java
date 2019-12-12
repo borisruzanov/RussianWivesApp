@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Spinner;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
@@ -76,12 +76,15 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
     @OnClick(R.id.confirm_button_gender)
     public void onConfirmClicked() {
         if (!genderSpinner.getSelectedItem().toString().equals(Consts.DEFAULT)) {
-            listener.setGender(genderSpinner.getSelectedItem().toString());
+//            listener.setGender(genderSpinner.getSelectedItem().toString());
             if (genderSpinner.getSelectedItem().toString() != null) {
                 Bundle bundle = new Bundle();
                 bundle.putString(Consts.GENDER, genderSpinner.getSelectedItem().toString());
                 mFirebaseAnalytics.logEvent("dialog_gender", bundle);
             }
+            Prefs prefs = new Prefs(getContext());
+            prefs.setGender(genderSpinner.getSelectedItem().toString());
+            String s = genderSpinner.getSelectedItem().toString();
             EventBus.getDefault().post(new StringEvent(genderSpinner.getSelectedItem().toString()));
             dismiss();
         } else

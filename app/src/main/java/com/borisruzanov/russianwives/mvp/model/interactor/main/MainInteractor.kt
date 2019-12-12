@@ -11,13 +11,15 @@ import javax.inject.Inject
 class MainInteractor @Inject constructor(private val userRepository: UserRepository,
                                          private val hotUsersRepository: HotUsersRepository) {
 
+    fun getUserGender() = userRepository.userGender
+
     val isUserExist: Boolean = userRepository.isUserExist
 
     fun saveUser() = userRepository.saveUser()
 
     fun makeDialogOpenDateDefault() = userRepository.makeDialogOpenDateDefault()
 
-    fun setFirstOpenDate () = userRepository.setFirstOpenDate()
+    fun setFirstOpenDate() = userRepository.setFirstOpenDate()
 
     fun isGenderDefault() = userRepository.isGenderDefault
 

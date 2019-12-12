@@ -13,4 +13,12 @@ public class MainScreenPresenter {
     public boolean isUserExist(){
         return  mInteractor.isUserExist();
     }
+
+    public boolean isGenderDefault(){
+        return mInteractor.isGenderDefault();
+    }
+
+    public String getUserGender() {
+        return mInteractor.getUserGender();
+    }
 }

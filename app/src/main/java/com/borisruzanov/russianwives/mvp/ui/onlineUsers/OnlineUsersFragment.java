@@ -136,27 +136,26 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         int size = mAdapter.getItemCount();
         int x = size;
         mOnlineUsersRecycler.setAdapter(mAdapter);
-        if (!prefs.getUserGender().equals("")) {
+        if (!prefs.getGender().equals("") && !prefs.getGender().equals("default")) {
             mIsUserExist = presenter.isUserExist();
-            if (mIsUserExist) {
-                presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
-                mBottomButtonContainer.setVisibility(View.GONE);
-            } else {
+            presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
+            mBottomButtonContainer.setVisibility(View.GONE);
+        } else {
+            mIsUserExist = presenter.isUserExist();
 
-            }
         }
         mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                LinearLayoutManager layoutManager=LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
+                LinearLayoutManager layoutManager = LinearLayoutManager.class.cast(recyclerView.getLayoutManager());
                 total_item = layoutManager.getItemCount();
                 last_visible_item = layoutManager.findLastVisibleItemPosition();
 
-                if (!isLoading && last_visible_item >= (total_item - 5 )&& !stopDownloadList){
+                if (!isLoading && last_visible_item >= (total_item - 5) && !stopDownloadList) {
                     isLoading = true;
                     presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
                     mCurrentPage++;
-                }else {
+                } else {
                     stopDownloadList = true;
                 }
             }
@@ -180,7 +179,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
             mAdapter.addUsers(onlineUsers);
         }
 
-        if (mAdapter.getItemCount() == 0){
+        if (mAdapter.getItemCount() == 0) {
             mAdapter.addUsers(onlineUsers);
         }
 
@@ -195,7 +194,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     }
 
     @Override
-    public void makeFakeUserCall() {
+    public void makeFakeUserCall(String gender) {
         presenter.getOnlineFragmentUsers(0, mIsUserExist);
     }
 
