@@ -11,10 +11,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.airbnb.lottie.L;
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.App;
@@ -24,6 +25,7 @@ import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
+import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -35,19 +37,20 @@ import butterknife.ButterKnife;
 
 public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineUsersView {
 
-    OnlineUsersPresenter presenter;
+    OnlineUsersPresenter mPresenter;
 
     @ProvidePresenter
-    public OnlineUsersPresenter getPresenter() {
-        return presenter;
+    public OnlineUsersPresenter getmPresenter() {
+        return mPresenter;
     }
 
     private OnlineUsersAdapter mAdapter;
 
-    RecyclerView mOnlineUsersRecycler;
-    SwipeRefreshLayout mRefreshSwipeLayout;
-    TextView mEmptyUsersTextView;
-    RelativeLayout mBottomButtonContainer;
+    private RecyclerView mOnlineUsersRecycler;
+    private SwipeRefreshLayout mRefreshSwipeLayout;
+    private TextView mEmptyUsersTextView;
+    private RelativeLayout mBottomButtonContainer;
+    private Button mSeeMoreRegisterButton;
 
     private boolean mIsUserExist;
     private int mCurrentPage = 1;
@@ -84,6 +87,9 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     @Override
     public void onResume() {
         super.onResume();
+        if (mAdapter.getItemCount() == 0){
+            initRecyclerView();
+        }
     }
 
     @Override
@@ -117,15 +123,35 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         super.onActivityCreated(savedInstanceState);
         App app = (App) requireActivity().getApplication();
         app.getComponent().inject(this);
-        presenter = new OnlineUsersPresenter(new OnlineUsersInteractor(new UserRepository(new Prefs(getContext()))), this);
+        mPresenter = new OnlineUsersPresenter(new OnlineUsersInteractor(new UserRepository(new Prefs(getContext()))), this);
         mOnlineUsersRecycler = (RecyclerView) getView().findViewById(R.id.online_users_rv);
         mRefreshSwipeLayout = (SwipeRefreshLayout) getView().findViewById(R.id.online_users_swipe_refresh);
         mEmptyUsersTextView = (TextView) getView().findViewById(R.id.online_users_empty_text);
         mBottomButtonContainer = (RelativeLayout) getView().findViewById(R.id.to_see_more_users_container);
-        mIsUserExist = presenter.isUserExist();
-        presenter.registerSubscribers();
+        mSeeMoreRegisterButton = (Button) getView().findViewById(R.id.to_see_more_users_button);
+
+        mIsUserExist = mPresenter.isUserExist();
+        mPresenter.registerSubscribers();
 
         initRecyclerView();
+        userExistScenarios();
+    }
+
+    private void userExistScenarios() {
+        if (mIsUserExist){
+
+        } else {
+            registerButtonClicked();
+        }
+    }
+
+    private void registerButtonClicked() {
+        mSeeMoreRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainScreenActivity)getActivity()).callAuthWindow();
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -137,11 +163,9 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         int x = size;
         mOnlineUsersRecycler.setAdapter(mAdapter);
         if (!prefs.getGender().equals("") && !prefs.getGender().equals("default")) {
-            mIsUserExist = presenter.isUserExist();
-            presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
+            mPresenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
             mBottomButtonContainer.setVisibility(View.GONE);
         } else {
-            mIsUserExist = presenter.isUserExist();
 
         }
         mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -153,12 +177,25 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
                 if (!isLoading && last_visible_item >= (total_item - 5) && !stopDownloadList) {
                     isLoading = true;
-                    presenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
+                    mPresenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
                     mCurrentPage++;
                 } else {
                     stopDownloadList = true;
                 }
+
+                //Making bottom registration visible
+                boolean endHasBeenReached = last_visible_item + 1 >= total_item;
+                if (!mIsUserExist){
+                    if (total_item > 0 && endHasBeenReached) {
+                        mBottomButtonContainer.setVisibility(View.VISIBLE);
+                        mBottomButtonContainer.bringToFront();
+                    }
+                }
             }
+
+
+
+
         });
     }
 
@@ -195,7 +232,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     @Override
     public void makeFakeUserCall(String gender) {
-        presenter.getOnlineFragmentUsers(0, mIsUserExist);
+        mPresenter.getOnlineFragmentUsers(0, mIsUserExist);
     }
 
     private void createOfflineDBWomen() {

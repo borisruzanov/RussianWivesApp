@@ -214,7 +214,6 @@ public class MainScreenActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                String s = mPresenter.getUserGender();
                 if (mPresenter.getUserGender().isEmpty() || mPresenter.getUserGender().equals("default")) {
                     GenderDialogFragment genderDialogFragment = new GenderDialogFragment();
                     genderDialogFragment.setCancelable(false);
@@ -246,7 +245,7 @@ public class MainScreenActivity extends AppCompatActivity {
     /**
      * Calling auth window to log in
      */
-    private void callAuthWindow() {
+    public void callAuthWindow() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build(),

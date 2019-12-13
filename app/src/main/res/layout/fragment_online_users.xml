@@ -3,46 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Online List"/>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/online_users_swipe_refresh"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/online_users_rv"
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/online_users_swipe_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/online_users_empty_text"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/online_users_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/online_users_empty_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/emptyText"
+                android:visibility="gone" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <RelativeLayout
+            android:id="@+id/to_see_more_users_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/emptyText"
-            android:visibility="gone" />
+            android:background="@android:color/white"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone">
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+            <TextView
+                android:id="@+id/to_see_more_users_title"
+                android:layout_marginTop="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:textSize="@dimen/answers_text_size"
+                android:text="To see more users please register" />
 
-    <RelativeLayout
-        android:id="@+id/to_see_more_users_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/to_see_more_users_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="To see more users please register"/>
-        <Button
-            android:id="@+id/to_see_more_users_button"
-            android:layout_below="@+id/to_see_more_users_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="REGISTER"/>
+            <Button
+                android:id="@+id/to_see_more_users_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/to_see_more_users_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/dp12"
+                android:backgroundTint="@color/colorAccent"
+                android:text="REGISTER"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
     </RelativeLayout>
-
 </FrameLayout>
