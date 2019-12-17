@@ -65,7 +65,6 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
     @Override
     public void onBindViewHolder(@NonNull OnlineUsersAdapter.OnlineUserViewHolder holder, int position) {
         OnlineUser user = onlineUsers.get(position);
-        Log.d("testList", "rating " + user.getRating() + " uid " + user.getUid());
         holder.bind(user, position);
     }
 

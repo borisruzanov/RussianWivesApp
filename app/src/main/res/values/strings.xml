@@ -381,6 +381,8 @@
     <string name="services">Services</string>
     <string name="text">Text</string>
     <string name="online_users_title">Online Users</string>
+    <string name="please_register_to_interact_with_user">Please register to interact with the user</string>
+    <string name="to_see_more_users_please_register">To see more users please register</string>
 
     <!-- Cleaned strings -->
 

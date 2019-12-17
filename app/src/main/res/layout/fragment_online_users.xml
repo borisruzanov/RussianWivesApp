@@ -8,11 +8,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/online_users_swipe_refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/online_users_rv"
                 android:layout_width="match_parent"
@@ -26,7 +21,6 @@
                 android:text="@string/emptyText"
                 android:visibility="gone" />
 
-        </android.support.v4.widget.SwipeRefreshLayout>
 
         <RelativeLayout
             android:id="@+id/to_see_more_users_container"
@@ -43,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:textSize="@dimen/answers_text_size"
-                android:text="To see more users please register" />
+                android:text="@string/to_see_more_users_please_register" />
 
             <Button
                 android:id="@+id/to_see_more_users_button"
@@ -53,7 +47,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp12"
                 android:backgroundTint="@color/colorAccent"
-                android:text="REGISTER"
+                android:text="@string/register"
                 android:textColor="@android:color/white" />
         </RelativeLayout>
     </RelativeLayout>

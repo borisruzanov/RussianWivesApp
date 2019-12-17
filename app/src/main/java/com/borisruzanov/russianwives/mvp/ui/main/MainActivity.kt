@@ -7,7 +7,6 @@ import android.os.Handler
 import android.support.design.widget.NavigationView
 import android.support.design.widget.TabLayout
 import android.support.v4.app.DialogFragment
-import android.support.v4.content.ContextCompat.startActivity
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -18,7 +17,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -30,7 +28,6 @@ import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
-import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
@@ -41,7 +38,6 @@ import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter
 import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment
-import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity
@@ -110,12 +106,12 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
         MobileAds.initialize(this, APP_ID)
         firebaseAnalytics = FirebaseAnalytics.getInstance(this)
         mDialogFragment = FilterDialogFragment()
-        mFilterButton = findViewById(R.id.toolbar_filter_btn)
+//        mFilterButton = findViewById(R.id.toolbar_filter_btn)
         mAdView = findViewById<View>(R.id.adView) as AdView?
         mDrawerLayout = findViewById(R.id.drawer_layout)
         mNavigationView = findViewById(R.id.nav_view)
         mNavigationView.setNavigationItemSelectedListener(this)
-        mUnregisteredTitle = findViewById(R.id.please_register_to_start_title)
+//        mUnregisteredTitle = findViewById(R.id.please_register_to_start_title)
 
         mUserExist = mPresenter.isUserExist()
         mSearchFragment = SearchFragment()
@@ -159,15 +155,15 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
         if (mUserExist) {
             mViewPagerAdapter.addFragment(OnlineUsersFragment(), getString(R.string.online_users_title))
             mViewPagerAdapter.addFragment(mSearchFragment, getString(R.string.search_title))
-            mFilterButton.visibility = VISIBLE
-            mUnregisteredTitle.visibility = GONE
+//            mFilterButton.visibility = VISIBLE
+//            mUnregisteredTitle.visibility = GONE
 
         } else {
             mViewPagerAdapter.addFragment(OnlineUsersFragment(), "All Users")
             val tabsTitles = mTabLayout.getChildAt(0) as ViewGroup
             tabsTitles.getChildAt(1).visibility = GONE
-            mFilterButton.visibility = GONE
-            mUnregisteredTitle.visibility = VISIBLE
+//            mFilterButton.visibility = GONE
+//            mUnregisteredTitle.visibility = VISIBLE
             mAdView!!.visibility = GONE
             mTabLayout.visibility = GONE
         }
@@ -331,8 +327,8 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
             //mPresenter.showDialogs()
         } else {
             mToolbar.setNavigationIcon(null);
-            menu.findItem(R.id.shop).isVisible = false
-            menu.findItem(R.id.chats).isVisible = false
+//            menu.findItem(R.id.shop).isVisible = false
+//            menu.findItem(R.id.chats).isVisible = false
             menu.findItem(R.id.login).isVisible = true
         }
     }
@@ -355,11 +351,11 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.shop -> {
-                val settingsIntent = Intent(this@MainActivity, RewardVideoActivity::class.java)
-                startActivity(settingsIntent)
-                true
-            }
+//            R.id.shop -> {
+//                val settingsIntent = Intent(this@MainActivity, RewardVideoActivity::class.java)
+//                startActivity(settingsIntent)
+//                true
+//            }
             R.id.login -> {
                 callAuthWindow()
                 true

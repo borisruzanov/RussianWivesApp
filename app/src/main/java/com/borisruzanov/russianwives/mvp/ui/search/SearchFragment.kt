@@ -118,7 +118,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         super.onPrepareOptionsMenu(menu)
         if (visible) {
             if (menu != null) {
-                menu.findItem(R.id.shop).isVisible = true
+//                menu.findItem(R.id.shop).isVisible = true
             }
         } else {
             if (menu != null) {

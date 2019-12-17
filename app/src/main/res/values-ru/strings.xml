@@ -90,6 +90,8 @@
     <string name="visitors">Посетителей</string>
     <string name="likes">Лайков</string>
     <string name="order_gender">Укажите свой пол</string>
+    <string name="please_register_to_interact_with_user">Пожалуйста сначала зарегистрируйтесь</string>
+    <string name="to_see_more_users_please_register">Увидеть Больше Пользователей</string>
 
 
     <!-- System safe strings 333-->
@@ -116,6 +118,9 @@
     <string name="do_you_willing_kids">Хотите ли Вы детей?</string>
     <string name="describe_who_are_you_looking_for">Опишите кого Вы ищите на английском</string>
     <string name="discribe_what_you_like_to_do_in_couple_words">Looking for a man...</string>
+    <string name="please_register_to_start">Зарегистрируйтесь чтобы начать</string>
+    <string name="confirm_dialog_reg_header">Сначала создайте аккаунт</string>
+    <string name="register">Регистрация</string>
 
 
     <string name="cancel">Cancel</string>
@@ -303,14 +308,11 @@
     <string name="faith_updated">Faith was updated</string>
     <string name="need_register_actions">You need to be registered to see who liked or visited you</string>
     <string name="need_register_chats">You need to be registered to read and send messages</string>
-    <string name="register">Register</string>
-    <string name="confirm_dialog_reg_header">You need to create account</string>
 
     <string name="login">Login</string>
     <string name="finish">Finish</string>
     <string name="hobby_updated">Looking for was updated</string>
     <string name="notification_channel_id">RW_CH</string>
-    <string name="please_register_to_start">Please register to start</string>
     <string name="conversion_one">conversion one</string>
     <string name="new_user_registered">New User Registered</string>
     <string name="user_information_category">User Information</string>

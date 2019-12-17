@@ -1,10 +1,10 @@
 package com.borisruzanov.russianwives.mvp.ui.main;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -17,32 +17,28 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
 import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
-import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.CustomViewPager;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter;
-import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
 import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
-import com.borisruzanov.russianwives.utils.Consts;
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import java.util.Arrays;
 import java.util.List;
@@ -50,7 +46,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
-public class MainScreenActivity extends AppCompatActivity {
+public class MainScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private MainScreenPresenter mPresenter;
@@ -70,6 +66,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private LinearLayout mPurchaseSectionButton;
     private RelativeLayout mFilterButton;
     private TextView mUnregisteredTitle;
+    private ImageView mRegisterButton;
 
     private DialogFragment mDialogFragment;
     private SearchFragment mSearchFragment;
@@ -95,6 +92,7 @@ public class MainScreenActivity extends AppCompatActivity {
         mViewPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
 
         mFilterButton = findViewById(R.id.toolbar_filter_btn);
+        mRegisterButton = findViewById(R.id.login);
 
 
         mUnregisteredTitle = findViewById(R.id.please_register_to_start_title);
@@ -112,6 +110,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private void drawerViewsInit() {
         //Drawer инициализация и листенеры
         mNavigationView = findViewById(R.id.nav_view);
+        drawerClickListeners();
         View headerView = mNavigationView.getHeaderView(0);
         Menu menu = mNavigationView.getMenu();
         mDrawerItemSafety = menu.findItem(R.id.drawer_top_menu_safety_item);
@@ -140,6 +139,17 @@ public class MainScreenActivity extends AppCompatActivity {
                 startActivity(settingsIntent);
             }
         });
+
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                callAuthWindow();
+            }
+        });
+    }
+
+    private void drawerClickListeners() {
+
     }
 
     private void tabsInit() {
@@ -166,26 +176,31 @@ public class MainScreenActivity extends AppCompatActivity {
         MenuInflater inflater = new MenuInflater(this);
         inflater.inflate(R.menu.main_menu, menu);
         hideMenuItems(menu);
-        return super.onCreateOptionsMenu(menu);
+        return true;
     }
 
     private void hideMenuItems(Menu menu) {
         if (mIsUserExist) {
             mViewPagerAdapter.addFragment(new OnlineUsersFragment(), getString(R.string.online_users_title));
             mViewPagerAdapter.addFragment(mSearchFragment, getString(R.string.search_title));
+
             mFilterButton.setVisibility(View.VISIBLE);
             mUnregisteredTitle.setVisibility(GONE);
-            menu.findItem(R.id.login).setVisible(false);
+            mRegisterButton.setVisibility(GONE);
         } else {
+//            menu.clear();
             mViewPagerAdapter.addFragment(new OnlineUsersFragment(), getString(R.string.online_users_title));
+
             mFilterButton.setVisibility(GONE);
             mUnregisteredTitle.setVisibility(View.VISIBLE);
+
             mTabLayout.setVisibility(GONE);
             //Hide drawer
             mToolbar.setNavigationIcon(null);
             menu.findItem(R.id.shop).setVisible(false);
             menu.findItem(R.id.chats).setVisible(false);
-            menu.findItem(R.id.login).setVisible(true);
+            mRegisterButton.setVisibility(View.VISIBLE);
+
         }
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
@@ -235,9 +250,6 @@ public class MainScreenActivity extends AppCompatActivity {
                 Intent settingsIntent = new Intent(MainScreenActivity.this, RewardVideoActivity.class);
                 startActivity(settingsIntent);
                 return true;
-            case R.id.login:
-                callAuthWindow();
-                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -259,4 +271,53 @@ public class MainScreenActivity extends AppCompatActivity {
                 RC_SIGN_IN);
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (data != null) {
+//                IdpResponse response = new IdpResponse.fromResultIntent(data)
+                if (resultCode == Activity.RESULT_OK) {
+//                    firebaseAnalytics.logEvent("registration_completed", null)
+                    mPresenter.saveUser();
+                    reload();
+                } else {
+//                    val bundle = Bundle()
+//                    bundle.putString("registration_error_type", response?.error?.errorCode.toString())
+//                    firebaseAnalytics.logEvent("registration_failed", bundle)
+//                    if (response == null) {
+//                    }
+                }
+            }
+        }
+    }
+
+    private void reload() {
+        mPresenter.makeDialogOpenDateDefault();
+        Intent mainScreenIntent = new Intent(this, MainScreenActivity.class);
+        startActivity(mainScreenIntent);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.drawer_top_menu_support_item:
+
+                return true;
+            case R.id.drawer_top_menu_safety_item:
+
+                return true;
+            case R.id.drawer_top_menu_logout_item:
+                AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        reload();
+                    }
+                });
+                return true;
+            default:
+                return false;
+        }
+    }
 }

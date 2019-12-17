@@ -5,19 +5,13 @@
     <item
         android:id="@+id/chats"
         android:icon="@drawable/ic_chat_black_24dp"
-        android:title="@string/login"
-        app:showAsAction="always" />
+        android:title=""
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/shop"
         android:icon="@drawable/ic_notifications_active_black_24dp"
-        android:title="@string/login"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/login"
-        android:icon="@drawable/ic_person_add"
-        android:title="@string/login"
-        app:showAsAction="always" />
+        android:title=""
+        app:showAsAction="ifRoom" />
 
 </menu>

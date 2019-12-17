@@ -21,4 +21,12 @@ public class MainScreenPresenter {
     public String getUserGender() {
         return mInteractor.getUserGender();
     }
+
+    public void saveUser() {
+        mInteractor.saveUser();
+    }
+
+    public void makeDialogOpenDateDefault() {
+        mInteractor.makeDialogOpenDateDefault();
+    }
 }
