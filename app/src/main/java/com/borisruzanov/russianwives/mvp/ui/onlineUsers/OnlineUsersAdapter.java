@@ -73,6 +73,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
         return onlineUsers.size();
     }
 
+
     class OnlineUserViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout container;
         ImageView imageView, likeBtn, chatBtn;
@@ -90,6 +91,9 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             name = itemView.findViewById(R.id.user_name);
             country = itemView.findViewById(R.id.user_country);
             animationView = itemView.findViewById(R.id.lottieAnimationView);
+//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+//            params.height = imageView.getWidth();
+//            imageView.setLayoutParams(params);
         }
 
         void bind(OnlineUser user, int position) {
@@ -114,6 +118,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
 
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+
 
             if (user.getImage().equals(Consts.DEFAULT)) {
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);

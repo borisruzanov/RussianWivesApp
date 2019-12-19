@@ -28,6 +28,7 @@ import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN
+import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsFragment
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment
@@ -54,6 +55,9 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
         ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener, NavigationView.OnNavigationItemSelectedListener {
+    override fun setUserData(user: FsUser?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     private val APP_ID = "ca-app-pub-5095813023957397~1146672660"
@@ -221,24 +225,22 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
     private fun drawerInit() {
         val headerView: View = mNavigationView.getHeaderView(0)
         val menu: Menu = mNavigationView.getMenu()
-        mDrawerItemSafety = menu.findItem(R.id.drawer_top_menu_safety_item)
+//        mDrawerItemSafety = menu.findItem(R.id.drawer_top_menu_safety_item)
         mDrawerItemSafety.isVisible = false
         mNavigationView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.drawer_top_menu_support_item -> {
-                    // handle click
-                    true
-                }
-                R.id.drawer_top_menu_safety_item -> {
-                    // handle click
-                    true
-                }
+//                R.id.drawer_top_menu_support_item -> {
+//                    // handle click
+//                    true
+//                }
+//                R.id.drawer_top_menu_safety_item -> {
+//                    // handle click
+//                    true
+//                }
                 R.id.drawer_top_menu_logout_item -> {
                     true
                 }
-                R.id.drawer_top_menu_login_item -> {
-                    true
-                }
+
                 else -> false
             }
         }
@@ -323,13 +325,13 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
 
     private fun validateMenuOnAuth(menu: Menu) {
         if (mPresenter.isUserExist()) {
-            menu.findItem(R.id.login).isVisible = false
+//            menu.findItem(R.id.login).isVisible = false
             //mPresenter.showDialogs()
         } else {
             mToolbar.setNavigationIcon(null);
 //            menu.findItem(R.id.shop).isVisible = false
 //            menu.findItem(R.id.chats).isVisible = false
-            menu.findItem(R.id.login).isVisible = true
+//            menu.findItem(R.id.login).isVisible = true
         }
     }
 
@@ -356,10 +358,10 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
 //                startActivity(settingsIntent)
 //                true
 //            }
-            R.id.login -> {
-                callAuthWindow()
-                true
-            }
+//            R.id.login -> {
+//                callAuthWindow()
+//                true
+//            }
 
             else -> super.onOptionsItemSelected(item)
         }

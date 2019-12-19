@@ -1,13 +1,20 @@
 package com.borisruzanov.russianwives.mvp.ui.main;
 
+import com.borisruzanov.russianwives.eventbus.ListEvent;
+import com.borisruzanov.russianwives.eventbus.UserEvent;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 public class MainScreenPresenter {
 
     private MainInteractor mInteractor;
+    private MainView mView;
 
-    public MainScreenPresenter(MainInteractor mInteractor) {
+    public MainScreenPresenter(MainInteractor mInteractor, MainView view) {
         this.mInteractor = mInteractor;
+        this.mView = view;
     }
 
     public boolean isUserExist(){
@@ -28,5 +35,23 @@ public class MainScreenPresenter {
 
     public void makeDialogOpenDateDefault() {
         mInteractor.makeDialogOpenDateDefault();
+    }
+
+    /**
+     * Event of inflating games list
+     */
+    @Subscribe
+    public void inflateCardList(UserEvent user) {
+        mView.setUserData(user.getmUser());
+    }
+
+    public void registerSubscribers() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+    public void unregisterSubscribers() {
+        EventBus.getDefault().unregister(this);
     }
 }

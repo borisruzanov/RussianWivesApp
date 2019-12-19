@@ -46,9 +46,13 @@ class SearchRepository {
         if (lastUserInPage != null) {
             query = query.startAfter(lastUserInPage!!)
         }
-                query.get()
+        query.get()
                 .addOnSuccessListener { documentSnapshots ->
+                    Log.d("RatingDebug", "Page number is $page and last user uid is ${lastUserInPage?.getString(Consts.UID)}")
                     putCallbackData(usersListCallback, documentSnapshots)
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("RatingDebug", "Error getting documents: ", exception)
                 }
     }
 
@@ -67,7 +71,7 @@ class SearchRepository {
         }
 
         if (fsUserList.isNotEmpty()) {
-            for (user in fsUserList){
+            for (user in fsUserList) {
                 Log.d("RatingDebug", "User uid is ${user.uid} with ${user.rating} points")
             }
             lastUserInPage = documentsSnapshot.documents.last()

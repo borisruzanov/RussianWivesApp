@@ -42,7 +42,7 @@ import javax.inject.Inject
 
 class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment.ConfirmListener,
         PurchaseDialogFragment.ConfirmPurchaseListener, HotAdapter.ItemClickListener,
-        InfiniteScrollListener.OnLoadMoreListener {
+        InfiniteScrollListener.OnLoadMoreListener, FilterDialogFragment.FilterListener {
 
     @Inject
     @InjectPresenter
@@ -145,7 +145,7 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
             dialogFragment.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
         }*/
 
-        layoutManager = GridLayoutManager(activity, 3)
+        layoutManager = GridLayoutManager(activity, 2)
         onUserListScrollListener = object : FeedScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
                 Log.d("UsersListDebug", "in onUserScrollListener and page is $page")
@@ -276,5 +276,8 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
                 ?.commit()
     }
 
-
+    override fun onStop() {
+        super.onStop()
+        adapter.clearData()
+    }
 }

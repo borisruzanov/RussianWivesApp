@@ -9,10 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,33 +26,55 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
+import com.borisruzanov.russianwives.mvp.model.interactor.chats.ChatsInteractor;
+import com.borisruzanov.russianwives.mvp.model.interactor.coins.CoinsInteractor;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
+import com.borisruzanov.russianwives.mvp.model.interactor.myprofile.MyProfileInteractor;
+import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.chats.ChatsRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.coins.CoinsRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.filter.FilterRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
+import com.borisruzanov.russianwives.mvp.ui.actions.ActionsActivity;
+import com.borisruzanov.russianwives.mvp.ui.chats.ChatsActivity;
+import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment;
+import com.borisruzanov.russianwives.mvp.ui.chats.ChatsPresenter;
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.CustomViewPager;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
+import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfilePresenter;
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
 import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
+import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
+import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static android.view.View.GONE;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
-public class MainScreenActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainScreenActivity extends AppCompatActivity implements FilterDialogFragment.FilterListener, MainView {
 
 
     private MainScreenPresenter mPresenter;
+    private ChatsPresenter mChatsPresenter;
+    private SearchPresenter mSearchPresenter;
+    private MyProfilePresenter mMyProfilePresenter;
 
     private boolean mIsUserExist;
 
@@ -67,6 +92,9 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
     private RelativeLayout mFilterButton;
     private TextView mUnregisteredTitle;
     private ImageView mRegisterButton;
+    private ImageView mChatsButton;
+    private ImageView mActionsButton;
+    private View mHeaderView;
 
     private DialogFragment mDialogFragment;
     private SearchFragment mSearchFragment;
@@ -75,7 +103,10 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
-        mPresenter = new MainScreenPresenter(new MainInteractor(new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))));
+        mPresenter = new MainScreenPresenter(new MainInteractor(new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))), this);
+        mChatsPresenter = new ChatsPresenter(new ChatsInteractor(new ChatsRepository()));
+        mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(this)), new FriendRepository(), new RatingRepository(), new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))), new CoinsInteractor(new CoinsRepository()));
+        mMyProfilePresenter = new MyProfilePresenter(new MyProfileInteractor(new UserRepository(new Prefs(this))));
 
         mIsUserExist = mPresenter.isUserExist();
         mToolbar = findViewById(R.id.toolbar);
@@ -92,7 +123,9 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
         mViewPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
 
         mFilterButton = findViewById(R.id.toolbar_filter_btn);
-        mRegisterButton = findViewById(R.id.login);
+        mRegisterButton = findViewById(R.id.toolbar_login);
+        mChatsButton = findViewById(R.id.toolbar_chats);
+        mActionsButton = findViewById(R.id.toolbar_actions);
 
 
         mUnregisteredTitle = findViewById(R.id.please_register_to_start_title);
@@ -103,26 +136,68 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
         drawerViewsInit();
         invalidateOptionsMenu();
         validateUserExist();
-
+        hideMenuItems();
         showDialogs();
+        buttonsListeners();
+        getUserInfo();
+        mPresenter.registerSubscribers();
+        mChatsPresenter.getUserChatList();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresenter.unregisterSubscribers();
+    }
+
+    private void getUserInfo() {
+        mMyProfilePresenter.setAllCurrentUserInfo();
+    }
+
+    private void buttonsListeners() {
+        mChatsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent chatsIntent = new Intent(MainScreenActivity.this, ChatsActivity.class);
+                startActivity(chatsIntent);
+            }
+        });
+
+        mActionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent chatsIntent = new Intent(MainScreenActivity.this, ActionsActivity.class);
+                startActivity(chatsIntent);
+            }
+        });
+
+        mFilterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mViewPager.setCurrentItem(1);
+                mTabLayout.getTabAt(1).select();
+                FilterDialogFragment filterDialog = new FilterDialogFragment();
+                getSupportFragmentManager().beginTransaction().add(filterDialog, "Dialog Fragment").commit();
+            }
+        });
     }
 
     private void drawerViewsInit() {
         //Drawer инициализация и листенеры
         mNavigationView = findViewById(R.id.nav_view);
         drawerClickListeners();
-        View headerView = mNavigationView.getHeaderView(0);
+        mHeaderView = mNavigationView.getHeaderView(0);
         Menu menu = mNavigationView.getMenu();
-        mDrawerItemSafety = menu.findItem(R.id.drawer_top_menu_safety_item);
-        mCloseDrawerButton = headerView.findViewById(R.id.drawer_header_close_btn);
+//        mDrawerItemSafety = menu.findItem(R.id.drawer_top_menu_safety_item);
+        mCloseDrawerButton = mHeaderView.findViewById(R.id.drawer_header_close_btn);
         mCloseDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                mDrawerLayout.closeDrawers();
             }
         });
 
-        mViewProfileButton = headerView.findViewById(R.id.drawer_header_view_profile);
+        mViewProfileButton = mHeaderView.findViewById(R.id.drawer_header_view_profile);
         mViewProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -131,7 +206,7 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
             }
         });
 
-        mPurchaseSectionButton = headerView.findViewById(R.id.drawer_header_purchase_section);
+        mPurchaseSectionButton = mHeaderView.findViewById(R.id.drawer_header_purchase_section);
         mPurchaseSectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,7 +224,22 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
     }
 
     private void drawerClickListeners() {
-
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.drawer_top_menu_logout_item:
+                        AuthUI.getInstance().signOut(getApplicationContext()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                reload();
+                            }
+                        });
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     private void tabsInit() {
@@ -171,24 +261,19 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = new MenuInflater(this);
-        inflater.inflate(R.menu.main_menu, menu);
-        hideMenuItems(menu);
-        return true;
-    }
 
-    private void hideMenuItems(Menu menu) {
+    private void hideMenuItems() {
         if (mIsUserExist) {
             mViewPagerAdapter.addFragment(new OnlineUsersFragment(), getString(R.string.online_users_title));
             mViewPagerAdapter.addFragment(mSearchFragment, getString(R.string.search_title));
 
             mFilterButton.setVisibility(View.VISIBLE);
+            mChatsButton.setVisibility(View.VISIBLE);
+            mActionsButton.setVisibility(View.VISIBLE);
+
             mUnregisteredTitle.setVisibility(GONE);
             mRegisterButton.setVisibility(GONE);
         } else {
-//            menu.clear();
             mViewPagerAdapter.addFragment(new OnlineUsersFragment(), getString(R.string.online_users_title));
 
             mFilterButton.setVisibility(GONE);
@@ -197,8 +282,8 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
             mTabLayout.setVisibility(GONE);
             //Hide drawer
             mToolbar.setNavigationIcon(null);
-            menu.findItem(R.id.shop).setVisible(false);
-            menu.findItem(R.id.chats).setVisible(false);
+            mChatsButton.setVisibility(GONE);
+            mActionsButton.setVisibility(GONE);
             mRegisterButton.setVisibility(View.VISIBLE);
 
         }
@@ -209,6 +294,7 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                mViewPager.setCurrentItem(tab.getPosition());
 
             }
 
@@ -243,17 +329,6 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.shop:
-                Intent settingsIntent = new Intent(MainScreenActivity.this, RewardVideoActivity.class);
-                startActivity(settingsIntent);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     /**
      * Calling auth window to log in
      */
@@ -271,53 +346,95 @@ public class MainScreenActivity extends AppCompatActivity implements NavigationV
                 RC_SIGN_IN);
     }
 
+    @Override
+    public void setAdapter(boolean isUserExist) {
+
+    }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            if (data != null) {
+    public void showGenderDialog() {
+
+    }
+
+    @Override
+    public void showMustInfoDialog() {
+
+    }
+
+    @Override
+    public void showAdditionalInfoDialog() {
+
+    }
+
+    @Override
+    public void openSlider(ArrayList<String> stringList) {
+
+    }
+
+    @Override
+    public void setUserData(FsUser user) {
+        TextView mDrawerName = mHeaderView.findViewById(R.id.drawer_header_name);
+        ImageView mDrawerImage = mHeaderView.findViewById(R.id.drawer_header_photo);
+        if (user != null) {
+            mDrawerName.setText(user.getName());
+            if (!user.getImage().equals("default")) {
+                Glide.with(this).load(user.getImage()).into(mDrawerImage);
+            } else {
+                Glide.with(this).load(this.getResources().getDrawable(R.drawable.default_avatar)).into(mDrawerImage);
+            }
+        }
+    }
+
+        @Override
+        protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
+            super.onActivityResult(requestCode, resultCode, data);
+            if (requestCode == RC_SIGN_IN) {
+                if (data != null) {
 //                IdpResponse response = new IdpResponse.fromResultIntent(data)
-                if (resultCode == Activity.RESULT_OK) {
+                    if (resultCode == Activity.RESULT_OK) {
 //                    firebaseAnalytics.logEvent("registration_completed", null)
-                    mPresenter.saveUser();
-                    reload();
-                } else {
+                        mPresenter.saveUser();
+                        reload();
+                    } else {
 //                    val bundle = Bundle()
 //                    bundle.putString("registration_error_type", response?.error?.errorCode.toString())
 //                    firebaseAnalytics.logEvent("registration_failed", bundle)
 //                    if (response == null) {
 //                    }
+                    }
                 }
             }
         }
-    }
 
-    private void reload() {
-        mPresenter.makeDialogOpenDateDefault();
-        Intent mainScreenIntent = new Intent(this, MainScreenActivity.class);
-        startActivity(mainScreenIntent);
-    }
+        private void reload () {
+            mPresenter.makeDialogOpenDateDefault();
+            Intent mainScreenIntent = new Intent(this, MainScreenActivity.class);
+            startActivity(mainScreenIntent);
+        }
 
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.drawer_top_menu_support_item:
+//    @Override
+//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+////        switch (menuItem.getItemId()) {
+//////            case R.id.drawer_top_menu_support_item:
+//////
+//////                return true;
+//////            case R.id.drawer_top_menu_safety_item:
+//////
+//////                return true;
+////            case R.id.drawer_top_menu_logout_item:
+////                AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+////                    @Override
+////                    public void onComplete(@NonNull Task<Void> task) {
+////                        reload();
+////                    }
+////                });
+////                break;
+////        }
+////        return false;
+//    }
 
-                return true;
-            case R.id.drawer_top_menu_safety_item:
-
-                return true;
-            case R.id.drawer_top_menu_logout_item:
-                AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        reload();
-                    }
-                });
-                return true;
-            default:
-                return false;
+        @Override
+        public void onUpdate () {
+            mSearchFragment.onUpdate();
         }
     }
-}

@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.ui.main;
 
 import com.arellomobile.mvp.MvpView;
+import com.borisruzanov.russianwives.models.FsUser;
 
 import java.util.ArrayList;
 
@@ -12,4 +13,5 @@ public interface MainView extends MvpView{
     void showMustInfoDialog();
     void showAdditionalInfoDialog();
     void openSlider(ArrayList<String> stringList);
+    void setUserData(FsUser user);
 }

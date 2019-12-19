@@ -11,7 +11,8 @@ public class CoinsInteractor {
     private CoinsRepository repository;
     public static int HOT_PURCHASE = 10;
 
-    @Inject CoinsInteractor(CoinsRepository coinsRepository){
+    @Inject
+    public CoinsInteractor(CoinsRepository coinsRepository){
         repository = coinsRepository;
     }
 
