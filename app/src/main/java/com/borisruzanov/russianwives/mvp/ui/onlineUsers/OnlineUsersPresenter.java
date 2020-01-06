@@ -2,7 +2,9 @@ package com.borisruzanov.russianwives.mvp.ui.onlineUsers;
 
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
+import com.borisruzanov.russianwives.eventbus.ChatEvent;
 import com.borisruzanov.russianwives.eventbus.ListEvent;
+import com.borisruzanov.russianwives.eventbus.ListStringEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
 
@@ -44,8 +46,24 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
     }
 
     @Subscribe
-    public void inflateFakeUserListFirstTime(StringEvent event){
+    public void openChat(ChatEvent event) {
+        if (event.getmName().equals("profile")) {
+            mView.showFullProfileDialog();
+        } else if (event.getmName().equals("registration")) {
+            mView.showRegistrationDialog();
+        } else {
+            mView.openChats(event.getmUid(),event.getmImage(),event.getmName());
+        }
+    }
+
+    @Subscribe
+    public void inflateFakeUserListFirstTime(StringEvent event) {
         mView.makeFakeUserCall(event.getStringParameter());
+    }
+
+    @Subscribe
+    public void intentToInfoDialog(ListStringEvent event) {
+        mView.openSlider(event.getList());
     }
 
 

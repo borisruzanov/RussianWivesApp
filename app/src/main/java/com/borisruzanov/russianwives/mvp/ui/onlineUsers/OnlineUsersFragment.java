@@ -26,9 +26,21 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
+import com.borisruzanov.russianwives.mvp.model.interactor.coins.CoinsInteractor;
+import com.borisruzanov.russianwives.mvp.model.interactor.search.SearchInteractor;
+import com.borisruzanov.russianwives.mvp.model.repository.coins.CoinsRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.filter.FilterRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
+import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
+import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity;
+import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
+import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
+import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -40,9 +52,11 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 
-public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineUsersView {
+public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineUsersView, ConfirmDialogFragment.ConfirmListener {
 
-    OnlineUsersPresenter mPresenter;
+    private OnlineUsersPresenter mPresenter;
+    private SearchPresenter mSearchPresenter;
+
     private List<OnlineUser> mUserList = new ArrayList<>();
 
     @ProvidePresenter
@@ -79,16 +93,16 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     };
     private OnItemClickListener.OnItemClickCallback chatClickCallback = (view, position) -> {
-        if (mIsUserExist){
-
-        }else {
+        if (mIsUserExist) {
+            mSearchPresenter.openChatOnlineUser(mUserList.get(position).getUid(),mUserList.get(position).getName(),mUserList.get(position).getImage());
+        } else {
             Toast.makeText(getContext(), getString(R.string.please_register_to_interact_with_user), Toast.LENGTH_LONG).show();
         }
     };
     private OnItemClickListener.OnItemClickCallback likeClickCallback = (view, position) -> {
-        if (mIsUserExist){
-
-        }else {
+        if (mIsUserExist) {
+            mSearchPresenter.setOnlineFriendLiked(mUserList.get(position).getUid());
+        } else {
             Toast.makeText(getContext(), getString(R.string.please_register_to_interact_with_user), Toast.LENGTH_LONG).show();
         }
     };
@@ -141,6 +155,8 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         App app = (App) requireActivity().getApplication();
         app.getComponent().inject(this);
         mPresenter = new OnlineUsersPresenter(new OnlineUsersInteractor(new UserRepository(new Prefs(getContext()))), this);
+        mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(getContext())), new FriendRepository(), new RatingRepository(), new UserRepository(new Prefs(getContext())), new HotUsersRepository(new Prefs(getContext()))), new CoinsInteractor(new CoinsRepository()));
+
         mOnlineUsersRecycler = (RecyclerView) getView().findViewById(R.id.online_users_rv);
         mEmptyUsersTextView = (TextView) getView().findViewById(R.id.online_users_empty_text);
         mBottomButtonContainer = (RelativeLayout) getView().findViewById(R.id.to_see_more_users_container);
@@ -246,6 +262,36 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         mPresenter.getOnlineFragmentUsers(0, mIsUserExist);
     }
 
+    @Override
+    public void openChats(String getmUid, String getmImage, String getmName) {
+        Intent chatIntent = new Intent(getContext(), ChatMessageActivity.class);
+        chatIntent.putExtra("uid", getmUid);
+        chatIntent.putExtra("name", getmName);
+        chatIntent.putExtra("photo_url", getmImage);
+        startActivity(chatIntent);
+    }
+
+    @Override
+    public void showRegistrationDialog() {
+        getFragmentManager().beginTransaction()
+                .add(ConfirmDialogFragment.newInstance(Consts.REG_MODULE), ConfirmDialogFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void showFullProfileDialog() {
+        getFragmentManager().beginTransaction()
+                .add(ConfirmDialogFragment.newInstance(Consts.FP_MODULE), ConfirmDialogFragment.TAG)
+                .commit();
+    }
+
+    @Override
+    public void openSlider(ArrayList<String> list) {
+        Intent sliderIntent = new Intent(getContext(), SliderActivity.class);
+        sliderIntent.putStringArrayListExtra(Consts.DEFAULT_LIST, list);
+        startActivity(sliderIntent);
+    }
+
     private void createOfflineDBWomen() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference poemsCatRefRus = database.getReference().child("FakeUsers").child("Female");
@@ -311,5 +357,10 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         }
     }
 
+
+    @Override
+    public void onConfirm() {
+        mSearchPresenter.openSliderWithDefaultsOnlineUsers();
+    }
 
 }

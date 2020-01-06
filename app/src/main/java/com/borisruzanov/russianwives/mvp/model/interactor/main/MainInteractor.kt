@@ -45,4 +45,13 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 
+    fun userHasMustInfo(): Boolean {
+//       return userRepository.userHasMustInfo()
+        return true
+    }
+
+    fun getSecondaryInfo() {
+        userRepository.getSecondaryInfoDialog()
+    }
+
 }

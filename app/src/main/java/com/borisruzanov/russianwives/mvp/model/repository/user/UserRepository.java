@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.model.repository.user;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.borisruzanov.russianwives.eventbus.BooleanEvent;
 import com.borisruzanov.russianwives.eventbus.ListEvent;
 import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
@@ -294,7 +295,7 @@ public class UserRepository {
                             HashMap<String, Object> onlineUserMap = new HashMap<>();
                             onlineUserMap.put(Consts.IMAGE, Objects.requireNonNull(snapshot.child(Consts.IMAGE).getValue()).toString());
                             onlineUserMap.put(Consts.NAME, Objects.requireNonNull(snapshot.child(Consts.NAME).getValue()).toString());
-                            onlineUserMap.put(Consts.RATING, snapshot.child(Consts.RATING).getValue() );
+                            onlineUserMap.put(Consts.RATING, snapshot.child(Consts.RATING).getValue());
                             onlineUserMap.put(Consts.COUNTRY, Objects.requireNonNull(snapshot.child(Consts.COUNTRY).getValue()).toString());
                             onlineUserMap.put(Consts.UID, Objects.requireNonNull(snapshot.child(Consts.UID).getValue()).toString());
                             onlineUserMap.put(Consts.GENDER, gender);
@@ -357,6 +358,18 @@ public class UserRepository {
                 String country = snapshot.getString(Consts.COUNTRY);
                 boolean value = !image.equals(Consts.DEFAULT) && !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT);
                 callback.setBool(value);
+            }
+        });
+    }
+
+    public void userHasMustInfo() {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            if (task.getResult().exists()) {
+                DocumentSnapshot snapshot = task.getResult();
+                String image = snapshot.getString(Consts.IMAGE);
+                String age = snapshot.getString(Consts.AGE);
+                String country = snapshot.getString(Consts.COUNTRY);
+                EventBus.getDefault().post(new BooleanEvent(!image.equals(Consts.DEFAULT) && !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT)));
             }
         });
     }
@@ -440,17 +453,17 @@ public class UserRepository {
     }
 
     public void hasDefaultMustInfo(BoolCallback callback) {
-//        Log.d("DialogDebug", "Uid is " + getUid());
-//        users.document(getUid()).get().addOnCompleteListener(task -> {
-//            if (task.getResult().exists()) {
-//                Log.d("DialogDebug", "Task exists");
-//                DocumentSnapshot snapshot = task.getResult();
-//                boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) ||
-//                        snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) ||
-//                        snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT);
-//                callback.setBool(flag);
-//            } else Log.d("DialogDebug", "Task doesn't exist!!!");
-//        });
+        Log.d("DialogDebug", "Uid is " + getUid());
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            if (task.getResult().exists()) {
+                Log.d("DialogDebug", "Task exists");
+                DocumentSnapshot snapshot = task.getResult();
+                boolean flag = snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) ||
+                        snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) ||
+                        snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT);
+                callback.setBool(flag);
+            } else Log.d("DialogDebug", "Task doesn't exist!!!");
+        });
     }
 
     // check if the value of the given key is default or not
@@ -500,13 +513,15 @@ public class UserRepository {
     }
 
     public void getAllCurrentUserInfo(final UserCallback callback) {
-        users.document(getUid()).get()
-                .addOnCompleteListener(task -> {
-                    DocumentSnapshot snapshot = task.getResult();
-                    if (snapshot.exists()) {
-                        callback.setUser(snapshot.toObject(FsUser.class));
-                    }
-                });
+        if (isUserExist()) {
+            users.document(getUid()).get()
+                    .addOnCompleteListener(task -> {
+                        DocumentSnapshot snapshot = task.getResult();
+                        if (snapshot.exists()) {
+                            callback.setUser(snapshot.toObject(FsUser.class));
+                        }
+                    });
+        }
     }
 
     public void getTransformedActions(ActionItemCallback callback) {
@@ -659,8 +674,28 @@ public class UserRepository {
         return valuesList;
     }
 
-    public String getUserGender(){
+    public String getUserGender() {
         return prefs.getGender();
     }
 
+    public void getSecondaryInfoDialog() {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            if (task.getResult().exists()) {
+                DocumentSnapshot snapshot = task.getResult();
+                String image = snapshot.getString(Consts.IMAGE);
+                String age = snapshot.getString(Consts.AGE);
+                String country = snapshot.getString(Consts.COUNTRY);
+                boolean mustInfo = !image.equals(Consts.DEFAULT) && !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT);
+                EventBus.getDefault().post(new BooleanEvent(!image.equals(Consts.DEFAULT) && !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT)));
+            }
+        });
+
+
+        new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
+//            if (flag) {
+//                prefs.clearValue(Consts.FP_OPEN_DATE);
+//                callback.setBool(false);
+//            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
+        });
+    }
 }

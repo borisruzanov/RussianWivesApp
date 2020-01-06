@@ -49,6 +49,8 @@ class App : Application() {
         }
     }
 
+
+
     override fun onCreate() {
         super.onCreate()
 
@@ -115,5 +117,9 @@ class App : Application() {
      */
     @Synchronized
     fun getTracker(): Tracker = GoogleAnalytics.getInstance(this).newTracker(R.xml.global_tracker)
+
+
+
+
 
 }

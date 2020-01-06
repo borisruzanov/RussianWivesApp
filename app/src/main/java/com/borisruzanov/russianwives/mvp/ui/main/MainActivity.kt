@@ -209,7 +209,7 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
     }
 
     private fun showDialogs() {
-        Handler().postDelayed({ mPresenter.showDialogs() }, 3000)
+//        Handler().postDelayed({ mPresenter.showDionPageChangeListeneralogs() }, 3000)
     }
 
 

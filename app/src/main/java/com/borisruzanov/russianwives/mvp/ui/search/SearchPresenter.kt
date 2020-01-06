@@ -5,6 +5,9 @@ import android.util.Log
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.borisruzanov.russianwives.eventbus.ChatEvent
+import com.borisruzanov.russianwives.eventbus.ListStringEvent
+import com.borisruzanov.russianwives.eventbus.UserEvent
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.models.HotUser
 import com.borisruzanov.russianwives.mvp.model.interactor.coins.CoinsInteractor
@@ -14,6 +17,7 @@ import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
 import com.borisruzanov.russianwives.utils.HotUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UsersListCallback
+import org.greenrobot.eventbus.EventBus
 
 import java.util.ArrayList
 import javax.inject.Inject
@@ -53,15 +57,16 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     fun confirmHotPurchase() = coinsInteractor.purchaseHotOption {}
 
     fun purchaseHot() {
-        coinsInteractor.hasEnoughMoneyForHots { isEnoughMoney -> run {
-            if (isEnoughMoney) {
-                //open confirm purchase dialog
-                viewState.openPurchaseDialog()
-            } else {
-                // open reward activity
-                viewState.openRewardActivity()
+        coinsInteractor.hasEnoughMoneyForHots { isEnoughMoney ->
+            run {
+                if (isEnoughMoney) {
+                    //open confirm purchase dialog
+                    viewState.openPurchaseDialog()
+                } else {
+                    // open reward activity
+                    viewState.openRewardActivity()
+                }
             }
-        }
         }
     }
 
@@ -69,7 +74,7 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         if (userList.isNotEmpty()) {
             if (!fsUsers.containsAll(userList)) {
                 Log.d("UsersListDebug", "Users list size is ${userList.size}")
-                if (fsUsers.isNotEmpty() && fsUsers.last().uid == userList.last().uid){
+                if (fsUsers.isNotEmpty() && fsUsers.last().uid == userList.last().uid) {
                     userList.remove(userList.last())
                 }
                 Log.d("UsersListDebug", "Users list size after removing is  ${userList.size}")
@@ -94,7 +99,14 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
 
     fun openSliderWithDefaults() {
         searchInteractor.getDefaultList(callback = StringsCallback { strings ->
-            viewState.openSlider(ArrayList<String>(strings)) })
+            viewState.openSlider(ArrayList<String>(strings))
+        })
+    }
+
+    fun openSliderWithDefaultsOnlineUsers(){
+        searchInteractor.getDefaultList(callback = StringsCallback { strings ->
+            EventBus.getDefault().post(ListStringEvent(strings as ArrayList<String>?))
+        })
     }
 
     fun setFriendLiked(position: Int) {
@@ -109,10 +121,18 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
                     searchInteractor.setFriendLiked(fsUsers[position].uid)
                     searchInteractor.addRatingLiked(fsUsers[position].uid)
                     Log.d("LikeDebug", "${fsUsers[position].name} was liked")
-                }
-                else Log.d("LikeDebug", "${fsUsers[position].name} WAS NOT liked")
+                } else Log.d("LikeDebug", "${fsUsers[position].name} WAS NOT liked")
             })
         } else viewState.showRegistrationDialog()
+    }
+
+    fun setOnlineFriendLiked(uid: String) {
+        searchInteractor.isFriendLiked(uid, callback = BoolCallback { hasLiked ->
+            if (!hasLiked) {
+                searchInteractor.setFriendLiked(uid)
+                searchInteractor.addRatingLiked(uid)
+            } else Log.d("LikeDebug", "$uid WAS NOT liked")
+        })
     }
 
     fun openFriend(position: Int, args: Bundle) {
@@ -120,13 +140,23 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun openChat(position: Int) {
-        if (isUserExist()){
+        if (isUserExist()) {
             searchInteractor.hasMustInfo(callback = BoolCallback { hasMustInfo ->
                 if (hasMustInfo) viewState.openChat(fsUsers[position].uid, fsUsers[position].name, fsUsers[position].image)
                 else viewState.showFullProfileDialog()
             })
-        }
-        else viewState.showRegistrationDialog()
+        } else viewState.showRegistrationDialog()
     }
+
+    fun openChatOnlineUser(uid: String, name: String, image: String) {
+        if (isUserExist()) {
+            searchInteractor.hasMustInfo(callback = BoolCallback { hasMustInfo ->
+                if (hasMustInfo) EventBus.getDefault().post(ChatEvent(name, uid, image))
+                else EventBus.getDefault().post(ChatEvent("profile", "", ""))
+            })
+        } else EventBus.getDefault().post(ChatEvent("registration", "", ""))
+    }
+
+
 
 }

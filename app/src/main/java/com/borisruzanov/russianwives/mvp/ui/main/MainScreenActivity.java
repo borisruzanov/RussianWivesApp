@@ -9,15 +9,11 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -43,19 +39,20 @@ import com.borisruzanov.russianwives.mvp.model.repository.search.SearchRepositor
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsActivity;
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsActivity;
-import com.borisruzanov.russianwives.mvp.ui.chats.ChatsFragment;
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsPresenter;
+import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.CustomViewPager;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter;
+import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfilePresenter;
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
-import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
+import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,7 +65,7 @@ import java.util.List;
 import static android.view.View.GONE;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
-public class MainScreenActivity extends AppCompatActivity implements FilterDialogFragment.FilterListener, MainView {
+public class MainScreenActivity extends AppCompatActivity implements FilterDialogFragment.FilterListener, MainView, ConfirmDialogFragment.ConfirmListener {
 
 
     private MainScreenPresenter mPresenter;
@@ -77,6 +74,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     private MyProfilePresenter mMyProfilePresenter;
 
     private boolean mIsUserExist;
+    private int mTabPosition;
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -129,7 +127,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
 
         mUnregisteredTitle = findViewById(R.id.please_register_to_start_title);
-
+        mTabLayout.setupWithViewPager(mViewPager);
         mDialogFragment = new FilterDialogFragment();
         mSearchFragment = new SearchFragment();
         tabsInit();
@@ -137,11 +135,12 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         invalidateOptionsMenu();
         validateUserExist();
         hideMenuItems();
-        showDialogs();
+
         buttonsListeners();
         getUserInfo();
         mPresenter.registerSubscribers();
         mChatsPresenter.getUserChatList();
+        showDialogs();
     }
 
     @Override
@@ -289,13 +288,12 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         }
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 mViewPager.setCurrentItem(tab.getPosition());
-
+                mTabLayout.getTabAt(tab.getPosition()).select();
             }
 
             @Override
@@ -308,6 +306,24 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
             }
         });
         mViewPager.setAdapter(mViewPagerAdapter);
+
+        mViewPager.setOnPageChangeListener(new CustomViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                mTabLayout.getTabAt(position).select();
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void showDialogs() {
@@ -320,8 +336,9 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                     genderDialogFragment.setCancelable(false);
                     getSupportFragmentManager().beginTransaction().add(genderDialogFragment, GenderDialogFragment.TAG).commit();
                 } else {
-//                    getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), GenderDialogFragment.TAG).commit();
-//                    getSupportFragmentManager().beginTransaction().add(new ConfirmDialogFragment(), GenderDialogFragment.TAG).commit();
+                    mPresenter.showSecondaryDialogs();
+//                    getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
+//                    getSupportFragmentManager().beginTransaction().add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), GenderDialogFragment.TAG).commit();
                 }
             }
         }, 100);
@@ -353,17 +370,20 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
     @Override
     public void showGenderDialog() {
+        getSupportFragmentManager().beginTransaction().add(new GenderDialogFragment(), GenderDialogFragment.TAG).commit();
 
     }
 
     @Override
     public void showMustInfoDialog() {
-
+        getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
     }
 
     @Override
     public void showAdditionalInfoDialog() {
-
+        getSupportFragmentManager().beginTransaction()
+                .add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), ConfirmDialogFragment.TAG)
+                .commit();
     }
 
     @Override
@@ -437,4 +457,9 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         public void onUpdate () {
             mSearchFragment.onUpdate();
         }
+
+    @Override
+    public void onConfirm() {
+        mPresenter.showMustInfoDialog();
     }
+}

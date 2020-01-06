@@ -1,8 +1,10 @@
 package com.borisruzanov.russianwives.mvp.ui.main;
 
+import com.borisruzanov.russianwives.eventbus.BooleanEvent;
 import com.borisruzanov.russianwives.eventbus.ListEvent;
 import com.borisruzanov.russianwives.eventbus.UserEvent;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
+import com.borisruzanov.russianwives.utils.BoolCallback;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,5 +55,32 @@ public class MainScreenPresenter {
 
     public void unregisterSubscribers() {
         EventBus.getDefault().unregister(this);
+    }
+
+    public void showMustInfoDialog() {
+        mInteractor.hasDefaultMustInfo(new BoolCallback() {
+            @Override
+            public void setBool(boolean flag) {
+                if (flag){
+                    mView.showMustInfoDialog();
+                }
+            }
+        });
+    }
+
+    public boolean userHasMustInfo() {
+       return mInteractor.userHasMustInfo();
+    }
+
+    @Subscribe
+    public void showMustInfoDialog(BooleanEvent result) {
+        if (result.ismResult()){
+            mView.showMustInfoDialog();
+        }
+
+    }
+
+    public void showSecondaryDialogs() {
+        mInteractor.getSecondaryInfo();
     }
 }

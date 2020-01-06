@@ -15,6 +15,7 @@ import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.main.MainActivity;
+import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 
 import butterknife.BindView;
@@ -93,7 +94,7 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
                 ((FriendProfileActivity) getActivity()).callAuthWindow();
                 break;
             case Consts.ACTION_MODULE:
-                ((MainActivity) getActivity()).callAuthWindow();
+                ((MainScreenActivity) getActivity()).callAuthWindow();
                 break;
             case Consts.SLIDER_MODULE: case Consts.FP_MODULE:
                 listener.onConfirm();

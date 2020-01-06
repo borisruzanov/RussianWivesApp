@@ -14,6 +14,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewConfigurationCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.EdgeEffectCompat;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -35,7 +36,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 
-public class CustomViewPager extends ViewGroup {
+public class CustomViewPager extends ViewPager {
 
     private static final String TAG = "ViewPager";
     private static final boolean DEBUG = false;
@@ -762,7 +763,7 @@ public class CustomViewPager extends ViewGroup {
     }
 
     @Override
-    public void addView(View child, int index, LayoutParams params) {
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
         if (mInLayout) {
             addViewInLayout(child, index, params);
             child.measure(mChildWidthMeasureSpec, mChildHeightMeasureSpec);
