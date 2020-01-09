@@ -174,4 +174,12 @@ public class Prefs {
         prefs.edit().putString(key, value).apply();
     }
 
+    public String getMustInfo() {
+        return getValue(Consts.MUST_INFO);
+    }
+
+    public String getFullProfile(){
+        return getValue(Consts.FULL_PROFILE);
+    }
+
 }

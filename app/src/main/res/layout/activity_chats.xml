@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".mvp.ui.chats.ChatsActivity">
 
+    <FrameLayout
+        android:id="@+id/contentContainerChatsActivity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </android.support.constraint.ConstraintLayout>

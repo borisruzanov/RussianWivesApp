@@ -16,25 +16,25 @@ import javax.inject.Inject;
 @InjectViewState
 public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
 
-    private OnlineUsersInteractor interactor;
+    private OnlineUsersInteractor mInteractor;
     private OnlineUsersView mView;
 
     @Inject
-    public OnlineUsersPresenter(OnlineUsersInteractor interactor, OnlineUsersView view) {
-        this.interactor = interactor;
+    public OnlineUsersPresenter(OnlineUsersInteractor mInteractor, OnlineUsersView view) {
+        this.mInteractor = mInteractor;
         this.mView = view;
     }
 
     public void getOnlineFragmentUsers(int page, boolean mIsUserExist) {
-//        interactor.getOnlineFragmentUsers(page, onlineUsers -> {
+//        mInteractor.getOnlineFragmentUsers(page, onlineUsers -> {
 //            getViewState().addUsers(onlineUsers);
 //        }, mIsUserExist);
 
-        interactor.getOnlineUsers(page, mIsUserExist);
+        mInteractor.getOnlineUsers(page, mIsUserExist);
     }
 
     public boolean isUserExist() {
-        return interactor.isUserExist();
+        return mInteractor.isUserExist();
     }
 
     /**

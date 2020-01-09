@@ -11,7 +11,8 @@ public interface MainView extends MvpView{
     void setAdapter(boolean isUserExist);
     void showGenderDialog();
     void showMustInfoDialog();
-    void showAdditionalInfoDialog();
+    void showFullInfoDialog();
     void openSlider(ArrayList<String> stringList);
     void setUserData(FsUser user);
+    void showDefaultDialogScreen(ArrayList<String> list);
 }

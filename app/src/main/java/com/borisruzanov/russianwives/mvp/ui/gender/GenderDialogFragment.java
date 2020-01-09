@@ -84,7 +84,6 @@ public class GenderDialogFragment extends MvpAppCompatDialogFragment {
             }
             Prefs prefs = new Prefs(getContext());
             prefs.setGender(genderSpinner.getSelectedItem().toString());
-            String s = genderSpinner.getSelectedItem().toString();
             EventBus.getDefault().post(new StringEvent(genderSpinner.getSelectedItem().toString()));
             dismiss();
         } else

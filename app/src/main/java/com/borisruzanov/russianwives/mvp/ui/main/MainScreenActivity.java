@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -52,6 +53,7 @@ import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
+import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
@@ -67,6 +69,8 @@ import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class MainScreenActivity extends AppCompatActivity implements FilterDialogFragment.FilterListener, MainView, ConfirmDialogFragment.ConfirmListener {
 
+    private static final String TAG_CLASS_NAME = "MainScreenActivity";
+
 
     private MainScreenPresenter mPresenter;
     private ChatsPresenter mChatsPresenter;
@@ -74,7 +78,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     private MyProfilePresenter mMyProfilePresenter;
 
     private boolean mIsUserExist;
-    private int mTabPosition;
 
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
@@ -137,10 +140,102 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         hideMenuItems();
 
         buttonsListeners();
-        getUserInfo();
+        //Get info for inflating in drawer
+//        getUserInfo();
         mPresenter.registerSubscribers();
         mChatsPresenter.getUserChatList();
-        showDialogs();
+        callUserInfoDialogs();
+        makeGenderCheck();
+    }
+
+    /**
+     * Making first check when user is not registered for gender
+     */
+    private void makeGenderCheck() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (!mIsUserExist) {
+                    if (mPresenter.getUserGender().isEmpty() || mPresenter.getUserGender().equals("default")) {
+                        GenderDialogFragment genderDialogFragment = new GenderDialogFragment();
+                        genderDialogFragment.setCancelable(false);
+                        getSupportFragmentManager().beginTransaction().add(genderDialogFragment, GenderDialogFragment.TAG).commit();
+                    }
+                }
+            }
+        }, 100);
+    }
+
+    /**
+     * Chain of logic checks must and secondary info to show needed dialog to  registered user
+     */
+    private void callUserInfoDialogs() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mIsUserExist) {
+                    mPresenter.userHasMustInfo();
+                }
+            }
+        }, 5000);
+    }
+
+    /**
+     * Showing must info dialog in main screen activity
+     */
+    @Override
+    public void showMustInfoDialog() {
+        Log.d(TAG_CLASS_NAME, "showMustInfoDialog");
+        getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
+    }
+
+    /**
+     * Showing full info dialog in main screen activity
+     */
+    @Override
+    public void showFullInfoDialog() {
+        Log.d(TAG_CLASS_NAME, "showFullInfoDialog");
+        getSupportFragmentManager().beginTransaction()
+                .add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), ConfirmDialogFragment.TAG)
+                .commit();
+    }
+
+    /**
+     * Full profile info dialog listener calls to get default values list for intent
+     */
+    @Override
+    public void onConfirm() {
+        mPresenter.getDefaultList();
+    }
+
+    /**
+     * Showing slider with the list of default values fields of the user
+     * @param list
+     */
+    @Override
+    public void showDefaultDialogScreen(ArrayList<String> list) {
+        Intent intent = new Intent(MainScreenActivity.this, SliderActivity.class);
+        intent.putStringArrayListExtra(Consts.DEFAULT_LIST, list);
+        startActivity(intent);
+    }
+
+    /**
+     * Calling auth window to log in
+     */
+    public void callAuthWindow() {
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build(),
+                new AuthUI.IdpConfig.FacebookBuilder().build());
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),
+                RC_SIGN_IN);
     }
 
     @Override
@@ -326,42 +421,9 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         });
     }
 
-    private void showDialogs() {
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mPresenter.getUserGender().isEmpty() || mPresenter.getUserGender().equals("default")) {
-                    GenderDialogFragment genderDialogFragment = new GenderDialogFragment();
-                    genderDialogFragment.setCancelable(false);
-                    getSupportFragmentManager().beginTransaction().add(genderDialogFragment, GenderDialogFragment.TAG).commit();
-                } else {
-                    mPresenter.showSecondaryDialogs();
-//                    getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
-//                    getSupportFragmentManager().beginTransaction().add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), GenderDialogFragment.TAG).commit();
-                }
-            }
-        }, 100);
 
 
-    }
 
-    /**
-     * Calling auth window to log in
-     */
-    public void callAuthWindow() {
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build(),
-                new AuthUI.IdpConfig.FacebookBuilder().build());
-
-        startActivityForResult(
-                AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setAvailableProviders(providers)
-                        .build(),
-                RC_SIGN_IN);
-    }
 
     @Override
     public void setAdapter(boolean isUserExist) {
@@ -374,17 +436,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
     }
 
-    @Override
-    public void showMustInfoDialog() {
-        getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
-    }
 
-    @Override
-    public void showAdditionalInfoDialog() {
-        getSupportFragmentManager().beginTransaction()
-                .add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), ConfirmDialogFragment.TAG)
-                .commit();
-    }
 
     @Override
     public void openSlider(ArrayList<String> stringList) {
@@ -405,32 +457,32 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         }
     }
 
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, @Nullable Intent data){
-            super.onActivityResult(requestCode, resultCode, data);
-            if (requestCode == RC_SIGN_IN) {
-                if (data != null) {
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (data != null) {
 //                IdpResponse response = new IdpResponse.fromResultIntent(data)
-                    if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == Activity.RESULT_OK) {
 //                    firebaseAnalytics.logEvent("registration_completed", null)
-                        mPresenter.saveUser();
-                        reload();
-                    } else {
+                    mPresenter.saveUser();
+                    reload();
+                } else {
 //                    val bundle = Bundle()
 //                    bundle.putString("registration_error_type", response?.error?.errorCode.toString())
 //                    firebaseAnalytics.logEvent("registration_failed", bundle)
 //                    if (response == null) {
 //                    }
-                    }
                 }
             }
         }
+    }
 
-        private void reload () {
-            mPresenter.makeDialogOpenDateDefault();
-            Intent mainScreenIntent = new Intent(this, MainScreenActivity.class);
-            startActivity(mainScreenIntent);
-        }
+    private void reload() {
+        mPresenter.makeDialogOpenDateDefault();
+        Intent mainScreenIntent = new Intent(this, MainScreenActivity.class);
+        startActivity(mainScreenIntent);
+    }
 
 //    @Override
 //    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -453,13 +505,10 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 ////        return false;
 //    }
 
-        @Override
-        public void onUpdate () {
-            mSearchFragment.onUpdate();
-        }
-
     @Override
-    public void onConfirm() {
-        mPresenter.showMustInfoDialog();
+    public void onUpdate() {
+        mSearchFragment.onUpdate();
     }
+
+
 }

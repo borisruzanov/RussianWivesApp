@@ -60,7 +60,6 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
                 DividerItemDecoration.VERTICAL))
 
         recyclerActivitiesList.adapter = actionsAdapter
-        (activity as MainActivity).searchButtonHide(false)
 
         emptyLayout = view.findViewById(R.id.actions_empty_rl)
 

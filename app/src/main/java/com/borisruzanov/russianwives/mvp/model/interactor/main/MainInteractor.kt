@@ -4,7 +4,6 @@ import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepositor
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
 import com.borisruzanov.russianwives.utils.HotUsersCallback
-import com.borisruzanov.russianwives.utils.OnlineUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import javax.inject.Inject
 
@@ -15,8 +14,14 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     val isUserExist: Boolean = userRepository.isUserExist
 
+    fun userHasMustInfo() { userRepository.userHasMustInfo()
+    }
+
     fun saveUser() = userRepository.saveUser()
 
+    fun getDefaultFieldsList() {
+        userRepository.getDefaultFieldsList()
+    }
     fun makeDialogOpenDateDefault() = userRepository.makeDialogOpenDateDefault()
 
     fun setFirstOpenDate() = userRepository.setFirstOpenDate()
@@ -45,13 +50,11 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun getDefaultList(callback: StringsCallback) = userRepository.getDefaultList(callback)
 
-    fun userHasMustInfo(): Boolean {
-//       return userRepository.userHasMustInfo()
-        return true
-    }
+
 
     fun getSecondaryInfo() {
         userRepository.getSecondaryInfoDialog()
     }
+
 
 }

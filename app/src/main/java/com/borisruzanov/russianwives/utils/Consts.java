@@ -66,4 +66,10 @@ public final class Consts {
 
     public static final String DEFAULT  = "default";
     public static final String IMAGE_STORAGE  = "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/";
+
+    public static final String MUST_INFO = "must_info";
+    public static final String FALSE = "false";
+    public static final String FULL_PROFILE = "full_profile";
+    public static final String TRUE = "true";
+    public static final String CHECK_DIALOG = "check_dialog";
 }

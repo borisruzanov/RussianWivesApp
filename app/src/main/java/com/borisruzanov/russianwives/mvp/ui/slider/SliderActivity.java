@@ -54,8 +54,7 @@ public class SliderActivity extends MvpAppCompatActivity {
 
         if (getIntent().getStringArrayListExtra(Consts.DEFAULT_LIST) != null) {
             addFragments();
-        }
-        else if (getIntent().getExtras().getString("field_id") != null) {
+        } else if (getIntent().getExtras().getString("field_id") != null) {
             switch (getIntent().getExtras().getString("field_id")) {
                 case "Image":
                     fragmentList.add(SliderImageFragment.newInstance());
@@ -112,9 +111,9 @@ public class SliderActivity extends MvpAppCompatActivity {
 
         viewPager.addOnPageChangeListener(onPageChangeListener);
 
-        if (getIntent().getExtras().getString("intent") != null && getIntent().getExtras().getString("intent").equals("list")){
+        if (getIntent().getExtras().getString("intent") != null && getIntent().getExtras().getString("intent").equals("list")) {
             buttonNext.setVisibility(View.GONE);
-        }else {
+        } else {
             if (fragmentList.size() == 1) buttonNext.setText(R.string.finish);
             Log.d("tag", "Inside extras " + getIntent().getExtras().getString("field_id"));
         }
@@ -124,7 +123,7 @@ public class SliderActivity extends MvpAppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 Log.d("tag", "Back clicked");
                 onBackPressed();
@@ -136,20 +135,22 @@ public class SliderActivity extends MvpAppCompatActivity {
     private ViewPager.OnPageChangeListener onPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
-        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
 
         @Override
         public void onPageSelected(int position) {
-            if(fragmentList.size() == position + 1) buttonNext.setText(R.string.finish);
+            if (fragmentList.size() == position + 1) buttonNext.setText(R.string.finish);
             else buttonNext.setText(R.string.next_text);
         }
 
         @Override
-        public void onPageScrollStateChanged(int state) { }
+        public void onPageScrollStateChanged(int state) {
+        }
     };
 
     private void addFragments() {
-        for (String key: getIntent().getStringArrayListExtra(Consts.DEFAULT_LIST)) {
+        for (String key : getIntent().getStringArrayListExtra(Consts.DEFAULT_LIST)) {
             switch (key) {
                 case Consts.BODY_TYPE:
                     fragmentList.add(new SliderBodytypeFragment());
@@ -200,11 +201,11 @@ public class SliderActivity extends MvpAppCompatActivity {
         }
     }
 
-    public void slideToNext(List<Fragment> fragmentList, int position){
-        if(!fragmentList.isEmpty() && position != fragmentList.size()){
-            viewPager.setCurrentItem(position+1);
+    public void slideToNext(List<Fragment> fragmentList, int position) {
+        if (!fragmentList.isEmpty() && position != fragmentList.size()) {
+            viewPager.setCurrentItem(position + 1);
         }
-        if(position + 1 == fragmentList.size()) {
+        if (position + 1 == fragmentList.size()) {
             //close the survey
             finish();
             addFullProfileAchieve();
@@ -222,8 +223,7 @@ public class SliderActivity extends MvpAppCompatActivity {
             if (!flag) {
                 Log.d("SliderDebug", "Add achievement");
                 addFullProfileAchieve();
-            }
-            else Log.d("SliderDebug", "Already exist");
+            } else Log.d("SliderDebug", "Already exist");
         });
     }
 

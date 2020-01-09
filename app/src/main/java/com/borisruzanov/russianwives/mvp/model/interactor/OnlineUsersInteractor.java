@@ -1,24 +1,23 @@
 package com.borisruzanov.russianwives.mvp.model.interactor;
 
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
-import com.borisruzanov.russianwives.utils.OnlineUsersCallback;
 
 import javax.inject.Inject;
 
 public class OnlineUsersInteractor {
 
-    private UserRepository repository;
+    private UserRepository mRepository;
 
     @Inject
-    public OnlineUsersInteractor(UserRepository repository) {
-        this.repository = repository;
+    public OnlineUsersInteractor(UserRepository mRepository) {
+        this.mRepository = mRepository;
     }
 
     public void getOnlineUsers(int page, boolean isUserExist) {
-        repository.getOnlineUsers(page, isUserExist);
+        mRepository.getOnlineUsers(page, isUserExist);
     }
 
     public boolean isUserExist() {
-        return repository.isUserExist();
+        return mRepository.isUserExist();
     }
 }

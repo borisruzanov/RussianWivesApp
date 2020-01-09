@@ -10,20 +10,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-import android.widget.TextView
 import android.widget.Toast
-
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.borisruzanov.russianwives.mvp.ui.chats.adapter.ChatsAdapter
 import com.borisruzanov.russianwives.OnItemClickListener
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.UserChat
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity
-import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
+import com.borisruzanov.russianwives.mvp.ui.chats.adapter.ChatsAdapter
 import javax.inject.Inject
 
 class ChatsFragment : MvpAppCompatFragment(), ChatsView {
@@ -59,7 +56,6 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
         mMainView = inflater.inflate(R.layout.fragment_main_tab_friends, container, false)
 
         emptyLayout = mMainView.findViewById(R.id.chats_empty_rl)
-        (activity as MainActivity).searchButtonHide(false)
 
         recyclerChatsList = mMainView.findViewById(R.id.friends_fragment_recycler_chats)
         recyclerChatsList.layoutManager = LinearLayoutManager(activity)
@@ -91,7 +87,7 @@ class ChatsFragment : MvpAppCompatFragment(), ChatsView {
     }
 
     override fun highlightChats(messageSeen: Boolean) {
-        (activity as MainActivity).highlightChats(messageSeen)
+//        (activity as MainActivity).highlightChats(messageSeen)
     }
 
     override fun showErrorMessage() {

@@ -55,6 +55,11 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
         ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener, NavigationView.OnNavigationItemSelectedListener {
+
+    override fun showDefaultDialogScreen(list: ArrayList<String>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun setUserData(user: FsUser?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -305,7 +310,7 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
         supportFragmentManager.beginTransaction().add(MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit()
     }
 
-    override fun showAdditionalInfoDialog() {
+    override fun showFullInfoDialog() {
         supportFragmentManager.beginTransaction()
                 .add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), ConfirmDialogFragment.TAG)
                 .commit()

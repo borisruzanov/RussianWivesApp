@@ -5,7 +5,6 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor
 import com.borisruzanov.russianwives.utils.BoolCallback
-import com.borisruzanov.russianwives.utils.OnlineUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import javax.inject.Inject
 
@@ -77,7 +76,7 @@ class MainPresenter @Inject constructor(private val mainInteractor: MainInteract
     private fun showAdditionalInfoDialog() {
         mainInteractor.hasNecessaryInfo(callback = BoolCallback { flag ->
             if (flag) {
-            viewState.showAdditionalInfoDialog()
+            viewState.showFullInfoDialog()
             mainInteractor.setFPDialogLastOpenDate()
         }
         })

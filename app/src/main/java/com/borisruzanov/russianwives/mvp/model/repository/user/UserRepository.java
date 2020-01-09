@@ -5,6 +5,8 @@ import android.util.Log;
 
 import com.borisruzanov.russianwives.eventbus.BooleanEvent;
 import com.borisruzanov.russianwives.eventbus.ListEvent;
+import com.borisruzanov.russianwives.eventbus.ListStringEvent;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.models.ActionItem;
@@ -21,8 +23,6 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.OnlineUsersCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -58,6 +58,7 @@ import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
 
 public class UserRepository {
 
+    private static final String TAG_CLASS_NAME = "UserRepository";
     private static final String GENDER_FEMALE = "Female";
     private static final String GENDER_MALE = "Male";
     private static final int TOTAL_ITEMS_TO_LOAD = 15;
@@ -66,12 +67,13 @@ public class UserRepository {
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
 
-    private Prefs prefs;
+    private Prefs mPrefs;
 
     private String endAt = null;
+    private boolean mMustInfo;
 
-    public UserRepository(Prefs prefs) {
-        this.prefs = prefs;
+    public UserRepository(Prefs mPrefs) {
+        this.mPrefs = mPrefs;
     }
 
     /**
@@ -79,19 +81,111 @@ public class UserRepository {
      */
     public void saveUser() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-        users.get().addOnCompleteListener(task -> {
-            List<String> uidList = new ArrayList<>();
+        createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid());
+    }
 
-            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                uidList.add(snapshot.getString(Consts.UID));
+    /**
+     * Creating user in both databases after registration
+     */
+    private void createNewUser(String name, String token, String uid) {
+        //Saving user in Firestore
+        users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid, mPrefs.getUserGender()));
+
+        //Saving user in Realtime
+        Map<String, Object> niMap = new HashMap<>();
+        niMap.put("created", "registered");
+        niMap.put(Consts.DEVICE_TOKEN, token);
+        niMap.put(Consts.IMAGE, "default");
+        niMap.put(Consts.NAME, name);
+        niMap.put(Consts.RATING, 1);
+        niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
+        niMap.put(Consts.ONLINE, ServerValue.TIMESTAMP);
+        niMap.put(Consts.UID, uid);
+        realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
+        Log.d(TAG_CLASS_NAME, "createNewUser - user created");
+    }
+
+    /**
+     * Dialog scenario - Checking if user has must info in mPrefs and in DB to show dialog
+     */
+    public void userHasMustInfo() {
+        //Checking if must info in mPrefs for saving traffic
+        if (mPrefs.getMustInfo().equals(Consts.DEFAULT)) {
+            users.document(getUid()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot snapshot = task.getResult();
+                    if (snapshot != null) {
+                        if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO)!= null) {
+                            Log.d(TAG_CLASS_NAME, "userHasMustInfo calling for must info dialog");
+                            EventBus.getDefault().post(new StringEvent(Consts.MUST_INFO));
+                        } else {
+                            Log.d(TAG_CLASS_NAME, "userHasMustInfo not needed");
+                        }
+                    }
+                } else {
+                    Log.d(TAG_CLASS_NAME, "userHasMustInfo task failed");
+                }
+            });
+        } else {
+            checkForFullProfile();
+        }
+    }
+
+    /**
+     * Dialog scenario - checking if user has full profile - show dialog
+     */
+    private void checkForFullProfile() {
+        if (mPrefs.getFullProfile().isEmpty() || mPrefs.getFullProfile().equals(Consts.DEFAULT)) {
+            users.document(getUid()).get().addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot snapshot = task.getResult();
+                    if (snapshot != null) {
+                        if (snapshot.getString(Consts.FULL_PROFILE).equals(Consts.FALSE)) {
+                            EventBus.getDefault().post(new StringEvent(Consts.FULL_PROFILE));
+                        } else {
+                            Log.d(TAG_CLASS_NAME, "checkForFullProfile profile is full");
+                        }
+                    }
+                } else {
+                    Log.d(TAG_CLASS_NAME, "checkForFullProfile task failed");
+                }
+            });
+        }
+    }
+    /**
+     * Getting the list of default fields of the user from DB and sending back to the slider
+     * @param callback
+     */
+    public void getDefaultList(StringsCallback callback) {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            callback.setStrings(getListOfDefaults(snapshot));
+        });
+    }
+
+    /**
+     * Getting the list of default fields to let user fill them with info
+     * @param document - object from DB
+     * @return - ready for use list
+     */
+    private ArrayList<String> getListOfDefaults(DocumentSnapshot document) {
+        ArrayList<String> valuesList = new ArrayList<>();
+        for (String field : Consts.fieldKeyList) {
+            String value = document.getString(field);
+            if (value != null && value.toLowerCase().trim().equals(Consts.DEFAULT)) {
+                valuesList.add(field);
             }
+        }
+        return valuesList;
+    }
 
-            if (!uidList.contains(getUid())) {
-                createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid());
-            } else {
-                updateToken();
-            }
-
+    /**
+     * Getting default values of the user fields
+     */
+    public void getDefaultFieldsList() {
+        users.document(getUid()).get().addOnCompleteListener(task -> {
+            DocumentSnapshot snapshot = task.getResult();
+            EventBus.getDefault().post(new ListStringEvent(getListOfDefaults(snapshot)));
         });
     }
 
@@ -108,6 +202,7 @@ public class UserRepository {
                 Map<String, Object> achMap = new HashMap<>();
                 achMap.put(Consts.RATING, newRating);
                 users.document(getUid()).update(achMap);
+                mPrefs.setValue(Consts.MUST_INFO, Consts.TRUE);
             });
         } else Log.d("RatingDebug", "Rating ALARM from UR");
     }
@@ -362,47 +457,36 @@ public class UserRepository {
         });
     }
 
-    public void userHasMustInfo() {
-        users.document(getUid()).get().addOnCompleteListener(task -> {
-            if (task.getResult().exists()) {
-                DocumentSnapshot snapshot = task.getResult();
-                String image = snapshot.getString(Consts.IMAGE);
-                String age = snapshot.getString(Consts.AGE);
-                String country = snapshot.getString(Consts.COUNTRY);
-                EventBus.getDefault().post(new BooleanEvent(!image.equals(Consts.DEFAULT) && !age.equals(Consts.DEFAULT) && !country.equals(Consts.DEFAULT)));
-            }
-        });
-    }
 
     public void setDialogLastOpenDate() {
-        prefs.setFPOpenDate();
+        mPrefs.setFPOpenDate();
     }
 
     public String getGender() {
-        String s = prefs.getGender();
-        return prefs.getGender();
+        String s = mPrefs.getGender();
+        return mPrefs.getGender();
     }
 
     public String getSearchGender() {
-        return prefs.getGenderSearch();
+        return mPrefs.getGenderSearch();
     }
 
     public void setFPDialogLastOpenDate() {
-        prefs.setFPOpenDate();
+        mPrefs.setFPOpenDate();
     }
 
     private boolean isOneDayGone(String key) {
         float days = 0f;
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-            Date date1 = dateFormat.parse(prefs.getValue(key));
+            Date date1 = dateFormat.parse(mPrefs.getValue(key));
             Date date2 = Calendar.getInstance().getTime();
             long diff = date2.getTime() - date1.getTime();
             days = (diff / (1000 * 60 * 60 * 24));
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return prefs.getValue(key).equals(Consts.DEFAULT) || (days >= 1 && !prefs.getValue(key).equals(""));
+        return mPrefs.getValue(key).equals(Consts.DEFAULT) || (days >= 1 && !mPrefs.getValue(key).equals(""));
     }
 
     public void updateToken() {
@@ -412,41 +496,27 @@ public class UserRepository {
         realtimeReference.child(Consts.USERS_DB).child(getUid()).updateChildren(ntMap);
     }
 
-    private void createNewUser(String name, String token, String uid) {
-        users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid, prefs.getUserGender()));
-
-        Map<String, Object> niMap = new HashMap<>();
-        niMap.put("created", "registered");
-        niMap.put(Consts.DEVICE_TOKEN, token);
-        niMap.put(Consts.IMAGE, "default");
-        niMap.put(Consts.NAME, name);
-        niMap.put(Consts.RATING, 1);
-        niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
-        niMap.put(Consts.ONLINE, ServerValue.TIMESTAMP);
-        niMap.put(Consts.UID, uid);
-        realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
-    }
 
     public void setFirstOpenDate() {
-        if (prefs.getFirstOpenDate().equals(Consts.DEFAULT)) {
-            prefs.setFirstOpenDate();
+        if (mPrefs.getFirstOpenDate().equals(Consts.DEFAULT)) {
+            mPrefs.setFirstOpenDate();
         }
     }
 
     public boolean isGenderDefault() {
-        return prefs.getGenderSearch().equals(Consts.DEFAULT);
+        return mPrefs.getGenderSearch().equals(Consts.DEFAULT);
     }
 
     public void setGender(String gender) {
         if (!gender.equals(Consts.DEFAULT)) {
-            prefs.setGenderSearch(gender);
+            mPrefs.setGenderSearch(gender);
         }
     }
 
     public void hasFullProfileInfo(BoolCallback callback) {
         new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
             if (flag) {
-                prefs.clearValue(Consts.FP_OPEN_DATE);
+                mPrefs.clearValue(Consts.FP_OPEN_DATE);
                 callback.setBool(false);
             } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
@@ -485,7 +555,7 @@ public class UserRepository {
                 DocumentSnapshot snapshot = task.getResult();
                 new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
                     if (flag) {
-                        prefs.clearValue(Consts.DIALOG_OPEN_DATE);
+                        mPrefs.clearValue(Consts.DIALOG_OPEN_DATE);
                         callback.setBool(false);
                     } else
                         callback.setBool(isOneDayGone(Consts.DIALOG_OPEN_DATE) && notDefault(keys, snapshot));
@@ -498,13 +568,6 @@ public class UserRepository {
         Map<String, Object> fpMap = new HashMap<>();
         fpMap.put(FULL_PROFILE_ACH, "true");
         users.document(getUid()).update(fpMap);
-    }
-
-    public void getDefaultList(StringsCallback callback) {
-        users.document(getUid()).get().addOnCompleteListener(task -> {
-            DocumentSnapshot snapshot = task.getResult();
-            callback.setStrings(getListOfDefaults(snapshot));
-        });
     }
 
     public boolean isUserExist() {
@@ -633,11 +696,11 @@ public class UserRepository {
     }
 
     public void makeDialogOpenDateDefault() {
-        prefs.setDialogOpenDate(Consts.DEFAULT);
+        mPrefs.setDialogOpenDate(Consts.DEFAULT);
     }
 
     public void clearDialogOpenDate() {
-        prefs.clearValue(Consts.DIALOG_OPEN_DATE);
+        mPrefs.clearValue(Consts.DIALOG_OPEN_DATE);
     }
 
     private void getMergedActions(ActionCallback callback) {
@@ -663,19 +726,10 @@ public class UserRepository {
         });
     }
 
-    private List<String> getListOfDefaults(DocumentSnapshot document) {
-        List<String> valuesList = new ArrayList<>();
-        for (String field : Consts.fieldKeyList) {
-            String value = document.getString(field);
-            if (value != null && value.toLowerCase().trim().equals(Consts.DEFAULT)) {
-                valuesList.add(field);
-            }
-        }
-        return valuesList;
-    }
+
 
     public String getUserGender() {
-        return prefs.getGender();
+        return mPrefs.getGender();
     }
 
     public void getSecondaryInfoDialog() {
@@ -693,9 +747,11 @@ public class UserRepository {
 
         new RatingRepository().isAchievementExist(FULL_PROFILE_ACH, flag -> {
 //            if (flag) {
-//                prefs.clearValue(Consts.FP_OPEN_DATE);
+//                mPrefs.clearValue(Consts.FP_OPEN_DATE);
 //                callback.setBool(false);
 //            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
     }
+
+
 }
