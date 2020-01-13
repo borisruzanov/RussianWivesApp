@@ -3,6 +3,7 @@ package com.borisruzanov.russianwives.mvp.ui.main;
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.eventbus.UserEvent;
+import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
 import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.Consts;
@@ -54,6 +55,14 @@ public class MainScreenPresenter {
      */
     public void getDefaultList() {
         mInteractor.getDefaultFieldsList();
+    }
+
+    /**
+     * Changing user online status
+     * @param user
+     */
+    public void changeUserOnlineStatus(FsUser user) {
+        mInteractor.changeUserOnlineStatus(user);
     }
 
     public boolean isUserExist() {

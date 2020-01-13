@@ -141,7 +141,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
         buttonsListeners();
         //Get info for inflating in drawer
-//        getUserInfo();
+        getUserInfo();
         mPresenter.registerSubscribers();
         mChatsPresenter.getUserChatList();
         callUserInfoDialogs();
@@ -212,6 +212,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
     /**
      * Showing slider with the list of default values fields of the user
+     *
      * @param list
      */
     @Override
@@ -422,9 +423,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     }
 
 
-
-
-
     @Override
     public void setAdapter(boolean isUserExist) {
 
@@ -435,7 +433,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         getSupportFragmentManager().beginTransaction().add(new GenderDialogFragment(), GenderDialogFragment.TAG).commit();
 
     }
-
 
 
     @Override
@@ -454,6 +451,8 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
             } else {
                 Glide.with(this).load(this.getResources().getDrawable(R.drawable.default_avatar)).into(mDrawerImage);
             }
+
+            mPresenter.changeUserOnlineStatus(user);
         }
     }
 

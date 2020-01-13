@@ -37,6 +37,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.greenrobot.eventbus.EventBus;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -89,7 +90,7 @@ public class UserRepository {
      */
     private void createNewUser(String name, String token, String uid) {
         //Saving user in Firestore
-        users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid, mPrefs.getUserGender()));
+        users.document(uid).set(FirebaseRequestManager.createNewUser(name, token, uid, mPrefs.getValue(Consts.GENDER)));
 
         //Saving user in Realtime
         Map<String, Object> niMap = new HashMap<>();
@@ -189,6 +190,71 @@ public class UserRepository {
         });
     }
 
+    /**
+     * Insert user in online users table
+     * @param user
+     */
+    public void changeUserOnlineStatus(@NotNull FsUser user) {
+        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(),user.getCountry(), user.getRating());
+        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
+
+        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).onDisconnect().removeValue();
+
+    }
+
+    /**
+     * Getting fake users for unregistered users
+     */
+    private void callFakeUserList(String neededGender) {
+
+        DatabaseReference mReference = realtimeReference.child("FakeUsers/" + neededGender);
+        Query query = mReference.orderByChild("rank");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final List<OnlineUser> userList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
+                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
+                }
+                EventBus.getDefault().post(new ListEvent(userList));
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                registerErrorEvent(databaseError);
+            }
+        });
+
+    }
+
+    /**
+     * Getting real online users from Realtime Database
+     */
+    private void callRealOnlineUsersList(int page, String neededGender) {
+        DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
+        Query query = mReference.orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final List<OnlineUser> userList = new ArrayList<>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
+                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
+                }
+                EventBus.getDefault().post(new ListEvent(userList));
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                registerErrorEvent(databaseError);
+
+            }
+        });
+    }
+
     public void addRating(double addPoint) {
         addRating(getUid(), addPoint);
     }
@@ -266,58 +332,9 @@ public class UserRepository {
         }
     }
 
-    /**
-     * Getting fake users for unregistered users
-     */
-    private void callFakeUserList(String neededGender) {
-
-        DatabaseReference mReference = realtimeReference.child("FakeUsers/" + neededGender);
-        Query query = mReference.orderByChild("rank");
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final List<OnlineUser> userList = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
-                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
-                }
-                EventBus.getDefault().post(new ListEvent(userList));
-            }
 
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                registerErrorEvent(databaseError);
-            }
-        });
 
-    }
-
-    /**
-     * Getting real online users from Realtime Database
-     */
-    private void callRealOnlineUsersList(int page, String neededGender) {
-        DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
-        Query query = mReference.orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
-        query.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final List<OnlineUser> userList = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
-                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
-                }
-                EventBus.getDefault().post(new ListEvent(userList));
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-//                registerErrorEvent(databaseError);
-
-            }
-        });
-    }
 
     private void setOnlineUsersCallback(DataSnapshot usersSnapshot, OnlineUsersCallback callback) {
         List<OnlineUser> onlineUsers = new ArrayList<>();
@@ -752,6 +769,7 @@ public class UserRepository {
 //            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
     }
+
 
 
 }

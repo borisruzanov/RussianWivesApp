@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.model.interactor.main
 
+import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
@@ -54,6 +55,10 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
 
     fun getSecondaryInfo() {
         userRepository.getSecondaryInfoDialog()
+    }
+
+    fun changeUserOnlineStatus(user: FsUser) {
+        userRepository.changeUserOnlineStatus(user)
     }
 
 

@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +72,6 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
         return onlineUsers.size();
     }
 
-
     class OnlineUserViewHolder extends RecyclerView.ViewHolder {
         RelativeLayout container;
         ImageView imageView, likeBtn, chatBtn;
@@ -91,9 +89,6 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             name = itemView.findViewById(R.id.user_name);
             country = itemView.findViewById(R.id.user_country);
             animationView = itemView.findViewById(R.id.lottieAnimationView);
-//            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
-//            params.height = imageView.getWidth();
-//            imageView.setLayoutParams(params);
         }
 
         void bind(OnlineUser user, int position) {
@@ -137,6 +132,15 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             } else {
                 animationView.setProgress(0f);
             }
+
+            //adjust the height size of the item based on the width container
+            container.post(new Runnable() {
+                @Override
+                public void run() {
+                    imageView.getLayoutParams().height = container.getWidth();
+                    imageView.requestLayout();
+                }
+            });
         }
     }
 
