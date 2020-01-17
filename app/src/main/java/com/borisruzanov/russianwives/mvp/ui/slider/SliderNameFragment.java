@@ -12,10 +12,13 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,6 +76,7 @@ public class SliderNameFragment extends MvpAppCompatFragment {
                         if (getActivity() != null) getActivity().onBackPressed();
                     }
                     Toast.makeText(getActivity(), getString(R.string.name_updated), Toast.LENGTH_LONG).show();
+                    EventBus.getDefault().post(new StringEvent("next_page"));
 
                 });
             }

@@ -12,10 +12,13 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -77,6 +80,7 @@ public class SliderRelationshipsStatusFragment extends Fragment {
                         if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
+                        EventBus.getDefault().post(new StringEvent("next_page"));
                         Toast.makeText(getActivity(), getString(R.string.relationship_was_updated), Toast.LENGTH_LONG).show();
                     });
                 }

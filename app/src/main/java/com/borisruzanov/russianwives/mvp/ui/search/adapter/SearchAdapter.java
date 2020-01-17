@@ -136,6 +136,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
             } else {
                 animationView.setProgress(0f);
             }
+
+            //adjust the height size of the item based on the width container
+            container.post(new Runnable() {
+                @Override
+                public void run() {
+                    imageView.getLayoutParams().height = container.getWidth();
+                    imageView.requestLayout();
+                }
+            });
         }
     }
 

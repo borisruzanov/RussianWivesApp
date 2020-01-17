@@ -144,4 +144,12 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
         }
     }
 
+    public String getLastItemId() {
+        return onlineUsers.get(onlineUsers.size() - 1).getUid();
+    }
+
+
+    public long getLastItemRating() {
+        return onlineUsers.get(onlineUsers.size() - 1).getRating();
+    }
 }

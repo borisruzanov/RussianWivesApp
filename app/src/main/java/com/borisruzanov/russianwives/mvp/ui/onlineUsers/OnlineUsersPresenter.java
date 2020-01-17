@@ -25,12 +25,12 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
         this.mView = view;
     }
 
-    public void getOnlineFragmentUsers(int page, boolean mIsUserExist) {
+    public void getOnlineFragmentUsers(String uid, boolean mIsUserExist,long lastRating) {
 //        mInteractor.getOnlineFragmentUsers(page, onlineUsers -> {
 //            getViewState().addUsers(onlineUsers);
 //        }, mIsUserExist);
 
-        mInteractor.getOnlineUsers(page, mIsUserExist);
+        mInteractor.getOnlineUsers(uid, mIsUserExist,lastRating);
     }
 
     public boolean isUserExist() {

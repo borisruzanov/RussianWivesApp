@@ -33,6 +33,7 @@ public final class Consts {
 
     public static final String RATING  = "rating";
     public static final String ACTION_MODULE = "action_module";
+    public static final String APP_VERSION = "app_version";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";

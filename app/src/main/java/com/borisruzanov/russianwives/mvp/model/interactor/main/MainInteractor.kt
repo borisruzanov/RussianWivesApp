@@ -61,5 +61,9 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
         userRepository.changeUserOnlineStatus(user)
     }
 
+    fun checkForUpdateVersion() {
+//        mSystemRepository.checkForUpdateVersion()
+    }
+
 
 }

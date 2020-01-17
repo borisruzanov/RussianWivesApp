@@ -39,6 +39,8 @@ public class FilterRepository {
 
     public void setPrefsValues(List<SearchModel> searchModels) {
         for (SearchModel model : searchModels) {
+            String s = model.getKey();
+            String r = model.getValue();
             prefs.setValue(model.getKey(), model.getValue());
         }
     }

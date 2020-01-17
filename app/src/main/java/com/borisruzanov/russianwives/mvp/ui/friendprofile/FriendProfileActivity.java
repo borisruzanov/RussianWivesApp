@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,9 +26,11 @@ import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingManager;
+import com.borisruzanov.russianwives.mvp.ui.actions.ActionsActivity;
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity;
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter;
+import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
@@ -77,7 +80,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     FriendProfilePresenter presenter;
 
     @ProvidePresenter
-    public FriendProfilePresenter provideFriendProfilePresenter(){
+    public FriendProfilePresenter provideFriendProfilePresenter() {
         return presenter;
     }
 
@@ -88,7 +91,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        App application = (App)getApplication();
+        App application = (App) getApplication();
         application.getComponent().inject(this);
 
         super.onCreate(savedInstanceState);
@@ -125,6 +128,13 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
         likeIv = findViewById(R.id.friend_activity_like_img);
         messageIv = findViewById(R.id.friend_activity_message_img);
 
@@ -153,7 +163,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         recyclerView = findViewById(R.id.recycler_list_friendDescription);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        userDescriptionListAdapter = new UserDescriptionListAdapter(setOnItemClickCallback(),this);
+        userDescriptionListAdapter = new UserDescriptionListAdapter(setOnItemClickCallback(), this);
         recyclerView.setAdapter(userDescriptionListAdapter);
 
         nameText = findViewById(R.id.friend_activity_tv_name);
@@ -263,7 +273,8 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     }
 
     private OnItemClickListener.OnItemClickCallback setOnItemClickCallback() {
-        return (view, position) -> {};
+        return (view, position) -> {
+        };
     }
 
     @Override
@@ -300,6 +311,8 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     public void onBackPressed() {
-       onBack();
+        onBack();
+        Intent mainActivityIntent = new Intent(FriendProfileActivity.this, MainScreenActivity.class);
+        startActivity(mainActivityIntent);
     }
 }

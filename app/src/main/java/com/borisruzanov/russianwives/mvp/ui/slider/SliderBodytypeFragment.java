@@ -14,10 +14,13 @@ import android.widget.Toast;
 
 import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -85,6 +88,7 @@ public class SliderBodytypeFragment extends MvpAppCompatFragment {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
                         Toast.makeText(getActivity(), getString(R.string.bkodytype_updated), Toast.LENGTH_LONG).show();
+                        EventBus.getDefault().post(new StringEvent("next_page"));
                     });
                 }
             } else {

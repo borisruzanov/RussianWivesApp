@@ -65,6 +65,13 @@ public class MainScreenPresenter {
         mInteractor.changeUserOnlineStatus(user);
     }
 
+    /**
+     * Checking for version of the app
+     */
+    public void checkForUpdateVersion() {
+        mInteractor.checkForUpdateVersion();
+    }
+
     public boolean isUserExist() {
         return mInteractor.isUserExist();
     }
@@ -118,6 +125,7 @@ public class MainScreenPresenter {
             EventBus.getDefault().register(this);
         }
     }
+
 
 
 }

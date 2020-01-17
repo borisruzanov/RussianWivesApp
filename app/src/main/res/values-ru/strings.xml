@@ -102,6 +102,8 @@
     <string name="menu_log_out">Выйти</string>
     <string name="menu_view_provile">Профиль</string>
     <string name="menu_get_more_visitors">Поднять Рейтинг</string>
+    <string name="chats_title">Чаты</string>
+    <string name="actions_title">Уведомления</string>
     <!-- Questions titles in slider -->
     <string name="enter_your_name">Введите Ваше Имя</string>
     <string name="your_name_is_here">Ваше имя тут…</string>
@@ -121,9 +123,11 @@
     <string name="please_register_to_start">Зарегистрируйтесь чтобы начать</string>
     <string name="confirm_dialog_reg_header">Сначала создайте аккаунт</string>
     <string name="register">Регистрация</string>
+    <string name="confirm_dialog_slider_header">Заполните профиль, получите больше внимания!</string>
+    <string name="cancel">Отмена</string>
+    <string name="full_profile_header">Вы не можете вести общение, пока не заполните свой профиль</string>
 
 
-    <string name="cancel">Cancel</string>
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -132,8 +136,7 @@
     <string name="sign_out">Log Out</string>
     <string name="send">Send</string>
     <string name="default_data">default</string>
-    <string name="chats_title">Chats</string>
-    <string name="actions_title">Actions</string>
+
     <string name="default_status">Default status</string>
     <string name="about">About You</string>
     <string name="please_set_your_status">Set Your Status</string>
@@ -190,7 +193,6 @@
     <string name="status_save_btn_text">Save changes</string>
     <string name="last_seen_text">Last Seen</string>
     <string name="height_number_text">Number</string>
-    <string name="confirm_dialog_slider_header">Fill out the profile to get more points!</string>
 
 
     <!-- Values for answers -->
@@ -327,7 +329,6 @@
     <string name="like">Like</string>
 
 
-    <string name="full_profile_header">You can\'t write to another user until you fill out your profile</string>
     <string name="now">Now</string>
     <string name="later">Later</string>
 

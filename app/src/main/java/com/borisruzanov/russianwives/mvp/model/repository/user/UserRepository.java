@@ -232,10 +232,25 @@ public class UserRepository {
     /**
      * Getting real online users from Realtime Database
      */
-    private void callRealOnlineUsersList(int page, String neededGender) {
+    private void callRealOnlineUsersList(String uid, String neededGender, long lastRating) {
         DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
-        Query query = mReference.orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
-        query.addValueEventListener(new ValueEventListener() {
+
+        Query query;
+        if (uid.equals("")){
+            query = mReference.orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
+        }else {
+            //Pagination query with last uid to start
+            query =mReference.orderByChild("rating").startAt(lastRating,uid).limitToLast(TOTAL_ITEMS_TO_LOAD);
+
+
+//                    FirebaseDatabase.getInstance().getReference()
+//                            .child("OnlineUsers/" + neededGender)
+//                            .orderByKey()
+//                            .startAt(uid)
+//                            .limitToFirst(TOTAL_ITEMS_TO_LOAD);;
+//            query = mReference.startAt(uid).orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
+        }
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final List<OnlineUser> userList = new ArrayList<>();
@@ -249,10 +264,32 @@ public class UserRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-//                registerErrorEvent(databaseError);
-
+            String s = databaseError.getMessage();
+            String x = databaseError.getDetails();
+            int c = databaseError.getCode();
             }
         });
+    }
+
+    /**
+     * Calling for a fake / real online list based on converted gender
+     * @param isUserExist
+     */
+    public void getOnlineUsers(String uid, boolean isUserExist, long lastRating) {
+        String neededGender;
+        if (getGender().equals(GENDER_FEMALE)) {
+            neededGender = GENDER_MALE;
+        } else if (getGender().equals(GENDER_MALE)) {
+            neededGender = GENDER_FEMALE;
+        } else {
+            neededGender = GENDER_FEMALE;
+        }
+
+        if (isUserExist) {
+            callRealOnlineUsersList(uid, neededGender,lastRating);
+        } else {
+            callFakeUserList(neededGender);
+        }
     }
 
     public void addRating(double addPoint) {
@@ -315,22 +352,7 @@ public class UserRepository {
         });
     }
 
-    public void getOnlineUsers(int page, boolean isUserExist) {
-        String neededGender;
-        if (getGender().equals(GENDER_FEMALE)) {
-            neededGender = GENDER_MALE;
-        } else if (getGender().equals(GENDER_MALE)) {
-            neededGender = GENDER_FEMALE;
-        } else {
-            neededGender = GENDER_FEMALE;
-        }
 
-        if (isUserExist) {
-            callRealOnlineUsersList(page, neededGender);
-        } else {
-            callFakeUserList(neededGender);
-        }
-    }
 
 
 

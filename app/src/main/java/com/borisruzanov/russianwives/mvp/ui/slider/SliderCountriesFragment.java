@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.ui.slider.adapter.CountriesAdapter;
 import com.borisruzanov.russianwives.CountriesList;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -52,6 +55,7 @@ public class SliderCountriesFragment extends Fragment {
                     if (getActivity() != null) getActivity().onBackPressed();
                 }
                 Toast.makeText(getActivity(), getString(R.string.country_updated), Toast.LENGTH_LONG).show();
+                EventBus.getDefault().post(new StringEvent("next_page"));
             });
         });
 

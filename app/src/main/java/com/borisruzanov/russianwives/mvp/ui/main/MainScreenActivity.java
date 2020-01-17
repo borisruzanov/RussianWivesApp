@@ -146,6 +146,9 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mChatsPresenter.getUserChatList();
         callUserInfoDialogs();
         makeGenderCheck();
+
+        mPresenter.checkForUpdateVersion();
+//        showFullInfoDialog();
     }
 
     /**

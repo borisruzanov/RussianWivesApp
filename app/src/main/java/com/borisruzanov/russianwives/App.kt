@@ -6,6 +6,7 @@ import com.borisruzanov.russianwives.di.component.AppComponent
 import com.borisruzanov.russianwives.di.component.DaggerAppComponent
 import com.borisruzanov.russianwives.di.module.AppModule
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs
+import com.borisruzanov.russianwives.mvp.model.data.SystemRepository
 import com.google.android.gms.analytics.GoogleAnalytics
 import com.google.android.gms.analytics.HitBuilders
 import com.google.android.gms.analytics.Tracker
@@ -23,6 +24,8 @@ class App : Application() {
     private var mAuth: FirebaseAuth? = null
     private lateinit var sAnalytics: GoogleAnalytics
     lateinit var sTracker: Tracker
+    private lateinit var  mSystemRepository : SystemRepository
+    private lateinit var  mPrefs: Prefs
 
 
     val component: AppComponent by lazy {
@@ -49,7 +52,9 @@ class App : Application() {
         component.inject(this)
         AnalyticsTracker.onCreate(this)
         mAuth = FirebaseAuth.getInstance()
-
+        mPrefs = Prefs(this)
+//        mSystemRepository = SystemRepository(mPrefs)
+//        mSystemRepository.getConfig()
         if (mAuth!!.currentUser != null) {
             onlineStatusUsersTable()
         }

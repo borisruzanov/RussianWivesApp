@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.arellomobile.mvp.MvpAppCompatActivity;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
@@ -18,6 +19,9 @@ import com.borisruzanov.russianwives.mvp.ui.slider.adapter.UserInfoPagerAdapter;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.analytics.FirebaseAnalytics;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,9 @@ public class SliderActivity extends MvpAppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
 
         viewPager = findViewById(R.id.view_pager_add_info);
         buttonNext = findViewById(R.id.slider_button);
@@ -119,6 +126,13 @@ public class SliderActivity extends MvpAppCompatActivity {
         }
         Log.d(Contract.SLIDER, "Inside extras " + getIntent().getExtras().getString("field_id"));
 
+    }
+
+    @Subscribe
+    public void nextSlide(StringEvent event){
+        if (fragmentList.size() > 1){
+            slideToNext(fragmentList, viewPager.getCurrentItem());
+        }
     }
 
     @Override

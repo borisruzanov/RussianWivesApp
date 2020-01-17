@@ -13,8 +13,8 @@ public class OnlineUsersInteractor {
         this.mRepository = mRepository;
     }
 
-    public void getOnlineUsers(int page, boolean isUserExist) {
-        mRepository.getOnlineUsers(page, isUserExist);
+    public void getOnlineUsers(String uid, boolean isUserExist,long lastRating) {
+        mRepository.getOnlineUsers(uid, isUserExist,lastRating);
     }
 
     public boolean isUserExist() {

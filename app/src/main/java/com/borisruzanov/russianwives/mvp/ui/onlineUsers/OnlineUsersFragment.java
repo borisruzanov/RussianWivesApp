@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,8 +42,12 @@ import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,10 +78,13 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     private boolean mIsUserExist;
     private int mCurrentPage = 1;
 
+    final int ITEM_LOAD_COUNT = 10;
     private int total_item = 0;
     private int last_visible_item;
     private boolean isLoading = false;
     private boolean isMaxData = false;
+    String last_node = "";
+    String last_key = "";
 
     private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
 
@@ -85,6 +93,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     private OnItemClickListener.OnItemClickCallback itemClickCallback = (view, position) -> {
         Intent openFriend = new Intent(getContext(), FriendProfileActivity.class);
+        int x = mUserList.size();
         openFriend.putExtra(Consts.UID, mUserList.get(position).getUid());
         openFriend.putExtra("transitionName", mUserList.get(position).getName());
         startActivity(openFriend);
@@ -92,7 +101,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     };
     private OnItemClickListener.OnItemClickCallback chatClickCallback = (view, position) -> {
         if (mIsUserExist) {
-            mSearchPresenter.openChatOnlineUser(mUserList.get(position).getUid(),mUserList.get(position).getName(),mUserList.get(position).getImage());
+            mSearchPresenter.openChatOnlineUser(mUserList.get(position).getUid(), mUserList.get(position).getName(), mUserList.get(position).getImage());
         } else {
             Toast.makeText(getContext(), getString(R.string.please_register_to_interact_with_user), Toast.LENGTH_LONG).show();
         }
@@ -119,9 +128,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     @Override
     public void onResume() {
         super.onResume();
-        if (mAdapter.getItemCount() == 0) {
-            initRecyclerView();
-        }
+
     }
 
     @Override
@@ -170,7 +177,24 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 //        initRecyclerView();
         userExistScenarios();
 //        createOfflineDBWomen();
+//        createOfflineDBMen();
+        getUsers();
 
+        mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                total_item = layoutManager.getItemCount();
+                last_visible_item = layoutManager.findLastVisibleItemPosition();
+
+                if (!isLoading && total_item <= ((last_visible_item + ITEM_LOAD_COUNT))){
+                    getUsers();
+                    isLoading = true;
+                }
+
+//                hideBottomBlock();
+            }
+        });
     }
 
     private void userExistScenarios() {
@@ -190,11 +214,89 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         });
     }
 
+    private void getUsers() {
+    //Срабатывает в первый раз без скролла
+        if (!isMaxData) {
+
+            Query query;
+            if (TextUtils.isEmpty(last_node)) {
+                query = FirebaseDatabase.getInstance().getReference()
+                        .child("OnlineUsers")
+                        .child("Male")
+                        .orderByKey()
+                        .limitToFirst(ITEM_LOAD_COUNT);
+            } else {
+                query = FirebaseDatabase.getInstance().getReference()
+                        .child("OnlineUsers")
+                        .child("Male")
+                        .orderByKey()
+                        .startAt(last_node)
+                        .limitToFirst(ITEM_LOAD_COUNT);
+            }
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    long x = dataSnapshot.getChildrenCount();
+                    if (dataSnapshot.hasChildren()) {
+                        List<OnlineUser> newUser = new ArrayList<>();
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                            newUser.add(userSnapshot.getValue(OnlineUser.class));
+                        }
+                        last_node = newUser.get(newUser.size() - 1).getUid();
+
+                        //ВОТ ТУТ НЕ ПОНЯТНО
+                        if (!last_node.equals(last_key)) {
+                            newUser.remove(newUser.size() - 1);
+                        } else {
+                            //Fix error
+                            last_node = "end";
+                        }
+
+                        mAdapter.addUsers(newUser);
+                        isLoading = false;
+                    } else {
+                        isLoading = false;
+                        isMaxData = true;
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    isLoading = false;
+                }
+            });
+        }
+    }
+
+    private void getLastKeyFromFirebase() {
+        Query getLastKey = FirebaseDatabase.getInstance().getReference()
+                .child("OnlineUsers")
+                .child("Female")
+                .orderByKey()
+                .limitToLast(1);
+        getLastKey.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot lastKey : dataSnapshot.getChildren()) {
+                    last_key = lastKey.getKey();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void initRecyclerView() {
+        int x = 0;
+        int w = 0;
         Prefs prefs = new Prefs(getContext());
+        //Call if gender is not empty
         if (!prefs.getGender().equals("") && !prefs.getGender().equals("default")) {
-            mPresenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
-            mBottomButtonContainer.setVisibility(View.GONE);
+            mPresenter.getOnlineFragmentUsers("", mIsUserExist, 1);
         }
 
         mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -204,24 +306,46 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
                 total_item = layoutManager.getItemCount();
                 last_visible_item = layoutManager.findLastVisibleItemPosition();
 
-                if (!isLoading && last_visible_item >= (total_item - 5) && !stopDownloadList) {
-                    isLoading = true;
-                    mPresenter.getOnlineFragmentUsers(mCurrentPage, mIsUserExist);
-                    mCurrentPage++;
-                } else {
-                    stopDownloadList = true;
-                }
+//                if (last_visible_item >= (total_item - 5)) {
+//                    mPresenter.getOnlineFragmentUsers(mAdapter.getLastItemId(), mIsUserExist, mAdapter.getLastItemRating());
+//                } else {
+//                    int w = 0;
+//                }
+//                if (!prefs.getGender().equals("") && !prefs.getGender().equals("default")) {
+//                    //Making first request when list is empty and we don't have last item uid
+//                    if (mUserList.size() == 0) {
+//                        mPresenter.getOnlineFragmentUsers("", mIsUserExist);
+//                    } else {
+//
+//
+////                if (!isLoading && last_visible_item >= (total_item - 5) && !stopDownloadList) {
+//                        if (last_visible_item >= (total_item - 5)) {
+//                            isLoading = true;
+//                            mPresenter.getOnlineFragmentUsers(mAdapter.getLastItemId(), mIsUserExist);
+////                            mCurrentPage++;
+//                        } else {
+//                            stopDownloadList = true;
+//                        }
+//                    }
+//                    hideBottomBlock();
+//                }
 
-                //Making bottom registration visible
-                boolean endHasBeenReached = last_visible_item + 1 >= total_item;
-                if (!mIsUserExist) {
-                    if (total_item > 0 && endHasBeenReached) {
-                        mBottomButtonContainer.setVisibility(View.VISIBLE);
-                        mBottomButtonContainer.bringToFront();
-                    }
-                }
+
             }
         });
+    }
+
+    private void hideBottomBlock() {
+        mBottomButtonContainer.setVisibility(View.GONE);
+
+        //Making bottom registration visible
+        boolean endHasBeenReached = last_visible_item + 1 >= total_item;
+        if (!mIsUserExist) {
+            if (total_item > 0 && endHasBeenReached) {
+                mBottomButtonContainer.setVisibility(View.VISIBLE);
+                mBottomButtonContainer.bringToFront();
+            }
+        }
     }
 
     @Override
@@ -234,6 +358,8 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         if (!firstUid.equals("") && onlineUsers.contains(firstUid)) {
             stopDownloadList = true;
         }
+
+        //adding users to the recycler
         if (!stopDownloadList) {
             mAdapter.addUsers(onlineUsers);
         }
@@ -258,7 +384,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     @Override
     public void makeFakeUserCall(String gender) {
-        mPresenter.getOnlineFragmentUsers(0, mIsUserExist);
+//        mPresenter.getOnlineFragmentUsers(0, mIsUserExist);
     }
 
     @Override
@@ -295,31 +421,31 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference poemsCatRefRus = database.getReference().child("FakeUsers").child("Female");
         List<OnlineUser> menOfflineList = new ArrayList<>();
-        menOfflineList.add(new OnlineUser("3KTM8ZjHYEgnxXRqi9WEDeG9bXq1", "Sveta Birova", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F3KTM8ZjHYEgnxXRqi9WEDeG9bXq1%2Fprofile_photo?alt=media&token=ac3c6ba7-59a9-4884-8928-8d9dd0d3e1a5", "Female", "Belarus", 1));
-        menOfflineList.add(new OnlineUser("BiTT0ITOMPctRJAYH7GzqpyIuau2", "Ira Berezina", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FBiTT0ITOMPctRJAYH7GzqpyIuau2%2Fprofile_photo?alt=media&token=9fa6bbb4-05c3-4ae3-a0e9-a467e417a3ab", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("IbvmKd5upTNyDxr9sCT0RgIl2Rt1", "Suzanna L", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FIbvmKd5upTNyDxr9sCT0RgIl2Rt1%2Fprofile_photo?alt=media&token=5ecbe716-0e55-4f50-b445-f7b64f649c08", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("Wuq70dyfadZUH2fiDB8OIwPfnHW2", "Gavanah S", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FWuq70dyfadZUH2fiDB8OIwPfnHW2%2Fprofile_photo?alt=media&token=2390a5bc-f4cf-49da-840b-5b61e03bd733", "Female", "Belarus", 1));
-        menOfflineList.add(new OnlineUser("qW9YVFIYsqWUhfSqXE66uS4vrzw2", "Anna Pileva", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FqW9YVFIYsqWUhfSqXE66uS4vrzw2%2Fprofile_photo?alt=media&token=15d1949a-b1bd-4a9d-a2a8-3968874da70d", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("u69Q5xkDYEhPlPUv8LDQhuuo51l1", "Kris N", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fu69Q5xkDYEhPlPUv8LDQhuuo51l1%2Fprofile_photo?alt=media&token=fcdca353-03d8-4a4c-8617-cc5993ba87db", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("zkzqgcy7mBgkoprHlH4TNKAINqm2", "Gulmira K", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fzkzqgcy7mBgkoprHlH4TNKAINqm2%2Fprofile_photo?alt=media&token=df1a351a-0270-40f3-926e-85d4d727fde0", "Female", "Kazakhstan", 1));
-        menOfflineList.add(new OnlineUser("zmhdo8JqCaOzGN80L6WdiBS6r3p2", "Yulia Grib", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fzmhdo8JqCaOzGN80L6WdiBS6r3p2%2Fprofile_photo?alt=media&token=ea41e591-5572-4180-872c-4b8520d21886", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("CBkrfQgwrucX3O0CP41ixiYB5vx2", "Angella Z", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FCBkrfQgwrucX3O0CP41ixiYB5vx2%2Fprofile_photo?alt=media&token=370400b3-535c-4cc5-bc9e-9d5d522f705e", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("KNFOdnxZy7Zuu5Ph6n5uronoCMt2", "Jane J", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FKNFOdnxZy7Zuu5Ph6n5uronoCMt2%2Fprofile_photo?alt=media&token=28b20f48-bc5c-4e38-8e18-f7b6fa591999", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("Tzu28eDvtpPbSsC6D0G65oznEfZ2", "Fiya M", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FTzu28eDvtpPbSsC6D0G65oznEfZ2%2Fprofile_photo?alt=media&token=e865b5d1-7817-448c-830a-96501a1156ea", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("nIPxH19NyuelfesrQnL6RJf0swo2", "Daria C", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FnIPxH19NyuelfesrQnL6RJf0swo2%2Fprofile_photo?alt=media&token=db1c835e-83a2-4842-b87b-5b8ea0ffe075", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("ZJ2TkG7B2bhvIcWIL93iC3mcDIq1", "Ira M", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FZJ2TkG7B2bhvIcWIL93iC3mcDIq1%2Fprofile_photo?alt=media&token=137799b5-be2c-4fc6-8328-1fa3c91654a1", "Female", "Belarus", 1));
-        menOfflineList.add(new OnlineUser("pVb3Vstu6OXxGj8nCIGiNzGElcZ2", "Lena K", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FpVb3Vstu6OXxGj8nCIGiNzGElcZ2%2Fprofile_photo?alt=media&token=7a848d64-0ee1-4807-87a2-6d9e3d5025c3", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("qe7Gxkn4gEVKsp3PMDxbULBBb7O2", "Olya J", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fqe7Gxkn4gEVKsp3PMDxbULBBb7O2%2Fprofile_photo?alt=media&token=a52a26c9-10a1-4973-ab09-8d53e04eb203", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("tV6iGKujx8R24OPJKjy3ndc5L5i2", "Irina Dud", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FtV6iGKujx8R24OPJKjy3ndc5L5i2%2Fprofile_photo?alt=media&token=aaeac377-69dc-400e-b939-8899edeb0f50", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("wvoJjSUAsgRERQC9YO86XmFtQ4m1", "Gul Giova", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FwvoJjSUAsgRERQC9YO86XmFtQ4m1%2Fprofile_photo?alt=media&token=97350de1-7295-4cfc-aa39-b63e6b24d798", "Female", "Kazakhstan", 1));
-        menOfflineList.add(new OnlineUser("yiP3oLvWkiVWRsgKlelyF9rkRok2", "Liya O", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FyiP3oLvWkiVWRsgKlelyF9rkRok2%2Fprofile_photo?alt=media&token=bec9f709-56ff-4c7f-aae9-10182dcd5e90", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("2XQTHt5li2eIcgs3klvkR1N0iqa2", "Varvara O", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F2XQTHt5li2eIcgs3klvkR1N0iqa2%2Fprofile_photo?alt=media&token=e5ca34d9-efe6-456c-85a9-334cb81b7c0b", "Female", "Ukraine", 1));
-        menOfflineList.add(new OnlineUser("6kqEr0vg3cPJNfeftTAVV5UXsVX2", "Yulia Belova", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F6kqEr0vg3cPJNfeftTAVV5UXsVX2%2Fprofile_photo?alt=media&token=a240759a-21e1-40db-9242-cbc29413f7eb", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("83jH7W3bX8OPk6V2442uPxfsVHm1", "Sveta Cherkina", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F83jH7W3bX8OPk6V2442uPxfsVHm1%2Fprofile_photo?alt=media&token=86cae365-21ad-4e21-a5e5-03856fb92b00", "Female", "Russia", 1));
-        menOfflineList.add(new OnlineUser("HQd4EL8y34QJskEj6n41QiuYK822", "Karina Gogol", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FHQd4EL8y34QJskEj6n41QiuYK822%2Fprofile_photo?alt=media&token=bf67b473-7b3f-4eed-abf1-8c4470d81675", "Female", "Kazakhstan", 1));
-        menOfflineList.add(new OnlineUser("LCymSUf3VgeWDHSABbmxA0cP7JS2", "Kris Ten", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FLCymSUf3VgeWDHSABbmxA0cP7JS2%2Fprofile_photo?alt=media&token=b7ff3917-1710-4a48-a6fd-dfc13055757c", "Female", "Georgia", 1));
-        menOfflineList.add(new OnlineUser("fxQLgeFuJ8VdL7UPR1T6n0wsiUF3", "Alena Berkel", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FfxQLgeFuJ8VdL7UPR1T6n0wsiUF3%2Fprofile_photo?alt=media&token=94c336b0-819f-434f-a695-cdf1d64467e6", "Female", "Bulgaria", 1));
-        menOfflineList.add(new OnlineUser("idcbhxoKvAeukJzebSocIvfk4YA2", "Darya Litvenko", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FidcbhxoKvAeukJzebSocIvfk4YA2%2Fprofile_photo?alt=media&token=28385cfc-77ec-48bf-a2b7-ae6b3d685cfc", "Female", "Belarus", 1));
+        menOfflineList.add(new OnlineUser("3KTM8ZjHYEgnxXRqi9WEDeG9bXq1", "Sveta Birova", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F3KTM8ZjHYEgnxXRqi9WEDeG9bXq1%2Fprofile_photo?alt=media&token=ac3c6ba7-59a9-4884-8928-8d9dd0d3e1a5", "Female", "Belarus", -1));
+        menOfflineList.add(new OnlineUser("BiTT0ITOMPctRJAYH7GzqpyIuau2", "Ira Berezina", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FBiTT0ITOMPctRJAYH7GzqpyIuau2%2Fprofile_photo?alt=media&token=9fa6bbb4-05c3-4ae3-a0e9-a467e417a3ab", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("IbvmKd5upTNyDxr9sCT0RgIl2Rt1", "Suzanna L", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FIbvmKd5upTNyDxr9sCT0RgIl2Rt1%2Fprofile_photo?alt=media&token=5ecbe716-0e55-4f50-b445-f7b64f649c08", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("Wuq70dyfadZUH2fiDB8OIwPfnHW2", "Gavanah S", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FWuq70dyfadZUH2fiDB8OIwPfnHW2%2Fprofile_photo?alt=media&token=2390a5bc-f4cf-49da-840b-5b61e03bd733", "Female", "Belarus", -1));
+        menOfflineList.add(new OnlineUser("qW9YVFIYsqWUhfSqXE66uS4vrzw2", "Anna Pileva", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FqW9YVFIYsqWUhfSqXE66uS4vrzw2%2Fprofile_photo?alt=media&token=15d1949a-b1bd-4a9d-a2a8-3968874da70d", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("u69Q5xkDYEhPlPUv8LDQhuuo51l1", "Kris N", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fu69Q5xkDYEhPlPUv8LDQhuuo51l1%2Fprofile_photo?alt=media&token=fcdca353-03d8-4a4c-8617-cc5993ba87db", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("zkzqgcy7mBgkoprHlH4TNKAINqm2", "Gulmira K", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fzkzqgcy7mBgkoprHlH4TNKAINqm2%2Fprofile_photo?alt=media&token=df1a351a-0270-40f3-926e-85d4d727fde0", "Female", "Kazakhstan", -1));
+        menOfflineList.add(new OnlineUser("zmhdo8JqCaOzGN80L6WdiBS6r3p2", "Yulia Grib", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fzmhdo8JqCaOzGN80L6WdiBS6r3p2%2Fprofile_photo?alt=media&token=ea41e591-5572-4180-872c-4b8520d21886", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("CBkrfQgwrucX3O0CP41ixiYB5vx2", "Angella Z", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FCBkrfQgwrucX3O0CP41ixiYB5vx2%2Fprofile_photo?alt=media&token=370400b3-535c-4cc5-bc9e-9d5d522f705e", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("KNFOdnxZy7Zuu5Ph6n5uronoCMt2", "Jane J", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FKNFOdnxZy7Zuu5Ph6n5uronoCMt2%2Fprofile_photo?alt=media&token=28b20f48-bc5c-4e38-8e18-f7b6fa591999", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("Tzu28eDvtpPbSsC6D0G65oznEfZ2", "Fiya M", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FTzu28eDvtpPbSsC6D0G65oznEfZ2%2Fprofile_photo?alt=media&token=e865b5d1-7817-448c-830a-96501a1156ea", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("nIPxH19NyuelfesrQnL6RJf0swo2", "Daria C", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FnIPxH19NyuelfesrQnL6RJf0swo2%2Fprofile_photo?alt=media&token=db1c835e-83a2-4842-b87b-5b8ea0ffe075", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("ZJ2TkG7B2bhvIcWIL93iC3mcDIq1", "Ira M", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FZJ2TkG7B2bhvIcWIL93iC3mcDIq1%2Fprofile_photo?alt=media&token=137799b5-be2c-4fc6-8328-1fa3c91654a1", "Female", "Belarus", -1));
+        menOfflineList.add(new OnlineUser("pVb3Vstu6OXxGj8nCIGiNzGElcZ2", "Lena K", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FpVb3Vstu6OXxGj8nCIGiNzGElcZ2%2Fprofile_photo?alt=media&token=7a848d64-0ee1-4807-87a2-6d9e3d5025c3", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("qe7Gxkn4gEVKsp3PMDxbULBBb7O2", "Olya J", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fqe7Gxkn4gEVKsp3PMDxbULBBb7O2%2Fprofile_photo?alt=media&token=a52a26c9-10a1-4973-ab09-8d53e04eb203", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("tV6iGKujx8R24OPJKjy3ndc5L5i2", "Irina Dud", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FtV6iGKujx8R24OPJKjy3ndc5L5i2%2Fprofile_photo?alt=media&token=aaeac377-69dc-400e-b939-8899edeb0f50", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("wvoJjSUAsgRERQC9YO86XmFtQ4m1", "Gul Giova", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FwvoJjSUAsgRERQC9YO86XmFtQ4m1%2Fprofile_photo?alt=media&token=97350de1-7295-4cfc-aa39-b63e6b24d798", "Female", "Kazakhstan", -1));
+        menOfflineList.add(new OnlineUser("yiP3oLvWkiVWRsgKlelyF9rkRok2", "Liya O", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FyiP3oLvWkiVWRsgKlelyF9rkRok2%2Fprofile_photo?alt=media&token=bec9f709-56ff-4c7f-aae9-10182dcd5e90", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("2XQTHt5li2eIcgs3klvkR1N0iqa2", "Varvara O", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F2XQTHt5li2eIcgs3klvkR1N0iqa2%2Fprofile_photo?alt=media&token=e5ca34d9-efe6-456c-85a9-334cb81b7c0b", "Female", "Ukraine", -1));
+        menOfflineList.add(new OnlineUser("6kqEr0vg3cPJNfeftTAVV5UXsVX2", "Yulia Belova", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F6kqEr0vg3cPJNfeftTAVV5UXsVX2%2Fprofile_photo?alt=media&token=a240759a-21e1-40db-9242-cbc29413f7eb", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("83jH7W3bX8OPk6V2442uPxfsVHm1", "Sveta Cherkina", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F83jH7W3bX8OPk6V2442uPxfsVHm1%2Fprofile_photo?alt=media&token=86cae365-21ad-4e21-a5e5-03856fb92b00", "Female", "Russia", -1));
+        menOfflineList.add(new OnlineUser("HQd4EL8y34QJskEj6n41QiuYK822", "Karina Gogol", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FHQd4EL8y34QJskEj6n41QiuYK822%2Fprofile_photo?alt=media&token=bf67b473-7b3f-4eed-abf1-8c4470d81675", "Female", "Kazakhstan", -1));
+        menOfflineList.add(new OnlineUser("LCymSUf3VgeWDHSABbmxA0cP7JS2", "Kris Ten", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FLCymSUf3VgeWDHSABbmxA0cP7JS2%2Fprofile_photo?alt=media&token=b7ff3917-1710-4a48-a6fd-dfc13055757c", "Female", "Georgia", -1));
+        menOfflineList.add(new OnlineUser("fxQLgeFuJ8VdL7UPR1T6n0wsiUF3", "Alena Berkel", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FfxQLgeFuJ8VdL7UPR1T6n0wsiUF3%2Fprofile_photo?alt=media&token=94c336b0-819f-434f-a695-cdf1d64467e6", "Female", "Bulgaria", -1));
+        menOfflineList.add(new OnlineUser("idcbhxoKvAeukJzebSocIvfk4YA2", "Darya Litvenko", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FidcbhxoKvAeukJzebSocIvfk4YA2%2Fprofile_photo?alt=media&token=28385cfc-77ec-48bf-a2b7-ae6b3d685cfc", "Female", "Belarus", -1));
 
         for (OnlineUser user : menOfflineList) {
             poemsCatRefRus.child(user.getUid()).setValue(user);
@@ -328,7 +454,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     private void createOfflineDBMen() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference poemsCatRefRus = database.getReference().child("FakeUsers").child("Male");
+        DatabaseReference poemsCatRefRus = database.getReference().child("OnlineUsers").child("Male");
         List<OnlineUser> menOfflineList = new ArrayList<>();
         menOfflineList.add(new OnlineUser("dqLyIncyH9hxUkb3iGVWwFOmnI03", "Smith Durat", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FdqLyIncyH9hxUkb3iGVWwFOmnI03%2Fprofile_photo?alt=media&token=074b36fb-9cef-4d43-b09c-b4b21b0bbcc6", "Male", "Australia", 1));
         menOfflineList.add(new OnlineUser("JmrPxXMPEOgnAzbwNRkk3q4xmdB2", "Bob Steel", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FJmrPxXMPEOgnAzbwNRkk3q4xmdB2%2Fprofile_photo?alt=media&token=b772a8be-c2df-46cb-9075-d1529bbbae96", "Male", "USA", 1));
@@ -354,19 +480,19 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         menOfflineList.add(new OnlineUser("xQO5KSxiXidWZirA2ZRjPe5TMiF3", "Hern Hurtan", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FxQO5KSxiXidWZirA2ZRjPe5TMiF3%2Fprofile_photo?alt=media&token=8c8a89e6-907c-42df-be23-70978940c8b2", "Male", "Germany", 1));
         menOfflineList.add(new OnlineUser("8IEopEX1j9T9TCbKGJ3rwWXyaJT2", "Sergio Juan", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F8IEopEX1j9T9TCbKGJ3rwWXyaJT2%2Fprofile_photo?alt=media&token=f1add73d-635d-467f-b4e8-47909fd60c76", "Male", "Brazil", 1));
         menOfflineList.add(new OnlineUser("QxP0kLw4WVVUh0qjSNFxMpur56v2", "Swet Karny", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FQxP0kLw4WVVUh0qjSNFxMpur56v2%2Fprofile_photo?alt=media&token=e08f38c4-5fda-46c1-a16b-3608e7be643a", "Male", "Sweden", 1));
-        menOfflineList.add(new OnlineUser("SpGE02sAIHgw4fEewNzdysQMnWB3", "Jo Herkel", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FSpGE02sAIHgw4fEewNzdysQMnWB3%2Fprofile_photo?alt=media&token=bd17d90c-d113-453a-baf5-7357132d3083", "Male", "Germany", 1));
-        menOfflineList.add(new OnlineUser("djf6ZSfrIfXjdlWefmXWwnl8Fdx1", "Miguel Sancho", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fdjf6ZSfrIfXjdlWefmXWwnl8Fdx1%2Fprofile_photo?alt=media&token=9ec3143b-a24b-4a02-a51d-f43e77e8bb4f", "Male", "Spain", 1));
-        menOfflineList.add(new OnlineUser("qgrecp4SnrYgAV5Zf3JLxItyv5J2", "Cisse Jerdi", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fqgrecp4SnrYgAV5Zf3JLxItyv5J2%2Fprofile_photo?alt=media&token=8a7d28fc-8f91-4dab-bbec-2543e36c5c0f", "Male", "France", 1));
-        menOfflineList.add(new OnlineUser("0CYSTfDVa3QCBKoht9YBzWqOAb82", "Jorhe Jimdo", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F0CYSTfDVa3QCBKoht9YBzWqOAb82%2Fprofile_photo?alt=media&token=4552e8c9-8c80-4766-8f2f-995913ced979", "Male", "Brazil", 1));
-        menOfflineList.add(new OnlineUser("4R87rgnKTCU4k5tdTHFEmo0xxKi2", "Jimmy J", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F4R87rgnKTCU4k5tdTHFEmo0xxKi2%2Fprofile_photo?alt=media&token=15d41e50-9fa0-44fd-8011-3c7e7b02b957", "Male", "USA", 1));
-        menOfflineList.add(new OnlineUser("4kJtUi5JG1MszpvzIZmLQagY8zE3", "Colin Texy", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F4kJtUi5JG1MszpvzIZmLQagY8zE3%2Fprofile_photo?alt=media&token=8be0c96c-7188-4df7-bdfa-1113bdd1d40c", "Male", "Canada", 1));
-        menOfflineList.add(new OnlineUser("IUxV7joi30e20sOndxAyXNrKlw82", "Giro Pindelli", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FIUxV7joi30e20sOndxAyXNrKlw82%2Fprofile_photo?alt=media&token=e04d627c-51a0-4b6f-95d7-5a50edaad16b", "Male", "Italy", 1));
-        menOfflineList.add(new OnlineUser("oJKBCULkteedR3JKu1hFWaBK9uU2", "Sebastian Severn", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FoJKBCULkteedR3JKu1hFWaBK9uU2%2Fprofile_photo?alt=media&token=e965663b-f258-4fc7-81f4-1c7c5178810b", "Male", "USA", 1));
-        menOfflineList.add(new OnlineUser("9f699FD0dYb576jg6O48I26ugh02", "Guano Niche", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F9f699FD0dYb576jg6O48I26ugh02%2Fprofile_photo?alt=media&token=cc59cab9-f40a-4c55-88be-e13b8b51d752", "Male", "Italy", 1));
-        menOfflineList.add(new OnlineUser("aTcqqb5HatOPUfVdlcGbQyPut5f1", "Andrew Kirek", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FaTcqqb5HatOPUfVdlcGbQyPut5f1%2Fprofile_photo?alt=media&token=337844ef-3d01-47a6-af03-4cbb1cde34f3", "Male", "Canada", 1));
-        menOfflineList.add(new OnlineUser("mfxN3sUvZldcplmg00D5m6pRfCh1", "Rob B", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FmfxN3sUvZldcplmg00D5m6pRfCh1%2Fprofile_photo?alt=media&token=3b5c4add-720d-44c8-a6f5-dc4f95dadfe0", "Male", "Austria", 1));
-        menOfflineList.add(new OnlineUser("s55US23UOkhKGFbamxoMa1yl5IL2", "Bill Sup", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fs55US23UOkhKGFbamxoMa1yl5IL2%2Fprofile_photo?alt=media&token=4e722ec4-263e-4f9a-a603-601cc384f3da", "Male", "USA", 1));
-        menOfflineList.add(new OnlineUser("uG54uC3dvkNWgiz39M1lkYLNlEY2", "Pablo B", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FuG54uC3dvkNWgiz39M1lkYLNlEY2%2Fprofile_photo?alt=media&token=0de77e65-c951-4201-a961-18f3a19cd36c", "Male", "Brazil", 1));
+//        menOfflineList.add(new OnlineUser("SpGE02sAIHgw4fEewNzdysQMnWB3", "Jo Herkel", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FSpGE02sAIHgw4fEewNzdysQMnWB3%2Fprofile_photo?alt=media&token=bd17d90c-d113-453a-baf5-7357132d3083", "Male", "Germany", 1));
+//        menOfflineList.add(new OnlineUser("djf6ZSfrIfXjdlWefmXWwnl8Fdx1", "Miguel Sancho", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fdjf6ZSfrIfXjdlWefmXWwnl8Fdx1%2Fprofile_photo?alt=media&token=9ec3143b-a24b-4a02-a51d-f43e77e8bb4f", "Male", "Spain", 1));
+//        menOfflineList.add(new OnlineUser("qgrecp4SnrYgAV5Zf3JLxItyv5J2", "Cisse Jerdi", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fqgrecp4SnrYgAV5Zf3JLxItyv5J2%2Fprofile_photo?alt=media&token=8a7d28fc-8f91-4dab-bbec-2543e36c5c0f", "Male", "France", 1));
+//        menOfflineList.add(new OnlineUser("0CYSTfDVa3QCBKoht9YBzWqOAb82", "Jorhe Jimdo", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F0CYSTfDVa3QCBKoht9YBzWqOAb82%2Fprofile_photo?alt=media&token=4552e8c9-8c80-4766-8f2f-995913ced979", "Male", "Brazil", 1));
+//        menOfflineList.add(new OnlineUser("4R87rgnKTCU4k5tdTHFEmo0xxKi2", "Jimmy J", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F4R87rgnKTCU4k5tdTHFEmo0xxKi2%2Fprofile_photo?alt=media&token=15d41e50-9fa0-44fd-8011-3c7e7b02b957", "Male", "USA", 1));
+//        menOfflineList.add(new OnlineUser("4kJtUi5JG1MszpvzIZmLQagY8zE3", "Colin Texy", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F4kJtUi5JG1MszpvzIZmLQagY8zE3%2Fprofile_photo?alt=media&token=8be0c96c-7188-4df7-bdfa-1113bdd1d40c", "Male", "Canada", 1));
+//        menOfflineList.add(new OnlineUser("IUxV7joi30e20sOndxAyXNrKlw82", "Giro Pindelli", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FIUxV7joi30e20sOndxAyXNrKlw82%2Fprofile_photo?alt=media&token=e04d627c-51a0-4b6f-95d7-5a50edaad16b", "Male", "Italy", 1));
+//        menOfflineList.add(new OnlineUser("oJKBCULkteedR3JKu1hFWaBK9uU2", "Sebastian Severn", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FoJKBCULkteedR3JKu1hFWaBK9uU2%2Fprofile_photo?alt=media&token=e965663b-f258-4fc7-81f4-1c7c5178810b", "Male", "USA", 1));
+//        menOfflineList.add(new OnlineUser("9f699FD0dYb576jg6O48I26ugh02", "Guano Niche", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2F9f699FD0dYb576jg6O48I26ugh02%2Fprofile_photo?alt=media&token=cc59cab9-f40a-4c55-88be-e13b8b51d752", "Male", "Italy", 1));
+//        menOfflineList.add(new OnlineUser("aTcqqb5HatOPUfVdlcGbQyPut5f1", "Andrew Kirek", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FaTcqqb5HatOPUfVdlcGbQyPut5f1%2Fprofile_photo?alt=media&token=337844ef-3d01-47a6-af03-4cbb1cde34f3", "Male", "Canada", 1));
+//        menOfflineList.add(new OnlineUser("mfxN3sUvZldcplmg00D5m6pRfCh1", "Rob B", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FmfxN3sUvZldcplmg00D5m6pRfCh1%2Fprofile_photo?alt=media&token=3b5c4add-720d-44c8-a6f5-dc4f95dadfe0", "Male", "Austria", 1));
+//        menOfflineList.add(new OnlineUser("s55US23UOkhKGFbamxoMa1yl5IL2", "Bill Sup", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2Fs55US23UOkhKGFbamxoMa1yl5IL2%2Fprofile_photo?alt=media&token=4e722ec4-263e-4f9a-a603-601cc384f3da", "Male", "USA", 1));
+//        menOfflineList.add(new OnlineUser("uG54uC3dvkNWgiz39M1lkYLNlEY2", "Pablo B", "https://firebasestorage.googleapis.com/v0/b/russianwives.appspot.com/o/profile_images%2FuG54uC3dvkNWgiz39M1lkYLNlEY2%2Fprofile_photo?alt=media&token=0de77e65-c951-4201-a961-18f3a19cd36c", "Male", "Brazil", 1));
 
         for (OnlineUser user : menOfflineList) {
             poemsCatRefRus.child(user.getUid()).setValue(user);
