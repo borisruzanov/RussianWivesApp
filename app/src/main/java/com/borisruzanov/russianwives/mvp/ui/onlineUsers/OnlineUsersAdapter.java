@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,19 +35,20 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
     private Context context;
 
     public OnlineUsersAdapter(OnItemClickListener.OnItemClickCallback onItemClickCallback,
-                         OnItemClickListener.OnItemClickCallback onChatClickCallback,
-                         OnItemClickListener.OnItemClickCallback onLikeClickCallback) {
+                              OnItemClickListener.OnItemClickCallback onChatClickCallback,
+                              OnItemClickListener.OnItemClickCallback onLikeClickCallback) {
         this.onItemClickCallback = onItemClickCallback;
         this.onChatClickCallback = onChatClickCallback;
         this.onLikeClickCallback = onLikeClickCallback;
     }
 
     public void addUsers(List<OnlineUser> userList) {
+        int initSize = onlineUsers.size();
         onlineUsers.addAll(userList);
-        notifyItemRangeInserted(onlineUsers.size() - userList.size(), onlineUsers.size());
+        notifyItemRangeChanged(initSize, userList.size());
     }
 
-    public void clearData(List<OnlineUser> userList){
+    public void clearData(List<OnlineUser> userList) {
         int oldSize = userList.size();
         onlineUsers = userList;
         notifyItemRangeRemoved(0, oldSize);
@@ -114,7 +116,8 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             imageView.setOnClickListener(new OnItemClickListener(position, onItemClickCallback));
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
 
-
+            Log.d("rating", "-> " + user.getRating());
+            Log.d("uid", "-> " + onlineUsers.get(position));
             if (user.getImage().equals(Consts.DEFAULT)) {
                 Glide.with(context).load(context.getResources().getDrawable(R.drawable.default_avatar)).into(imageView);
             } else {
@@ -145,9 +148,19 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
     }
 
     public String getLastItemId() {
-        return onlineUsers.get(onlineUsers.size() - 1).getUid();
+        int x = onlineUsers.size();
+        String result = "";
+        if (onlineUsers.size() > 0) {
+            result = onlineUsers.get(onlineUsers.size() - 1).getUid();
+        }
+        return result;
     }
 
+    public void removeLastItem() {
+        if (onlineUsers.size() > 0) {
+            onlineUsers.remove(onlineUsers.size() - 1);
+        }
+    }
 
     public long getLastItemRating() {
         return onlineUsers.get(onlineUsers.size() - 1).getRating();

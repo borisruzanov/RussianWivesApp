@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,15 +63,9 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     private List<OnlineUser> mUserList = new ArrayList<>();
 
-    @ProvidePresenter
-    public OnlineUsersPresenter getmPresenter() {
-        return mPresenter;
-    }
-
     private OnlineUsersAdapter mAdapter;
 
     private RecyclerView mOnlineUsersRecycler;
-    private SwipeRefreshLayout mRefreshSwipeLayout;
     private TextView mEmptyUsersTextView;
     private RelativeLayout mBottomButtonContainer;
     private Button mSeeMoreRegisterButton;
@@ -78,27 +73,31 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     private boolean mIsUserExist;
     private int mCurrentPage = 1;
 
-    final int ITEM_LOAD_COUNT = 10;
+    //Pagination fields
+    final int ITEM_LOAD_COUNT = 12;
     private int total_item = 0;
     private int last_visible_item;
     private boolean isLoading = false;
     private boolean isMaxData = false;
     String last_node = "";
     String last_key = "";
-
-    private DatabaseReference realtimeReference = FirebaseDatabase.getInstance().getReference();
-
     private String firstUid = "";
     private boolean stopDownloadList = false;
+    private boolean isGoneInOnPause;
 
+    /**
+     * Intent to clicked friend activity
+     */
     private OnItemClickListener.OnItemClickCallback itemClickCallback = (view, position) -> {
         Intent openFriend = new Intent(getContext(), FriendProfileActivity.class);
-        int x = mUserList.size();
         openFriend.putExtra(Consts.UID, mUserList.get(position).getUid());
         openFriend.putExtra("transitionName", mUserList.get(position).getName());
         startActivity(openFriend);
-
     };
+
+    /**
+     * Intent to chat with clicked friend
+     */
     private OnItemClickListener.OnItemClickCallback chatClickCallback = (view, position) -> {
         if (mIsUserExist) {
             mSearchPresenter.openChatOnlineUser(mUserList.get(position).getUid(), mUserList.get(position).getName(), mUserList.get(position).getImage());
@@ -106,6 +105,10 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
             Toast.makeText(getContext(), getString(R.string.please_register_to_interact_with_user), Toast.LENGTH_LONG).show();
         }
     };
+
+    /**
+     * Set like to clicked friend
+     */
     private OnItemClickListener.OnItemClickCallback likeClickCallback = (view, position) -> {
         if (mIsUserExist) {
             mSearchPresenter.setOnlineFriendLiked(mUserList.get(position).getUid());
@@ -114,29 +117,30 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         }
     };
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
     public void onResume() {
         super.onResume();
-
+        if(isGoneInOnPause) {
+            isMaxData = false;
+            last_node = mAdapter.getLastItemId();
+            mAdapter.removeLastItem();
+            mAdapter.notifyDataSetChanged();
+            getLastKeyFromFirebase();
+            getUsers();
+        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        List<OnlineUser> list = new ArrayList<>();
-        mAdapter.clearData(list);
-        mAdapter.notifyDataSetChanged();
+//        List<OnlineUser> list = new ArrayList<>();
+//        mAdapter.clearData(list);
+//        mAdapter.notifyDataSetChanged();
     }
 
     @Nullable
@@ -146,12 +150,6 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         ButterKnife.bind(this, view);
         setRefreshProgress(true);
         return view;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-
     }
 
     @Override
@@ -169,25 +167,31 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
         mIsUserExist = mPresenter.isUserExist();
         mPresenter.registerSubscribers();
-
         LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         mAdapter = new OnlineUsersAdapter(itemClickCallback, chatClickCallback, likeClickCallback);
         mOnlineUsersRecycler.setLayoutManager(layoutManager);
         mOnlineUsersRecycler.setAdapter(mAdapter);
 //        initRecyclerView();
-        userExistScenarios();
+//        userExistScenarios();
 //        createOfflineDBWomen();
 //        createOfflineDBMen();
-        getUsers();
+        getLastKeyFromFirebase();
+
 
         mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                Log.d("logic", "------------ Зашли в onScrolled -------------");
+
                 total_item = layoutManager.getItemCount();
                 last_visible_item = layoutManager.findLastVisibleItemPosition();
+                Log.d("logic", "isLoading = " + isLoading);
+                Log.d("logic", "total_item " + total_item + " <= " + (last_visible_item + ITEM_LOAD_COUNT));
+                Log.d("logic", "last_visible_item "+ last_visible_item + " ITEM_LOAD_COUNT " + ITEM_LOAD_COUNT );
 
                 if (!isLoading && total_item <= ((last_visible_item + ITEM_LOAD_COUNT))){
+                    Log.d("logic", "Запросили пользователей из onScrolled");
                     getUsers();
                     isLoading = true;
                 }
@@ -197,6 +201,88 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         });
     }
 
+    /**
+     * Getting user block
+     */
+    private void getUsers() {
+        Log.d("logic", "------------ getUsers START -------------");
+
+        //Срабатывает в первый раз без скролла
+        //Если не полные данные
+        if (!isMaxData) {
+            Query query;
+
+            //Если последняя запись не установлена от которой идет отчет начинаем с начала
+            if (TextUtils.isEmpty(last_node)) {
+                Log.d("logic", "формируем первый запрос, запись пустая");
+                query = FirebaseDatabase.getInstance().getReference()
+                        .child("OnlineUsers")
+                        .child("Male")
+                        .orderByKey()
+                        .limitToFirst(ITEM_LOAD_COUNT);
+            } else {
+                //Если список уже есть следующий запрос идет с последней ячейки списка
+                Log.d("logic", "формируем последующий запрос  запрос, запись -> " + last_node);
+                query = FirebaseDatabase.getInstance().getReference()
+                        .child("OnlineUsers")
+                        .child("Male")
+                        .orderByKey()
+                        .startAt(last_node)
+                        .limitToFirst(ITEM_LOAD_COUNT);
+            }
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.hasChildren()) {
+                        Log.d("logic", "------------ DataSnapshot has children START -------------");
+
+                        Log.d("logic", "получили снэпшот, количествой ячеек " + dataSnapshot.getChildrenCount());
+                        List<OnlineUser> newUser = new ArrayList<>();
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                            newUser.add(userSnapshot.getValue(OnlineUser.class));
+                        }
+                        last_node = newUser.get(newUser.size() - 1).getUid();
+                        Log.d("logic", "изминили значение last_node " + last_node);
+
+                        //ВОТ ТУТ НЕ ПОНЯТНО
+                        if (!last_node.equals(last_key)) {
+                            Log.d("logic", "ВОТ ТУТ НЕ ПОНЯТНО, зачем то удаляем ячейке ");
+
+                            newUser.remove(newUser.size() - 1);
+                        } else {
+                            //Fix error
+                            Log.d("logic", "last_node теперь end ");
+                            last_node = "end";
+                            isMaxData = true;
+                        }
+                        Log.d("logic", "добавили всех пользователей в адаптер ");
+
+                        mAdapter.addUsers(newUser);
+                        Log.d("logic", "isLoading изменили на false ");
+                        isLoading = false;
+                        Log.d("logic", "------------ DataSnapshot has children END -------------");
+
+                    } else {
+                        Log.d("logic", "isLoading изменили на false ");
+                        Log.d("logic", "isMaxData изменили на true ");
+
+                        isLoading = false;
+                        isMaxData = true;
+                        Log.d("logic", "------------ DataSnapshot no children -------------");
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                    Log.d("logic", "попали в onCancelled, ошибка " + databaseError.getMessage());
+                }
+            });
+        }
+        Log.d("logic", "------------ getUsers END -------------");
+
+    }
     private void userExistScenarios() {
         if (mIsUserExist) {
 
@@ -214,65 +300,18 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
         });
     }
 
-    private void getUsers() {
-    //Срабатывает в первый раз без скролла
-        if (!isMaxData) {
 
-            Query query;
-            if (TextUtils.isEmpty(last_node)) {
-                query = FirebaseDatabase.getInstance().getReference()
-                        .child("OnlineUsers")
-                        .child("Male")
-                        .orderByKey()
-                        .limitToFirst(ITEM_LOAD_COUNT);
-            } else {
-                query = FirebaseDatabase.getInstance().getReference()
-                        .child("OnlineUsers")
-                        .child("Male")
-                        .orderByKey()
-                        .startAt(last_node)
-                        .limitToFirst(ITEM_LOAD_COUNT);
-            }
+    @Override
+    public void onPause() {
+        super.onPause();
+        isGoneInOnPause = true;
 
-            query.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    long x = dataSnapshot.getChildrenCount();
-                    if (dataSnapshot.hasChildren()) {
-                        List<OnlineUser> newUser = new ArrayList<>();
-                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                            newUser.add(userSnapshot.getValue(OnlineUser.class));
-                        }
-                        last_node = newUser.get(newUser.size() - 1).getUid();
-
-                        //ВОТ ТУТ НЕ ПОНЯТНО
-                        if (!last_node.equals(last_key)) {
-                            newUser.remove(newUser.size() - 1);
-                        } else {
-                            //Fix error
-                            last_node = "end";
-                        }
-
-                        mAdapter.addUsers(newUser);
-                        isLoading = false;
-                    } else {
-                        isLoading = false;
-                        isMaxData = true;
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    isLoading = false;
-                }
-            });
-        }
     }
 
     private void getLastKeyFromFirebase() {
         Query getLastKey = FirebaseDatabase.getInstance().getReference()
                 .child("OnlineUsers")
-                .child("Female")
+                .child("Male")
                 .orderByKey()
                 .limitToLast(1);
         getLastKey.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -281,11 +320,12 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
                 for (DataSnapshot lastKey : dataSnapshot.getChildren()) {
                     last_key = lastKey.getKey();
                 }
+                getUsers();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.d("Logic", "Last key error " + databaseError.getMessage());
             }
         });
     }
