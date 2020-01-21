@@ -48,6 +48,10 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
         notifyItemRangeChanged(initSize, userList.size());
     }
 
+    /**
+     * Clear list to avoid duplicating data in case of recreation in onPause/onStop
+     * @param userList
+     */
     public void clearData(List<OnlineUser> userList) {
         int oldSize = userList.size();
         onlineUsers = userList;
