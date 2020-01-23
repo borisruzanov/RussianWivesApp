@@ -196,9 +196,9 @@ public class UserRepository {
      */
     public void changeUserOnlineStatus(@NotNull FsUser user) {
         OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(),user.getCountry(), user.getRating());
-        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
+//        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
 
-        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).onDisconnect().removeValue();
+//        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child("3uuDS6mm1nOPhhBDKIVg70CMbr82").onDisconnect().removeValue();
 
     }
 

@@ -105,7 +105,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
                     }
                     else {
                         like.setBackground(ContextCompat.getDrawable(context, R.drawable.heart_outline));
-                        animationView.setVisibility(View.GONE);
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                 });
             }

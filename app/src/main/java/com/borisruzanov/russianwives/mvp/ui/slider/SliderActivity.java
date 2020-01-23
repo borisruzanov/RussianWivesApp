@@ -121,7 +121,11 @@ public class SliderActivity extends MvpAppCompatActivity {
         if (getIntent().getExtras().getString("intent") != null && getIntent().getExtras().getString("intent").equals("list")) {
             buttonNext.setVisibility(View.GONE);
         } else {
-            if (fragmentList.size() == 1) buttonNext.setText(R.string.finish);
+            //Show finish button
+            if (fragmentList.size() == 1) {
+                buttonNext.setVisibility(View.VISIBLE);
+                buttonNext.setText(R.string.finish);
+            }
             Log.d("tag", "Inside extras " + getIntent().getExtras().getString("field_id"));
         }
         Log.d(Contract.SLIDER, "Inside extras " + getIntent().getExtras().getString("field_id"));
@@ -129,8 +133,8 @@ public class SliderActivity extends MvpAppCompatActivity {
     }
 
     @Subscribe
-    public void nextSlide(StringEvent event){
-        if (fragmentList.size() > 1){
+    public void nextSlide(StringEvent event) {
+        if (fragmentList.size() > 1) {
             slideToNext(fragmentList, viewPager.getCurrentItem());
         }
     }
@@ -154,8 +158,13 @@ public class SliderActivity extends MvpAppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-            if (fragmentList.size() == position + 1) buttonNext.setText(R.string.finish);
-            else buttonNext.setText(R.string.next_text);
+            if (fragmentList.size() == position + 1) {
+                buttonNext.setVisibility(View.VISIBLE);
+                buttonNext.setText(R.string.finish);
+            } else {
+                buttonNext.setVisibility(View.GONE);
+                buttonNext.setText(R.string.next_text);
+            }
         }
 
         @Override

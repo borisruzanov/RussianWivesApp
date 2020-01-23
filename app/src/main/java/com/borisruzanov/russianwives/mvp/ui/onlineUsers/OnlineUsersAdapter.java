@@ -107,7 +107,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
                         animationView.setVisibility(View.VISIBLE);
                     } else {
                         likeBtn.setBackground(ContextCompat.getDrawable(context, R.drawable.heart_outline));
-                        animationView.setVisibility(View.GONE);
+                        animationView.setVisibility(View.INVISIBLE);
                     }
                 });
             }

@@ -99,6 +99,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
     private DialogFragment mDialogFragment;
     private SearchFragment mSearchFragment;
+    private FsUser mFsUser = new FsUser();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -143,11 +144,12 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         //Get info for inflating in drawer
         getUserInfo();
         mPresenter.registerSubscribers();
-        mChatsPresenter.getUserChatList();
+
         callUserInfoDialogs();
         makeGenderCheck();
 
         mPresenter.checkForUpdateVersion();
+//        mChatsPresenter.getUserChatList();
 //        showFullInfoDialog();
     }
 
@@ -242,9 +244,12 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                 RC_SIGN_IN);
     }
 
+
+
     @Override
     protected void onStop() {
         super.onStop();
+        mPresenter.changeUserOnlineStatus(mFsUser);
         mPresenter.unregisterSubscribers();
     }
 
@@ -456,6 +461,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
             }
 
             mPresenter.changeUserOnlineStatus(user);
+            mFsUser = user;
         }
     }
 
