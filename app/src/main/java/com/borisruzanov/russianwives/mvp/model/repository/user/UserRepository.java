@@ -1,11 +1,14 @@
 package com.borisruzanov.russianwives.mvp.model.repository.user;
 
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.eventbus.BooleanEvent;
-import com.borisruzanov.russianwives.eventbus.ListEvent;
+import com.borisruzanov.russianwives.eventbus.LastKeyEvent;
+import com.borisruzanov.russianwives.eventbus.FakeUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
+import com.borisruzanov.russianwives.eventbus.RealUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
@@ -62,7 +65,11 @@ public class UserRepository {
     private static final String TAG_CLASS_NAME = "UserRepository";
     private static final String GENDER_FEMALE = "Female";
     private static final String GENDER_MALE = "Male";
-    private static final int TOTAL_ITEMS_TO_LOAD = 15;
+    boolean isLoading= false;
+    private String last_node = "";
+    private String last_key="";
+    private long last_rating = 0;
+
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
@@ -71,7 +78,7 @@ public class UserRepository {
     private Prefs mPrefs;
 
     private String endAt = null;
-    private boolean mMustInfo;
+    private boolean isMaxData = false;
 
     public UserRepository(Prefs mPrefs) {
         this.mPrefs = mPrefs;
@@ -116,7 +123,7 @@ public class UserRepository {
                 if (task.isSuccessful()) {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot != null) {
-                        if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO)!= null) {
+                        if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO) != null) {
                             Log.d(TAG_CLASS_NAME, "userHasMustInfo calling for must info dialog");
                             EventBus.getDefault().post(new StringEvent(Consts.MUST_INFO));
                         } else {
@@ -153,8 +160,10 @@ public class UserRepository {
             });
         }
     }
+
     /**
      * Getting the list of default fields of the user from DB and sending back to the slider
+     *
      * @param callback
      */
     public void getDefaultList(StringsCallback callback) {
@@ -166,6 +175,7 @@ public class UserRepository {
 
     /**
      * Getting the list of default fields to let user fill them with info
+     *
      * @param document - object from DB
      * @return - ready for use list
      */
@@ -192,10 +202,11 @@ public class UserRepository {
 
     /**
      * Insert user in online users table
+     *
      * @param user
      */
     public void changeUserOnlineStatus(@NotNull FsUser user) {
-        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(),user.getCountry(), user.getRating());
+        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating());
 //        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
 
 //        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child("3uuDS6mm1nOPhhBDKIVg70CMbr82").onDisconnect().removeValue();
@@ -217,7 +228,7 @@ public class UserRepository {
                     OnlineUser user = postSnapshot.getValue(OnlineUser.class);
                     userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
                 }
-                EventBus.getDefault().post(new ListEvent(userList));
+                EventBus.getDefault().post(new FakeUsersListEvent(userList));
             }
 
 
@@ -232,50 +243,49 @@ public class UserRepository {
     /**
      * Getting real online users from Realtime Database
      */
-    private void callRealOnlineUsersList(String uid, String neededGender, long lastRating) {
-        DatabaseReference mReference = realtimeReference.child("OnlineUsers/" + neededGender);
-
-        Query query;
-        if (uid.equals("")){
-            query = mReference.orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
-        }else {
-            //Pagination query with last uid to start
-            query =mReference.orderByChild("rating").startAt(lastRating,uid).limitToLast(TOTAL_ITEMS_TO_LOAD);
-
-
-//                    FirebaseDatabase.getInstance().getReference()
-//                            .child("OnlineUsers/" + neededGender)
-//                            .orderByKey()
-//                            .startAt(uid)
-//                            .limitToFirst(TOTAL_ITEMS_TO_LOAD);;
-//            query = mReference.startAt(uid).orderByChild("rating").limitToLast(TOTAL_ITEMS_TO_LOAD);
-        }
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void getLastKeyNodeFromFirebase() {
+        Query getLastKey = FirebaseDatabase.getInstance().getReference()
+                .child("OnlineUsers")
+                .child(getNeededGender())
+                .orderByKey()
+                .limitToLast(1);
+        getLastKey.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final List<OnlineUser> userList = new ArrayList<>();
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    OnlineUser user = postSnapshot.getValue(OnlineUser.class);
-                    userList.add(new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating()));
+                String last_key = "";
+                for (DataSnapshot lastKey : dataSnapshot.getChildren()) {
+                    last_key = lastKey.getKey();
                 }
-                EventBus.getDefault().post(new ListEvent(userList));
+                EventBus.getDefault().post(new LastKeyEvent(last_key));
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-            String s = databaseError.getMessage();
-            String x = databaseError.getDetails();
-            int c = databaseError.getCode();
+                Log.d("Logic", "Last key error " + databaseError.getMessage());
             }
         });
     }
 
+
     /**
      * Calling for a fake / real online list based on converted gender
+     *
      * @param isUserExist
      */
-    public void getOnlineUsers(String uid, boolean isUserExist, long lastRating) {
+    public void getOnlineUsers(boolean isUserExist) {
+        if (isUserExist) {
+            callRealUserList();
+        } else {
+            //Get fake users list for unregistered user
+            callFakeUserList(getNeededGender());
+        }
+    }
+
+    /**
+     * Getting the gender of the user convert it to opposite and return
+     * @return - opposite gender of the user
+     */
+    private String getNeededGender() {
         String neededGender;
         if (getGender().equals(GENDER_FEMALE)) {
             neededGender = GENDER_MALE;
@@ -284,12 +294,72 @@ public class UserRepository {
         } else {
             neededGender = GENDER_FEMALE;
         }
+        return neededGender;
+    }
 
-        if (isUserExist) {
-            callRealOnlineUsersList(uid, neededGender,lastRating);
-        } else {
-            callFakeUserList(neededGender);
+    /**
+     * Make a query to get a real online user list
+     */
+    public void callRealUserList() {
+
+        if (!isMaxData) {
+            Query query;
+            if (TextUtils.isEmpty(last_node)) {
+                Log.d("logic", "формируем первый запрос, запись пустая");
+                query = FirebaseDatabase.getInstance().getReference()
+                        .child("OnlineUsers")
+                        .child(getNeededGender())
+                        .orderByChild("rating")
+                        .limitToFirst(Consts.ITEM_LOAD_COUNT);
+            } else {
+                Log.d("logic", "формируем последующий запрос  запрос, запись -> " + last_node);
+                query = FirebaseDatabase.getInstance().getReference()
+                        .child("OnlineUsers")
+                        .child(getNeededGender())
+                        .orderByChild("rating")
+                        .startAt(last_rating, last_node)
+                        .limitToFirst(Consts.ITEM_LOAD_COUNT);
+            }
+
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if(dataSnapshot.hasChildren()){
+
+                        List<OnlineUser> newUser = new ArrayList<>();
+                        for(DataSnapshot userSnapShot: dataSnapshot.getChildren()){
+                            newUser.add(userSnapShot.getValue(OnlineUser.class));
+                        }
+                        last_node = newUser.get(newUser.size() - 1).getUid();
+                        last_rating = newUser.get(newUser.size() - 1).getRating();
+
+                        if(!last_node.equals(last_key)){
+                            newUser.remove(newUser.size() - 1);
+                        }
+                        else {
+                            last_node = "end";
+                            isMaxData = true;
+
+                        }
+
+                        EventBus.getDefault().post(new RealUsersListEvent(newUser));
+                        isLoading = false;
+                    }
+                    else {
+                        isLoading =false;
+                        isMaxData = true;
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
         }
+    }
+
+    public void getRealUsersList() {
     }
 
     public void addRating(double addPoint) {
@@ -351,11 +421,6 @@ public class UserRepository {
             }
         });
     }
-
-
-
-
-
 
 
     private void setOnlineUsersCallback(DataSnapshot usersSnapshot, OnlineUsersCallback callback) {
@@ -766,7 +831,6 @@ public class UserRepository {
     }
 
 
-
     public String getUserGender() {
         return mPrefs.getGender();
     }
@@ -791,6 +855,7 @@ public class UserRepository {
 //            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
     }
+
 
 
 

@@ -13,11 +13,19 @@ public class OnlineUsersInteractor {
         this.mRepository = mRepository;
     }
 
-    public void getOnlineUsers(String uid, boolean isUserExist,long lastRating) {
-        mRepository.getOnlineUsers(uid, isUserExist,lastRating);
+    public void getOnlineUsers(boolean isUserExist) {
+        mRepository.getOnlineUsers(isUserExist);
     }
 
     public boolean isUserExist() {
         return mRepository.isUserExist();
+    }
+
+    public void callRealUserList() {
+//        mRepository.callRealUserList();
+    }
+
+    public void getLastKeyNodeFromFirebase() {
+        mRepository.getLastKeyNodeFromFirebase();
     }
 }

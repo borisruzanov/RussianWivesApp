@@ -3,7 +3,6 @@ package com.borisruzanov.russianwives.mvp.ui.myprofile
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.UserProfileItemsList
-import com.borisruzanov.russianwives.eventbus.ListEvent
 import com.borisruzanov.russianwives.eventbus.UserEvent
 import com.borisruzanov.russianwives.models.UserDescriptionModel
 import com.borisruzanov.russianwives.mvp.model.interactor.myprofile.MyProfileInteractor

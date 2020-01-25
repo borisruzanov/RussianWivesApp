@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface OnlineUsersView extends MvpView {
 
-    void addUsers(List<OnlineUser> onlineUsers);
+    void addFakeUsers(List<OnlineUser> onlineUsers);
     void setRefreshProgress(boolean progress);
 
     void makeFakeUserCall(String gender);
@@ -20,4 +20,8 @@ public interface OnlineUsersView extends MvpView {
     void showFullProfileDialog();
 
     void openSlider(ArrayList<String> list);
+
+    void setLastNodeForPagination(String stringParameter);
+
+    void addRealUsers(List<OnlineUser> onlineUsers);
 }

@@ -3,8 +3,10 @@ package com.borisruzanov.russianwives.mvp.ui.onlineUsers;
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
 import com.borisruzanov.russianwives.eventbus.ChatEvent;
-import com.borisruzanov.russianwives.eventbus.ListEvent;
+import com.borisruzanov.russianwives.eventbus.LastKeyEvent;
+import com.borisruzanov.russianwives.eventbus.FakeUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
+import com.borisruzanov.russianwives.eventbus.RealUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.interactor.OnlineUsersInteractor;
 
@@ -25,24 +27,37 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
         this.mView = view;
     }
 
-    public void getOnlineFragmentUsers(String uid, boolean mIsUserExist,long lastRating) {
-//        mInteractor.getOnlineFragmentUsers(page, onlineUsers -> {
-//            getViewState().addUsers(onlineUsers);
-//        }, mIsUserExist);
-
-        mInteractor.getOnlineUsers(uid, mIsUserExist,lastRating);
+    /**
+     * Getting users list fake or real based on user exist
+     */
+    public void getOnlineFragmentUsers(boolean mIsUserExist) {
+        mInteractor.getOnlineUsers(mIsUserExist);
     }
 
     public boolean isUserExist() {
         return mInteractor.isUserExist();
     }
 
+    public void getLastKeyNodeFromFirebase() {
+        mInteractor.getLastKeyNodeFromFirebase();
+    }
+
+    public void getRealUsers() {
+    }
     /**
-     * Event of inflating games list
+     * Get the fake list of the users
      */
     @Subscribe
-    public void inflateCardList(ListEvent event) {
-        mView.addUsers(event.getCardList());
+    public void inflateFakeUserList(FakeUsersListEvent event) {
+        mView.addFakeUsers(event.getFakeUserList());
+    }
+
+    /**
+     * Get the real list of the users
+     */
+    @Subscribe
+    public void inflateReaUserList(RealUsersListEvent event) {
+        mView.addRealUsers(event.getRealUserList());
     }
 
     @Subscribe
@@ -62,6 +77,11 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
     }
 
     @Subscribe
+    public void setLastKey(LastKeyEvent event){
+        mView.setLastNodeForPagination(event.getLastKey());
+    }
+
+    @Subscribe
     public void intentToInfoDialog(ListStringEvent event) {
         mView.openSlider(event.getList());
     }
@@ -76,4 +96,10 @@ public class OnlineUsersPresenter extends MvpPresenter<OnlineUsersView> {
     public void unregisterSubscribers() {
         EventBus.getDefault().unregister(this);
     }
+
+    public void callRealUserList() {
+        mInteractor.callRealUserList();
+    }
+
+
 }
