@@ -1,20 +1,20 @@
 package com.borisruzanov.russianwives.models;
 
-public class OnlineUser {
-    private String uid, name, image, gender, country;
-    private long rating;
+    public class OnlineUser {
+        private String uid, name, image, gender, country;
+        private long rating;
 
-    public OnlineUser() {
-    }
+        public OnlineUser() {
+        }
 
-    public OnlineUser(String uid, String name, String image, String gender, String country, long rating) {
-        this.uid = uid;
-        this.name = name;
-        this.image = image;
-        this.gender = gender;
-        this.country = country;
-        this.rating = rating;
-    }
+        public OnlineUser(String uid, String name, String image, String gender, String country, long rating) {
+            this.uid = uid;
+            this.name = name;
+            this.image = image;
+            this.gender = gender;
+            this.country = country;
+            this.rating = rating;
+        }
 
     public String getUid() {
         return uid;

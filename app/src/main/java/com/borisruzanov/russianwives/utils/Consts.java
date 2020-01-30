@@ -36,6 +36,8 @@ public final class Consts {
     public static final String APP_VERSION = "app_version";
     public static final String LAST_NODE = "last_node";
     public static final int ITEM_LOAD_COUNT = 15;
+    public static final String MALE = "Male";
+    public static final String FEMALE = "Female";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";

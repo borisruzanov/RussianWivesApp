@@ -249,7 +249,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     @Override
     protected void onStop() {
         super.onStop();
-        mPresenter.changeUserOnlineStatus(mFsUser);
         mPresenter.unregisterSubscribers();
     }
 

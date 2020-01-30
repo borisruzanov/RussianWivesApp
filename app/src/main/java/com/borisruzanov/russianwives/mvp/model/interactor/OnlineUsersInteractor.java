@@ -28,4 +28,8 @@ public class OnlineUsersInteractor {
     public void getLastKeyNodeFromFirebase() {
         mRepository.getLastKeyNodeFromFirebase();
     }
+
+    public void resetPaginationValues() {
+        mRepository.resetPaginationValues();
+    }
 }

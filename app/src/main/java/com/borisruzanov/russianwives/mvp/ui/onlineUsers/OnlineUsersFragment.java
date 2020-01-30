@@ -4,11 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.arellomobile.mvp.MvpAppCompatFragment;
 import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
@@ -40,32 +38,35 @@ import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.function.Predicate;
 
 import butterknife.ButterKnife;
 
+import static com.borisruzanov.russianwives.utils.Consts.ITEM_LOAD_COUNT;
 
-public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineUsersView, ConfirmDialogFragment.ConfirmListener {
+
+public class OnlineUsersFragment extends Fragment implements OnlineUsersView, ConfirmDialogFragment.ConfirmListener {
 
     private OnlineUsersPresenter mPresenter;
     private SearchPresenter mSearchPresenter;
+    private LinearLayoutManager layoutManager;
 
     private List<OnlineUser> mUserList = new ArrayList<>();
-
+    Set<OnlineUser> mFilteredList = new LinkedHashSet<>();
     private OnlineUsersAdapter mAdapter;
 
     private RecyclerView mOnlineUsersRecycler;
     private TextView mEmptyUsersTextView;
     private RelativeLayout mBottomButtonContainer;
     private Button mSeeMoreRegisterButton;
+    private List<OnlineUser> filteredList;
 
     private boolean mIsUserExist;
     private int mCurrentPage = 1;
@@ -73,7 +74,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     //Pagination fields
 
     private int total_item = 0;
-    private int last_visible_item;
+    private int last_visible_item = 0;
     private boolean isLoading = false;
     private boolean isMaxData = false;
     String last_node = "";
@@ -89,11 +90,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     private OnItemClickListener.OnItemClickCallback itemClickCallback = (view, position) -> {
         Intent openFriend = new Intent(getContext(), FriendProfileActivity.class);
         //Helping fix bug to select needed item after first list loaded
-        if (position > 12) {
-            openFriend.putExtra(Consts.UID, mUserList.get(position).getUid());
-        } else {
-            openFriend.putExtra(Consts.UID, mUserList.get(position).getUid());
-        }
+        openFriend.putExtra(Consts.UID, mUserList.get(position).getUid());
         openFriend.putExtra("transitionName", mUserList.get(position).getName());
         startActivity(openFriend);
     };
@@ -104,12 +101,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     private OnItemClickListener.OnItemClickCallback chatClickCallback = (view, position) -> {
         //Helping fix bug to select needed item after first list loaded
         if (mIsUserExist) {
-            if (position > 12) {
-                mSearchPresenter.openChatOnlineUser(mUserList.get(position + 1).getUid(), mUserList.get(position + 1).getName(), mUserList.get(position + 1).getImage());
-            } else {
-                mSearchPresenter.openChatOnlineUser(mUserList.get(position).getUid(), mUserList.get(position).getName(), mUserList.get(position).getImage());
-            }
-
+            mSearchPresenter.openChatOnlineUser(mUserList.get(position).getUid(), mUserList.get(position).getName(), mUserList.get(position).getImage());
         } else {
             Toast.makeText(getContext(), getString(R.string.please_register_to_interact_with_user), Toast.LENGTH_LONG).show();
         }
@@ -121,11 +113,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     private OnItemClickListener.OnItemClickCallback likeClickCallback = (view, position) -> {
         //Helping fix bug to select needed item after first list loaded
         if (mIsUserExist) {
-            if (position > 12) {
-                mSearchPresenter.setOnlineFriendLiked(mUserList.get(position + 1).getUid());
-            } else {
-                mSearchPresenter.setOnlineFriendLiked(mUserList.get(position).getUid());
-            }
+            mSearchPresenter.setOnlineFriendLiked(mUserList.get(position).getUid());
         } else {
             Toast.makeText(getContext(), getString(R.string.please_register_to_interact_with_user), Toast.LENGTH_LONG).show();
         }
@@ -139,23 +127,21 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     @Override
     public void onResume() {
         super.onResume();
-        if (isGoneInOnPause) {
-            isMaxData = false;
-            last_node = mAdapter.getLastItemId();
-            mAdapter.removeLastItem();
-            mAdapter.notifyDataSetChanged();
-            mPresenter.getLastKeyNodeFromFirebase();
-            getUsers();
-        }
+
+//        if (isGoneInOnPause) {
+//            isMaxData = false;
+//            last_node = mAdapter.getLastItemId();
+//            mAdapter.removeLastItem();
+//            mAdapter.notifyDataSetChanged();
+//            mPresenter.getLastKeyNodeFromFirebase();
+//            getUsers(true);
+//        }
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        //Clear data to avoid duplicating
-        List<OnlineUser> list = new ArrayList<>();
-        mAdapter.clearData(list);
-        mAdapter.notifyDataSetChanged();
+
     }
 
     @Nullable
@@ -182,25 +168,32 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
         mIsUserExist = mPresenter.isUserExist();
         mPresenter.registerSubscribers();
-        LinearLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        layoutManager = new GridLayoutManager(getActivity(), 2);
         mAdapter = new OnlineUsersAdapter(itemClickCallback, chatClickCallback, likeClickCallback);
         mOnlineUsersRecycler.setLayoutManager(layoutManager);
         mOnlineUsersRecycler.setAdapter(mAdapter);
 
-        getUsers();
         getLastKeyNode();
+        getUsers();
 
         mOnlineUsersRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                //Pagination works only with registered users
+
                 total_item = layoutManager.getItemCount();
                 last_visible_item = layoutManager.findLastVisibleItemPosition();
-                //Pagination works only with registered users
-                if (mIsUserExist){
-                    getUsers();
+
+                if (mIsUserExist) {
+                    if (!isLoading && total_item <= ((last_visible_item + ITEM_LOAD_COUNT))) {
+                        mPresenter.getOnlineFragmentUsers(mIsUserExist);
+                        isLoading = true;
+                    }
+                } else {
+                    bottomBlockLogic();
                 }
-                bottomBlockLogic();
+
             }
         });
 
@@ -208,11 +201,14 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 //        createOfflineDBWomen();
 //        createOfflineDBMen();
     }
+
     /**
      * Getting user block
      */
     private void getUsers() {
         Prefs prefs = new Prefs(getContext());
+        total_item = layoutManager.getItemCount();
+        last_visible_item = layoutManager.findLastVisibleItemPosition();
         //Call if gender is not empty
         if (!prefs.getGender().equals("") && !prefs.getGender().equals("default")) {
             mPresenter.getOnlineFragmentUsers(mIsUserExist);
@@ -227,8 +223,19 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
      */
     @Override
     public void addRealUsers(List<OnlineUser> onlineUsers) {
-        mUserList = onlineUsers;
+        mUserList.addAll(onlineUsers);
         mAdapter.addUsers(onlineUsers);
+    }
+
+    private void removeDuplicates(List<OnlineUser> onlineUsers) {
+        for (OnlineUser databaseUser : onlineUsers){
+            for (OnlineUser localUser : mUserList) {
+                //Checking if new received data already been added to the local list
+                if (localUser.hashCode() == databaseUser.hashCode()) {
+                    filteredList.add(databaseUser);
+                }
+            }
+        }
     }
 
     /**
@@ -238,7 +245,6 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
      */
     @Override
     public void addFakeUsers(List<OnlineUser> onlineUsers) {
-        mUserList = onlineUsers;
         mAdapter.addUsers(onlineUsers);
     }
 
@@ -270,14 +276,13 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
      */
     private void bottomBlockLogic() {
         mBottomButtonContainer.setVisibility(View.GONE);
-
+        int total_item = layoutManager.getItemCount();
+        int last_visible_item = layoutManager.findLastVisibleItemPosition();
         //Making bottom registration visible
         boolean endHasBeenReached = last_visible_item + 1 >= total_item;
-        if (!mIsUserExist) {
-            if (total_item > 0 && endHasBeenReached) {
-                mBottomButtonContainer.setVisibility(View.VISIBLE);
-                mBottomButtonContainer.bringToFront();
-            }
+        if (total_item > 0 && endHasBeenReached) {
+            mBottomButtonContainer.setVisibility(View.VISIBLE);
+            mBottomButtonContainer.bringToFront();
         }
 
         mSeeMoreRegisterButton.setOnClickListener(new View.OnClickListener() {
@@ -332,6 +337,7 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
 
     /**
      * Open slider to let user fill his profile with infortamtion according his account
+     *
      * @param list - of of default values for his account to show only needed fields to fill
      */
     @Override
@@ -355,7 +361,13 @@ public class OnlineUsersFragment extends MvpAppCompatFragment implements OnlineU
     @Override
     public void onPause() {
         super.onPause();
-        isGoneInOnPause = true;
+        //Clear data to avoid duplicating
+        isLoading = false;
+//        mPresenter.resetPaginationValues();
+        List<OnlineUser> list = new ArrayList<>();
+        mAdapter.clearData(list);
+        mAdapter.notifyDataSetChanged();
+        mUserList.clear();
     }
 
 

@@ -56,6 +56,7 @@ import java.util.Objects;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MUST_INFO_ACH;
+import static com.borisruzanov.russianwives.utils.Consts.ITEM_LOAD_COUNT;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUsers;
@@ -65,11 +66,12 @@ public class UserRepository {
     private static final String TAG_CLASS_NAME = "UserRepository";
     private static final String GENDER_FEMALE = "Female";
     private static final String GENDER_MALE = "Male";
-    boolean isLoading= false;
+    boolean isLoading = false;
     private String last_node = "";
-    private String last_key="";
+    private String last_key = "";
     private long last_rating = 0;
-
+    private String endAt = null;
+    private boolean isMaxData = false;
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
@@ -77,8 +79,6 @@ public class UserRepository {
 
     private Prefs mPrefs;
 
-    private String endAt = null;
-    private boolean isMaxData = false;
 
     public UserRepository(Prefs mPrefs) {
         this.mPrefs = mPrefs;
@@ -207,9 +207,9 @@ public class UserRepository {
      */
     public void changeUserOnlineStatus(@NotNull FsUser user) {
         OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating());
-//        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
+        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
 
-//        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child("3uuDS6mm1nOPhhBDKIVg70CMbr82").onDisconnect().removeValue();
+        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).onDisconnect().removeValue();
 
     }
 
@@ -217,7 +217,6 @@ public class UserRepository {
      * Getting fake users for unregistered users
      */
     private void callFakeUserList(String neededGender) {
-
         DatabaseReference mReference = realtimeReference.child("FakeUsers/" + neededGender);
         Query query = mReference.orderByChild("rank");
         query.addValueEventListener(new ValueEventListener() {
@@ -252,11 +251,9 @@ public class UserRepository {
         getLastKey.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String last_key = "";
                 for (DataSnapshot lastKey : dataSnapshot.getChildren()) {
                     last_key = lastKey.getKey();
                 }
-                EventBus.getDefault().post(new LastKeyEvent(last_key));
             }
 
             @Override
@@ -305,51 +302,47 @@ public class UserRepository {
         if (!isMaxData) {
             Query query;
             if (TextUtils.isEmpty(last_node)) {
-                Log.d("logic", "формируем первый запрос, запись пустая");
+                //First query of the list
                 query = FirebaseDatabase.getInstance().getReference()
                         .child("OnlineUsers")
                         .child(getNeededGender())
                         .orderByChild("rating")
                         .limitToFirst(Consts.ITEM_LOAD_COUNT);
             } else {
-                Log.d("logic", "формируем последующий запрос  запрос, запись -> " + last_node);
+                //Query based on last item
                 query = FirebaseDatabase.getInstance().getReference()
                         .child("OnlineUsers")
                         .child(getNeededGender())
                         .orderByChild("rating")
                         .startAt(last_rating, last_node)
-                        .limitToFirst(Consts.ITEM_LOAD_COUNT);
+                        .limitToFirst(ITEM_LOAD_COUNT);
             }
 
             query.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.hasChildren()){
+                    if (dataSnapshot.hasChildren()) {
 
                         List<OnlineUser> newUser = new ArrayList<>();
-                        for(DataSnapshot userSnapShot: dataSnapshot.getChildren()){
+                        for (DataSnapshot userSnapShot : dataSnapshot.getChildren()) {
                             newUser.add(userSnapShot.getValue(OnlineUser.class));
                         }
                         last_node = newUser.get(newUser.size() - 1).getUid();
                         last_rating = newUser.get(newUser.size() - 1).getRating();
-
-                        if(!last_node.equals(last_key)){
+                        if (!last_node.equals(last_key)) {
                             newUser.remove(newUser.size() - 1);
-                        }
-                        else {
+                        } else {
                             last_node = "end";
                             isMaxData = true;
 
                         }
 
-                        EventBus.getDefault().post(new RealUsersListEvent(newUser));
                         isLoading = false;
-                    }
-                    else {
-                        isLoading =false;
+                        EventBus.getDefault().post(new RealUsersListEvent(newUser));
+                    } else {
+                        isLoading = false;
                         isMaxData = true;
                     }
-
                 }
 
                 @Override
@@ -359,7 +352,13 @@ public class UserRepository {
         }
     }
 
-    public void getRealUsersList() {
+    public void resetPaginationValues() {
+        isLoading = false;
+        last_node = "";
+        last_key = "";
+        last_rating = 0;
+        endAt = null;
+        isMaxData = false;
     }
 
     public void addRating(double addPoint) {
@@ -855,7 +854,6 @@ public class UserRepository {
 //            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
     }
-
 
 
 
