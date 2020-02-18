@@ -21,6 +21,15 @@
                 android:text="@string/emptyText"
                 android:visibility="gone" />
 
+        <ProgressBar
+            android:id="@+id/online_users_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp"
+            android:outlineAmbientShadowColor="@color/lightGrey"
+            android:outlineSpotShadowColor="@color/lightGrey"
+            android:visibility="gone"/>
 
         <RelativeLayout
             android:id="@+id/to_see_more_users_container"

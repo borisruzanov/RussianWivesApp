@@ -23,6 +23,25 @@ public class FsUser implements ViewType {
     private String drink_status;
     private int rating;
 
+    private String must_info;
+    private String full_profile;
+
+    public String getFull_profile() {
+        return full_profile;
+    }
+
+    public void setFull_profile(String full_profile) {
+        this.full_profile = full_profile;
+    }
+
+    public String getMust_info() {
+        return must_info;
+    }
+
+    public void setMust_info(String must_info) {
+        this.must_info = must_info;
+    }
+
     public String getAge() {
         return age;
     }

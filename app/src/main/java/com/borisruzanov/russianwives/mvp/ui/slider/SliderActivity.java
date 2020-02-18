@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.ui.slider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -15,6 +16,7 @@ import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
+import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.mvp.ui.slider.adapter.UserInfoPagerAdapter;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.utils.Consts;
@@ -48,6 +50,9 @@ public class SliderActivity extends MvpAppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_keyboard_backspace_black_24dp);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("My title");
+
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         if (!EventBus.getDefault().isRegistered(this)) {
@@ -123,7 +128,7 @@ public class SliderActivity extends MvpAppCompatActivity {
         } else {
             //Show finish button
             if (fragmentList.size() == 1) {
-                buttonNext.setVisibility(View.VISIBLE);
+                buttonNext.setVisibility(View.GONE);
                 buttonNext.setText(R.string.finish);
             }
             Log.d("tag", "Inside extras " + getIntent().getExtras().getString("field_id"));
@@ -230,14 +235,16 @@ public class SliderActivity extends MvpAppCompatActivity {
         }
         if (position + 1 == fragmentList.size()) {
             //close the survey
-            finish();
-            addFullProfileAchieve();
+            onBackPressed();
+//            addFullProfileAchieve();
         }
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+        Intent intent = new Intent(SliderActivity.this, MainScreenActivity.class);
+        startActivity(intent);
         addFPAchieveIfNeeded();
     }
 

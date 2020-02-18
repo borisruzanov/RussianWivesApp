@@ -27,4 +27,6 @@ public interface SearchView extends MvpView {
     void openHotUser(String uid);
     void openSlider(ArrayList<String> sliderList);
     void showRegistrationDialog();
+
+    void userWereNotFoundMsg();
 }

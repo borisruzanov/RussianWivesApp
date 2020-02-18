@@ -141,7 +141,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="@string/text"
-                            android:textSize="@dimen/empty_text_size" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                     <RelativeLayout
@@ -173,7 +173,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:text="@string/like"
-                            android:textSize="@dimen/empty_text_size" />
+                            android:textSize="18sp" />
                     </LinearLayout>
 
                 </LinearLayout>

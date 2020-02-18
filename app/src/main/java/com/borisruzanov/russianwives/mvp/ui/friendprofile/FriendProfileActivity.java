@@ -297,6 +297,11 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     }
 
     @Override
+    public void onUpdateDialog() {
+
+    }
+
+    @Override
     public void openChatMessage(String name, String image) {
         Intent chatMessageIntent = new Intent(this, ChatMessageActivity.class);
         chatMessageIntent.putExtra(Consts.UID, friendUid);

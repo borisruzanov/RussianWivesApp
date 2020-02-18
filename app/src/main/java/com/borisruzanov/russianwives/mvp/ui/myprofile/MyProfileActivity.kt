@@ -11,21 +11,20 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-
+import butterknife.BindView
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter
 import com.borisruzanov.russianwives.OnItemClickListener
 import com.borisruzanov.russianwives.R
+import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.UserDescriptionModel
+import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter
+import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity
 import com.borisruzanov.russianwives.mvp.ui.profilesettings.ProfileSettingsActivity
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment
 import com.borisruzanov.russianwives.utils.Consts
 import com.bumptech.glide.Glide
-
-import butterknife.BindView
-import com.borisruzanov.russianwives.di.component
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
@@ -143,4 +142,9 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         return OnItemClickListener.OnItemClickCallback { view, position -> }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainScreenActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -15,36 +15,27 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.borisruzanov.russianwives.App
-import com.borisruzanov.russianwives.mvp.ui.chatmessage.adapter.ChatMessageAdapter
 import com.borisruzanov.russianwives.R
-import com.borisruzanov.russianwives.R.id.messages_list
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.Message
-import com.bumptech.glide.Glide
-import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-
-import javax.inject.Inject
-
-import de.hdodenhof.circleimageview.CircleImageView
-
-import com.borisruzanov.russianwives.models.Contract.RC_PHOTO_PICKER
+import com.borisruzanov.russianwives.mvp.ui.chatmessage.adapter.ChatMessageAdapter
+import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity
 import com.borisruzanov.russianwives.utils.Consts
 import com.borisruzanov.russianwives.utils.FirebaseUtils.getUid
+import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.database.*
+import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.activity_chat.*
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.HashMap
 
 class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
@@ -294,4 +285,9 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         private const val GALLERY_PICK = 1
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, MainScreenActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.model.interactor.main
 
 import com.borisruzanov.russianwives.models.FsUser
+import com.borisruzanov.russianwives.mvp.model.data.SystemRepository
 import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository
 import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository
 import com.borisruzanov.russianwives.utils.BoolCallback
@@ -9,7 +10,8 @@ import com.borisruzanov.russianwives.utils.StringsCallback
 import javax.inject.Inject
 
 class MainInteractor @Inject constructor(private val userRepository: UserRepository,
-                                         private val hotUsersRepository: HotUsersRepository) {
+                                         private val hotUsersRepository: HotUsersRepository,
+                                         private val mSystemRepository: SystemRepository) {
 
     fun getUserGender() = userRepository.userGender
 
@@ -62,7 +64,11 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
     }
 
     fun checkForUpdateVersion() {
-//        mSystemRepository.checkForUpdateVersion()
+        mSystemRepository.checkForUpdateVersion()
+    }
+
+    fun getConfig() {
+        mSystemRepository.getConfig()
     }
 
 

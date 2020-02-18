@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.Toast
 
 import com.arellomobile.mvp.MvpAppCompatFragment
@@ -44,12 +45,19 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         PurchaseDialogFragment.ConfirmPurchaseListener, HotAdapter.ItemClickListener,
         InfiniteScrollListener.OnLoadMoreListener, FilterDialogFragment.FilterListener {
 
+
+    override fun onUpdateDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Inject
     @InjectPresenter
     lateinit var searchPresenter: SearchPresenter
     var item: MenuItem? = null
     @ProvidePresenter
     fun providePresenter() = searchPresenter
+
+    private lateinit var mEmptyListLayout : RelativeLayout
 
     private lateinit var layoutManager: GridLayoutManager
     private var dialogFragment = FilterDialogFragment()
@@ -144,7 +152,9 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
             Log.d("qwe", "show filter dialog")
             dialogFragment.show(activity?.supportFragmentManager, FilterDialogFragment.TAG)
         }*/
-
+        mEmptyListLayout = activity!!.findViewById(R.id.search_empty_rl)
+        mEmptyListLayout.visibility = View.VISIBLE
+        searchPresenter.registerSubscribers()
         layoutManager = GridLayoutManager(activity, 2)
         onUserListScrollListener = object : FeedScrollListener(layoutManager) {
             override fun onLoadMore(page: Int, totalItemsCount: Int, view: RecyclerView) {
@@ -170,8 +180,13 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         searchPresenter.setProgressBar(true)
         searchPresenter.getUserList(0)
     }
-
+    override fun userWereNotFoundMsg() {
+        mEmptyListLayout.visibility = View.VISIBLE
+        users_swipe_refresh.isRefreshing = false
+    }
     override fun addUsers(userList: List<FsUser>) {
+        mEmptyListLayout.visibility = View.GONE
+
         searchPresenter.setProgressBar(false)
         Log.d("UsersListDebug", "Stopped loading is ${onUserListScrollListener.isStoppedLoading}")
         //!important! when using FeedScrollListener we need manually tell it about the end of the list

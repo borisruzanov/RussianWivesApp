@@ -48,15 +48,17 @@ public class SliderCountriesFragment extends Fragment {
         countriesList.setAdapter(countriesAdapter);
         countriesList.setOnItemClickListener((parent, view1, position, id) -> {
             String country = CountriesList.initData().get(position).getCountryName();
-            Map<String, Object> map = new HashMap<>();
-            map.put(Consts.COUNTRY, country);
-            new SliderRepository().updateFieldFromCurrentUser(map, () -> {
-                if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
-                    if (getActivity() != null) getActivity().onBackPressed();
-                }
-                Toast.makeText(getActivity(), getString(R.string.country_updated), Toast.LENGTH_LONG).show();
-                EventBus.getDefault().post(new StringEvent("next_page"));
-            });
+            if (!country.equals("           ")) {
+                Map<String, Object> map = new HashMap<>();
+                map.put(Consts.COUNTRY, country);
+                new SliderRepository().updateFieldFromCurrentUser(map, () -> {
+                    if (getArguments() != null && getArguments().getString(Consts.NEED_BACK) != null) {
+                        if (getActivity() != null) getActivity().onBackPressed();
+                    }
+                    Toast.makeText(getActivity(), getString(R.string.country_updated), Toast.LENGTH_LONG).show();
+                    EventBus.getDefault().post(new StringEvent("next_page"));
+                });
+            }
         });
 
         return view;

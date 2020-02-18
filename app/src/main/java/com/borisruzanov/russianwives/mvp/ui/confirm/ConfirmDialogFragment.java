@@ -39,6 +39,8 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
 
     public interface ConfirmListener {
         void onConfirm();
+
+        void onUpdateDialog();
     }
 
     public static ConfirmDialogFragment newInstance(String module) {
@@ -82,7 +84,11 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
                 confirmButton.setText(R.string.now);
                 cancelButton.setText(R.string.later);
                 break;
-
+            case Consts.UPDATE_MODULE:
+                headerTv.setText(R.string.please_update_application);
+                confirmButton.setText(R.string.now);
+                cancelButton.setText(R.string.later);
+                break;
         }
 
     }
@@ -98,6 +104,9 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
                 break;
             case Consts.SLIDER_MODULE: case Consts.FP_MODULE:
                 listener.onConfirm();
+                break;
+            case Consts.UPDATE_MODULE:
+                listener.onUpdateDialog();
                 break;
         }
         dismiss();

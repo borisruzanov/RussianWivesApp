@@ -32,7 +32,7 @@
                 android:id="@+id/drawer_header_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Boris Blade"
+                android:text="@string/your_name"
                 android:textColor="@color/darkColor"
                 android:textSize="16sp" />
 

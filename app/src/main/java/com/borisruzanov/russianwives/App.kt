@@ -54,7 +54,7 @@ class App : Application() {
         mAuth = FirebaseAuth.getInstance()
         mPrefs = Prefs(this)
 //        mSystemRepository = SystemRepository(mPrefs)
-//        mSystemRepository.getConfig()
+//        mSystemRepository.checkForUpdateVersion()
         if (mAuth!!.currentUser != null) {
             onlineStatusUsersTable()
         }

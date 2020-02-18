@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.di.module
 
 
 import com.borisruzanov.russianwives.App
+import com.borisruzanov.russianwives.mvp.model.data.SystemRepository
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs
 import com.borisruzanov.russianwives.mvp.model.repository.hots.HotUsersRepository
 import com.borisruzanov.russianwives.mvp.model.repository.chatmessage.ChatMessageRepository
@@ -34,5 +35,6 @@ class AppModule(val app: App) {
     @Provides fun provideSliderRepository() = SliderRepository()
     @Provides fun provideCoinsRepository() = CoinsRepository()
     @Provides fun provideHotUsersRepository(prefs: Prefs) = HotUsersRepository(prefs)
+    @Provides fun provideSystemRepository(prefs: Prefs) = SystemRepository(prefs)
 
 }

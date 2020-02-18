@@ -20,7 +20,6 @@ public class FilterRepository {
 
     public List<SearchModel> getFilteredSearchResult(){
         List<SearchModel> searchModels = new ArrayList<>();
-
         for (SearchModel model: getSearchResult()){
             if (isNotDefault(model.getValue())) searchModels.add(model);
         }
@@ -39,14 +38,12 @@ public class FilterRepository {
 
     public void setPrefsValues(List<SearchModel> searchModels) {
         for (SearchModel model : searchModels) {
-            String s = model.getKey();
-            String r = model.getValue();
             prefs.setValue(model.getKey(), model.getValue());
         }
     }
 
     private List<SearchModel> getSearchResult() {
-        return new ArrayList<>(Arrays.asList(new SearchModel(Consts.GENDER, prefs.getGender()),
+        return new ArrayList<>(Arrays.asList(new SearchModel(Consts.GENDER, getNeededGender()),
                 new SearchModel(Consts.AGE, prefs.getAge()),
                 new SearchModel(Consts.COUNTRY, prefs.getCountry()),
                 new SearchModel(Consts.RELATIONSHIP_STATUS, prefs.getRelationshipStatus()),
@@ -57,6 +54,23 @@ public class FilterRepository {
                 new SearchModel(Consts.DRINK_STATUS, prefs.getDrinkStatus()),
                 new SearchModel(Consts.NUMBER_OF_KIDS, prefs.getNumberOfKids()),
                 new SearchModel(Consts.WANT_CHILDREN_OR_NOT, prefs.getWantChilderOrNot())));
+    }
+
+    /**
+     * Getting the gender of the user convert it to opposite and return
+     *
+     * @return - opposite gender of the user
+     */
+    private String getNeededGender() {
+        String neededGender;
+        if (prefs.getGender().equals(Consts.FEMALE)) {
+            neededGender = Consts.MALE;
+        } else if (prefs.getGender().equals(Consts.MALE)) {
+            neededGender = Consts.FEMALE;
+        } else {
+            neededGender = Consts.FEMALE;
+        }
+        return neededGender;
     }
 
     private boolean isNotDefault(String value) {

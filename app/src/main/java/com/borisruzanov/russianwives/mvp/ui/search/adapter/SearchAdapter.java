@@ -96,7 +96,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
 
         void bind(FsUser fsUser, int position){
             ViewCompat.setTransitionName(imageView, fsUser.getName());
-
             if (FirebaseUtils.isUserExist() && fsUser.getUid() != null) {
                 new FriendRepository().isLiked(fsUser.getUid(), flag -> {
                     if (flag) {

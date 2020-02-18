@@ -7,6 +7,7 @@ import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.eventbus.ChatEvent
 import com.borisruzanov.russianwives.eventbus.ListStringEvent
+import com.borisruzanov.russianwives.eventbus.StringEvent
 import com.borisruzanov.russianwives.eventbus.UserEvent
 import com.borisruzanov.russianwives.models.FsUser
 import com.borisruzanov.russianwives.models.HotUser
@@ -18,6 +19,7 @@ import com.borisruzanov.russianwives.utils.HotUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UsersListCallback
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 import java.util.ArrayList
 import javax.inject.Inject
@@ -43,6 +45,14 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
             viewState.setHotsLoaded()
         })
         page++
+    }
+
+    /**
+     * Receiving the list of default values of the user fields
+     */
+    @Subscribe
+    fun getDefaultUserValuesList(event: StringEvent) {
+        viewState.userWereNotFoundMsg()
     }
 
     fun openHotUser(position: Int) {
@@ -82,6 +92,8 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
                 Log.d("UsersListDebug", "Add users to fsUsers and fsUsers size is " + fsUsers.size)
             }
             viewState.addUsers(userList)
+        } else{
+            viewState.userWereNotFoundMsg()
         }
     }
 
@@ -157,6 +169,10 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
         } else EventBus.getDefault().post(ChatEvent("registration", "", ""))
     }
 
-
+    fun registerSubscribers() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
+    }
 
 }

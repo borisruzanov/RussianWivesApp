@@ -55,7 +55,7 @@
     <string name="ru_number_of_kids">Есть ли дети</string>
     <string name="ru_christian">Православие</string>
     <string name="ru_muslim">Ислам</string>
-    <string name="ru_atheist">Атеизм</string>
+    <string name="ru_atheist">Atheist</string>
     <string name="ru_buddist">Буддизм</string>
     <string name="ru_adventist">Адвентизм</string>
     <string name="ru_never">Никогда</string>
@@ -92,7 +92,9 @@
     <string name="order_gender">Укажите свой пол</string>
     <string name="please_register_to_interact_with_user">Пожалуйста сначала зарегистрируйтесь</string>
     <string name="to_see_more_users_please_register">Увидеть Больше Пользователей</string>
-
+    <string name="only_photo_available">Только Лицо</string>
+    <string name="emptyText_chats">Сообщений нет</string>
+    <string name="emptyText_actions">Посетителей нет</string>
 
     <!-- System safe strings 333-->
     <string name="change_photo">Поменять Фото</string>
@@ -126,7 +128,28 @@
     <string name="confirm_dialog_slider_header">Заполните профиль, получите больше внимания!</string>
     <string name="cancel">Отмена</string>
     <string name="full_profile_header">Вы не можете вести общение, пока не заполните свой профиль</string>
+    <string name="text">Сообщение</string>
+    <string name="now">Сейчас</string>
+    <string name="later">Позже</string>
+    <string name="image_updated">Фото обновлено</string>
+    <string name="please_fill_profile">Пожалуйста заполните профиль</string>
+    <string name="please_update_application">Пожалуйста обновите приложение</string>
+    <string name="emptyText_search">        Никто не найден.\nИзмените параметры</string>
+    <string name="this_is_not_ready">Пока не готово. Мы еще работаем над этим.</string>
+    <string name="your_name">Ваше Имя</string>
 
+    <string name="who_are_you_looking_for">Укажите Ваш пол (покажется противоположный)</string>
+    <string name="what_age_looking_for">Возраст</string>
+    <string name="what_country_looking_for">Страна</string>
+    <string name="what_relationships_looking_for">Семейный статус</string>
+    <string name="what_bodytype_looking_for">Тип телосложения</string>
+    <string name="what_ethnicity_looking_for">Этническая пренадлежность</string>
+    <string name="what_faith_looking_for">Вера</string>
+    <string name="what_smoke_status_looking_for">Статус курильщика</string>
+    <string name="what_drink_status_looking_for">Отношение к алкоголю</string>
+    <string name="looking_for_kids">Отношение к наличию детей</string>
+    <string name="willing_kids_status_looking_for">Желание иметь детей</string>
+    <string name="header_filters">Укажите параметры поиска</string>
 
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
     <string name="email">Email</string>
@@ -166,12 +189,10 @@
     <string name="add">Add</string>
     <string name="next_text">Next</string>
     <string name="emptyText">Nothing to show yet</string>
-    <string name="emptyText_chats">No messages yet</string>
-    <string name="emptyText_actions">No likes and visits yet</string>
+
     <string name="basic_info">Basic info</string>
 
     <string name="apply">Apply</string>
-    <string name="header_filters">Filter</string>
     <string name="what_ethnicity">What is your ethnicity?</string>
     <string name="what_smoke_status">What is your smoke status?</string>
     <string name="where_live">Where do you live?</string>
@@ -329,20 +350,7 @@
     <string name="like">Like</string>
 
 
-    <string name="now">Now</string>
-    <string name="later">Later</string>
 
-    <string name="who_are_you_looking_for">Who are you looking for?</string>
-    <string name="what_age_looking_for">What age are you looking for?</string>
-    <string name="what_country_looking_for">What country are you looking for</string>
-    <string name="what_relationships_looking_for">What relationship status are you looking for?</string>
-    <string name="what_bodytype_looking_for">What body type are you looking for?</string>
-    <string name="what_ethnicity_looking_for">What ethnicity are you looking for?</string>
-    <string name="what_faith_looking_for">What faith are you looking for?</string>
-    <string name="what_smoke_status_looking_for">What smoke status are you looking for?</string>
-    <string name="what_drink_status_looking_for">What drink status are you looking for?</string>
-    <string name="looking_for_kids">Are you looking for partner with kids?</string>
-    <string name="willing_kids_status_looking_for">What willing kids status are you looking for?</string>
     <string name="empty_chats_img">Image for empty chats</string>
     <string name="shop">Shop</string>
 
@@ -353,7 +361,6 @@
     <string name="please_wait">Please Wait...</string>
     <string name="something_went_wrong">Something went wrong. Try again!</string>
     <string name="empty_field">Field can not be empty</string>
-    <string name="only_photo_available">Face Photo Only</string>
 
     <!-- ADVERTISEMENT -->
     <string name="mob_app_id">ca-app-pub-5095813023957397~1146672660</string>
@@ -361,7 +368,7 @@
     <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
     <!--<string name="mob_unit_tester_banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
     <!--<string name="mob_unit_prod_id">ca-app-pub-5095813023957397/5592359725</string>-->
-    <string name="mob_unit_banner_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="mob_unit_banner_id">ca-app-pub-5095813023957397/5592359725</string>
     <string name="buy_tokens">Buy Tokens</string>
     <string name="get_free_coins">Get free coins</string>
     <string name="you_have">You have</string>
@@ -369,7 +376,6 @@
     <string name="close">Close</string>
     <string name="buy">Buy</string>
     <string name="services">Services</string>
-    <string name="text">Text</string>
     <string name="online_users_title">Online Users</string>
 
     <!-- Genders -->

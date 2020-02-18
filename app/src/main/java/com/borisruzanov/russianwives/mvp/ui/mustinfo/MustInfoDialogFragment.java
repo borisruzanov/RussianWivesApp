@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter;
 import com.arellomobile.mvp.presenter.ProvidePresenter;
 import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.messagedialog.MessageDialogFragment;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -130,6 +132,7 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
                         .setMinCropWindowSize(500, 500)
                         .start(getContext(), this);
             }
+            firebaseAnalytics.logEvent("put_photo_START", null);
             if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
                 if (resultCode == Activity.RESULT_OK) {
                     showProgress();
@@ -137,6 +140,7 @@ public class MustInfoDialogFragment extends MvpAppCompatDialogFragment implement
                     image = photoUri.toString();
                     presenter.uploadPhoto(photoUri);
                     firebaseAnalytics.logEvent("put_photo_OK", null);
+                    showMessage(R.string.photo_was_updated);
                 } else {
                     Exception exception = CropImage.getActivityResult(data).getError();
                     if (exception != null) {

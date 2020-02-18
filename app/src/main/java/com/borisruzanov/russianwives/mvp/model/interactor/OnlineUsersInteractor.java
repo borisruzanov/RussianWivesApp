@@ -14,6 +14,7 @@ public class OnlineUsersInteractor {
     }
 
     public void getOnlineUsers(boolean isUserExist) {
+        mRepository.addFullProfileUsers();
         mRepository.getOnlineUsers(isUserExist);
     }
 

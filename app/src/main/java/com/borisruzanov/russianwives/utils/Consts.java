@@ -1,5 +1,7 @@
 package com.borisruzanov.russianwives.utils;
 
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,6 +40,13 @@ public final class Consts {
     public static final int ITEM_LOAD_COUNT = 15;
     public static final String MALE = "Male";
     public static final String FEMALE = "Female";
+    public static final String UPDATE_MODULE = "update";
+    public static final String SHOW_FULL_DIALOG = "show_full_profile";
+    public static final String SHOW = "show";
+    public static final String DONT_SHOW = "dont_show";
+    public static final String DIALOG_FREQUENCY = "dialog_frequency";
+    public static final String GENDER_FEMALE = "Female";
+    public static final String GENDER_MALE = "Male";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";
@@ -77,4 +86,11 @@ public final class Consts {
     public static final String FULL_PROFILE = "full_profile";
     public static final String TRUE = "true";
     public static final String CHECK_DIALOG = "check_dialog";
+
+    //Log tags
+    public static final String TAG_INFO = "app_info_tag";
+    public static final String TAG_START_METHOD = "log_start_method";
+    public static final String TAG_END_METHOD = "log_end_method";
+    public static final String FILTER_INDEX = "filter_index_event";
+
 }

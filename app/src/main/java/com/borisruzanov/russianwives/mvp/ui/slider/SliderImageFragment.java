@@ -14,22 +14,16 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
+import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.mvp.model.interactor.slider.SliderInteractor;
-import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
 import com.borisruzanov.russianwives.utils.Consts;
-import com.borisruzanov.russianwives.utils.UpdateCallback;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.util.HashMap;
+import org.greenrobot.eventbus.EventBus;
 
 import static android.app.Activity.RESULT_OK;
-import static com.borisruzanov.russianwives.mvp.model.repository.rating.Rating.ADD_IMAGE_RATING;
-import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
 
 public class SliderImageFragment extends Fragment {
 
@@ -101,6 +95,9 @@ public class SliderImageFragment extends Fragment {
                             if (getActivity() != null) getActivity().onBackPressed();
                         }
                     });
+
+                    Toast.makeText(getActivity(), getString(R.string.image_updated), Toast.LENGTH_LONG).show();
+                    EventBus.getDefault().post(new StringEvent("next_page"));
                 } else {
                     Toast.makeText(getActivity(), R.string.there_is_an_error, Toast.LENGTH_LONG).show();
                 }

@@ -55,6 +55,13 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
         ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener, NavigationView.OnNavigationItemSelectedListener {
+    override fun onUpdateDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showUpdateDialog() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun showDefaultDialogScreen(list: ArrayList<String>?) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

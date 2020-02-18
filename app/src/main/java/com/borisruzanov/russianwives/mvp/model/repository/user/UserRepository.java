@@ -26,6 +26,7 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.OnlineUsersCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -118,6 +119,7 @@ public class UserRepository {
      */
     public void userHasMustInfo() {
         //Checking if must info in mPrefs for saving traffic
+        //Works only for first install and prefs are clear
         if (mPrefs.getMustInfo().equals(Consts.DEFAULT)) {
             users.document(getUid()).get().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
@@ -135,6 +137,7 @@ public class UserRepository {
                 }
             });
         } else {
+            //Triggers if user logged out and creating new account
             checkForFullProfile();
         }
     }
@@ -148,10 +151,15 @@ public class UserRepository {
                 if (task.isSuccessful()) {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot != null) {
-                        if (snapshot.getString(Consts.FULL_PROFILE).equals(Consts.FALSE)) {
+                        if (snapshot.getString(Consts.FULL_PROFILE).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO).equals(Consts.TRUE)) {
+                            //Triggers only in case must info is filled
                             EventBus.getDefault().post(new StringEvent(Consts.FULL_PROFILE));
+                        } else if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE)){
+                            //This triggers only if user logged out
+                            EventBus.getDefault().post(new StringEvent(Consts.MUST_INFO));
                         } else {
                             Log.d(TAG_CLASS_NAME, "checkForFullProfile profile is full");
+                            EventBus.getDefault().post(new StringEvent(Consts.UPDATE_MODULE));
                         }
                     }
                 } else {
@@ -206,8 +214,9 @@ public class UserRepository {
      * @param user
      */
     public void changeUserOnlineStatus(@NotNull FsUser user) {
-        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating());
-        FirebaseDatabase.getInstance().getReference() .child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
+        // -1 because in realtime we cant make desc order that just a trick to avoid that and sort the right way
+        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating() * - 1);
+        FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
 
         FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).onDisconnect().removeValue();
 
@@ -280,6 +289,7 @@ public class UserRepository {
 
     /**
      * Getting the gender of the user convert it to opposite and return
+     *
      * @return - opposite gender of the user
      */
     private String getNeededGender() {
@@ -349,6 +359,8 @@ public class UserRepository {
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
             });
+        } else {
+            last_node = "end";
         }
     }
 
@@ -512,19 +524,91 @@ public class UserRepository {
     }
 
     public void addFullProfileUsers() {
+//        users.document("04mMjzaqIeV1IbJSmbwUuGVOc0B2").get().addOnCompleteListener(task -> {
+//            if (task.getResult().exists()) {
+//                Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put(Consts.MUST_INFO, "false");
+//                users.document("04mMjzaqIeV1IbJSmbwUuGVOc0B2").update(fpMap);
+//            } else Log.d("DialogDebug", "Task doesn't exist!!!");
+//        });
+
         users.get().addOnCompleteListener(task -> {
             for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                if (!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
-                        !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
-                        !snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT)) {
-                    String uid = snapshot.getId();
+                String image = snapshot.getString(Consts.IMAGE);
+                String country = snapshot.getString(Consts.COUNTRY);
+                String gender = snapshot.getString(Consts.GENDER);
+                String uid = snapshot.getId();
+
+                if (snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT)) {
                     Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put(MUST_INFO_ACH, "true");
+                    fpMap.put("must_info", "false");
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Russia") && snapshot.getString(Consts.GENDER).equals("Male")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 2);
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Ukraine") && snapshot.getString(Consts.GENDER).equals("Male")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 2);
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Kazakhstan") && snapshot.getString(Consts.GENDER).equals("Male")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 2);
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Belarus") && snapshot.getString(Consts.GENDER).equals("Male")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 2);
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Uzbekistan") && snapshot.getString(Consts.GENDER).equals("Male")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 2);
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Kyrgyzstan") && snapshot.getString(Consts.GENDER).equals("Male")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 2);
+                    users.document(uid).update(fpMap);
+                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+                }
+
+                if (snapshot.getString(Consts.COUNTRY).equals("Afghanistan")) {
+                    Map<String, Object> fpMap = new HashMap<>();
+                    fpMap.put("rating", 1);
                     users.document(uid).update(fpMap);
                     //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
                 }
             }
         });
+//        users.get().addOnCompleteListener(task -> {
+//            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+//                if (!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
+//                        !snapshot.getString(Consts.AGE).equals(Consts.DEFAULT) &&
+//                        !snapshot.getString(Consts.COUNTRY).equals(Consts.DEFAULT)) {
+//                    String uid = snapshot.getId();
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put(MUST_INFO_ACH, "true");
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//            }
+//        });
        /* realtimeReference.child(Consts.USERS_DB).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -682,11 +766,18 @@ public class UserRepository {
         if (isUserExist()) {
             users.document(getUid()).get()
                     .addOnCompleteListener(task -> {
-                        DocumentSnapshot snapshot = task.getResult();
-                        if (snapshot.exists()) {
-                            callback.setUser(snapshot.toObject(FsUser.class));
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot snapshot = task.getResult();
+                            if (snapshot.exists()) {
+                                callback.setUser(snapshot.toObject(FsUser.class));
+                            }
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d(Consts.TAG_INFO, "getAllCurrentUserInfo failure");
+                }
+            });
         }
     }
 
@@ -854,7 +945,6 @@ public class UserRepository {
 //            } else callback.setBool(isOneDayGone(Consts.FP_OPEN_DATE));
         });
     }
-
 
 
 }

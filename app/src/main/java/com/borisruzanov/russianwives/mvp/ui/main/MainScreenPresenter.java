@@ -2,6 +2,7 @@ package com.borisruzanov.russianwives.mvp.ui.main;
 
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
+import com.borisruzanov.russianwives.eventbus.UpdateVersionEvent;
 import com.borisruzanov.russianwives.eventbus.UserEvent;
 import com.borisruzanov.russianwives.models.FsUser;
 import com.borisruzanov.russianwives.mvp.model.interactor.main.MainInteractor;
@@ -36,9 +37,14 @@ public class MainScreenPresenter {
     @Subscribe
     public void showMustInfoDialog(StringEvent result) {
         if (result.getStringParameter().equals(Consts.MUST_INFO)) {
+            //1 step fill first needed info
             mView.showMustInfoDialog();
         } else if (result.getStringParameter().equals(Consts.FULL_PROFILE)) {
+            //2 step - if we have first needed info - fill full profile info
             mView.showFullInfoDialog();
+        } else if (result.getStringParameter().equals(Consts.UPDATE_MODULE)){
+            //3 step if profile is full - check for updates
+            mInteractor.checkForUpdateVersion();
         }
     }
 
@@ -70,6 +76,14 @@ public class MainScreenPresenter {
      */
     public void checkForUpdateVersion() {
         mInteractor.checkForUpdateVersion();
+    }
+
+    /**
+     * Event calling dialog for update application
+     */
+    @Subscribe
+    public void updateAppDialogCall(UpdateVersionEvent event){
+        mView.showUpdateDialog();
     }
 
     public boolean isUserExist() {
@@ -127,5 +141,7 @@ public class MainScreenPresenter {
     }
 
 
-
+    public void getConfig() {
+        mInteractor.getConfig();
+    }
 }

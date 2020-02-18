@@ -1,11 +1,15 @@
 package com.borisruzanov.russianwives.mvp.ui.main;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
@@ -21,9 +25,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.mvp.model.data.SystemRepository;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.interactor.chats.ChatsInteractor;
 import com.borisruzanov.russianwives.mvp.model.interactor.coins.CoinsInteractor;
@@ -52,17 +58,29 @@ import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfilePresenter;
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
-import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import static android.view.View.GONE;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
@@ -70,6 +88,7 @@ import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 public class MainScreenActivity extends AppCompatActivity implements FilterDialogFragment.FilterListener, MainView, ConfirmDialogFragment.ConfirmListener {
 
     private static final String TAG_CLASS_NAME = "MainScreenActivity";
+    private FirebaseAnalytics firebaseAnalytics;
 
 
     private MainScreenPresenter mPresenter;
@@ -100,15 +119,21 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     private DialogFragment mDialogFragment;
     private SearchFragment mSearchFragment;
     private FsUser mFsUser = new FsUser();
+    private Prefs mPrefs;
+    private int counter;
+
+    private AdView mAdView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer);
-        mPresenter = new MainScreenPresenter(new MainInteractor(new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))), this);
+        mPresenter = new MainScreenPresenter(new MainInteractor(new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this)), new SystemRepository(new Prefs(this))), this);
         mChatsPresenter = new ChatsPresenter(new ChatsInteractor(new ChatsRepository()));
         mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(this)), new FriendRepository(), new RatingRepository(), new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))), new CoinsInteractor(new CoinsRepository()));
         mMyProfilePresenter = new MyProfilePresenter(new MyProfileInteractor(new UserRepository(new Prefs(this))));
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        mPrefs = new Prefs(this);
 
         mIsUserExist = mPresenter.isUserExist();
         mToolbar = findViewById(R.id.toolbar);
@@ -134,12 +159,13 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mTabLayout.setupWithViewPager(mViewPager);
         mDialogFragment = new FilterDialogFragment();
         mSearchFragment = new SearchFragment();
-        tabsInit();
+
+        mAdView = findViewById(R.id.adView);
+
         drawerViewsInit();
         invalidateOptionsMenu();
         validateUserExist();
-        hideMenuItems();
-
+        mPresenter.getConfig();
         buttonsListeners();
         //Get info for inflating in drawer
         getUserInfo();
@@ -148,9 +174,67 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         callUserInfoDialogs();
         makeGenderCheck();
 
-        mPresenter.checkForUpdateVersion();
-//        mChatsPresenter.getUserChatList();
-//        showFullInfoDialog();
+        check_values();
+        chat_notification_change();
+        action_notification_change();
+        adsRequest();
+    }
+
+    private void adsRequest() {
+        MobileAds.initialize(this);
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                Log.d("adMob","onAdLoaded");
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                Log.d("adMob","onAdFailedToLoad " + errorCode);
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                Log.d("adMob","onAdOpened");
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                Log.d("adMob","onAdClicked");
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                Log.d("adMob","onAdLeftApplication");
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                Log.d("adMob","onAdClosed");
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        hideMenuItems();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     /**
@@ -180,8 +264,22 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (mIsUserExist) {
+                if (mIsUserExist && mPrefs.getValue(Consts.MUST_INFO).equals(Consts.DEFAULT)) {
                     mPresenter.userHasMustInfo();
+                } else if (mIsUserExist && !mPrefs.getValue(Consts.MUST_INFO).equals(Consts.DEFAULT)) {
+                    if (mPrefs.getValue(Consts.SHOW_FULL_DIALOG).equals(Consts.DEFAULT)) {
+                        counter = 0;
+                    } else {
+                        counter = Integer.valueOf(mPrefs.getValue(Consts.SHOW_FULL_DIALOG));
+                    }
+                    if (counter >= Integer.valueOf(mPrefs.getValue(Consts.DIALOG_FREQUENCY))) {
+                        mPrefs.setValue(Consts.SHOW_FULL_DIALOG, "0");
+                        mPresenter.userHasMustInfo();
+                    } else {
+                        counter++;
+                        mPrefs.setValue(Consts.SHOW_FULL_DIALOG, String.valueOf(counter));
+
+                    }
                 }
             }
         }, 5000);
@@ -193,7 +291,9 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     @Override
     public void showMustInfoDialog() {
         Log.d(TAG_CLASS_NAME, "showMustInfoDialog");
-        getSupportFragmentManager().beginTransaction().add(new MustInfoDialogFragment(), MustInfoDialogFragment.TAG).commit();
+        MustInfoDialogFragment mustInfoDialogFragment = new MustInfoDialogFragment();
+        mustInfoDialogFragment.setCancelable(false);
+        getSupportFragmentManager().beginTransaction().add(mustInfoDialogFragment, MustInfoDialogFragment.TAG).commit();
     }
 
     /**
@@ -201,7 +301,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
      */
     @Override
     public void showFullInfoDialog() {
-        Log.d(TAG_CLASS_NAME, "showFullInfoDialog");
         getSupportFragmentManager().beginTransaction()
                 .add(ConfirmDialogFragment.newInstance(Consts.SLIDER_MODULE), ConfirmDialogFragment.TAG)
                 .commit();
@@ -213,6 +312,18 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     @Override
     public void onConfirm() {
         mPresenter.getDefaultList();
+    }
+
+    /**
+     * Sending user to the playmarket to update the app
+     */
+    @Override
+    public void onUpdateDialog() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.borisruzanov.russianwives")));
+        } catch (android.content.ActivityNotFoundException anfe) {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.borisruzanov.russianwives")));
+        }
     }
 
     /**
@@ -228,6 +339,14 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     }
 
     /**
+     * Showing the update app dialog
+     */
+    @Override
+    public void showUpdateDialog() {
+        getSupportFragmentManager().beginTransaction().add(ConfirmDialogFragment.newInstance(Consts.UPDATE_MODULE), ConfirmDialogFragment.TAG).commit();
+    }
+
+    /**
      * Calling auth window to log in
      */
     public void callAuthWindow() {
@@ -235,6 +354,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build(),
                 new AuthUI.IdpConfig.FacebookBuilder().build());
+        firebaseAnalytics.logEvent("registration_starts", null);
 
         startActivityForResult(
                 AuthUI.getInstance()
@@ -244,7 +364,37 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                 RC_SIGN_IN);
     }
 
+    /**
+     * Result after calling registration form ui
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            if (data != null) {
+                if (resultCode == Activity.RESULT_OK) {
+                    firebaseAnalytics.logEvent("registration_completed", null);
+                    mPresenter.saveUser();
+                    reload();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("registration_error_type", "registration failed");
+                    firebaseAnalytics.logEvent("registration_failed", bundle);
+                }
+            }
+        }
+    }
 
+    /**
+     * Back button pressed in main screen listener
+     */
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //Close application
+        finishAffinity();
+        System.exit(0);
+    }
 
     @Override
     protected void onStop() {
@@ -258,16 +408,24 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
     private void buttonsListeners() {
         mChatsButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("newMessage").setValue("no");
+                mChatsButton.setImageDrawable(getDrawable(R.drawable.ic_chat_black_24dp));
                 Intent chatsIntent = new Intent(MainScreenActivity.this, ChatsActivity.class);
                 startActivity(chatsIntent);
             }
         });
 
         mActionsButton.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
+                FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("newVisit").setValue("no");
+                FirebaseDatabase.getInstance().getReference().child("Users").child(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid()).child("newLike").setValue("no");
+                mActionsButton.setImageDrawable(getDrawable(R.drawable.ic_notifications_active_black_24dp));
+
                 Intent chatsIntent = new Intent(MainScreenActivity.this, ActionsActivity.class);
                 startActivity(chatsIntent);
             }
@@ -312,8 +470,10 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mPurchaseSectionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingsIntent = new Intent(MainScreenActivity.this, ServicesActivity.class);
-                startActivity(settingsIntent);
+                Toast.makeText(MainScreenActivity.this, R.string.this_is_not_ready,
+                        Toast.LENGTH_LONG).show();
+//                Intent settingsIntent = new Intent(MainScreenActivity.this, ServicesActivity.class);
+//                startActivity(settingsIntent);
             }
         });
 
@@ -464,26 +624,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            if (data != null) {
-//                IdpResponse response = new IdpResponse.fromResultIntent(data)
-                if (resultCode == Activity.RESULT_OK) {
-//                    firebaseAnalytics.logEvent("registration_completed", null)
-                    mPresenter.saveUser();
-                    reload();
-                } else {
-//                    val bundle = Bundle()
-//                    bundle.putString("registration_error_type", response?.error?.errorCode.toString())
-//                    firebaseAnalytics.logEvent("registration_failed", bundle)
-//                    if (response == null) {
-//                    }
-                }
-            }
-        }
-    }
 
     private void reload() {
         mPresenter.makeDialogOpenDateDefault();
@@ -518,4 +658,79 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     }
 
 
+    @SuppressLint("NewApi")
+    private void chat_notification_change() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("newMessage").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (String.valueOf(dataSnapshot.getValue()).equals("yes")) {
+                        mChatsButton.setImageDrawable(getDrawable(R.drawable.message_red));
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    @SuppressLint("NewApi")
+    private void action_notification_change() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("newVisit").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (String.valueOf(dataSnapshot.getValue()).equals("yes")) {
+                        mActionsButton.setImageDrawable(getDrawable(R.drawable.bell_red));
+                        System.out.println(">>>>>>>>>>>>>>>>>>>>> VALUE CHANGED");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+            FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("newLike").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (String.valueOf(dataSnapshot.getValue()).equals("yes")) {
+                        mActionsButton.setImageDrawable(getDrawable(R.drawable.bell_red));
+                        System.out.println(">>>>>>>>>>>>>>>>>>>>> VALUE CHANGED");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    private void check_values() {
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("newMessage").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        HashMap<String, Object> x = new HashMap<>();
+                        x.put("newMessage", "no");
+                        x.put("newLike", "no");
+                        x.put("newVisit", "no");
+                        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(x);
+                        System.out.println(">>>>>>>>>>>>>>>>>> VALUES WRITTEN");
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
 }

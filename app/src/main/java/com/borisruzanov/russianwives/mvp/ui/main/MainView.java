@@ -15,4 +15,5 @@ public interface MainView extends MvpView{
     void openSlider(ArrayList<String> stringList);
     void setUserData(FsUser user);
     void showDefaultDialogScreen(ArrayList<String> list);
+    void showUpdateDialog();
 }
