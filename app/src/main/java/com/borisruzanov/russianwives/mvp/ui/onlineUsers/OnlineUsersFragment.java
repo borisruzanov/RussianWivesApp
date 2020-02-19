@@ -261,7 +261,6 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
 
     private void getUsers() {
         if (!mPrefs.getGender().equals("") && !mPrefs.getGender().equals("default")) {
-
             if (mIsUserExist) {
                 if (!isMaxData) {
                     Query query;
@@ -276,7 +275,7 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
                                 .child("OnlineUsers")
                                 .child(getNeededGender())
                                 .orderByChild("rating")
-                                .startAt(last_node)
+                                .startAt(last_rating, last_node)
                                 .limitToFirst(ITEM_LOAD_COUNT);
                     }
 
@@ -288,8 +287,10 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
                                 List<OnlineUser> newUser = new ArrayList<>();
                                 for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                                     newUser.add(userSnapshot.getValue(OnlineUser.class));
+                                    last_rating = userSnapshot.getValue(OnlineUser.class).getRating();
                                 }
                                 last_node = newUser.get(newUser.size() - 1).getUid();
+
                                 if (!last_node.equals(last_key)) {
                                     newUser.remove(newUser.size() - 1);
                                 } else {
@@ -309,6 +310,7 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                            int s = 0;
                         }
                     });
                 }
@@ -363,6 +365,8 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
                     });
                 }
             }
+        } else {
+            int x = 0;
         }
     }
 
