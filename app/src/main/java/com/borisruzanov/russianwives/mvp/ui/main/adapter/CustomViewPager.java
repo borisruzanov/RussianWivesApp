@@ -725,8 +725,11 @@ public class CustomViewPager extends ViewPager {
             if (loader == null) {
                 loader = getClass().getClassLoader();
             }
-            position = in.readInt();
-            adapterState = in.readParcelable(loader);
+            //TODO CRASH FIX
+            if (in !=null){
+                position = in.readInt();
+                adapterState = in.readParcelable(loader);
+            }
             this.loader = loader;
         }
     }

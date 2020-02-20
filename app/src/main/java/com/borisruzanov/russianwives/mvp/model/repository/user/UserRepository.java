@@ -125,7 +125,8 @@ public class UserRepository {
                 if (task.isSuccessful()) {
                     DocumentSnapshot snapshot = task.getResult();
                     if (snapshot != null) {
-                        if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO) != null) {
+                        //TODO CRASH FIX
+                        if (Objects.requireNonNull(snapshot.getString(Consts.MUST_INFO)).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO) != null) {
                             Log.d(TAG_CLASS_NAME, "userHasMustInfo calling for must info dialog");
                             EventBus.getDefault().post(new StringEvent(Consts.MUST_INFO));
                         } else {
