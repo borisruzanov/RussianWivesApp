@@ -6,6 +6,15 @@ public class Message {
     private long time;
     private boolean seen;
     private String from;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Message(String message){
         this.message = message;

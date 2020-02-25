@@ -20,4 +20,8 @@ class ChatMessageInteractor @Inject constructor(private val repository: ChatMess
         repository.sendImage(friendUid, imageUri, callback)
     }
 
+    fun removeOldMessage(chatUser: String?, id: String, message: String) {
+        repository.removeOldMessage(chatUser,id,message)
+    }
+
 }

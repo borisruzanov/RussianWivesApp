@@ -20,4 +20,8 @@ class ChatMessagePresenter @Inject constructor(private val interactor: ChatMessa
         interactor.sendImage(friendUid, imageUri, UpdateCallback { viewState.setEmptyMessage() })
     }
 
+    fun removeOldMessage(chatUser: String?, id: String, message: String) {
+        interactor.removeOldMessage(chatUser,id,message)
+    }
+
 }

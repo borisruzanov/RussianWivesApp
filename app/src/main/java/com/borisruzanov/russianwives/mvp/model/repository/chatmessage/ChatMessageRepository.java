@@ -1,15 +1,13 @@
 package com.borisruzanov.russianwives.mvp.model.repository.chatmessage;
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
-import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
-import com.borisruzanov.russianwives.mvp.model.repository.slider.SliderRepository;
-import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.UpdateCallback;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +16,8 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +32,7 @@ public class ChatMessageRepository {
     private StorageReference mImageStorage = FirebaseStorage.getInstance().getReference();
 
     public void initChat(String friendUid) {
-        if (realtimeReference.child("Chat").child(getUid()) != null){
+        if (realtimeReference.child("Chat").child(getUid()) != null) {
             realtimeReference.child("Chat").child(getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -55,13 +55,14 @@ public class ChatMessageRepository {
 
 
                 @Override
-                public void onCancelled(DatabaseError databaseError) {}
+                public void onCancelled(DatabaseError databaseError) {
+                }
             });
         }
 
     }
 
-    public void sendMessage(String friendUid, String message, UpdateCallback callback){
+    public void sendMessage(String friendUid, String message, UpdateCallback callback) {
         if (!message.isEmpty()) {
             String current_user_ref = "Messages/" + getUid() + "/" + friendUid;
             String chat_user_ref = "Messages/" + friendUid + "/" + getUid();
@@ -78,6 +79,7 @@ public class ChatMessageRepository {
             messageMap.put("type", "text");
             messageMap.put("time", ServerValue.TIMESTAMP);
             messageMap.put("from", getUid());
+            messageMap.put("id", push_id);
 
             Map<String, Object> messageUserMap = new HashMap<>();
             messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
@@ -98,7 +100,7 @@ public class ChatMessageRepository {
         }
     }
 
-    public void sendImage(String friendUid, Uri imageUri, UpdateCallback callback){
+    public void sendImage(String friendUid, Uri imageUri, UpdateCallback callback) {
         final String current_user_ref = "Messages/" + getUid() + "/" + friendUid;
         final String chat_user_ref = "Messages/" + friendUid + "/" + getUid();
         // Push Message -> Token -> FrUid
@@ -128,6 +130,7 @@ public class ChatMessageRepository {
                 messageMap.put("type", "image");
                 messageMap.put("time", ServerValue.TIMESTAMP);
                 messageMap.put("from", getUid());
+                messageMap.put("id", push_id);
 
                 Map<String, Object> messageUserMap = new HashMap<>();
                 messageUserMap.put(current_user_ref + "/" + push_id, messageMap);
@@ -171,4 +174,32 @@ public class ChatMessageRepository {
         });*/
     }
 
+    public void removeOldMessage(@Nullable String chatUser, String id, String message) {
+
+        if (!chatUser.isEmpty()) {
+            DatabaseReference userRef = realtimeReference.child("Messages/").child(getUid()).child(chatUser).child(id);
+            userRef.removeValue();
+
+            DatabaseReference friendRef = realtimeReference.child("Messages/").child(chatUser).child(getUid()).child(id);
+            friendRef.removeValue();
+
+            //Removing image from storage
+            if (message.contains("http")) {
+                StorageReference imageReference = FirebaseStorage.getInstance().getReferenceFromUrl(message);
+                imageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // File deleted successfully
+                        Log.d("delete", "onSuccess: deleted file");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception exception) {
+                        // Uh-oh, an error occurred!
+                        Log.d("delete", "onFailure: did not delete file");
+                    }
+                });
+            }
+        }
+    }
 }

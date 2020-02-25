@@ -93,4 +93,5 @@ public final class Consts {
     public static final String TAG_END_METHOD = "log_end_method";
     public static final String FILTER_INDEX = "filter_index_event";
 
+    public static final String CHAT_LENGTH = "chat_length";
 }

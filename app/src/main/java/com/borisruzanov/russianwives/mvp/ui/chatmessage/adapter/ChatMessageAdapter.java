@@ -95,9 +95,11 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
             viewHolder.displayName.setText(friendsName);
             viewHolder.messageText.setBackgroundColor(Color.WHITE);
             viewHolder.messageText.setTextColor(Color.BLACK);
+            viewHolder.container.setGravity(Gravity.START);
+
         } else {
             // Если сообщение ОТ НАС
-            viewHolder.container.setGravity(Gravity.RIGHT);
+            viewHolder.container.setGravity(Gravity.END);
             viewHolder.displayName.setText(R.string.you);
             viewHolder.profileImage.setVisibility(View.INVISIBLE);
             viewHolder.messageText.setBackgroundResource(R.drawable.message_text_background_user);

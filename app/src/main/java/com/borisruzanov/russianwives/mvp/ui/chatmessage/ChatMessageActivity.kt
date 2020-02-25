@@ -22,6 +22,7 @@ import com.borisruzanov.russianwives.App
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.models.Contract
 import com.borisruzanov.russianwives.models.Message
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.adapter.ChatMessageAdapter
 import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity
 import com.borisruzanov.russianwives.utils.Consts
@@ -74,6 +75,8 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
     private var itemPos = 0
     private var mLastKey = ""
     private var mPrevKey = ""
+    private var mPrefs: Prefs? = null
+    private var removedItem = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +90,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
         mChatUser = intent.getStringExtra(Consts.UID)
         mCurrentUserId = getUid()
+        mPrefs = Prefs(this)
 
         Log.d("MessagesDebug", """Uid of mChatUser is ${intent.getStringExtra("uid")}""")
         Log.d("MessagesDebug", """Uid of mCurrentUserId is ${getUid()}""")
@@ -126,6 +130,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
         //Pagination
         mRefreshLayout = findViewById<View>(R.id.message_swipe_layout) as SwipeRefreshLayout
+        mRefreshLayout.setEnabled(false)
 
         //Utility
         mLastSeenView = findViewById<View>(R.id.custom_bar_seen) as TextView
@@ -145,7 +150,18 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
         mChatSendBtn.setOnClickListener {
             firebaseAnalytics.logEvent("message_sent", null)
-            presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
+
+            if (mPrefs!!.getValue(Consts.CHAT_LENGTH)!= null && !mPrefs!!.getValue(Consts.CHAT_LENGTH).isEmpty()){
+                if (mAdapter.itemCount >= Integer.valueOf(mPrefs!!.getValue(Consts.CHAT_LENGTH))){
+                    if (messageList[0].id != null && messageList.get(0).message != null){
+                        presenter.removeOldMessage(mChatUser, messageList[0].id, messageList.get(0).message)
+                        presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
+                    }
+                    messageList.removeAt(0)
+                } else{
+                    presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
+                }
+            }
         }
 
         adInit()
@@ -281,7 +297,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
     companion object {
         //Pagination
-        private const val TOTAL_ITEMS_TO_LOAD = 10
+        private const val TOTAL_ITEMS_TO_LOAD = 20
         private const val GALLERY_PICK = 1
     }
 
