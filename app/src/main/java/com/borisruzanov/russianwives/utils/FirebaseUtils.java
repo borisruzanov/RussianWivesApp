@@ -62,7 +62,9 @@ public class FirebaseUtils {
                             snapshot.child(Consts.NAME).getValue(String.class),
                             snapshot.child(Consts.IMAGE).getValue(String.class),
                             String.valueOf(snapshot.child("online").getValue()),
-                            snapshot.child(Consts.DEVICE_TOKEN).getValue(String.class)));
+                            snapshot.child(Consts.DEVICE_TOKEN).getValue(String.class),
+                            snapshot.child(Consts.VISITS).getValue(String.class),
+                            snapshot.child(Consts.LIKES).getValue(String.class)));
                 }
                 callback.setUsers(userRtList);
             }

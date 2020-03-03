@@ -28,6 +28,7 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
@@ -62,6 +63,7 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         component.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
+        presenter.registerSubscribers()
         //UI
         toolbar = findViewById(R.id.toolbar)
         toolbar.title = ""
@@ -96,6 +98,7 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         numberOfVisits = findViewById(R.id.number_of_visits)
 
         supportFragmentManager.beginTransaction().add(R.id.my_profile_list_container, SearchFragment()).commit()
+
 
         adInit()
     }
@@ -146,5 +149,10 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         super.onBackPressed()
         val intent = Intent(this, MainScreenActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.unsubscribe()
     }
 }

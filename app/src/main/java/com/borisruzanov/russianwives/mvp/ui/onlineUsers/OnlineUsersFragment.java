@@ -160,7 +160,7 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
         App app = (App) requireActivity().getApplication();
         app.getComponent().inject(this);
         mPresenter = new OnlineUsersPresenter(new OnlineUsersInteractor(new UserRepository(new Prefs(getContext()))), this);
-        mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(getContext())), new FriendRepository(), new RatingRepository(), new UserRepository(new Prefs(getContext())), new HotUsersRepository(new Prefs(getContext()))), new CoinsInteractor(new CoinsRepository()));
+        mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(getContext())), new FriendRepository(new Prefs(getContext())), new RatingRepository(), new UserRepository(new Prefs(getContext())), new HotUsersRepository(new Prefs(getContext()))), new CoinsInteractor(new CoinsRepository()));
 
         mOnlineUsersRecycler = (RecyclerView) getView().findViewById(R.id.online_users_rv);
         mEmptyUsersTextView = (TextView) getView().findViewById(R.id.online_users_empty_text);

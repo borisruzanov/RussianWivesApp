@@ -5,16 +5,15 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.borisruzanov.russianwives.eventbus.BooleanEvent;
-import com.borisruzanov.russianwives.eventbus.LastKeyEvent;
 import com.borisruzanov.russianwives.eventbus.FakeUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
 import com.borisruzanov.russianwives.eventbus.RealUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
-import com.borisruzanov.russianwives.models.OnlineUser;
-import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
+import com.borisruzanov.russianwives.eventbus.VisitsEvent;
 import com.borisruzanov.russianwives.models.ActionItem;
 import com.borisruzanov.russianwives.models.ActionModel;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.models.OnlineUser;
 import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingRepository;
 import com.borisruzanov.russianwives.utils.ActionCallback;
@@ -23,6 +22,7 @@ import com.borisruzanov.russianwives.utils.ActionItemCallback;
 import com.borisruzanov.russianwives.utils.ActionsCountInfoCallback;
 import com.borisruzanov.russianwives.utils.BoolCallback;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.utils.OnlineUsersCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
@@ -56,7 +56,6 @@ import java.util.Map;
 import java.util.Objects;
 
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
-import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.MUST_INFO_ACH;
 import static com.borisruzanov.russianwives.utils.Consts.ITEM_LOAD_COUNT;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getUid;
@@ -80,6 +79,8 @@ public class UserRepository {
 
     private Prefs mPrefs;
 
+    private DataSnapshot likesSnapshot;
+    private DataSnapshot visitsSnapshot;
 
     public UserRepository(Prefs mPrefs) {
         this.mPrefs = mPrefs;
@@ -110,6 +111,8 @@ public class UserRepository {
         niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
         niMap.put(Consts.ONLINE, ServerValue.TIMESTAMP);
         niMap.put(Consts.UID, uid);
+        niMap.put(Consts.LIKES, 0);
+        niMap.put(Consts.VISITS, 0);
         realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
         Log.d(TAG_CLASS_NAME, "createNewUser - user created");
     }
@@ -155,7 +158,7 @@ public class UserRepository {
                         if (snapshot.getString(Consts.FULL_PROFILE).equals(Consts.FALSE) && snapshot.getString(Consts.MUST_INFO).equals(Consts.TRUE)) {
                             //Triggers only in case must info is filled
                             EventBus.getDefault().post(new StringEvent(Consts.FULL_PROFILE));
-                        } else if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE)){
+                        } else if (snapshot.getString(Consts.MUST_INFO).equals(Consts.FALSE)) {
                             //This triggers only if user logged out
                             EventBus.getDefault().post(new StringEvent(Consts.MUST_INFO));
                         } else {
@@ -216,10 +219,11 @@ public class UserRepository {
      */
     public void changeUserOnlineStatus(@NotNull FsUser user) {
         // -1 because in realtime we cant make desc order that just a trick to avoid that and sort the right way
-        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating() * - 1);
+        OnlineUser onlineUser = new OnlineUser(user.getUid(), user.getName(), user.getImage(), user.getGender(), user.getCountry(), user.getRating() * -1);
         FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).setValue(onlineUser);
 
         FirebaseDatabase.getInstance().getReference().child("OnlineUsers/").child(mPrefs.getValue(Consts.GENDER)).child(user.getUid()).onDisconnect().removeValue();
+
 
     }
 
@@ -381,13 +385,15 @@ public class UserRepository {
     public void addRating(String uid, double addPoint) {
         if (uid != null) {
             users.document(uid).get().addOnCompleteListener(task -> {
-                DocumentSnapshot snapshot = task.getResult();
-                int rating = snapshot.getDouble(Consts.RATING).intValue();
-                double newRating = rating + addPoint;
-                Map<String, Object> achMap = new HashMap<>();
-                achMap.put(Consts.RATING, newRating);
-                users.document(getUid()).update(achMap);
-                mPrefs.setValue(Consts.MUST_INFO, Consts.TRUE);
+                if (task.isSuccessful()){
+                    DocumentSnapshot snapshot = task.getResult();
+                    int rating = snapshot.getDouble(Consts.RATING).intValue();
+                    double newRating = rating + addPoint;
+                    Map<String, Object> achMap = new HashMap<>();
+                    achMap.put(Consts.RATING, newRating);
+                    users.document(getUid()).update(achMap);
+                    mPrefs.setValue(Consts.MUST_INFO, Consts.TRUE);
+                }
             });
         } else Log.d("RatingDebug", "Rating ALARM from UR");
     }
@@ -533,70 +539,70 @@ public class UserRepository {
 //            } else Log.d("DialogDebug", "Task doesn't exist!!!");
 //        });
 
-        users.get().addOnCompleteListener(task -> {
-            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
-                String image = snapshot.getString(Consts.IMAGE);
-                String country = snapshot.getString(Consts.COUNTRY);
-                String gender = snapshot.getString(Consts.GENDER);
-                String uid = snapshot.getId();
-
-                if (snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT)) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("must_info", "false");
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Russia") && snapshot.getString(Consts.GENDER).equals("Male")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 2);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Ukraine") && snapshot.getString(Consts.GENDER).equals("Male")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 2);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Kazakhstan") && snapshot.getString(Consts.GENDER).equals("Male")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 2);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Belarus") && snapshot.getString(Consts.GENDER).equals("Male")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 2);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Uzbekistan") && snapshot.getString(Consts.GENDER).equals("Male")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 2);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Kyrgyzstan") && snapshot.getString(Consts.GENDER).equals("Male")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 2);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-
-                if (snapshot.getString(Consts.COUNTRY).equals("Afghanistan")) {
-                    Map<String, Object> fpMap = new HashMap<>();
-                    fpMap.put("rating", 1);
-                    users.document(uid).update(fpMap);
-                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
-                }
-            }
-        });
+//        users.get().addOnCompleteListener(task -> {
+//            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+//                String image = snapshot.getString(Consts.IMAGE);
+//                String country = snapshot.getString(Consts.COUNTRY);
+//                String gender = snapshot.getString(Consts.GENDER);
+//                String uid = snapshot.getId();
+//
+//                if (snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT)) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("must_info", "false");
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Russia") && snapshot.getString(Consts.GENDER).equals("Male")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 2);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Ukraine") && snapshot.getString(Consts.GENDER).equals("Male")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 2);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Kazakhstan") && snapshot.getString(Consts.GENDER).equals("Male")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 2);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Belarus") && snapshot.getString(Consts.GENDER).equals("Male")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 2);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Uzbekistan") && snapshot.getString(Consts.GENDER).equals("Male")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 2);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Kyrgyzstan") && snapshot.getString(Consts.GENDER).equals("Male")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 2);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//
+//                if (snapshot.getString(Consts.COUNTRY).equals("Afghanistan")) {
+//                    Map<String, Object> fpMap = new HashMap<>();
+//                    fpMap.put("rating", 1);
+//                    users.document(uid).update(fpMap);
+//                    //new RatingRepository().addAchievement(FULL_PROFILE_ACH);
+//                }
+//            }
+//        });
 //        users.get().addOnCompleteListener(task -> {
 //            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
 //                if (!snapshot.getString(Consts.IMAGE).equals(Consts.DEFAULT) &&
@@ -784,26 +790,168 @@ public class UserRepository {
 
     public void getTransformedActions(ActionItemCallback callback) {
         List<ActionItem> actionItems = new ArrayList<>();
-        getMergedActions(actionModels -> {
-            List<String> uidList = new ArrayList<>();
-            for (ActionModel model : actionModels) {
-                uidList.add(model.getUid());
-            }
-
-            getUsers(uidList, fsUserList -> {
-                for (int i = 0; i < fsUserList.size(); i++) {
-                    actionItems.add(new ActionItem(actionModels.get(i).getUid(), fsUserList.get(i).getName(),
-                            fsUserList.get(i).getImage(), actionModels.get(i).getType(),
-                            actionModels.get(i).getTimestamp()));
+        if (actionItems.size() == 0) {
+            getMergedActions(actionModels -> {
+                List<String> uidList = new ArrayList<>();
+                for (ActionModel model : actionModels) {
+                    uidList.add(model.getUid());
                 }
-                callback.setActionItems(actionItems);
+
+                getUsers(uidList, fsUserList -> {
+                    for (int i = 0; i < fsUserList.size(); i++) {
+                        actionItems.add(new ActionItem(actionModels.get(i).getUid(), fsUserList.get(i).getName(),
+                                fsUserList.get(i).getImage(), actionModels.get(i).getType(),
+                                actionModels.get(i).getTimestamp()));
+                    }
+                    callback.setActionItems(actionItems);
+                    actionItems.clear();
+                });
             });
-        });
+        }
     }
 
     public void getActionsCountInfo(ActionsCountInfoCallback callback) {
+//        updateUsersLikesVisits();
         getActionCount("Visits", visitsCount ->
                 getActionCount("Likes", likesCount -> callback.setActions(visitsCount, likesCount)));
+    }
+
+    /**
+     * Method to update database with likes/visits for all users (only for development purpose)
+     */
+    private void updateUsersLikesVisits() {
+        //Идем по всем пользователям
+        realtimeReference.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    //Взяли первого пользователя
+                    if (snapshot.child("uid").exists()) {
+                        String uidUpdate = snapshot.child("uid").getValue().toString();
+                        //Если у него нет поля visits надо его создать
+                        if (!snapshot.child("visits").exists()) {
+                            //Делаем запрос в таблицу Visits и ищем там текущего пользователя
+                            realtimeReference.child("Visits").child(uidUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    long total = 0;
+                                    //Если есть какие то записи то total равен этим записям
+                                    if (dataSnapshot.getChildrenCount() > 0) {
+                                        total = dataSnapshot.getChildrenCount();
+                                    }
+                                    //Если нет то total ставим 0
+                                    String stringLikesAmount = Long.toString(total);
+                                    //Записываем в поле visits у пользователя либо 0 либо значение
+                                    realtimeReference.child("Users").child(uidUpdate).child("visits").setValue(stringLikesAmount);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    //Если ошибка все равно в поле visits пользователю пишем значение 9
+                                    realtimeReference.child("Users").child(uidUpdate).child("visits").setValue("0");
+                                }
+                            });
+                        } else {
+                            Log.d("test", "visits exist");
+                        }
+
+
+                        if (!snapshot.child("likes").exists()) {
+                            //Делаем запрос в таблицу Visits и ищем там текущего пользователя
+                            realtimeReference.child("Likes").child(uidUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    long total = 0;
+                                    //Если есть какие то записи то total равен этим записям
+                                    if (dataSnapshot.getChildrenCount() > 0) {
+                                        total = dataSnapshot.getChildrenCount();
+                                    }
+                                    //Если нет то total ставим 0
+                                    String stringLikesAmount = Long.toString(total);
+                                    //Записываем в поле visits у пользователя либо 0 либо значение
+                                    realtimeReference.child("Users").child(uidUpdate).child("likes").setValue(stringLikesAmount);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    //Если ошибка все равно в поле visits пользователю пишем значение 9
+                                    realtimeReference.child("Users").child(uidUpdate).child("likes").setValue("0");
+                                }
+                            });
+                        } else {
+                            Log.d("test", "likes exist");
+
+                        }
+
+                    } else {
+                        //Если у пользователя нет поля uid
+                        String uidKeyUpdate = snapshot.getKey();
+                        realtimeReference.child("Users").child(uidKeyUpdate).child("uid").setValue(uidKeyUpdate);
+
+//                        String uidUpdate = snapshot.child("uid").getValue().toString();
+                        //Если у него нет поля visits надо его создать
+                        if (!snapshot.child("visits").exists()) {
+                            //Делаем запрос в таблицу Visits и ищем там текущего пользователя
+                            realtimeReference.child("Visits").child(uidKeyUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    long total = 0;
+                                    //Если есть какие то записи то total равен этим записям
+                                    if (dataSnapshot.getChildrenCount() > 0) {
+                                        total = dataSnapshot.getChildrenCount();
+                                    }
+                                    //Если нет то total ставим 0
+                                    String stringLikesAmount = Long.toString(total);
+                                    //Записываем в поле visits у пользователя либо 0 либо значение
+                                    realtimeReference.child("Users").child(uidKeyUpdate).child("visits").setValue(stringLikesAmount);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    //Если ошибка все равно в поле visits пользователю пишем значение 9
+                                    realtimeReference.child("Users").child(uidKeyUpdate).child("visits").setValue("0");
+                                }
+                            });
+                        } else {
+                            Log.d("test", "visits exist");
+                        }
+
+
+                        if (!snapshot.child("likes").exists()) {
+                            //Делаем запрос в таблицу Visits и ищем там текущего пользователя
+                            realtimeReference.child("Likes").child(uidKeyUpdate).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    long total = 0;
+                                    //Если есть какие то записи то total равен этим записям
+                                    if (dataSnapshot.getChildrenCount() > 0) {
+                                        total = dataSnapshot.getChildrenCount();
+                                    }
+                                    //Если нет то total ставим 0
+                                    String stringLikesAmount = Long.toString(total);
+                                    //Записываем в поле visits у пользователя либо 0 либо значение
+                                    realtimeReference.child("Users").child(uidKeyUpdate).child("likes").setValue(stringLikesAmount);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    //Если ошибка все равно в поле visits пользователю пишем значение 9
+                                    realtimeReference.child("Users").child(uidKeyUpdate).child("likes").setValue("0");
+                                }
+                            });
+                        } else {
+                            Log.d("test", "likes exist");
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getLikes(ActionCallback callback) {
@@ -909,16 +1057,25 @@ public class UserRepository {
     }
 
     private void getActionCount(String dbName, ActionCountCallback callback) {
-        realtimeReference.child(dbName).child(getUid()).addValueEventListener(new ValueEventListener() {
+        realtimeReference.child("Users").child(getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                callback.setActionCount(dataSnapshot.getChildrenCount());
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child(Consts.VISITS).exists() && dataSnapshot.child(Consts.LIKES).exists()) {
+                    EventBus.getDefault().post(new VisitsEvent(Long.valueOf(dataSnapshot.child(Consts.VISITS).getValue().toString()), Long.valueOf(dataSnapshot.child(Consts.LIKES).getValue().toString())));
+                } else {
+                    Log.d("error", "something wrong");
+                }
+
+//                callback.setActionCount(Long.valueOf(dataSnapshot.getValue().toString()));
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("error", "something wrong" + databaseError.getMessage());
+
             }
         });
+
     }
 
 

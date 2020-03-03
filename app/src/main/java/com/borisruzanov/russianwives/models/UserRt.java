@@ -7,16 +7,36 @@ public class UserRt {
     private String image;
     private String online;
     private String deviceToken;
+    private String mLikes;
+    private String mVisits;
 
     public UserRt() {
     }
 
-    public UserRt(String uid, String name, String image, String online, String deviceToken) {
+    public UserRt(String uid, String name, String image, String online, String deviceToken, String visits, String likes) {
         this.uid = uid;
         this.name = name;
         this.image = image;
         this.online = online;
         this.deviceToken = deviceToken;
+        this.mVisits = visits;
+        this.mLikes = likes;
+    }
+
+    public String getmLikes() {
+        return mLikes;
+    }
+
+    public void setmLikes(String mLikes) {
+        this.mLikes = mLikes;
+    }
+
+    public String getmVisits() {
+        return mVisits;
+    }
+
+    public void setmVisits(String mVisits) {
+        this.mVisits = mVisits;
     }
 
     public String getUid() {

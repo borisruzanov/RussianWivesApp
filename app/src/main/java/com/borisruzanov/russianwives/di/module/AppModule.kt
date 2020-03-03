@@ -24,7 +24,7 @@ class AppModule(val app: App) {
 
     @Provides fun provideRatingRepository() = RatingRepository()
     @Provides fun provideChatMessageRepository() = ChatMessageRepository()
-    @Provides fun provideFriendProfileRepository() = FriendRepository()
+    @Provides fun provideFriendProfileRepository(prefs: Prefs) = FriendRepository(prefs)
     @Provides fun provideChatsRepository() = ChatsRepository()
 
     @Provides fun providePrefsClass() = Prefs(app.applicationContext)

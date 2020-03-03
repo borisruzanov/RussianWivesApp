@@ -17,6 +17,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.FsUser;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.FirebaseUtils;
@@ -97,7 +98,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.UserViewHo
         void bind(FsUser fsUser, int position){
             ViewCompat.setTransitionName(imageView, fsUser.getName());
             if (FirebaseUtils.isUserExist() && fsUser.getUid() != null) {
-                new FriendRepository().isLiked(fsUser.getUid(), flag -> {
+                new FriendRepository(new Prefs(context)).isLiked(fsUser.getUid(), flag -> {
                     if (flag) {
                         like.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_favorite));
                         animationView.setVisibility(View.VISIBLE);

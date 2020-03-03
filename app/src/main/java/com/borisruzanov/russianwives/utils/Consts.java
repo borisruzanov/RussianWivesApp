@@ -47,6 +47,9 @@ public final class Consts {
     public static final String DIALOG_FREQUENCY = "dialog_frequency";
     public static final String GENDER_FEMALE = "Female";
     public static final String GENDER_MALE = "Male";
+    public static final String LIKES = "likes";
+    public static final String VISITS = "visits";
+    public static final String ACTIONS_LENGTH = "actions_length";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";

@@ -130,7 +130,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         setContentView(R.layout.drawer);
         mPresenter = new MainScreenPresenter(new MainInteractor(new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this)), new SystemRepository(new Prefs(this))), this);
         mChatsPresenter = new ChatsPresenter(new ChatsInteractor(new ChatsRepository()));
-        mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(this)), new FriendRepository(), new RatingRepository(), new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))), new CoinsInteractor(new CoinsRepository()));
+        mSearchPresenter = new SearchPresenter(new SearchInteractor(new SearchRepository(), new FilterRepository(new Prefs(this)), new FriendRepository(new Prefs(this)), new RatingRepository(), new UserRepository(new Prefs(this)), new HotUsersRepository(new Prefs(this))), new CoinsInteractor(new CoinsRepository()));
         mMyProfilePresenter = new MyProfilePresenter(new MyProfileInteractor(new UserRepository(new Prefs(this))));
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mPrefs = new Prefs(this);

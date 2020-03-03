@@ -18,6 +18,7 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.OnlineUser;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.friend.FriendRepository;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.borisruzanov.russianwives.utils.FirebaseUtils;
@@ -101,7 +102,7 @@ public class OnlineUsersAdapter extends RecyclerView.Adapter<OnlineUsersAdapter.
             ViewCompat.setTransitionName(imageView, user.getName());
 
             if (FirebaseUtils.isUserExist() && user.getUid() != null) {
-                new FriendRepository().isLiked(user.getUid(), flag -> {
+                new FriendRepository(new Prefs(context)).isLiked(user.getUid(), flag -> {
                     if (flag) {
                         likeBtn.setBackground(ContextCompat.getDrawable(context, R.drawable.ic_favorite));
                         animationView.setVisibility(View.VISIBLE);

@@ -10,18 +10,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
-
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
-import com.borisruzanov.russianwives.mvp.ui.actions.adapter.ActionsAdapter
 import com.borisruzanov.russianwives.OnItemClickListener
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.ActionItem
+import com.borisruzanov.russianwives.mvp.ui.actions.adapter.ActionsAdapter
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity
-import com.borisruzanov.russianwives.mvp.ui.main.MainActivity
-
 import javax.inject.Inject
 
 class ActionsFragment : MvpAppCompatFragment(), ActionsView {
@@ -80,7 +77,9 @@ class ActionsFragment : MvpAppCompatFragment(), ActionsView {
     override fun updateUserActions(newActionItems: List<ActionItem>) {
         if (newActionItems.isNotEmpty()) {
             emptyLayout.visibility = View.GONE
-            recyclerActivitiesList.post { actionsAdapter.clearAndUpdateData(newActionItems) }
+            if (actionsAdapter.itemCount == 0){
+                recyclerActivitiesList.post { actionsAdapter.clearAndUpdateData(newActionItems) }
+            }
         } else {
             recyclerActivitiesList.visibility = View.GONE
             emptyLayout.visibility = View.VISIBLE

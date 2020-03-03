@@ -3,12 +3,14 @@ package com.borisruzanov.russianwives.mvp.ui.myprofile
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.borisruzanov.russianwives.UserProfileItemsList
+import com.borisruzanov.russianwives.eventbus.VisitsEvent
 import com.borisruzanov.russianwives.eventbus.UserEvent
 import com.borisruzanov.russianwives.models.UserDescriptionModel
 import com.borisruzanov.russianwives.mvp.model.interactor.myprofile.MyProfileInteractor
 import com.borisruzanov.russianwives.utils.ActionsCountInfoCallback
 import com.borisruzanov.russianwives.utils.UserCallback
 import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
 
 import java.util.ArrayList
 import javax.inject.Inject
@@ -35,6 +37,22 @@ class MyProfilePresenter @Inject constructor(private val interactor: MyProfileIn
     private fun setActionsCount() {
         interactor.getActionsCountInfo(
                 ActionsCountInfoCallback{ visits, likes -> viewState.setActionsCount(visits, likes) })
+    }
+
+    @Subscribe
+    fun updateActionsCount(event: VisitsEvent){
+        viewState.setActionsCount(event.getmVisits(), event.getmLikes())
+    }
+
+
+    fun registerSubscribers() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this)
+        }
+    }
+
+    fun unsubscribe(){
+        EventBus.getDefault().unregister(this)
     }
 
 }
