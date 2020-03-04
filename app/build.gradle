@@ -13,8 +13,8 @@ android {
             applicationId "com.borisruzanov.russianwives"
             minSdkVersion 19
             targetSdkVersion 28
-            versionCode 11
-            versionName "2.4"
+            versionCode 12
+            versionName "2.5"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
             // Enabling multidex support.
             multiDexEnabled true
