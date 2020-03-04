@@ -24,7 +24,7 @@
             android:value="@string/facebook_application_id" />
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-5095813023957397~1146672660" />
+            android:value="ca-app-pub-9301397323281662~4766871982" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

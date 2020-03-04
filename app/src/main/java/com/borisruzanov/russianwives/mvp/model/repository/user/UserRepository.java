@@ -111,8 +111,8 @@ public class UserRepository {
         niMap.put(Consts.ACHIEVEMENTS, new ArrayList<String>());
         niMap.put(Consts.ONLINE, ServerValue.TIMESTAMP);
         niMap.put(Consts.UID, uid);
-        niMap.put(Consts.LIKES, 0);
-        niMap.put(Consts.VISITS, 0);
+        niMap.put(Consts.LIKES, "0");
+        niMap.put(Consts.VISITS, "0");
         realtimeReference.child(Consts.USERS_DB).child(uid).setValue(niMap);
         Log.d(TAG_CLASS_NAME, "createNewUser - user created");
     }

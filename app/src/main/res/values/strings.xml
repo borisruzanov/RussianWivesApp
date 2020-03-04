@@ -349,7 +349,7 @@
     <!-- test banner id ca-app-pub-3940256099942544/6300978111 -->
     <!--<string name="mob_unit_tester_banner_id">ca-app-pub-3940256099942544/6300978111</string>-->
     <!--<string name="mob_unit_prod_id">ca-app-pub-5095813023957397/5592359725</string>-->
-    <string name="mob_unit_banner_id">ca-app-pub-5095813023957397/5592359725</string>
+    <string name="mob_unit_banner_id">ca-app-pub-9301397323281662/8949659570</string>
     <string name="buy_tokens">Buy Tokens</string>
     <string name="get_free_coins">Get free coins</string>
     <string name="you_have">You have</string>
