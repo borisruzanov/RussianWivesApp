@@ -62,6 +62,7 @@ import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -71,6 +72,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -372,10 +374,16 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
             if (data != null) {
+                //TODO HERE SUPPOSE TO BE FOR A NEW USER ONLY NOT EXISTING ONE
                 if (resultCode == Activity.RESULT_OK) {
-                    firebaseAnalytics.logEvent("registration_completed", null);
-                    mPresenter.saveUser();
-                    reload();
+                    IdpResponse response =  IdpResponse.fromResultIntent(data);
+                    if (response.isNewUser()){
+                        firebaseAnalytics.logEvent("registration_completed", null);
+                        mPresenter.saveUser();
+                        reload();
+                    } else {
+                        reload();
+                    }
                 } else {
                     Bundle bundle = new Bundle();
                     bundle.putString("registration_error_type", "registration failed");
