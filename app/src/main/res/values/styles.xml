@@ -49,4 +49,9 @@
     </style>
 
 
+    <style name="SwitchTheme">
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
 </resources>

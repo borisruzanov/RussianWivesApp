@@ -26,6 +26,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appBarLayout"
+        android:layout_above="@id/my_profile_edit_incognito_switcher"
         android:layout_marginTop="@dimen/dp8" />
+
+    <android.support.v7.widget.SwitchCompat
+        android:id="@+id/my_profile_edit_incognito_switcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Incognito"
+        app:theme="@style/SwitchTheme"
+        android:checked="false"
+        android:visibility="gone"/>
 
 </RelativeLayout>

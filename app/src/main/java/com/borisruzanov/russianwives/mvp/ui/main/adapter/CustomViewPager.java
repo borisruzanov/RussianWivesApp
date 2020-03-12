@@ -707,19 +707,19 @@ public class CustomViewPager extends ViewPager {
                     + " position=" + position + "}";
         }
 
-        public static final Creator<SavedState> CREATOR
-                = ParcelableCompat.newCreator(new ParcelableCompatCreatorCallbacks<SavedState>() {
-            @Override
-            public SavedState createFromParcel(Parcel in, ClassLoader loader) {
-
-                return new SavedState(in, loader);
-            }
-
-            @Override
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        });
+//        public static final Creator<SavedState> CREATOR
+//                = ParcelableCompat.newCreator(new ParcelableCompatCreatorCallbacks<SavedState>() {
+//            @Override
+//            public SavedState createFromParcel(Parcel in, ClassLoader loader) {
+//
+//                return new SavedState(in, loader);
+//            }
+//
+//            @Override
+//            public SavedState[] newArray(int size) {
+//                return new SavedState[size];
+//            }
+//        });
 
         SavedState(Parcel in, ClassLoader loader) {
             super(in);

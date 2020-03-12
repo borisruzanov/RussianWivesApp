@@ -247,6 +247,7 @@ public class UserRepository {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("test", "error " + databaseError.getMessage());
 //                registerErrorEvent(databaseError);
             }
         });

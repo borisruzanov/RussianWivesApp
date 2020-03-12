@@ -64,7 +64,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
     fun provideChatMessagePresenter(): ChatMessagePresenter = presenter
 
     //Utility
-    private val mRootRef: DatabaseReference =  FirebaseDatabase.getInstance().reference.child("Messages")
+    private val mRootRef: DatabaseReference = FirebaseDatabase.getInstance().reference.child("Messages")
     private lateinit var mCurrentUserId: String
 
     //List
@@ -151,14 +151,14 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         mChatSendBtn.setOnClickListener {
             firebaseAnalytics.logEvent("message_sent", null)
 
-            if (mPrefs!!.getValue(Consts.CHAT_LENGTH)!= null && !mPrefs!!.getValue(Consts.CHAT_LENGTH).isEmpty()){
-                if (mAdapter.itemCount >= Integer.valueOf(mPrefs!!.getValue(Consts.CHAT_LENGTH))){
-                    if (messageList[0].id != null && messageList.get(0).message != null){
+            if (mPrefs!!.getValue(Consts.CHAT_LENGTH) != null && !mPrefs!!.getValue(Consts.CHAT_LENGTH).isEmpty()) {
+                if (mAdapter.itemCount >= Integer.valueOf(mPrefs!!.getValue(Consts.CHAT_LENGTH))) {
+                    if (messageList[0].id != null && messageList.get(0).message != null) {
                         presenter.removeOldMessage(mChatUser, messageList[0].id, messageList.get(0).message)
                         presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
                     }
                     messageList.removeAt(0)
-                } else{
+                } else {
                     presenter.sendMessage(mChatUser, mChatMessageView.text.toString())
                 }
             }
@@ -177,7 +177,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-        // Respond to the action bar's Up/Home button
+            // Respond to the action bar's Up/Home button
             android.R.id.home -> {
                 onBackPressed()
                 //handle the home button onClick event here.
@@ -267,15 +267,14 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
                     messageMap["seen"] = true
 
                     mRootRef.child(mCurrentUserId).child(mChatUser).child(messageKey).updateChildren(messageMap)
-                }
-                else Log.d("MessageDebug", "MessageKey is null!!!")
+                } else Log.d("MessageDebug", "MessageKey is null!!!")
 
                 itemPos++
                 if (itemPos == 1) {
                     mLastKey = messageKey.toString()
                     mPrevKey = messageKey.toString()
                 }
-                if(message != null) {
+                if (message != null) {
                     messageList.add(message)
                 }
                 mAdapter.setData(messageList)

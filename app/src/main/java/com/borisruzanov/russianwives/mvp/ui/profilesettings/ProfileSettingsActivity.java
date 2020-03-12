@@ -5,17 +5,19 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.CompoundButton;
 
-import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
-import com.borisruzanov.russianwives.mvp.ui.profilesettings.adapter.UserDescriptionEditListAdapter;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.UserProfileItemsListForEdit;
 import com.borisruzanov.russianwives.models.Contract;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
+import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
+import com.borisruzanov.russianwives.mvp.ui.profilesettings.adapter.UserDescriptionEditListAdapter;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class ProfileSettingsActivity extends AppCompatActivity {
     //UI
     RecyclerView recyclerView;
     Toolbar toolbar;
+    SwitchCompat mIncognitoSwitcher;
 
     //Utility
     List<UserDescriptionModel> userDescriptionEditList = new ArrayList<>();
@@ -51,7 +54,17 @@ public class ProfileSettingsActivity extends AppCompatActivity {
         recyclerView.setAdapter(userDescriptionEditListAdapter);
         userDescriptionEditList.addAll(UserProfileItemsListForEdit.initData());
         setEditList(userDescriptionEditList);
-
+        mIncognitoSwitcher = findViewById(R.id.my_profile_edit_incognito_switcher);
+        mIncognitoSwitcher.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean checked) {
+                if (checked){
+                    Log.d("test", "incognito on");
+                } else {
+                    Log.d("test", "incognito off");
+                }
+            }
+        });
     }
 
     public void setEditList(List<UserDescriptionModel> userDescriptionList) {

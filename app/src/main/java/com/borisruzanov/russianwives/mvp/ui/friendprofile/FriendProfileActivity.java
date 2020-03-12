@@ -1,5 +1,6 @@
 package com.borisruzanov.russianwives.mvp.ui.friendprofile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -175,6 +176,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         mFirebaseAnalytics.logEvent("friend_profile_viewed", null);
 
 
+
     }
 
     @Override
@@ -237,18 +239,29 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RC_SIGN_IN) {
-            //for checking errors
-            IdpResponse response = IdpResponse.fromResultIntent(data);
-            if (resultCode == RESULT_OK) {
-                Log.d("RegDebug", "OnActivityResult with ok result");
-                presenter.saveUser();
-            } else {
-                //Sign in failed
-                if (response == null) {
-
+            if (data != null) {
+                //TODO HERE SUPPOSE TO BE FOR A NEW USER ONLY NOT EXISTING ONE
+                if (resultCode == Activity.RESULT_OK) {
+                    IdpResponse response =  IdpResponse.fromResultIntent(data);
+                    if (response.isNewUser()){
+                        mFirebaseAnalytics.logEvent("registration_completed", null);
+                        presenter.saveUser();
+                        reload();
+                    } else {
+                        reload();
+                    }
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("registration_error_type", "registration failed");
+                    mFirebaseAnalytics.logEvent("registration_failed", bundle);
                 }
             }
         }
+    }
+
+    private void reload() {
+        Intent mainScreenIntent = new Intent(this, MainScreenActivity.class);
+        startActivity(mainScreenIntent);
     }
 
     private void loadImage(String image) {
