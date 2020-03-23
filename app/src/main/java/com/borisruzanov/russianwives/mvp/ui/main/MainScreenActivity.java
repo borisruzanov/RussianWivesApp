@@ -10,17 +10,20 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -49,6 +52,7 @@ import com.borisruzanov.russianwives.mvp.ui.chats.ChatsActivity;
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsPresenter;
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment;
+import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.gender.GenderDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.CustomViewPager;
 import com.borisruzanov.russianwives.mvp.ui.main.adapter.MainPagerAdapter;
@@ -59,6 +63,7 @@ import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
+import com.borisruzanov.russianwives.mvp.ui.usersearch.DialogUserSearch;
 import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
@@ -67,12 +72,10 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -122,9 +125,17 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     private SearchFragment mSearchFragment;
     private FsUser mFsUser = new FsUser();
     private Prefs mPrefs;
-    private int counter;
+    private int mUserInfoCounter;
 
     private AdView mAdView;
+    private FloatingActionButton mFab;
+
+    private ImageView mSocMedImgBackground;
+    private ImageView mSocMeImgPhoto;
+    private Button mYesBtn;
+    private Button mNoBtn;
+    private CardView mSocMedContainer;
+    private int mSocMedCounter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -136,6 +147,14 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mMyProfilePresenter = new MyProfilePresenter(new MyProfileInteractor(new UserRepository(new Prefs(this))));
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mPrefs = new Prefs(this);
+        mFab = findViewById(R.id.main_fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogUserSearch userSearch = new DialogUserSearch(MainScreenActivity.this);
+                userSearch.show();
+            }
+        });
 
         mIsUserExist = mPresenter.isUserExist();
         mToolbar = findViewById(R.id.toolbar);
@@ -176,10 +195,95 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         callUserInfoDialogs();
         makeGenderCheck();
 
+        showSocMedDialog();
+
+
         check_values();
         chat_notification_change();
         action_notification_change();
-        adsRequest();
+
+
+//        adsRequest();
+    }
+
+
+    /**
+     * Share user in social media block
+     */
+    private void showSocMedDialog() {
+        mSocMedContainer = (CardView) findViewById(R.id.add_user_to_soc_net_container);
+        mSocMedImgBackground = (ImageView) findViewById(R.id.add_user_to_soc_net_background);
+        mSocMeImgPhoto = (ImageView) findViewById(R.id.add_user_to_soc_net_user_photo);
+        mYesBtn = (Button) findViewById(R.id.add_user_to_soc_net_yes_btn);
+        String s = mPrefs.getValue(Consts.SOC_MED_STATUS);
+        mYesBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAnalytics.logEvent("soc_med_confirmed", null);
+                if (mFsUser.getGender() != null) {
+                    if (mFsUser.getGender().equals(Consts.FEMALE)) {
+                        firebaseAnalytics.logEvent("soc_med_female_confirmed", null);
+                    } else if (mFsUser.getGender().equals(Consts.MALE)) {
+                        firebaseAnalytics.logEvent("soc_med_male_confirmed", null);
+                    }
+                }
+                mPresenter.saveInSocMed(mFsUser);
+                mPrefs.setValue(Consts.SOC_MED_STATUS, Consts.CONFIRMED);
+                showErrorPopup(getString(R.string.soc_med_scrn_msg));
+                mSocMedContainer.setVisibility(GONE);
+            }
+        });
+        mNoBtn = (Button) findViewById(R.id.add_user_to_soc_net_no_btn);
+        mNoBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                firebaseAnalytics.logEvent("soc_med_cancel", null);
+                mSocMedContainer.setVisibility(GONE);
+            }
+        });
+        //If user exist we show soc_med dialog
+        if (mIsUserExist) {
+            //If he had not been added to the soc media yet
+            if (mPrefs.getValue(Consts.SOC_MED_STATUS).equals(Consts.DEFAULT) || mPrefs.getValue(Consts.SOC_MED_STATUS).equals("")) {
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mPrefs.getValue(Consts.SHOW_SOC_MED).equals(Consts.DEFAULT)) {
+                            mSocMedCounter = 0;
+                        } else {
+                            mSocMedCounter = Integer.valueOf(mPrefs.getValue(Consts.SHOW_SOC_MED));
+                        }
+                        if (mSocMedCounter >= Integer.valueOf(mPrefs.getValue(Consts.SOC_MED_FREQUENCY))) {
+                            mPrefs.setValue(Consts.SHOW_SOC_MED, "0");
+
+                            //Show female or male instagram account depends on gender
+                            if (mFsUser != null && !mFsUser.getImage().equals(Consts.DEFAULT) && !mFsUser.getCountry().equals(Consts.DEFAULT)) {
+                                if (mFsUser.getGender().equals(Consts.MALE)) {
+                                    firebaseAnalytics.logEvent("soc_med_male_shown", null);
+                                    mSocMedImgBackground.setImageDrawable(getResources().getDrawable(R.drawable.insta_background_m));
+                                } else {
+                                    firebaseAnalytics.logEvent("soc_med_female_shown", null);
+                                    mSocMedImgBackground.setImageDrawable(getResources().getDrawable(R.drawable.insta_background_m));
+                                }
+                                mSocMedContainer.setVisibility(View.VISIBLE);
+                                firebaseAnalytics.logEvent("soc_med_shown", null);
+                                Glide.with(MainScreenActivity.this).load(mFsUser.getImage()).thumbnail(0.5f).into(mSocMeImgPhoto);
+                            }
+
+                        } else {
+                            mSocMedCounter++;
+                            mPrefs.setValue(Consts.SHOW_SOC_MED, String.valueOf(mSocMedCounter));
+
+                        }
+
+
+                    }
+                }, 5000);
+            } else {
+                String sss = "";
+            }
+        }
     }
 
     private void adsRequest() {
@@ -190,38 +294,38 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mAdView.setAdListener(new AdListener() {
             @Override
             public void onAdLoaded() {
-                Log.d("adMob","onAdLoaded");
+                Log.d("adMob", "onAdLoaded");
                 // Code to be executed when an ad finishes loading.
             }
 
             @Override
             public void onAdFailedToLoad(int errorCode) {
-                Log.d("adMob","onAdFailedToLoad " + errorCode);
+                Log.d("adMob", "onAdFailedToLoad " + errorCode);
                 // Code to be executed when an ad request fails.
             }
 
             @Override
             public void onAdOpened() {
-                Log.d("adMob","onAdOpened");
+                Log.d("adMob", "onAdOpened");
                 // Code to be executed when an ad opens an overlay that
                 // covers the screen.
             }
 
             @Override
             public void onAdClicked() {
-                Log.d("adMob","onAdClicked");
+                Log.d("adMob", "onAdClicked");
                 // Code to be executed when the user clicks on an ad.
             }
 
             @Override
             public void onAdLeftApplication() {
-                Log.d("adMob","onAdLeftApplication");
+                Log.d("adMob", "onAdLeftApplication");
                 // Code to be executed when the user has left the app.
             }
 
             @Override
             public void onAdClosed() {
-                Log.d("adMob","onAdClosed");
+                Log.d("adMob", "onAdClosed");
                 // Code to be executed when the user is about to return
                 // to the app after tapping on an ad.
             }
@@ -270,16 +374,16 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                     mPresenter.userHasMustInfo();
                 } else if (mIsUserExist && !mPrefs.getValue(Consts.MUST_INFO).equals(Consts.DEFAULT)) {
                     if (mPrefs.getValue(Consts.SHOW_FULL_DIALOG).equals(Consts.DEFAULT)) {
-                        counter = 0;
+                        mUserInfoCounter = 0;
                     } else {
-                        counter = Integer.valueOf(mPrefs.getValue(Consts.SHOW_FULL_DIALOG));
+                        mUserInfoCounter = Integer.valueOf(mPrefs.getValue(Consts.SHOW_FULL_DIALOG));
                     }
-                    if (counter >= Integer.valueOf(mPrefs.getValue(Consts.DIALOG_FREQUENCY))) {
+                    if (mUserInfoCounter >= Integer.valueOf(mPrefs.getValue(Consts.DIALOG_FREQUENCY))) {
                         mPrefs.setValue(Consts.SHOW_FULL_DIALOG, "0");
                         mPresenter.userHasMustInfo();
                     } else {
-                        counter++;
-                        mPrefs.setValue(Consts.SHOW_FULL_DIALOG, String.valueOf(counter));
+                        mUserInfoCounter++;
+                        mPrefs.setValue(Consts.SHOW_FULL_DIALOG, String.valueOf(mUserInfoCounter));
 
                     }
                 }
@@ -349,6 +453,30 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     }
 
     /**
+     * Show user profile which been searched
+     *
+     * @param uid
+     */
+    @Override
+    public void openSearchedUser(String uid) {
+        Intent openFriend = new Intent(this, FriendProfileActivity.class);
+        //Helping fix bug to select needed item after first list loaded
+        openFriend.putExtra(Consts.UID, uid);
+        startActivity(openFriend);
+    }
+
+    /**
+     * Error message popup
+     *
+     * @param getmMessage
+     */
+    @Override
+    public void showErrorPopup(String getmMessage) {
+        Toast.makeText(MainScreenActivity.this, getmMessage,
+                Toast.LENGTH_LONG).show();
+    }
+
+    /**
      * Calling auth window to log in
      */
     public void callAuthWindow() {
@@ -376,8 +504,8 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
             if (data != null) {
                 //TODO HERE SUPPOSE TO BE FOR A NEW USER ONLY NOT EXISTING ONE
                 if (resultCode == Activity.RESULT_OK) {
-                    IdpResponse response =  IdpResponse.fromResultIntent(data);
-                    if (response.isNewUser()){
+                    IdpResponse response = IdpResponse.fromResultIntent(data);
+                    if (response.isNewUser()) {
                         firebaseAnalytics.logEvent("registration_completed", null);
                         mPresenter.saveUser();
                         reload();

@@ -8,6 +8,7 @@ import com.borisruzanov.russianwives.eventbus.BooleanEvent;
 import com.borisruzanov.russianwives.eventbus.FakeUsersListEvent;
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
 import com.borisruzanov.russianwives.eventbus.RealUsersListEvent;
+import com.borisruzanov.russianwives.eventbus.SearchEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.eventbus.VisitsEvent;
 import com.borisruzanov.russianwives.models.ActionItem;
@@ -26,7 +27,9 @@ import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.utils.OnlineUsersCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +42,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
@@ -370,6 +375,27 @@ public class UserRepository {
         }
     }
 
+    /**
+     * Saving user in social media table for sharing
+     *
+     * @param user
+     */
+    public void saveInSocMed(FsUser user) {
+        if (user != null){
+            if (user.getGender() != null){
+                String userGender = user.getGender();
+                if (userGender.equals(Consts.FEMALE)){
+                    realtimeReference.child("SocialAccounts").child(Consts.FEMALE).child(user.getUid()).setValue(user);
+                } else {
+                    realtimeReference.child("SocialAccounts").child(Consts.MALE).child(user.getUid()).setValue(user);
+                }
+            } else {
+                realtimeReference.child("SocialAccounts").child(Consts.MALE).child(user.getUid()).setValue(user);
+            }
+
+        }
+    }
+
     public void resetPaginationValues() {
         isLoading = false;
         last_node = "";
@@ -386,7 +412,7 @@ public class UserRepository {
     public void addRating(String uid, double addPoint) {
         if (uid != null) {
             users.document(uid).get().addOnCompleteListener(task -> {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot snapshot = task.getResult();
                     int rating = snapshot.getDouble(Consts.RATING).intValue();
                     double newRating = rating + addPoint;
@@ -532,6 +558,18 @@ public class UserRepository {
     }
 
     public void addFullProfileUsers() {
+//        users.get().addOnCompleteListener(task -> {
+//            Long tsLong = System.currentTimeMillis() / 1000;
+//
+//            for (DocumentSnapshot snapshot : task.getResult().getDocuments()) {
+//                String uid = snapshot.getId();
+//
+//                Map<String, Object> fpMap = new HashMap<>();
+//                fpMap.put(Consts.ID_SOC, tsLong.toString());
+//                users.document(uid).update(fpMap);
+//                tsLong++;
+//            }
+//        });
 //        users.document("04mMjzaqIeV1IbJSmbwUuGVOc0B2").get().addOnCompleteListener(task -> {
 //            if (task.getResult().exists()) {
 //                Map<String, Object> fpMap = new HashMap<>();
@@ -1106,4 +1144,30 @@ public class UserRepository {
     }
 
 
+    /**
+     * Searching user by id in Firestore
+     *
+     * @param idSoc
+     */
+    public void searchUser(String idSoc) {
+        users.whereEqualTo(Consts.ID_SOC, idSoc)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().size() > 0) {
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    FsUser fsUser = document.toObject(FsUser.class);
+                                    EventBus.getDefault().post(new SearchEvent(Consts.SEARCH_EVENT_OK, fsUser.getUid()));
+                                }
+                            } else {
+                                EventBus.getDefault().post(new SearchEvent(Consts.SEARCH_EVENT_FAILURE, "User Doesn't Exist"));
+                            }
+                        } else {
+                            EventBus.getDefault().post(new SearchEvent(Consts.SEARCH_EVENT_FAILURE, "User Doesn't Exist"));
+                        }
+                    }
+                });
+    }
 }

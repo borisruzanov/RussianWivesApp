@@ -45,15 +45,22 @@ public final class Consts {
     public static final String SHOW = "show";
     public static final String DONT_SHOW = "dont_show";
     public static final String DIALOG_FREQUENCY = "dialog_frequency";
+    public static final String SOC_MED_FREQUENCY = "soc_med_frequency";
     public static final String GENDER_FEMALE = "Female";
     public static final String GENDER_MALE = "Male";
     public static final String LIKES = "likes";
     public static final String VISITS = "visits";
     public static final String ACTIONS_LENGTH = "actions_length";
+    public static final String SEARCH_EVENT_OK = "search_event_ok";
+    public static final String SEARCH_EVENT_FAILURE = "search_event_failure" ;
+    public static final String ID_SOC = "id_soc";
+    public static final String SOC_MED_STATUS = "social_media_status";
+    public static final String SHOW_SOC_MED = "show_soc_med";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";
     public static final String ONLINE = "online";
+    public static final String CONFIRMED = "confirmed";
 
     public static String ACTION = "action";
     public static String VISIT = "visit";

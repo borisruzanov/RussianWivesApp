@@ -55,6 +55,14 @@ import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterListener,
         ConfirmDialogFragment.ConfirmListener, GenderDialogFragment.GenderListener, NavigationView.OnNavigationItemSelectedListener {
+    override fun showErrorPopup(getmMessage: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun openSearchedUser(getmMessage: String?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun onUpdateDialog() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

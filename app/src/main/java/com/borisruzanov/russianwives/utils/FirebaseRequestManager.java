@@ -4,7 +4,10 @@ import java.util.HashMap;
 
 public class FirebaseRequestManager {
 
-    public static HashMap<String, Object> createNewUser(String displayName, String deviceToken, String uid, String gender){
+    public static HashMap<String, Object> createNewUser(String displayName, String deviceToken, String uid, String gender) {
+        Long tsLong = System.currentTimeMillis() / 1000;
+        String timeStamp = tsLong.toString();
+
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("name", displayName);
         userMap.put("age", "default");
@@ -30,7 +33,7 @@ public class FirebaseRequestManager {
         userMap.put("must_info", "false");
         userMap.put("rating", 1);
         userMap.put("coins", 0);
+        userMap.put(Consts.ID_SOC, timeStamp);
         return userMap;
     }
-
 }

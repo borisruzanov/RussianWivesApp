@@ -16,4 +16,6 @@ public interface MainView extends MvpView{
     void setUserData(FsUser user);
     void showDefaultDialogScreen(ArrayList<String> list);
     void showUpdateDialog();
+    void openSearchedUser(String getmMessage);
+    void showErrorPopup(String getmMessage);
 }

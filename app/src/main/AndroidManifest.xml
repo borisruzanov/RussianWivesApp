@@ -16,10 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".mvp.ui.actions.ActionsActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".mvp.ui.chats.ChatsActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.ui.actions.ActionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.chats.ChatsActivity"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -38,18 +40,20 @@
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".mvp.ui.rewardvideo.RewardVideoActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.ui.rewardvideo.RewardVideoActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.chatmessage.ChatMessageActivity"
             android:parentActivityName=".mvp.ui.main.MainScreenActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".mvp.ui.profilesettings.ProfileSettingsActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".mvp.ui.profilesettings.ProfileSettingsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".mvp.ui.myprofile.MyProfileActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".mvp.ui.slider.SliderActivity"
             android:parentActivityName=".mvp.ui.main.MainScreenActivity"
@@ -58,8 +62,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity" />
         </activity>
-        <activity android:name=".mvp.ui.friendprofile.FriendProfileActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".mvp.ui.friendprofile.FriendProfileActivity"
+            android:screenOrientation="portrait" />
 
         <receiver android:name=".widget.ActionWidgetProvider">
             <intent-filter>
@@ -85,7 +90,8 @@
             android:value="@string/notification_channel_id" />
 
         <activity android:name=".mvp.ui.shop.ServicesActivity" />
-        <activity android:name=".mvp.ui.main.MainScreenActivity"
+        <activity
+            android:name=".mvp.ui.main.MainScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

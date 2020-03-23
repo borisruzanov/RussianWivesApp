@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dp16">
+
+    <TextView
+        android:id="@+id/mi_header"
+        style="@style/AppTheme.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp8"
+        android:text="@string/enter_id" />
+
+    <EditText
+        android:id="@+id/dialog_search_edit"
+        android:layout_below="@+id/mi_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="1584553477"
+        android:maxLength="10"
+        android:inputType="number"
+        android:layout_margin="8dp"/>
+
+    <Button
+        android:id="@+id/dialog_search_button"
+        android:layout_below="@+id/dialog_search_edit"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp4"
+        android:text="@string/search"
+        android:layout_centerInParent="true"/>
+
+
+</RelativeLayout>

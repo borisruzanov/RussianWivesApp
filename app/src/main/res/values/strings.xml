@@ -367,6 +367,13 @@
     <string name="emptyText_search">Nobody found. Please change filter</string>
     <string name="this_is_not_ready">This is not ready yet. We are working on it.</string>
     <string name="your_name">Your Name</string>
+    <string name="enter_id">Enter ID</string>
+    <string name="search">Search</string>
+    <string name="dialog_search_quantity_error">Length of id must be 10 characters</string>
+    <string name="dialog_search_error_standart">Please enter valid ID</string>
+    <string name="soc_med_scrn_msg">Your Profile Will Be Added As Soon We Check It.</string>
+    <string name="do_you_want_become_popular">Do You Want Become Popular?</string>
+    <string name="we_will_post_you_in_our_social_media">(we will post you in our social media)</string>
 
     <!-- Cleaned strings -->
 

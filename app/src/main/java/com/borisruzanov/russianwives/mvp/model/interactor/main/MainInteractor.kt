@@ -71,5 +71,17 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
         mSystemRepository.getConfig()
     }
 
+    fun searhUser(idSoc: String) {
+        userRepository.searchUser(idSoc)
+    }
+
+    fun updateDb(){
+        userRepository.addFullProfileUsers()
+    }
+
+    fun saveInSocMed(mFsUser: FsUser) {
+        userRepository.saveInSocMed(mFsUser)
+    }
+
 
 }

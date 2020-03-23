@@ -25,6 +25,7 @@ public class FsUser implements ViewType {
 
     private String must_info;
     private String full_profile;
+    private String socId;
 
     public String getFull_profile() {
         return full_profile;
@@ -64,6 +65,33 @@ public class FsUser implements ViewType {
 
     public void setDrink_status(String drink_status) {
         this.drink_status = drink_status;
+    }
+
+    public FsUser(String name, String age, String country, String drink_status,
+                  String image, String status, String thumb_image, String uid,
+                  String gender, String relationship_status, String body_type,
+                  String ethnicity, String faith, String smoking_status,
+                  String number_of_kids, String want_children_or_not,
+                  String hobby, int rating, String socId) {
+        this.name = name;
+        this.age = age;
+        this.country = country;
+        this.drink_status = drink_status;
+        this.image = image;
+        this.status = status;
+        this.thumb_image = thumb_image;
+        this.uid = uid;
+        this.gender = gender;
+        this.relationship_status = relationship_status;
+        this.body_type = body_type;
+        this.ethnicity = ethnicity;
+        this.faith = faith;
+        this.smoking_status = smoking_status;
+        this.number_of_kids = number_of_kids;
+        this.want_children_or_not = want_children_or_not;
+        this.hobby = hobby;
+        this.rating = rating;
+        this.socId = socId;
     }
 
     public FsUser(String name, String age, String country, String drink_status,
@@ -224,5 +252,13 @@ public class FsUser implements ViewType {
     @Override
     public String toString() {
         return name;
+    }
+
+    public String getSocId() {
+        return socId;
+    }
+
+    public void setSocId(String socId) {
+        this.socId = socId;
     }
 }

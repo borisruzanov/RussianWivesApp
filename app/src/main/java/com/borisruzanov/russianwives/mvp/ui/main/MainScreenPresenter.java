@@ -1,6 +1,7 @@
 package com.borisruzanov.russianwives.mvp.ui.main;
 
 import com.borisruzanov.russianwives.eventbus.ListStringEvent;
+import com.borisruzanov.russianwives.eventbus.SearchEvent;
 import com.borisruzanov.russianwives.eventbus.StringEvent;
 import com.borisruzanov.russianwives.eventbus.UpdateVersionEvent;
 import com.borisruzanov.russianwives.eventbus.UserEvent;
@@ -54,6 +55,15 @@ public class MainScreenPresenter {
     @Subscribe
     public void getDefaultUserValuesList(ListStringEvent defaultList) {
         mView.showDefaultDialogScreen(defaultList.getList());
+    }
+
+    @Subscribe
+    public void getSearchResult(SearchEvent event){
+        if (event.getmType().equals(Consts.SEARCH_EVENT_OK)){
+            mView.openSearchedUser(event.getmMessage());
+        } else {
+            mView.showErrorPopup(event.getmMessage());
+        }
     }
 
     /**
@@ -143,5 +153,9 @@ public class MainScreenPresenter {
 
     public void getConfig() {
         mInteractor.getConfig();
+    }
+
+    public void saveInSocMed(FsUser mFsUser) {
+        mInteractor.saveInSocMed(mFsUser);
     }
 }
