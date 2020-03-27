@@ -25,7 +25,7 @@ public class FsUser implements ViewType {
 
     private String must_info;
     private String full_profile;
-    private String socId;
+    private String id_soc;
 
     public String getFull_profile() {
         return full_profile;
@@ -72,7 +72,7 @@ public class FsUser implements ViewType {
                   String gender, String relationship_status, String body_type,
                   String ethnicity, String faith, String smoking_status,
                   String number_of_kids, String want_children_or_not,
-                  String hobby, int rating, String socId) {
+                  String hobby, int rating, String id_soc) {
         this.name = name;
         this.age = age;
         this.country = country;
@@ -91,7 +91,7 @@ public class FsUser implements ViewType {
         this.want_children_or_not = want_children_or_not;
         this.hobby = hobby;
         this.rating = rating;
-        this.socId = socId;
+        this.id_soc = id_soc;
     }
 
     public FsUser(String name, String age, String country, String drink_status,
@@ -254,11 +254,11 @@ public class FsUser implements ViewType {
         return name;
     }
 
-    public String getSocId() {
-        return socId;
+    public String getId_soc() {
+        return id_soc;
     }
 
-    public void setSocId(String socId) {
-        this.socId = socId;
+    public void setId_soc(String id_soc) {
+        this.id_soc = id_soc;
     }
 }

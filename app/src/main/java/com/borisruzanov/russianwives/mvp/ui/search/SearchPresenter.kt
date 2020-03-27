@@ -18,6 +18,7 @@ import com.borisruzanov.russianwives.utils.FirebaseUtils.isUserExist
 import com.borisruzanov.russianwives.utils.HotUsersCallback
 import com.borisruzanov.russianwives.utils.StringsCallback
 import com.borisruzanov.russianwives.utils.UsersListCallback
+import com.google.firebase.database.FirebaseDatabase
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 
@@ -148,6 +149,9 @@ class SearchPresenter @Inject constructor(private val searchInteractor: SearchIn
     }
 
     fun openFriend(position: Int, args: Bundle) {
+//              val realtimeReference = FirebaseDatabase.getInstance().reference
+//        realtimeReference.child("SocialAccounts").child(fsUsers[position].gender).child(fsUsers[position].uid).setValue(fsUsers[position])
+
         viewState.openFriend(fsUsers[position].uid, fsUsers[position].name, args)
     }
 

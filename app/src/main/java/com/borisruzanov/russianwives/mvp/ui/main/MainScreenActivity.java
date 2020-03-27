@@ -279,7 +279,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
 
                     }
-                }, 5000);
+                }, 2000);
             } else {
                 String sss = "";
             }
