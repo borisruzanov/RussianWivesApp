@@ -341,6 +341,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Consts.RECOMMENDED_SHOWN = false;
     }
 
     /**

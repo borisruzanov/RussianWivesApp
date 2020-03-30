@@ -104,4 +104,6 @@ public final class Consts {
     public static final String FILTER_INDEX = "filter_index_event";
 
     public static final String CHAT_LENGTH = "chat_length";
+
+    public static boolean RECOMMENDED_SHOWN = false;
 }

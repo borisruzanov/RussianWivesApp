@@ -2,9 +2,11 @@ package com.borisruzanov.russianwives.mvp.ui.onlineUsers;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,8 +44,10 @@ import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.utils.Consts;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -57,6 +62,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import butterknife.ButterKnife;
@@ -80,6 +86,7 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
     private Button mSeeMoreRegisterButton;
     private List<OnlineUser> filteredList;
     private ProgressBar mProgressBar;
+    private FirebaseAnalytics firebaseAnalytics;
 
     private boolean mIsUserExist;
     private int mCurrentPage = 1;
@@ -98,6 +105,11 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
     private long last_rating = 0;
     Prefs mPrefs;
 
+    //Recommended user
+    private ImageView mRecommendedImage;
+    private CardView mRecommendedContainer;
+    private ImageView mRecommendedCloseBtn;
+    private OnlineUser mChosenUser;
     /**
      * Intent to clicked friend activity
      */
@@ -142,7 +154,6 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
     @Override
     public void onStop() {
         super.onStop();
-
     }
 
     @Nullable
@@ -167,6 +178,11 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
         mBottomButtonContainer = (RelativeLayout) getView().findViewById(R.id.to_see_more_users_container);
         mSeeMoreRegisterButton = (Button) getView().findViewById(R.id.to_see_more_users_button);
         mProgressBar = (ProgressBar) getView().findViewById(R.id.online_users_progress);
+
+        mRecommendedImage = getView().findViewById(R.id.search_recommended_image);
+        mRecommendedCloseBtn = getView().findViewById(R.id.search_recommended_close);
+        mRecommendedContainer = getView().findViewById(R.id.search_recommended_container);
+        firebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
 
         mIsUserExist = mPresenter.isUserExist();
         mPresenter.registerSubscribers();
@@ -201,6 +217,59 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
 
 //        createOfflineDBWomen();
 //        createOfflineDBMen();
+        recommendedLogic();
+    }
+
+    /**
+     * Recommended block logic
+     */
+    private void recommendedLogic() {
+        if (mIsUserExist) {
+            mChosenUser = new OnlineUser();
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (!Consts.RECOMMENDED_SHOWN) {
+                        List<OnlineUser> recommendedUsers = new ArrayList<>();
+                        for (OnlineUser recommendedUser : mUserList) {
+                            if (recommendedUser.getRating() < -1) {
+                                recommendedUsers.add(recommendedUser);
+                            }
+                        }
+                        if (recommendedUsers.size() > 0){
+                            firebaseAnalytics.logEvent("recommended_shown", null);
+                            mRecommendedContainer.setVisibility(View.VISIBLE);
+                            Random randomGenerator = new Random();
+                            //Getting random user from the recommended user list
+                            int index = randomGenerator.nextInt(recommendedUsers.size());
+                            mChosenUser = recommendedUsers.get(index);
+                            Glide.with(getContext()).load(mChosenUser.getImage()).into(mRecommendedImage);
+                            Consts.RECOMMENDED_SHOWN = true;
+                        }
+                    }
+                }
+            }, 3000);
+
+            mRecommendedContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firebaseAnalytics.logEvent("recommended_confirmed", null);
+                    Intent openFriend = new Intent(getContext(), FriendProfileActivity.class);
+                    //Helping fix bug to select needed item after first list loaded
+                    openFriend.putExtra(Consts.UID, mChosenUser.getUid());
+                    openFriend.putExtra("transitionName", mChosenUser.getName());
+                    startActivity(openFriend);
+                }
+            });
+            mRecommendedCloseBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    firebaseAnalytics.logEvent("recommended_cancelled", null);
+                    mRecommendedContainer.setVisibility(View.GONE);
+                }
+            });
+        }
     }
 
 //    /**
@@ -368,6 +437,11 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
         } else {
             int x = 0;
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 
     @Override
