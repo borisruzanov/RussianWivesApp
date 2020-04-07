@@ -29,6 +29,8 @@ class FriendProfilePresenter @Inject constructor(private val interactor: FriendP
         }
     }
 
+    fun isUserExist(): Boolean = interactor.isUserExist()
+
     fun setFriendLiked(friendUid: String) {
         if (interactor.isUserExist()) {
             interactor.isLiked(friendUid, callback = BoolCallback { isLiked ->

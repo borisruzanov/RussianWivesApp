@@ -24,6 +24,8 @@
     <dimen name="custom_bar_img_margin">10dp</dimen>
     <dimen name="custom_bar_img_size">36dp</dimen>
     <dimen name="answers_text_size">20sp</dimen>
+    <dimen name="regular_font">16sp</dimen>
+    <dimen name="title_font">18sp</dimen>
     <dimen name="huge_text_size">34sp</dimen>
     <dimen name="user_desc_view_height">1px</dimen>
     <dimen name="lottie_animation_view_size">26dp</dimen>

@@ -166,6 +166,29 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
         adInit()
 
+        phrasePrepare()
+
+    }
+
+    /**
+     * If message comes from friendActivity it send immid to friend from user
+     */
+    private fun phrasePrepare() {
+        firebaseAnalytics.logEvent("template_message_get_intent", null)
+        val bundle :Bundle ?=intent.extras
+        if (bundle!=null){
+            val type = bundle.getString(Consts.CHAT_EXTRA_TYPE)
+            if (type != null) {
+                if (type.equals(Consts.FRIEND_ACTIVITY_PHRASE)) {
+                    val message = bundle.getString(Consts.CHAT_EXTRA_MSG)
+                    firebaseAnalytics.logEvent("template_message_sent", null)
+                    presenter.sendMessage(mChatUser, message)
+                } else {
+                    firebaseAnalytics.logEvent("template_message_field_focused", null)
+                    mChatMessageView.requestFocus()
+                }
+            }
+        }
     }
 
     private fun adInit() {

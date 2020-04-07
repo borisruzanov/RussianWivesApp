@@ -106,9 +106,9 @@
 
             <android.support.v7.widget.CardView
                 android:id="@+id/friend_activity_block_message_like"
-                android:layout_below="@+id/meta_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/meta_bar"
                 android:layout_marginTop="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp8"
                 android:elevation="4dp">
@@ -123,9 +123,9 @@
                         android:id="@+id/friend_activity_block_left_message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:orientation="horizontal"
                         android:paddingVertical="12dp">
 
                         <ImageView
@@ -155,9 +155,9 @@
                         android:id="@+id/friend_activity_block_right_like"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:orientation="horizontal"
                         android:paddingVertical="12dp">
 
                         <ImageView
@@ -179,7 +179,6 @@
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
-
 
 
             <android.support.v7.widget.CardView
@@ -284,10 +283,13 @@
 
             </android.support.v7.widget.CardView>
 
+
         </RelativeLayout>
 
+
     </android.support.v4.widget.NestedScrollView>
-    <include layout="@layout/ad_banner"/>
+
+    <include layout="@layout/ad_banner" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/friend_activity_fab"
@@ -300,4 +302,119 @@
         app:layout_anchor="@id/app_bar_layout"
         app:layout_anchorGravity="bottom|end" />
 
+    <android.support.v7.widget.CardView
+        android:id="@+id/friend_activity_phrase_main_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_margin="@dimen/dp16"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/friend_activity_phrases_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@color/lightGrey"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/friend_activity_phrases_close"
+                    android:layout_width="@dimen/dp16"
+                    android:layout_height="@dimen/dp16"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="@dimen/dp16"
+                    android:src="@drawable/ic_close_black_24dp" />
+
+                <TextView
+                    android:id="@+id/friend_activity_phrase_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="@dimen/dp16"
+                    android:text="Start Conversation:"
+                    android:textSize="@dimen/title_font" />
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/friend_activity_phrase_one_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/friend_activity_phrase_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp4"
+                    android:text="Hello! How are you?"
+                    android:textSize="@dimen/regular_font" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/friend_activity_phrase_two_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="4dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/friend_activity_phrase_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp4"
+                    android:text="Hi. You looks great!"
+                    android:textSize="@dimen/regular_font" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/friend_activity_phrase_three_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:layout_marginBottom="4dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/friend_activity_phrase_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp4"
+                    android:text="Hello. Im looking for serious relationships. And you?"
+                    android:textSize="@dimen/regular_font" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/friend_activity_phrase_custom_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"
+                android:visibility="visible">
+
+                <TextView
+                    android:id="@+id/friend_activity_phrase_custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/dp4"
+                    android:text="@string/your_own_variant"
+                    android:textSize="@dimen/regular_font" />
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 </android.support.design.widget.CoordinatorLayout>

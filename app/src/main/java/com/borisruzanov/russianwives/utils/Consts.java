@@ -56,6 +56,12 @@ public final class Consts {
     public static final String ID_SOC = "id_soc";
     public static final String SOC_MED_STATUS = "social_media_status";
     public static final String SHOW_SOC_MED = "show_soc_med";
+    public static final String PHRASES_DELAY = "phrases_delay";
+    public static final String CHAT_EXTRA_TYPE = "chat_extra";
+    public static final String FRIEND_ACTIVITY_PHRASE = "friend_activity_extra";
+    public static final String CHAT_EXTRA_MSG = "chat_extra_message";
+    public static final String PHOTO_URL = "photo_url";
+    public static final String FRIEND_ACTIVITY_CUSTOM = "friend_activity_custom";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";

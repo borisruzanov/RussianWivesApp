@@ -158,6 +158,7 @@
     <string name="looking_for_kids">Отношение к наличию детей</string>
     <string name="willing_kids_status_looking_for">Желание иметь детей</string>
     <string name="header_filters">Укажите параметры поиска</string>
+    <string name="your_own_variant"><![CDATA[Ваш вариант >]]></string>
 
     <string name="need_a_new_account">NEED A NEW ACCOUNT ?</string>
     <string name="email">Email</string>

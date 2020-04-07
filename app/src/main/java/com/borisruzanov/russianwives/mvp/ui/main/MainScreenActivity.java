@@ -258,19 +258,22 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                             mPrefs.setValue(Consts.SHOW_SOC_MED, "0");
 
                             //Show female or male instagram account depends on gender
-                            if (mFsUser != null && !mFsUser.getImage().equals(Consts.DEFAULT) && !mFsUser.getCountry().equals(Consts.DEFAULT)) {
-                                if (mFsUser.getGender().equals(Consts.MALE)) {
-                                    firebaseAnalytics.logEvent("soc_med_male_shown", null);
-                                    mSocMedImgBackground.setImageDrawable(getResources().getDrawable(R.drawable.insta_background_m));
-                                } else {
-                                    firebaseAnalytics.logEvent("soc_med_female_shown", null);
-                                    mSocMedImgBackground.setImageDrawable(getResources().getDrawable(R.drawable.insta_background_m));
+                            if (mFsUser != null) {
+                                if (mFsUser.getImage() != null && mFsUser.getCountry() != null) {
+                                    if (!mFsUser.getImage().equals(Consts.DEFAULT) && !mFsUser.getCountry().equals(Consts.DEFAULT)) {
+                                        if (mFsUser.getGender().equals(Consts.MALE)) {
+                                            firebaseAnalytics.logEvent("soc_med_male_shown", null);
+                                            mSocMedImgBackground.setImageDrawable(getResources().getDrawable(R.drawable.insta_background_m));
+                                        } else {
+                                            firebaseAnalytics.logEvent("soc_med_female_shown", null);
+                                            mSocMedImgBackground.setImageDrawable(getResources().getDrawable(R.drawable.insta_background_m));
+                                        }
+                                        mSocMedContainer.setVisibility(View.VISIBLE);
+                                        firebaseAnalytics.logEvent("soc_med_shown", null);
+                                        Glide.with(MainScreenActivity.this).load(mFsUser.getImage()).thumbnail(0.5f).into(mSocMeImgPhoto);
+                                    }
                                 }
-                                mSocMedContainer.setVisibility(View.VISIBLE);
-                                firebaseAnalytics.logEvent("soc_med_shown", null);
-                                Glide.with(MainScreenActivity.this).load(mFsUser.getImage()).thumbnail(0.5f).into(mSocMeImgPhoto);
                             }
-
                         } else {
                             mSocMedCounter++;
                             mPrefs.setValue(Consts.SHOW_SOC_MED, String.valueOf(mSocMedCounter));

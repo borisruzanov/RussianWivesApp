@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -25,9 +27,10 @@ import com.borisruzanov.russianwives.App;
 import com.borisruzanov.russianwives.OnItemClickListener;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.models.Contract;
+import com.borisruzanov.russianwives.models.UserChat;
 import com.borisruzanov.russianwives.models.UserDescriptionModel;
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs;
 import com.borisruzanov.russianwives.mvp.model.repository.rating.RatingManager;
-import com.borisruzanov.russianwives.mvp.ui.actions.ActionsActivity;
 import com.borisruzanov.russianwives.mvp.ui.chatmessage.ChatMessageActivity;
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter;
@@ -43,7 +46,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -59,7 +61,7 @@ import javax.inject.Inject;
 import static com.borisruzanov.russianwives.models.Contract.RC_SIGN_IN;
 
 public class FriendProfileActivity extends MvpAppCompatActivity implements FriendProfileView,
-        ConfirmDialogFragment.ConfirmListener {
+        ConfirmDialogFragment.ConfirmListener{
 
     //TODO change view initializations to ButterKnife binds
     Toolbar toolbar;
@@ -75,14 +77,32 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     UserDescriptionListAdapter userDescriptionListAdapter;
 
     private String friendUid;
+    private boolean mIsUserExist;
+    private Prefs mPrefs;
+
+
+    private CardView mPhrasesContainer;
+    private CardView mFirstPhraseContainer;
+    private CardView mSecondPhraseContainer;
+    private CardView mThirdPhraseContainer;
+    private CardView mCustomPhraseContainer;
+    private ImageView mPhrasesCloseBtn;
+    private TextView mFirstPhrase;
+    private TextView mSecondPhrase;
+    private TextView mThirdPhrase;
+
+    private String mFriendName;
+    private String mFriendImage;
+
+    //Need that to check if user got chats with that friend already
 
     @Inject
     @InjectPresenter
-    FriendProfilePresenter presenter;
+    FriendProfilePresenter mPresenter;
 
     @ProvidePresenter
     public FriendProfilePresenter provideFriendProfilePresenter() {
-        return presenter;
+        return mPresenter;
     }
 
     private FirebaseAnalytics mFirebaseAnalytics;
@@ -99,16 +119,17 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         setContentView(R.layout.activity_friend);
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
+        mPrefs = new Prefs(this);
         MobileAds.initialize(this, getString(R.string.mob_app_id));
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+        mIsUserExist = mPresenter.isUserExist();
 
         RatingManager.getInstance().setUserMsgPts();
-
+        setupPhrasesBlock();
 
         //Transition
         //supportPostponeEnterTransition();
@@ -141,7 +162,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
         friendUid = getIntent().getStringExtra(Consts.UID);
         Log.d("CarouselDebug", "Uid in FPA is " + friendUid);
-        presenter.setLikeHighlighted(friendUid);
+        mPresenter.setLikeHighlighted(friendUid);
 
         fab = findViewById(R.id.friend_activity_fab);
 
@@ -149,16 +170,16 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         likeIv.setOnClickListener(v -> {
             mFirebaseAnalytics.logEvent("like_from_friend_activity", null);
             Log.d("ClickedImg", "Image Like was clicked");
-            presenter.setFriendLiked(friendUid);
+            mPresenter.setFriendLiked(friendUid);
         });
         messageIv.setOnClickListener(v -> {
             mFirebaseAnalytics.logEvent("start_chat_from_friend_activity", null);
             Log.d("ClickedImg", "Image Message was clicked");
-            presenter.openChatMessage(friendUid);
+            mPresenter.openChatMessage(friendUid);
         });
 
         btnAddFriend = findViewById(R.id.friend_activity_btn_add_friend);
-        btnAddFriend.setOnClickListener(v -> presenter.setFriendLiked(friendUid));
+        btnAddFriend.setOnClickListener(v -> mPresenter.setFriendLiked(friendUid));
         btnStartChat = findViewById(R.id.friend_activity_btn_start_chat);
 
         recyclerView = findViewById(R.id.recycler_list_friendDescription);
@@ -171,12 +192,119 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
         ageText = findViewById(R.id.friend_activity_tv_age);
         countryText = findViewById(R.id.friend_activity_tv_country);
 
-        presenter.setAllInfo(friendUid);
+        mPresenter.setAllInfo(friendUid);
 
         mFirebaseAnalytics.logEvent("friend_profile_viewed", null);
 
 
+    }
 
+    /**
+     * Phrases block logic
+     */
+    private void setupPhrasesBlock() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                boolean showPhrases = true;
+
+                //Checking if user already sent message to friend dont show him template messages
+                if (!mPrefs.getValue(friendUid).equals(Consts.DEFAULT)){
+                    showPhrases = false;
+                }
+                if (mIsUserExist && showPhrases) {
+                    mFirebaseAnalytics.logEvent("template_message_preparation", null);
+                    mPhrasesContainer = findViewById(R.id.friend_activity_phrase_main_container);
+                    mFirstPhraseContainer = findViewById(R.id.friend_activity_phrase_one_container);
+                    mSecondPhraseContainer = findViewById(R.id.friend_activity_phrase_two_container);
+                    mThirdPhraseContainer = findViewById(R.id.friend_activity_phrase_three_container);
+                    mCustomPhraseContainer = findViewById(R.id.friend_activity_phrase_custom_container);
+                    mPhrasesCloseBtn = findViewById(R.id.friend_activity_phrases_close);
+                    mFirstPhrase = findViewById(R.id.friend_activity_phrase_one);
+                    mSecondPhrase = findViewById(R.id.friend_activity_phrase_two);
+                    mThirdPhrase = findViewById(R.id.friend_activity_phrase_three);
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFirebaseAnalytics.logEvent("template_message_showed", null);
+                            mPhrasesContainer.setVisibility(View.VISIBLE);
+                            mFirstPhraseContainer.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mFirebaseAnalytics.logEvent("template_message_phrase_one_clicked", null);
+                                    saveUserInPrefs();
+                                    Intent chatIntent = new Intent(FriendProfileActivity.this, ChatMessageActivity.class);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_TYPE, Consts.FRIEND_ACTIVITY_PHRASE);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_MSG, mFirstPhrase.getText());
+                                    chatIntent.putExtra(Consts.UID, friendUid);
+                                    chatIntent.putExtra(Consts.NAME, mFriendName);
+                                    chatIntent.putExtra(Consts.PHOTO_URL, mFriendImage);
+                                    startActivity(chatIntent);
+                                }
+                            });
+                            mSecondPhraseContainer.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mFirebaseAnalytics.logEvent("template_message_phrase_two_clicked", null);
+                                    saveUserInPrefs();
+                                    Intent chatIntent = new Intent(FriendProfileActivity.this, ChatMessageActivity.class);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_TYPE, Consts.FRIEND_ACTIVITY_PHRASE);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_MSG, mSecondPhrase.getText());
+                                    chatIntent.putExtra(Consts.UID, friendUid);
+                                    chatIntent.putExtra(Consts.NAME, mFriendName);
+                                    chatIntent.putExtra(Consts.PHOTO_URL, mFriendImage);
+                                    startActivity(chatIntent);
+                                }
+                            });
+                            mThirdPhraseContainer.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mFirebaseAnalytics.logEvent("template_message_phrase_three_clicked", null);
+                                    saveUserInPrefs();
+                                    Intent chatIntent = new Intent(FriendProfileActivity.this, ChatMessageActivity.class);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_TYPE, Consts.FRIEND_ACTIVITY_PHRASE);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_MSG, mThirdPhrase.getText());
+                                    chatIntent.putExtra(Consts.UID, friendUid);
+                                    chatIntent.putExtra(Consts.NAME, mFriendName);
+                                    chatIntent.putExtra(Consts.PHOTO_URL, mFriendImage);
+                                    startActivity(chatIntent);
+                                }
+                            });
+                            mCustomPhraseContainer.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mFirebaseAnalytics.logEvent("template_message_phrase_custom_clicked", null);
+                                    saveUserInPrefs();
+                                    Intent chatIntent = new Intent(FriendProfileActivity.this, ChatMessageActivity.class);
+                                    chatIntent.putExtra(Consts.CHAT_EXTRA_TYPE, Consts.FRIEND_ACTIVITY_CUSTOM);
+                                    chatIntent.putExtra(Consts.UID, friendUid);
+                                    chatIntent.putExtra(Consts.NAME, mFriendName);
+                                    chatIntent.putExtra(Consts.PHOTO_URL, mFriendImage);
+                                    startActivity(chatIntent);
+                                }
+                            });
+
+                            mPhrasesCloseBtn.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    mPhrasesContainer.setVisibility(View.GONE);
+                                }
+                            });
+                        }
+                    }, Integer.parseInt(mPrefs.getValue(Consts.PHRASES_DELAY)));
+                }
+            }
+        }, 1000);
+
+    }
+
+    /**
+     * Saving friend uid in prefs not to show him dialog if he already talked to user
+     */
+    private void saveUserInPrefs() {
+        mPrefs.setValue(friendUid, Consts.CONFIRMED);
     }
 
     @Override
@@ -191,6 +319,8 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     public void setFriendData(String name, String age, String country, String image) {
+        mFriendImage = image;
+        mFriendName = name;
         collapsingToolbarLayout.setTitle(name);
         nameText.setText(name);
         ageText.setText(age);
@@ -242,10 +372,10 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
             if (data != null) {
                 //TODO HERE SUPPOSE TO BE FOR A NEW USER ONLY NOT EXISTING ONE
                 if (resultCode == Activity.RESULT_OK) {
-                    IdpResponse response =  IdpResponse.fromResultIntent(data);
-                    if (response.isNewUser()){
+                    IdpResponse response = IdpResponse.fromResultIntent(data);
+                    if (response.isNewUser()) {
                         mFirebaseAnalytics.logEvent("registration_completed", null);
-                        presenter.saveUser();
+                        mPresenter.saveUser();
                         reload();
                     } else {
                         reload();
