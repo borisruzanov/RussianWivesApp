@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".mvp.ui.complain.ComplainFragment">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/complain_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp16"
+            android:text="@string/complain"
+            android:textColor="@color/darkGrey"
+            android:textSize="@dimen/medium_text_size" />
+
+        <EditText
+            android:id="@+id/complain_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/complain_title"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/white"
+            android:ems="10"
+            android:hint="@string/enter_message_hint"
+            android:inputType="textMultiLine"
+            android:maxLength="120"
+            android:paddingLeft="10dp"
+            android:paddingTop="14dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="12dp" />
+
+        <Button
+            android:id="@+id/complain_send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/complain_input"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp12"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/send"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+</FrameLayout>

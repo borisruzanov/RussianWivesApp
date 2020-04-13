@@ -13,8 +13,8 @@ android {
             applicationId "com.borisruzanov.russianwives"
             minSdkVersion 19
             targetSdkVersion 28
-            versionCode 22
-            versionName "3.5"
+            versionCode 23
+            versionName "3.6"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
             // Enabling multidex support.
             multiDexEnabled true
@@ -115,4 +115,5 @@ android {
 
 dependencies {
     implementation 'com.android.support.constraint:constraint-layout:+'
+    implementation 'com.android.support:support-v4:28.0.0'
 }

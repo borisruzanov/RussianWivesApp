@@ -628,6 +628,26 @@ public class OnlineUsersFragment extends Fragment implements OnlineUsersView, Co
 
     }
 
+    @Override
+    public void reviewDialogYes() {
+
+    }
+
+    @Override
+    public void reviewDialogNo() {
+
+    }
+
+    @Override
+    public void sendToPlayMarket() {
+
+    }
+
+    @Override
+    public void sendComplain() {
+
+    }
+
 
     private void createOfflineDBWomen() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

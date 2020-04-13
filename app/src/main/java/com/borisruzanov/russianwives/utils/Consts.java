@@ -62,6 +62,13 @@ public final class Consts {
     public static final String CHAT_EXTRA_MSG = "chat_extra_message";
     public static final String PHOTO_URL = "photo_url";
     public static final String FRIEND_ACTIVITY_CUSTOM = "friend_activity_custom";
+    public static final String RAITING_MODULE = "raiting_module";
+    public static final String VOTE_MODULE = "vote_module";
+    public static final String NEGATIVE_VOTE_MODULE = "negative_vote_module";
+    public static final String USER = "user";
+    public static final String USER_ACTIVITY = "user_activity";
+    public static final String USER_ACTIVITY_CONFIG = "user_activity_config";
+    public static final String REVIEW_STATUS = "review_status";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";

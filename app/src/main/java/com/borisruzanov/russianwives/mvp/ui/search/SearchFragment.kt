@@ -50,6 +50,10 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun reviewDialogYes() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     @Inject
     @InjectPresenter
     lateinit var searchPresenter: SearchPresenter
@@ -253,6 +257,17 @@ class SearchFragment : MvpAppCompatFragment(), SearchView, ConfirmDialogFragment
     }
 
     override fun setHotsLoaded() = infiniteScrollListener!!.setLoaded()
+    override fun reviewDialogNo() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun sendToPlayMarket() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun sendComplain() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun onConfirm() {
         searchPresenter.openSliderWithDefaults()

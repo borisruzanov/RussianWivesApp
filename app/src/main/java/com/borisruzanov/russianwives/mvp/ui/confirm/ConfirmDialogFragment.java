@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.arellomobile.mvp.MvpAppCompatDialogFragment;
 import com.borisruzanov.russianwives.R;
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity;
-import com.borisruzanov.russianwives.mvp.ui.main.MainActivity;
 import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity;
 import com.borisruzanov.russianwives.utils.Consts;
 
@@ -41,6 +40,14 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
         void onConfirm();
 
         void onUpdateDialog();
+
+        void reviewDialogYes();
+
+        void reviewDialogNo();
+
+        void sendToPlayMarket();
+
+        void sendComplain();
     }
 
     public static ConfirmDialogFragment newInstance(String module) {
@@ -89,6 +96,21 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
                 confirmButton.setText(R.string.now);
                 cancelButton.setText(R.string.later);
                 break;
+            case Consts.RAITING_MODULE:
+                headerTv.setText(R.string.do_you_like_app);
+                confirmButton.setText(R.string.yes_ru);
+                cancelButton.setText(R.string.no_ru);
+                break;
+            case Consts.VOTE_MODULE:
+                headerTv.setText(R.string.leave_review);
+                confirmButton.setText(R.string.yes_ru);
+                cancelButton.setText(R.string.later);
+                break;
+            case Consts.NEGATIVE_VOTE_MODULE:
+                headerTv.setText(R.string.leave_complain);
+                confirmButton.setText(R.string.yes_ru);
+                cancelButton.setText(R.string.later);
+                break;
         }
 
     }
@@ -108,12 +130,26 @@ public class ConfirmDialogFragment extends MvpAppCompatDialogFragment {
             case Consts.UPDATE_MODULE:
                 listener.onUpdateDialog();
                 break;
+            case Consts.RAITING_MODULE:
+                listener.reviewDialogYes();
+                break;
+            case Consts.VOTE_MODULE:
+                listener.sendToPlayMarket();
+                break;
+            case Consts.NEGATIVE_VOTE_MODULE:
+                listener.sendComplain();
+                break;
         }
         dismiss();
     }
 
     @OnClick(R.id.cancel_button)
     public void onCancelClicked() {
+        switch (getArguments().getString(Consts.MODULE)){
+            case Consts.RAITING_MODULE:
+                listener.reviewDialogNo();
+                break;
+        }
         dismiss();
     }
 

@@ -145,6 +145,12 @@
     <string name="soc_med_scrn_msg">Мы проверим заявку и добавим в аккаунты соц.сетей.</string>
     <string name="do_you_want_become_popular">Хотите больше популярности?</string>
     <string name="we_will_post_you_in_our_social_media">(мы опубликуем Ваш профиль в наших соц.сетях)</string>
+    <string name="do_you_like_app">Вам нравиться приложение?</string>
+    <string name="leave_review">Оставите отзыв на Play Market?</string>
+    <string name="yes_ru">Да</string>
+    <string name="no_ru">Нет</string>
+    <string name="leave_complain">Оставите жалобу?</string>
+    <string name="complain">Жалоба / Пожелание :</string>
 
     <string name="who_are_you_looking_for">Укажите Ваш пол (покажется противоположный)</string>
     <string name="what_age_looking_for">Возраст</string>
@@ -166,7 +172,7 @@
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="log_out">Log Out</string>
     <string name="sign_out">Log Out</string>
-    <string name="send">Send</string>
+    <string name="send">Отправить</string>
     <string name="default_data">default</string>
 
     <string name="default_status">Default status</string>
@@ -198,6 +204,7 @@
     <string name="add">Add</string>
     <string name="next_text">Next</string>
     <string name="emptyText">Nothing to show yet</string>
+    <string name="support_email">ruswivestech@gmail.com</string>
 
     <string name="basic_info">Basic info</string>
 
@@ -210,7 +217,7 @@
     <string name="yes">Yes</string>
     <string name="visits">Visits</string>
     <string name="photo">Photo</string>
-    <string name="enter_message_hint">Enter Message…</string>
+    <string name="enter_message_hint">Введите сообщение...</string>
     <string name="name_text">Name</string>
     <string name="age_text">Age</string>
     <string name="btn_add_friend_text">+ ADD FRIEND</string>

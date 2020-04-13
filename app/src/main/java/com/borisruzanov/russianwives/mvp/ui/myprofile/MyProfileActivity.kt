@@ -19,6 +19,7 @@ import com.borisruzanov.russianwives.OnItemClickListener
 import com.borisruzanov.russianwives.R
 import com.borisruzanov.russianwives.di.component
 import com.borisruzanov.russianwives.models.UserDescriptionModel
+import com.borisruzanov.russianwives.mvp.model.data.prefs.Prefs
 import com.borisruzanov.russianwives.mvp.ui.global.adapter.UserDescriptionListAdapter
 import com.borisruzanov.russianwives.mvp.ui.main.MainScreenActivity
 import com.borisruzanov.russianwives.mvp.ui.profilesettings.ProfileSettingsActivity
@@ -28,7 +29,6 @@ import com.bumptech.glide.Glide
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
-import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
@@ -48,6 +48,7 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
     private lateinit var numberOfLikes: TextView
     private lateinit var numberOfVisits: TextView
     private lateinit var imageView: ImageView
+    private var mPrefs: Prefs? = null
 
     lateinit var userDescriptionListAdapter: UserDescriptionListAdapter
 
@@ -67,6 +68,7 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         //UI
         toolbar = findViewById(R.id.toolbar)
         toolbar.title = ""
+        mPrefs = Prefs(this)
 
         val collapsingToolbarLayout = findViewById<View>(R.id.collapsing_toolbar_layout) as CollapsingToolbarLayout
         collapsingToolbarLayout.isTitleEnabled = false
@@ -99,7 +101,7 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
 
         supportFragmentManager.beginTransaction().add(R.id.my_profile_list_container, SearchFragment()).commit()
 
-
+        increaseUserActivity()
         adInit()
     }
 
@@ -108,6 +110,21 @@ class MyProfileActivity : MvpAppCompatActivity(), MyProfileView {
         mAdView = findViewById<View>(R.id.adView) as AdView?
         val adRequest = AdRequest.Builder().build()
         mAdView?.loadAd(adRequest)
+    }
+
+    /**
+     * Increasing level of the activity of the user
+     */
+    private fun increaseUserActivity() {
+        if (!mPrefs!!.getValue(Consts.USER_ACTIVITY).isEmpty()) {
+            if (mPrefs!!.getValue(Consts.USER_ACTIVITY) != Consts.DEFAULT) {
+                var prefsValue = Integer.valueOf(mPrefs!!.getValue(Consts.USER_ACTIVITY))
+                prefsValue++
+                mPrefs!!.setValue(Consts.USER_ACTIVITY, prefsValue.toString())
+            } else { //Set user activity to zero if he dont have one
+                mPrefs!!.setValue(Consts.USER_ACTIVITY, "0")
+            }
+        }
     }
 
     override fun setUserData(name: String, age: String, country: String, image: String) {

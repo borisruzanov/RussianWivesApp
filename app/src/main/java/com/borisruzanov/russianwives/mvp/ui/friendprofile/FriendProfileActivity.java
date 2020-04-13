@@ -130,7 +130,7 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
         RatingManager.getInstance().setUserMsgPts();
         setupPhrasesBlock();
-
+        increaseUserActivity();
         //Transition
         //supportPostponeEnterTransition();
         imageView = findViewById(R.id.friend_activity_image);
@@ -301,6 +301,22 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
     }
 
     /**
+     * Increasing level of the activity of the user
+     */
+    private void increaseUserActivity() {
+        if (!mPrefs.getValue(Consts.USER_ACTIVITY).isEmpty()) {
+            if (!mPrefs.getValue(Consts.USER_ACTIVITY).equals(Consts.DEFAULT)) {
+                int prefsValue = Integer.valueOf(mPrefs.getValue(Consts.USER_ACTIVITY));
+                prefsValue++;
+                mPrefs.setValue(Consts.USER_ACTIVITY, String.valueOf(prefsValue));
+            } else {
+                //Set user activity to zero if he dont have one
+                mPrefs.setValue(Consts.USER_ACTIVITY, "0");
+            }
+        }
+    }
+
+    /**
      * Saving friend uid in prefs not to show him dialog if he already talked to user
      */
     private void saveUserInPrefs() {
@@ -441,6 +457,26 @@ public class FriendProfileActivity extends MvpAppCompatActivity implements Frien
 
     @Override
     public void onUpdateDialog() {
+
+    }
+
+    @Override
+    public void reviewDialogYes() {
+
+    }
+
+    @Override
+    public void reviewDialogNo() {
+
+    }
+
+    @Override
+    public void sendToPlayMarket() {
+
+    }
+
+    @Override
+    public void sendComplain() {
 
     }
 

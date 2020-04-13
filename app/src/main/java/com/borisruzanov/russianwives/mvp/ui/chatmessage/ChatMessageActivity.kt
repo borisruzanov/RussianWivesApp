@@ -91,7 +91,7 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
         mChatUser = intent.getStringExtra(Consts.UID)
         mCurrentUserId = getUid()
         mPrefs = Prefs(this)
-
+        increaseUserActivity()
         Log.d("MessagesDebug", """Uid of mChatUser is ${intent.getStringExtra("uid")}""")
         Log.d("MessagesDebug", """Uid of mCurrentUserId is ${getUid()}""")
 
@@ -168,6 +168,21 @@ class ChatMessageActivity : MvpAppCompatActivity(), ChatMessageView {
 
         phrasePrepare()
 
+    }
+
+    /**
+     * Increasing level of the activity of the user
+     */
+    private fun increaseUserActivity() {
+        if (!mPrefs!!.getValue(Consts.USER_ACTIVITY).isEmpty()) {
+            if (mPrefs!!.getValue(Consts.USER_ACTIVITY) != Consts.DEFAULT) {
+                var prefsValue = Integer.valueOf(mPrefs!!.getValue(Consts.USER_ACTIVITY))
+                prefsValue++
+                mPrefs!!.setValue(Consts.USER_ACTIVITY, prefsValue.toString())
+            } else { //Set user activity to zero if he dont have one
+                mPrefs!!.setValue(Consts.USER_ACTIVITY, "0")
+            }
+        }
     }
 
     /**

@@ -67,6 +67,10 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun reviewDialogYes() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
     override fun showUpdateDialog() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -436,6 +440,18 @@ class MainActivity : AppCompatActivity(), MainView, FilterDialogFragment.FilterL
     override fun setGender(gender: String) {
         mPresenter.setGender(gender)
         onUpdate()
+    }
+
+    override fun reviewDialogNo() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun sendToPlayMarket() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun sendComplain() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onConfirm() {

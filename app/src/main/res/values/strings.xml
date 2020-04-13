@@ -375,6 +375,11 @@
     <string name="do_you_want_become_popular">Do You Want Become Popular?</string>
     <string name="we_will_post_you_in_our_social_media">(we will post you in our social media)</string>
     <string name="your_own_variant"><![CDATA[Your own variant >]]></string>
+    <string name="do_you_like_app">Do You Like Our App?</string>
+    <string name="leave_review">Leave review on Play Market?</string>
+    <string name="yes_ru">Yes</string>
+    <string name="no_ru">No</string>
+    <string name="support_email">ruswivestech@gmail.com</string>
 
     <!-- Cleaned strings -->
 
@@ -679,5 +684,10 @@
         <item>No, but its OK if partner has kids</item>
         <item>No</item>
     </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="leave_complain">Leave Complain?</string>
+    <string name="complain">Complain:</string>
 
 </resources>

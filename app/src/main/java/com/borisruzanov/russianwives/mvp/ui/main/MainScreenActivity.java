@@ -50,6 +50,7 @@ import com.borisruzanov.russianwives.mvp.model.repository.user.UserRepository;
 import com.borisruzanov.russianwives.mvp.ui.actions.ActionsActivity;
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsActivity;
 import com.borisruzanov.russianwives.mvp.ui.chats.ChatsPresenter;
+import com.borisruzanov.russianwives.mvp.ui.complain.ComplainFragment;
 import com.borisruzanov.russianwives.mvp.ui.confirm.ConfirmDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.filter.FilterDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.friendprofile.FriendProfileActivity;
@@ -68,10 +69,7 @@ import com.borisruzanov.russianwives.utils.Consts;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -147,6 +145,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mMyProfilePresenter = new MyProfilePresenter(new MyProfileInteractor(new UserRepository(new Prefs(this))));
         firebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mPrefs = new Prefs(this);
+        increaseUserActivity();
         mFab = findViewById(R.id.main_fab);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,8 +201,42 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         chat_notification_change();
         action_notification_change();
 
+        showReviewDialog();
 
 //        adsRequest();
+    }
+
+    /**
+     * Increasing level of the activity of the user
+     */
+    private void increaseUserActivity() {
+        if (!mPrefs.getValue(Consts.USER_ACTIVITY).isEmpty()) {
+            if (!mPrefs.getValue(Consts.USER_ACTIVITY).equals(Consts.DEFAULT)) {
+                int prefsValue = Integer.valueOf(mPrefs.getValue(Consts.USER_ACTIVITY));
+                prefsValue++;
+                mPrefs.setValue(Consts.USER_ACTIVITY, String.valueOf(prefsValue));
+            } else {
+                //Set user activity to zero if he dont have one
+                mPrefs.setValue(Consts.USER_ACTIVITY, "0");
+            }
+        }
+    }
+
+    /**
+     * The dialog which asks customer for a review or complain
+     */
+    private void showReviewDialog() {
+        if (mIsUserExist) {
+            if (!mPrefs.getValue(Consts.REVIEW_STATUS).equals(Consts.CONFIRMED)) {
+                if (!mPrefs.getValue(Consts.USER_ACTIVITY).equals(Consts.DEFAULT) && !mPrefs.getValue(Consts.USER_ACTIVITY_CONFIG).equals(Consts.DEFAULT)) {
+                    if (Integer.valueOf(mPrefs.getValue(Consts.USER_ACTIVITY)) >= Integer.valueOf(mPrefs.getValue(Consts.USER_ACTIVITY_CONFIG))) {
+                        firebaseAnalytics.logEvent("review_dialog_shown", null);
+                        mPrefs.setValue(Consts.USER_ACTIVITY, "0");
+                        getSupportFragmentManager().beginTransaction().add(ConfirmDialogFragment.newInstance(Consts.RAITING_MODULE), ConfirmDialogFragment.TAG).commit();
+                    }
+                }
+            }
+        }
     }
 
 
@@ -215,7 +248,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mSocMedImgBackground = (ImageView) findViewById(R.id.add_user_to_soc_net_background);
         mSocMeImgPhoto = (ImageView) findViewById(R.id.add_user_to_soc_net_user_photo);
         mYesBtn = (Button) findViewById(R.id.add_user_to_soc_net_yes_btn);
-        String s = mPrefs.getValue(Consts.SOC_MED_STATUS);
         mYesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -287,52 +319,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
                 String sss = "";
             }
         }
-    }
-
-    private void adsRequest() {
-        MobileAds.initialize(this);
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-        mAdView.setAdListener(new AdListener() {
-            @Override
-            public void onAdLoaded() {
-                Log.d("adMob", "onAdLoaded");
-                // Code to be executed when an ad finishes loading.
-            }
-
-            @Override
-            public void onAdFailedToLoad(int errorCode) {
-                Log.d("adMob", "onAdFailedToLoad " + errorCode);
-                // Code to be executed when an ad request fails.
-            }
-
-            @Override
-            public void onAdOpened() {
-                Log.d("adMob", "onAdOpened");
-                // Code to be executed when an ad opens an overlay that
-                // covers the screen.
-            }
-
-            @Override
-            public void onAdClicked() {
-                Log.d("adMob", "onAdClicked");
-                // Code to be executed when the user clicks on an ad.
-            }
-
-            @Override
-            public void onAdLeftApplication() {
-                Log.d("adMob", "onAdLeftApplication");
-                // Code to be executed when the user has left the app.
-            }
-
-            @Override
-            public void onAdClosed() {
-                Log.d("adMob", "onAdClosed");
-                // Code to be executed when the user is about to return
-                // to the app after tapping on an ad.
-            }
-        });
     }
 
     @Override
@@ -434,6 +420,51 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         } catch (android.content.ActivityNotFoundException anfe) {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.borisruzanov.russianwives")));
         }
+    }
+
+    /**
+     * Rating dialog positive clicked to ask review
+     */
+    @Override
+    public void reviewDialogYes() {
+        firebaseAnalytics.logEvent("review_positive", null);
+        getSupportFragmentManager().beginTransaction().add(ConfirmDialogFragment.newInstance(Consts.VOTE_MODULE), ConfirmDialogFragment.TAG).commit();
+    }
+
+    /**
+     * Rating dialog negative clicked to ask opinion
+     */
+    @Override
+    public void reviewDialogNo() {
+        firebaseAnalytics.logEvent("review_negative", null);
+        getSupportFragmentManager().beginTransaction().add(ConfirmDialogFragment.newInstance(Consts.NEGATIVE_VOTE_MODULE), ConfirmDialogFragment.TAG).commit();
+    }
+
+    /**
+     * Sending user to vote for app on play market
+     */
+    @Override
+    public void sendToPlayMarket() {
+        mPrefs.setValue(Consts.REVIEW_STATUS, Consts.CONFIRMED);
+        firebaseAnalytics.logEvent("review_send_to_playmarket", null);
+        onUpdateDialog();
+    }
+
+    /**
+     * Sending complain
+     */
+    @Override
+    public void sendComplain() {
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ComplainFragment mustInfoDialogFragment = new ComplainFragment();
+                mustInfoDialogFragment.setCancelable(false);
+                getIntent().putExtra(Consts.UID, mFsUser.getUid());
+                getSupportFragmentManager().beginTransaction().add(mustInfoDialogFragment, ComplainFragment.TAG).commit();
+            }
+        }, 500);
     }
 
     /**
@@ -771,26 +802,6 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         startActivity(mainScreenIntent);
     }
 
-//    @Override
-//    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-////        switch (menuItem.getItemId()) {
-//////            case R.id.drawer_top_menu_support_item:
-//////
-//////                return true;
-//////            case R.id.drawer_top_menu_safety_item:
-//////
-//////                return true;
-////            case R.id.drawer_top_menu_logout_item:
-////                AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
-////                    @Override
-////                    public void onComplete(@NonNull Task<Void> task) {
-////                        reload();
-////                    }
-////                });
-////                break;
-////        }
-////        return false;
-//    }
 
     @Override
     public void onUpdate() {
