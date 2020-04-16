@@ -69,6 +69,11 @@ public final class Consts {
     public static final String USER_ACTIVITY = "user_activity";
     public static final String USER_ACTIVITY_CONFIG = "user_activity_config";
     public static final String REVIEW_STATUS = "review_status";
+    public static final String ACCESS_TOKEN = "acesstoken";
+    public static final String TOKEN_TIME = "tokentime";
+    public static final String TOKEN_TYPE = "tokentype";
+    public static final Object BEARER = "tokentype"; //sendpulse
+    public static final String SENDPULSE_STATUS = "sendpulse_status";
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";

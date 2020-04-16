@@ -27,6 +27,11 @@ import com.borisruzanov.russianwives.utils.FirebaseRequestManager;
 import com.borisruzanov.russianwives.utils.OnlineUsersCallback;
 import com.borisruzanov.russianwives.utils.StringsCallback;
 import com.borisruzanov.russianwives.utils.UserCallback;
+import com.borisruzanov.russianwives.utils.network.ApiClient;
+import com.borisruzanov.russianwives.utils.network.ApiService;
+import com.borisruzanov.russianwives.utils.network.EmailErrorResponse;
+import com.borisruzanov.russianwives.utils.network.EmailResponse;
+import com.borisruzanov.russianwives.utils.network.TokenResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -44,10 +49,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.greenrobot.eventbus.EventBus;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -60,6 +69,10 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 import static com.borisruzanov.russianwives.mvp.model.repository.rating.Achievements.FULL_PROFILE_ACH;
 import static com.borisruzanov.russianwives.utils.Consts.ITEM_LOAD_COUNT;
 import static com.borisruzanov.russianwives.utils.FirebaseUtils.getDeviceToken;
@@ -71,12 +84,26 @@ public class UserRepository {
     private static final String TAG_CLASS_NAME = "UserRepository";
     private static final String GENDER_FEMALE = "Female";
     private static final String GENDER_MALE = "Male";
+    private static final String TAG = "UserRepository";
     boolean isLoading = false;
     private String last_node = "";
     private String last_key = "";
     private long last_rating = 0;
     private String endAt = null;
     private boolean isMaxData = false;
+    private String mToken; //to store token value from sendpulse
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss"); //custom dateformat
+    private final String client_id = "fd75e73d3de24d87e6bb2227163b72b0";
+    private final String client_secret = "a04e986befc1ff7995e8c69be2e7b7da";
+    private final String mMaleBookId = "700899";
+    private final String mFemaleBookId = "690773";
+    private final String grant_type = "client_credentials";
+    private String mBookId = mFemaleBookId; //store the bookid
+    private String mUserEmail;
+    private String mUserName;
+    private String mSendpulseToken; //to store token value
+    private JsonObject sendEmailObject;
+
 
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private CollectionReference users = FirebaseFirestore.getInstance().collection(Consts.USERS_DB);
@@ -84,8 +111,6 @@ public class UserRepository {
 
     private Prefs mPrefs;
 
-    private DataSnapshot likesSnapshot;
-    private DataSnapshot visitsSnapshot;
 
     public UserRepository(Prefs mPrefs) {
         this.mPrefs = mPrefs;
@@ -97,6 +122,147 @@ public class UserRepository {
     public void saveUser() {
         FirebaseUser currentUser = firebaseAuth.getCurrentUser();
         createNewUser(currentUser.getDisplayName(), getDeviceToken(), getUid());
+    }
+
+    /**
+     * Save email of the user in send pulse
+     */
+    public void saveUserInSendpulse() {
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            mUserEmail = currentUser.getEmail();
+            mUserName = currentUser.getDisplayName();
+            if (mUserEmail != null) {
+                if (!mUserEmail.isEmpty()) {
+                    addUserToSendpulse();
+                }
+            }
+        }
+    }
+
+    /**
+     * Adding email through API call to sendpulse
+     *
+     * @param emails
+     */
+    private void sendEmail(String emails, String username) {
+        if (emails.isEmpty()) {
+            return;
+        }
+        mSendpulseToken = mPrefs.getValue(Consts.ACCESS_TOKEN);
+        if (mSendpulseToken == null) {
+            return;
+        }
+        mSendpulseToken = mPrefs.getValue(Consts.TOKEN_TYPE) + " " + mSendpulseToken;
+        ApiService service = ApiClient.createService(ApiService.class, mSendpulseToken);
+
+        //create list object to send email
+        List<HashMap<String, Object>> mailHashMap = new ArrayList<>();
+        HashMap<String, Object> detailsMap = new HashMap<>(); //create hashmap to put email and other values
+        HashMap<String, String> variablemap = new HashMap<>();//create hasmap to put values like username and phone no ,etc.
+        detailsMap.put("email", emails);//add email in detailmaop object
+        variablemap.put("UserName", username);//add username in variblemap object
+        //you can add multiple values in variablemap object
+        detailsMap.put("variables", variablemap);
+        mailHashMap.add(detailsMap);
+        /*After all that the request body looks like
+            emails:[
+                {
+                    "email":"emailid",
+                    "variables":{
+                        "UserName":"Your Username"
+                    }
+                }
+            ]
+        */
+        Log.d("data", mailHashMap.toString());
+        if (mPrefs.getValue(Consts.GENDER).equals(Consts.MALE)){
+            mBookId = mMaleBookId;
+        }
+        createList(emails,username);//get jsonobject with emails array
+        Call<EmailResponse> responseCall=service.addEmail(mBookId, sendEmailObject);
+        responseCall.enqueue(new Callback<EmailResponse>() {
+            @Override
+            public void onResponse(Call<EmailResponse> call, Response<EmailResponse> response) {
+                setResponse(response);
+            }
+
+            @Override
+            public void onFailure(Call<EmailResponse> call, Throwable t) {
+                t.printStackTrace();
+                Log.d(TAG, "EmailResponse onfailure error:- " + t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Creating list for sending it to sendpulse
+     * @param email
+     * @param username
+     */
+    private void createList(String email, String username) {
+        JsonObject variable=new JsonObject();
+        variable.addProperty("Name",username);
+        JsonObject emaildata = new JsonObject();
+        emaildata.addProperty("email",email);
+        emaildata.add("variables",variable);
+        JsonArray lisJsonArray = new JsonArray();
+        lisJsonArray.add(emaildata);
+        sendEmailObject =new JsonObject();
+        sendEmailObject.addProperty("emails",lisJsonArray.toString());
+        Log.d("data",lisJsonArray.toString());
+    }
+
+    /**
+     * Customize rsponse of addemail api call
+     *
+     * @param response
+     */
+    private void setResponse(Response<EmailResponse> response) {
+        if (response.code() == 200) {
+            mPrefs.setValue(Consts.SENDPULSE_STATUS, Consts.CONFIRMED);
+            Log.d(TAG, "Sendpulse sent email success");
+        } else if (response.code() == 400) {
+            EmailErrorResponse errorResponse = new Gson().fromJson(response.errorBody().charStream(), EmailErrorResponse.class);
+            Log.d(TAG, "Error_code:- " + errorResponse.getError_code());
+        } else {
+            Log.d(TAG, "some wrong" + response.code());
+            try {
+                Log.d(TAG, "error message" + response.errorBody().string());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * Get token through API call
+     */
+    private void addUserToSendpulse() {
+        ApiService service = ApiClient.createService(ApiService.class);
+        Call<TokenResponse> responseCall = service.getAuthToken(grant_type, client_id, client_secret);
+        responseCall.enqueue(new Callback<TokenResponse>() {
+            @Override
+            public void onResponse(Call<TokenResponse> call, Response<TokenResponse> response) {
+                TokenResponse tokenResponse = response.body();
+                if (tokenResponse != null) {
+                    mPrefs.setValue(Consts.ACCESS_TOKEN, tokenResponse.getAccess_token());
+                    mPrefs.setValue(Consts.TOKEN_TYPE, tokenResponse.getToken_type());
+                    mPrefs.setValue(Consts.TOKEN_TIME, simpleDateFormat.format(new Date()));
+                    mPrefs.setValue("expiresin", tokenResponse.getExpires_in());
+                    Log.d(TAG, "TokenResponse details:- " + tokenResponse.toString());
+                    sendEmail(mUserEmail, mUserName);
+                } else {
+                    Log.d(TAG, "Tokenresponse is null,check logs");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TokenResponse> call, Throwable t) {
+                t.printStackTrace();
+                Log.d(TAG, "authtoken on failure error:-" + t.getMessage());
+            }
+        });
     }
 
     /**
@@ -319,7 +485,6 @@ public class UserRepository {
      * Make a query to get a real online user list
      */
     public void callRealUserList() {
-
         if (!isMaxData) {
             Query query;
             if (TextUtils.isEmpty(last_node)) {
@@ -381,10 +546,10 @@ public class UserRepository {
      * @param user
      */
     public void saveInSocMed(FsUser user) {
-        if (user != null){
-            if (user.getGender() != null){
+        if (user != null) {
+            if (user.getGender() != null) {
                 String userGender = user.getGender();
-                if (userGender.equals(Consts.FEMALE)){
+                if (userGender.equals(Consts.FEMALE)) {
                     realtimeReference.child("SocialAccounts").child(Consts.FEMALE).child(user.getUid()).setValue(user);
                 } else {
                     realtimeReference.child("SocialAccounts").child(Consts.MALE).child(user.getUid()).setValue(user);

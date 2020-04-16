@@ -177,6 +177,7 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
 
         mUnregisteredTitle = findViewById(R.id.please_register_to_start_title);
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setSaveEnabled(false);
         mDialogFragment = new FilterDialogFragment();
         mSearchFragment = new SearchFragment();
 
@@ -252,11 +253,15 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
             @Override
             public void onClick(View view) {
                 firebaseAnalytics.logEvent("soc_med_confirmed", null);
-                if (mFsUser.getGender() != null) {
-                    if (mFsUser.getGender().equals(Consts.FEMALE)) {
-                        firebaseAnalytics.logEvent("soc_med_female_confirmed", null);
-                    } else if (mFsUser.getGender().equals(Consts.MALE)) {
-                        firebaseAnalytics.logEvent("soc_med_male_confirmed", null);
+                if (mFsUser != null) {
+                    if (mFsUser.getGender() != null) {
+                        if (!mFsUser.getGender().equals(Consts.DEFAULT)){
+                            if (mFsUser.getGender().equals(Consts.FEMALE)) {
+                                firebaseAnalytics.logEvent("soc_med_female_confirmed", null);
+                            } else if (mFsUser.getGender().equals(Consts.MALE)) {
+                                firebaseAnalytics.logEvent("soc_med_male_confirmed", null);
+                            }
+                        }
                     }
                 }
                 mPresenter.saveInSocMed(mFsUser);

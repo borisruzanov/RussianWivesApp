@@ -64,6 +64,8 @@ android {
         //Network
         implementation 'com.squareup.okhttp:okhttp:2.7.5'
         implementation 'com.android.support:cardview-v7:27.1.0'
+        implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+        implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
         //Firebase
         implementation "com.google.firebase:firebase-core:16.0.8"
         implementation "com.google.firebase:firebase-firestore:18.2.0"

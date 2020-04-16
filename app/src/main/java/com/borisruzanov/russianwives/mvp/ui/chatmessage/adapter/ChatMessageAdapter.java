@@ -91,31 +91,34 @@ public class ChatMessageAdapter extends RecyclerView.Adapter<ChatMessageAdapter.
 
 
         // If we get message not from us
-        if (!from_user.equals(getUid())) {
-            viewHolder.displayName.setText(friendsName);
-            viewHolder.messageText.setBackgroundColor(Color.WHITE);
-            viewHolder.messageText.setTextColor(Color.BLACK);
-            viewHolder.container.setGravity(Gravity.START);
+        if (from_user != null) {
+            if (!from_user.equals(getUid())) {
+                viewHolder.displayName.setText(friendsName);
+                viewHolder.messageText.setBackgroundColor(Color.WHITE);
+                viewHolder.messageText.setTextColor(Color.BLACK);
+                viewHolder.container.setGravity(Gravity.START);
 
-        } else {
-            // Если сообщение ОТ НАС
-            viewHolder.container.setGravity(Gravity.END);
-            viewHolder.displayName.setText(R.string.you);
-            viewHolder.profileImage.setVisibility(View.INVISIBLE);
-            viewHolder.messageText.setBackgroundResource(R.drawable.message_text_background_user);
-            viewHolder.messageText.setTextColor(Color.BLACK);
+            } else {
+                // Если сообщение ОТ НАС
+                viewHolder.container.setGravity(Gravity.END);
+                viewHolder.displayName.setText(R.string.you);
+                viewHolder.profileImage.setVisibility(View.INVISIBLE);
+                viewHolder.messageText.setBackgroundResource(R.drawable.message_text_background_user);
+                viewHolder.messageText.setTextColor(Color.BLACK);
+            }
         }
 
         //Проверка на текст или картинку
-        if (message_type.equals("text")) {
-            viewHolder.messageText.setText(currentMessage.getMessage());
-            viewHolder.messageText.setVisibility(View.VISIBLE);
-            viewHolder.messageImage.setVisibility(View.GONE);
-        } else {
-            viewHolder.messageImage.setVisibility(View.VISIBLE);
-            viewHolder.messageText.setVisibility(View.GONE);
-            Picasso.with(context).load(currentMessage.getMessage()).into(viewHolder.messageImage);
-
+        if (message_type != null) {
+            if (message_type.equals("text")) {
+                viewHolder.messageText.setText(currentMessage.getMessage());
+                viewHolder.messageText.setVisibility(View.VISIBLE);
+                viewHolder.messageImage.setVisibility(View.GONE);
+            } else {
+                viewHolder.messageImage.setVisibility(View.VISIBLE);
+                viewHolder.messageText.setVisibility(View.GONE);
+                Picasso.with(context).load(currentMessage.getMessage()).into(viewHolder.messageImage);
+            }
         }
     }
 

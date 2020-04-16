@@ -83,5 +83,9 @@ class MainInteractor @Inject constructor(private val userRepository: UserReposit
         userRepository.saveInSocMed(mFsUser)
     }
 
+    fun addUserToSendpulse() {
+        userRepository.saveUserInSendpulse()
+    }
+
 
 }
