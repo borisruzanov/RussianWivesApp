@@ -13,8 +13,8 @@ android {
             applicationId "com.borisruzanov.russianwives"
             minSdkVersion 19
             targetSdkVersion 28
-            versionCode 23
-            versionName "3.6"
+            versionCode 25
+            versionName "3.7"
             testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
             // Enabling multidex support.
             multiDexEnabled true
@@ -106,7 +106,7 @@ android {
         implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
 
         // InApp Purchase
-        implementation 'com.android.billingclient:billing:1.2'
+        implementation 'com.android.billingclient:billing:2.2.0'
 
         //Eventbus
         implementation 'org.greenrobot:eventbus:3.1.1'

@@ -10,7 +10,7 @@
 
         <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/search_recommended_container"
+            android:id="@+id/recommended_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="3dp"
@@ -58,7 +58,7 @@
             android:id="@+id/online_users_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/search_recommended_container" />
+            android:layout_below="@+id/recommended_container" />
 
         <TextView
             android:id="@+id/online_users_empty_text"

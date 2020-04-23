@@ -74,6 +74,7 @@ public final class Consts {
     public static final String TOKEN_TYPE = "tokentype";
     public static final Object BEARER = "tokentype"; //sendpulse
     public static final String SENDPULSE_STATUS = "sendpulse_status";
+
     public static String ACHIEVEMENTS = "achievements";
 
     public static final String DEVICE_TOKEN = "device_token";
@@ -124,4 +125,24 @@ public final class Consts {
     public static final String CHAT_LENGTH = "chat_length";
 
     public static boolean RECOMMENDED_SHOWN = false;
+
+    //Purchases
+    public static final String PUR_FREE_TITLE = "pur_free_title";
+    public static final String PUR_FREE_DESCRIPTION = "pur_free_description";
+    public static final String PUR_FREE_PRICE = "pur_free_price";
+    public static final String PUR_FREE_LIST = "pur_free_list";
+
+    public static final String PUR_REGULAR_TITLE = "pur_regular_title";
+    public static final String PUR_REGULAR_DESCRIPTION = "pur_regular_description";
+    public static final String PUR_REGULAR_PRICE = "pur_regular_price";
+    public static final String PUR_REGULAR_LIST = "pur_regular_list";
+
+    public static final String PUR_PREMIUM_TITLE = "pur_premium_title";
+    public static final String PUR_PREMIUM_DESCRIPTION = "pur_premium_description";
+    public static final String PUR_PREMIUM_PRICE = "pur_premium_price";
+    public static final String PUR_PREMIUM_LIST = "pur_premium_list";
+
+    public static final String PREMIUM = "premium";
+    public static final String VIP = "vip";
+
 }

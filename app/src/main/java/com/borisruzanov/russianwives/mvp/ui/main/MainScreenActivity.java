@@ -61,8 +61,10 @@ import com.borisruzanov.russianwives.mvp.ui.mustinfo.MustInfoDialogFragment;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfileActivity;
 import com.borisruzanov.russianwives.mvp.ui.myprofile.MyProfilePresenter;
 import com.borisruzanov.russianwives.mvp.ui.onlineUsers.OnlineUsersFragment;
+import com.borisruzanov.russianwives.mvp.ui.rewardvideo.RewardVideoActivity;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchFragment;
 import com.borisruzanov.russianwives.mvp.ui.search.SearchPresenter;
+import com.borisruzanov.russianwives.mvp.ui.shop.ServicesActivity;
 import com.borisruzanov.russianwives.mvp.ui.slider.SliderActivity;
 import com.borisruzanov.russianwives.mvp.ui.usersearch.DialogUserSearch;
 import com.borisruzanov.russianwives.utils.Consts;
@@ -629,7 +631,9 @@ public class MainScreenActivity extends AppCompatActivity implements FilterDialo
         mCloseDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mDrawerLayout.closeDrawers();
+                Intent intent = new Intent(MainScreenActivity.this, RewardVideoActivity.class);
+                startActivity(intent);
+//                mDrawerLayout.closeDrawers();
             }
         });
 
